@@ -10,6 +10,8 @@ import {
   OurLocationContainer,
 } from "./contact";
 
+import {motion} from "framer-motion";
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYW5kcm9weXJvMjgiLCJhIjoiY2wyOXlxcWJ2MDBhYzNjczV6dGp2OGx3MiJ9.A8TYyGaDsKLqwqtyy5XjVA";
 
@@ -40,17 +42,54 @@ function Contact() {
     map.current.addControl(new mapboxgl.AttributionControl());
   });
 
+  const childVariants = {
+    initial: {
+      x:"-100vw"
+    },
+    animate: {
+      x:0,
+      transition: {
+        delay:0.2,
+        type:"tween",
+        duration:0.6
+      }
+    }
+  }
+
+  const dogVariants = {
+    initial: {
+      opacity:0,
+    },
+    animate: {
+      opacity: 1,
+      transition: {
+        delay:1
+      }
+    }
+  }
+
   return (
     <ContactPageContainer>
       <BannerContainer>
         <BannerContent>
-          <h1>C o n t a c t &nbsp; U s</h1>
-          <p>
+          <motion.h1
+          variants={childVariants}
+          animate="animate"
+          initial="initial"
+          >C o n t a c t &nbsp; U s</motion.h1>
+          <motion.p
+          variants={childVariants}
+          animate="animate"
+          initial="initial">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo a quis
             culpa doloremque quaerat. Optio?
-          </p>
+          </motion.p>
 
-          <div class="address_and__phone">
+          <motion.div class="address_and__phone"
+          variants={childVariants}
+          animate="animate"
+          initial="initial"
+          >
             <div class="address">
               <h3>Address</h3>
               <p>Macarthur Highway, San Pablo 3000 Malolos,</p>
@@ -60,32 +99,58 @@ function Contact() {
               <h3>Phone</h3>
               <p>+639157358899 / (044) 305 2370</p>
             </div>
-          </div>
+          </motion.div>
 
-          <div class="email">
+          <motion.div class="email"
+          variants={childVariants}
+          animate="animate"
+          initial="initial"
+          >
             <h3>Email</h3>
             <p>topnotchdoggrooming.tndg@gmail.com</p>
-          </div>
+          </motion.div>
         </BannerContent>
-
-        <DogImage src="/images/dog6.png" />
+          <motion.img src="/images/dog6.png" 
+            variants={dogVariants}
+            animate="animate"
+            initial="initial"
+          />
       </BannerContainer>
 
       <GetInTouchContainer>
-        <h1>G e t &nbsp; i n &nbsp; t o u c h</h1>
+        <motion.h1
+        variants={childVariants}
+        animate="animate"
+        initial="initial"
+        >G e t &nbsp; i n &nbsp; t o u c h</motion.h1>
 
-        <p>
+        <motion.p
+        variants={dogVariants}
+        animate="animate"
+        initial="initial">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium,
           obcaecati ex voluptas <br /> inventore alias aliquid reiciendis libero
           amet. Magnam, harum.
-        </p>
+        </motion.p>
 
-        <button>Get An Appointment</button>
+        <motion.button
+          variants={dogVariants}
+          animate="animate"
+          initial="initial"
+        >Get An Appointment</motion.button>
       </GetInTouchContainer>
 
       <OurLocationContainer>
-        <h1>O u r &nbsp; L o c a t i o n</h1>
-        <h1>___</h1>
+        <motion.h1
+        variants={dogVariants}
+          animate="animate"
+          initial="initial"
+        >O u r &nbsp; L o c a t i o n</motion.h1>
+        <motion.h1
+        variants={dogVariants}
+          animate="animate"
+          initial="initial"
+        >___</motion.h1>
 
         <MapContainer ref={mapContainer} />
       </OurLocationContainer>

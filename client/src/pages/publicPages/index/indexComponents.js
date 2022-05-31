@@ -113,6 +113,7 @@ export const CarouselContainer = styled.div`
       font-weight: 700;
       font-size: 50px;
       margin: 0;
+      cursor: grab;
     }
 
     & > p {
@@ -180,9 +181,9 @@ export const ServicesSection = styled.div`
     color: rgb(255, 219, 168);
     margin: 50px;
   }
-`;
-export const ServiceContentContainer = styled.div`
-  display: flex;
+
+  & > .ServiceContentContainer {
+    display: flex;
   justify-content: space-evenly;
 
   @media (max-width: 900px) {
@@ -191,6 +192,10 @@ export const ServiceContentContainer = styled.div`
       align-items: center;
     }
   }
+  }
+`;
+export const ServiceContentContainer = styled.div`
+  
 `;
 
 export const ServiceContent = styled.div`
@@ -242,9 +247,9 @@ export const OurTeamSection = styled.div`
     color: rgb(255, 219, 168);
     margin: 50px;
   }
-`;
-export const TeamSectionContainer = styled.div`
-  display: grid;
+
+  & > .TeamSectionContainer {
+    display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 400px;
   grid-gap: 10px;
@@ -257,6 +262,10 @@ export const TeamSectionContainer = styled.div`
   @media (max-width: 500px) {
     grid-template-columns: repeat(1, 1fr);
   }
+  }
+`;
+export const TeamSectionContainer = styled.div`
+  
 `;
 
 export const TeamContent = styled.div`

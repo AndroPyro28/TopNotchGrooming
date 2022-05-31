@@ -12,6 +12,8 @@ import {
   TeamContent
 } from "./indexComponents";
 
+import {motion} from "framer-motion";
+
 function Index() {
   const [pageContent, setPageContent] = useState(0);
 
@@ -24,6 +26,30 @@ function Index() {
       return prev;
     });
   };
+
+  const childVariants = {
+    initial: {
+      x:"-100vw"
+    },
+    animate: {
+      x:0,
+      transition: {
+        delay:0.2,
+      }
+    }
+  }
+
+  const cardVariants = {
+    initial: {
+      opacity:0,
+    },
+    animate: {
+      opacity: 1,
+      transition: {
+        delay:0.5
+      }
+    }
+  }
 
   return (
     <IndexPageContainer>
@@ -43,11 +69,20 @@ function Index() {
           }}
         >
           <CarouselContainer>
-            <img src="/images/lurkingDog.png" />
+            <motion.img src="/images/lurkingDog.png"
+            
+            />
             <div className="carousel__content">
-              <h1>
+              <motion.h1
+                whileDrag={{
+                  scale:1,
+                  cursor:"grabbing"
+                }}
+                drag
+                dragConstraints={{ left: 5, top: 5, right: 5, bottom: 5 }}
+              >
                 Make Your Lovely <br></br>Pets Feel Loved
-              </h1>
+              </motion.h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 <br></br> Cumque, laborum.
@@ -59,9 +94,16 @@ function Index() {
           <CarouselContainer>
             <img src="/images/pedigree.png" />
             <div className="carousel__content">
-              <h1>
+              <motion.h1
+                whileDrag={{
+                  scale:1,
+                  cursor:"grabbing"
+                }}
+                drag
+                dragConstraints={{ left: 5, top: 5, right: 5, bottom: 5 }}
+              >
                 The Dog Food That <br></br>loves The Planet
-              </h1>
+              </motion.h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 <br></br> Cumque, laborum.
@@ -72,9 +114,16 @@ function Index() {
 
           <CarouselContainer>
             <div className="carousel__content">
-              <h1>
+              <motion.h1
+                whileDrag={{
+                  scale:1,
+                  cursor:"grabbing"
+                }}
+                drag
+                dragConstraints={{ left: 5, top: 5, right: 5, bottom: 5 }}
+              >
                 Know Your Pets <br></br>Needs
-              </h1>
+              </motion.h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 <br></br> Cumque, laborum.
@@ -87,9 +136,19 @@ function Index() {
       </CarouselSlider>
 
       <ServicesSection>
-          <h1>OUR SERVICES</h1>
+          <motion.h1
+            variants={childVariants}
+            animate="animate"
+            initial="initial"
+          >
+            OUR SERVICES
+          </motion.h1>
 
-          <ServiceContentContainer>
+          <motion.div className="ServiceContentContainer"
+          variants={cardVariants}
+          animate="animate"
+          initial="initial"
+          >
 
             <ServiceContent>
             <i className="fa-solid fa-paw"></i>
@@ -114,14 +173,22 @@ function Index() {
             <p>We sell pet foods, needs, utility and health care for their needs.</p>
             </ServiceContent>
 
-          </ServiceContentContainer>
+          </motion.div>
           
       </ServicesSection>
 
       <OurTeamSection>
-            <h1>Meet Our Team</h1>
+            <motion.h1
+             variants={childVariants}
+             animate="animate"
+             initial="initial"
+            >Meet Our Team</motion.h1>
 
-            <TeamSectionContainer>
+            <motion.div className="TeamSectionContainer"
+              variants={cardVariants}
+              animate="animate"
+             initial="initial"
+            >
 
               <TeamContent>
                 <img src='/images/doc1.jpg' />
@@ -159,7 +226,7 @@ function Index() {
                 <label>Veterenary</label>
               </TeamContent>
 
-            </TeamSectionContainer>
+            </motion.div>
       </OurTeamSection>
 
 

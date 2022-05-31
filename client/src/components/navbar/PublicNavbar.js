@@ -15,7 +15,8 @@ const [dropdownToggle, setDropdownToggle] = useState(false);
 
   return (
     <PublicNavbarContainer>
-        <Logo src='/images/logo.png' onClick={() => window.location.assign('/')} />
+      
+      <NavLink to="/"><Logo src='/images/logo.png' /></NavLink>
 
         <ButtonContainer>
         <i className="fa-solid fa-bars"></i>

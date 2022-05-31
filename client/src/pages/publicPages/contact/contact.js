@@ -18,6 +18,17 @@ export const BannerContainer = styled.section`
   align-items: center;
   height: 500px;
   background: rgb(255, 242, 223);
+
+  & > img {
+    width: 60%;
+  height: 500px;
+  right: 50px;
+  position: absolute;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+  }
 `;
 
 export const BannerContent = styled.div`
@@ -92,14 +103,7 @@ export const BannerContent = styled.div`
 `;
 
 export const DogImage = styled.img`
-  width: 60%;
-  height: 500px;
-  right: 50px;
-  position: absolute;
-
-  @media (max-width: 900px) {
-    display: none;
-  }
+  
 `;
 
 export const GetInTouchContainer = styled.section`
