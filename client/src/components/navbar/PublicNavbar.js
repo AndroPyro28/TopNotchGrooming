@@ -23,7 +23,7 @@ const [dropdownToggle, setDropdownToggle] = useState(false);
         <NavLink to={"/contact"} style={navLinkStyles} >Contact Us</NavLink>
         <NavLink to={"/about"} style={navLinkStyles} >About Us</NavLink>
         <DropdownBtn display={dropdownToggle}> 
-          <center onClick={() => setDropdownToggle(!dropdownToggle)}>Login as <i className={dropdownToggle ? `fa-solid fa-chevron-up`: `fa-solid fa-chevron-down`}></i></center>
+          <center onClick={() => setDropdownToggle(!dropdownToggle)}>Login as &nbsp; <i className={dropdownToggle ? `fa-solid fa-chevron-up`: `fa-solid fa-chevron-down`}></i></center>
 
             <div className='dropDownContainer' >
               <NavLink to={"/customer/login"} style={navLinkStyles} >Customer</NavLink>
