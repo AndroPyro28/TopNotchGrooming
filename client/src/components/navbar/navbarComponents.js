@@ -19,6 +19,7 @@ export const Logo = styled.img`
   width: 50px;
   height: 50px;
   margin: 10px 20px;
+  cursor: pointer;
 `;
 
 export const ButtonContainer = styled.div`
@@ -31,7 +32,7 @@ export const ButtonContainer = styled.div`
       color: rgb(142,112,101);
       padding: 10px 15px;
       font-weight: 500;
-      font-size: 1.1em;
+      font-size: 1em;
       border-radius: 10px;
       transition: all .3s ease-in-out;
       /* text-shadow: 1px 3px 5px gray; */
@@ -69,7 +70,7 @@ export const DropdownBtn = styled.div`
       padding: 10px 15px;
       border-radius: 10px;
       font-weight: 600;
-      font-size: 1.1em;
+      font-size: 1em;
       display: flex;
       flex-direction: column;
       position: relative;
