@@ -4,7 +4,7 @@ const cors = require('cors');
 const { Server } = require('socket.io');
 const { connectDB } = require("./config/connectDB");
 const Customer = require("./models/User");
-require('dotenv').config({path: "./.env"})
+require('dotenv').config({path: "./credentials.env"})
 
 const server = require('http').createServer(app);
 app.use(express.json({limit:"50mb"}));
