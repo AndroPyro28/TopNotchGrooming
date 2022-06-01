@@ -41,6 +41,7 @@ export const BannerContent = styled.div`
   & > h1 {
     font-size: 40px;
     margin-bottom: 40px;
+    margin-top:20px;
     font-family: "league spartan", sans-serif;
     text-transform: uppercase;
   }

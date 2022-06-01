@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import {
   IndexPageContainer,
   CarouselWrapper,
@@ -136,6 +136,7 @@ function Index() {
       </CarouselSlider>
 
       <ServicesSection>
+      
           <motion.h1
             variants={childVariants}
             animate="animate"

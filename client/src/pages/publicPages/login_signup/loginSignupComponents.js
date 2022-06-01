@@ -1,0 +1,198 @@
+import styled from "styled-components";
+
+
+export const LoginSignupPageContainer = styled.section`
+
+    background: url('/images/login&signupBody.png');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    text-align: start;
+
+`
+
+export const LoginSignupWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+`
+
+export const LoginSignupContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    background: white;
+    margin-top: 90px;
+    height: 80%;
+    width: 70%;
+    /* background: black; */
+    border: solid 1px rgb(122, 122, 57);
+    padding: 10px 35px 10px 30px;
+    border-radius: 20px;
+
+    @media(max-width:800px) {
+        & {
+            padding: 10px;
+            width: 90%;
+            height: 70%;
+        }
+    }
+
+    & > .form__inputs {
+        display: flex;
+        overflow: hidden;
+        width: 30vw;
+        margin: 10px;
+
+        @media(max-width:800px) {
+            & {
+                width:35vw;
+            }
+        }
+
+        @media(max-width:600px) {
+            & {
+                width:45vw;
+            }
+        }
+
+        @media(max-width:450px) {
+            & {
+                width:80vw;
+            }
+        }
+
+        & > .form__content {
+            display: flex;
+            flex-direction: column;
+            width:100%;
+            overflow: hidden;
+
+            & > h1 {
+                margin-top: 45px;
+                margin-bottom: 25px;
+                font-size:40px;
+                color: rgb(122, 122, 57);
+                text-transform: capitalize;
+
+                @media(max-width:900px) {
+                    & {
+                        margin-top: 0;
+                        margin-bottom: 0;
+                        font-size:30px; 
+                    }
+                }
+            }
+
+            & > p {
+                font-size: 13px;
+                margin-bottom: 25px;
+                color: gray;
+
+                @media(max-width:900px) {
+                    & {
+                        display:none
+                    }
+                }
+            }
+
+            & > a {
+                color: gray;
+                font-size: 0.9em;
+                margin: 5px 0 5px 0;
+
+                    &:hover {
+                        color: rgb(122, 122, 57);
+                    }
+            }
+
+            & > .input__container {
+                display: flex;
+                flex-direction: column;
+                margin-top: 10px;
+                margin-bottom: 10px;
+
+                & > label {
+                    font-weight: 500;
+                    /* font-size: 100%; */
+                    font-size: 0.9em;
+                    color: rgb(112, 112, 74);
+                }
+
+                & > input {
+                    border: none;
+                    border-bottom: solid 2.5px #cacaca;
+                    outline: none;
+                    padding-top: 5px;
+                    padding-bottom: 10px;
+                    font-size: 0.9em;
+                    transition: all .3s ease-in-out;
+                    color: gray;
+
+                    &:focus {
+                        color: rgb(112, 112, 74);
+                        border-bottom: solid 2.5px rgb(112, 112, 74);
+                    }
+                }
+            }
+
+            & > .button__container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                width: 100%;
+                justify-content: space-between;
+
+                & > button {
+                    padding: 10px 40px;
+                    width: fit-content;
+                    height: fit-content;
+                    background: rgb(114, 114, 2);
+                    border: none;
+                    color: white;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    @media(max-width:600px) {
+                        & {
+                            padding: 10px 30px;
+                        }
+                    }
+                }
+
+                & > .prevBtn {
+                    border: solid 2px rgb(112, 112, 74);
+                    background: white;
+                    color: rgb(112, 112, 74);
+                    justify-self: flex-start  !important;
+                }
+
+                & > .nextBtn {
+                    justify-self: flex-end  !important;
+                }
+            }
+        }  
+    }
+`
+
+export const LoginBgFrom = styled.div`
+flex: 2;
+background: url('/images/loginBG.png');
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+
+@media(max-width:800px) {
+    & {
+        flex: 1
+    }
+}
+
+@media(max-width:450px) {
+    & {
+        display:none
+    }
+}
+`

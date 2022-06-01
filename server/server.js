@@ -7,6 +7,7 @@ const Customer = require("./models/User");
 require('dotenv').config({path: "./credentials.env"})
 
 const server = require('http').createServer(app);
+
 app.use(express.json({limit:"50mb"}));
 
 app.use(cors({
@@ -20,9 +21,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use('/api/customer', require('./routes/customerRoutes'))
 
-// connectDB(app, PORT);
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
-// const cloudinary = require('./config/cloudinary'); 
 
 const io = new Server(server, { // we will use this later
     cors: {

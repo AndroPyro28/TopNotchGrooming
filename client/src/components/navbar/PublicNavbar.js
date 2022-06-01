@@ -1,7 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ButtonContainer, DropdownBtn, Logo, PublicNavbarContainer } from './navbarComponents'
-import {NavLink} from "react-router-dom"
+import {NavLink, useLocation} from "react-router-dom"
+
 function PublicNavbar() {
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+
+    if((pathname === "/customer/login") || (pathname === "/admin/login")) {
+      return setDropdownToggle(true);
+    }
+
+    return setDropdownToggle(false);
+    
+  }, [pathname])
 
   const navLinkStyles = ({isActive}) => {
     return {

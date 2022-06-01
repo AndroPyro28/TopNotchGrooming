@@ -15,6 +15,7 @@ export const AboutBannerContainer = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
+    justify-content: center;
 
     & > .first__banner__content {
     align-self: center;
@@ -44,14 +45,29 @@ export const DogImage = styled.img`
     margin-top: 50px;
     width: 50%;
     height: 700px;
+
+    @media (max-width:520px) {
+        display: none;
+    }
 `
 
 export const Mission_Vission = styled.div`
     width: 48%;
     margin-top: 40px;
     transform: translateX(100%);
+
     font-family: 'League Spartan', sans-serif;
 
+    @media (max-width:520px) {
+
+        & {
+            transform: translateX(0);
+            margin-inline: auto;
+            width: 80%;
+
+        }
+        
+    }
     & > .mission {
         margin-bottom: 50px;
         margin-top: 10px;
@@ -80,6 +96,8 @@ export const BestSellerSection = styled.section`
     width: 95%;
     display: flex;
     padding: 20px;
+
+
 
     & div {
         flex: 1;
@@ -116,7 +134,25 @@ export const BestSellerSection = styled.section`
 
     & > .best__products {
         background: url("/images/bestCollection.png");
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
+        background-position: center;
+        width: 100%;
+    }
+
+    @media (max-width:950px) {
+        & {
+            flex-direction: column;
+            height: 1000px;
+            width: 100%;
+            padding: 0px;
+
+        }
+    }
+
+    @media (max-width:650px) {
+        & {
+            height: 500px;
+        }
     }
 `
