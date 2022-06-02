@@ -78,7 +78,7 @@ export const LoginSignupContainer = styled.div`
                 color: rgb(122, 122, 57);
                 text-transform: capitalize;
 
-                @media(max-width:900px) {
+                @media(max-width:1000px) {
                     & {
                         margin-top: 0;
                         margin-bottom: 0;
@@ -116,6 +116,7 @@ export const LoginSignupContainer = styled.div`
                 margin-bottom: 10px;
                 & > .error__message {
                     color: #ff4949;
+                    font-size:0.9em;
                 }
                 & > label {
                     font-weight: 500;

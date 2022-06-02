@@ -82,14 +82,20 @@ export const DropdownBtn = styled.div`
         color: white;
       }
 
-      & > .dropDownContainer {
+      @media(max-width: 800px) {
+        & { 
+            display: none;
+        }
+  }
+`
+
+export const DropDownContainer = styled.div`
           position: absolute;
           display: ${({display}) => display ? "flex" : "none"};
           flex-direction: column;
           top: 40px;
           backdrop-filter:blur(3px);
           margin-left: -20px;
-
 
           & i {
               font-size: 0.5em !important;
@@ -109,12 +115,5 @@ export const DropdownBtn = styled.div`
                 color: white;
             }
           }
-      }
-
-      @media(max-width: 800px) {
-        & { 
-            display: none;
-        }
-  }
 `
 

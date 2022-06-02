@@ -8,8 +8,27 @@ function useLogic({ toast }) {
   const navigate = useNavigate();
 
   const onSubmitLogin = async (values) => {
-    console.log("login: ", values)
+    try {
+    const res = await axios.post('/api/customer/login', values);
+    const {success, msg} = res.data;
+
+    if(!success) return toast(msg, {type: "error"});
+
+    Cookies.set("userToken", 
+    JSON.stringify({
+      userType: "customer",
+      userToken: res.data.assignedToken
+    }), {
+      expires: 1
+    });
+
+    toast(msg, {type: "success"});
+
+    setTimeout(_ => navigate("/customer/home", {replace: true}), 2500);
     
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const initialValuesLogin = () => {

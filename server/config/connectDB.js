@@ -11,6 +11,4 @@ const mysqlDB = mysql.createPool({
     // connectionLimit: 5,
 })
 
-console.log(process.env.DB_HOST)
-
 module.exports = mysqlDB.promise()

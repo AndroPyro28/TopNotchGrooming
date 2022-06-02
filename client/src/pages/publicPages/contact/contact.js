@@ -131,7 +131,7 @@ export const GetInTouchContainer = styled.section`
     margin-top: 50px;
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 370px) {
     & > h1 {
       font-size: 1.3em;
     }
@@ -153,7 +153,7 @@ export const OurLocationContainer = styled.section`
     text-transform: uppercase;
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 370px) {
     & > h1 {
       font-size: 1.3em;
     }

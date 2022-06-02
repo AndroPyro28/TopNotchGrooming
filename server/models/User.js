@@ -4,13 +4,13 @@ const bcrypt = require('bcryptjs');
 class Customer {
     constructor(ctorCustomer) {
         const {
-            firstname,
-            lastname,
-            email,
-            password,
-            phoneNo,
-            address,
-            birthdate
+            firstname="",
+            lastname="",
+            email="",
+            password="",
+            phoneNo="",
+            address="",
+            birthdate=""
         } = ctorCustomer;
 
         this.firstname = firstname;
@@ -62,6 +62,23 @@ class Customer {
             return false;
         }
         
+    }
+
+    selectOneByEmail = async () => {
+        try {
+            const selectOne = `SELECT * FROM customer WHERE email = ?;
+            `;
+
+            const [result, _] = await poolConnection.execute(
+                selectOne,
+                [this.email]
+            )
+            
+            return result.length > 0 ? result[0] : false;
+            
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 }
 

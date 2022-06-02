@@ -4,10 +4,12 @@ import {
   DropdownBtn,
   Logo,
   PublicNavbarContainer,
+  DropDownContainer
 } from "./navbarComponents";
 import { NavLink, useLocation } from "react-router-dom";
 
 function PublicNavbar() {
+
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -20,6 +22,7 @@ function PublicNavbar() {
     }
 
     return setDropdownToggle(false);
+
   }, [pathname]);
 
   const navLinkStyles = ({ isActive }) => {
@@ -46,7 +49,7 @@ function PublicNavbar() {
         <NavLink to={"/about"} style={navLinkStyles}>
           About Us
         </NavLink>
-        <DropdownBtn display={dropdownToggle}>
+        <DropdownBtn >
           <center onClick={() => setDropdownToggle(!dropdownToggle)}>
             Login as &nbsp;{" "}
             <i
@@ -58,14 +61,14 @@ function PublicNavbar() {
             ></i>
           </center>
 
-          <div className="dropDownContainer">
+          <DropDownContainer display={dropdownToggle} >
             <NavLink to={"/customer/login"} style={navLinkStyles}>
               Customer
             </NavLink>
             <NavLink to={"/admin/login"} style={navLinkStyles}>
               Admin
             </NavLink>
-          </div>
+          </DropDownContainer>
         </DropdownBtn>
       </ButtonContainer>
     </PublicNavbarContainer>
