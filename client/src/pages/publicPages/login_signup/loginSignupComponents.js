@@ -37,7 +37,7 @@ export const LoginSignupContainer = styled.div`
         & {
             padding: 10px;
             width: 90%;
-            height: 70%;
+            height: 75%;
         }
     }
 
@@ -114,7 +114,9 @@ export const LoginSignupContainer = styled.div`
                 flex-direction: column;
                 margin-top: 10px;
                 margin-bottom: 10px;
-
+                & > .error__message {
+                    color: #ff4949;
+                }
                 & > label {
                     font-weight: 500;
                     /* font-size: 100%; */
@@ -146,6 +148,11 @@ export const LoginSignupContainer = styled.div`
                 width: 100%;
                 justify-content: space-between;
 
+                & > span {
+                    justify-self:center;
+                    color: rgb(114, 114, 2);
+                    font-size: 0.8em;
+                }
                 & > button {
                     padding: 10px 40px;
                     width: fit-content;

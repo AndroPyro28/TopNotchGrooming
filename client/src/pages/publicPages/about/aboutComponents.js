@@ -64,7 +64,6 @@ export const Mission_Vission = styled.div`
             transform: translateX(0);
             margin-inline: auto;
             width: 80%;
-
         }
         
     }

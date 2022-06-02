@@ -4,43 +4,71 @@ import {
   LoginSignupPageContainer,
   LoginSignupWrapper,
   LoginSignupContainer,
-  LoginBgFrom
+  LoginBgFrom,
 } from "./loginSignupComponents";
+import { Formik, Form } from "formik";
+import FormikControl from "../../../formik/FormikControl"
+import useLogic from "./useLogic";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Login() {
+  const {
+     onSubmitLogin, 
+     initialValuesLogin, 
+     validationSchemaLogin 
+    } = useLogic({toast});
+
   return (
     <LoginSignupPageContainer>
       <LoginSignupWrapper>
         <LoginSignupContainer>
-          <div className="form__inputs">
+        <ToastContainer autoClose={1500} />
+          <Formik
+            initialValues={initialValuesLogin}
+            validationSchema={validationSchemaLogin}
+            onSubmit={onSubmitLogin}
+          >
+            {(formik) => {
+              return (
+                <Form autoComplete="off" className="form__inputs">
+                  <div className="form__content">
+                    <h1>login</h1>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Ipsam magni laboriosam sint odio vitae ipsum.
+                    </p>
 
-          <div className="form__content">
-            <h1>login</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-              magni laboriosam sint odio vitae ipsum.
-            </p>
+                    <FormikControl
+                      name="email"
+                      label="Email"
+                      type="email"
+                      control="input"
+                      className="input__container"
+                      />
 
-            <div className="input__container">
-              <label >Email</label>
-              <input autocomplete="off" type="text" placeholder="Email" />
-              <div className="error__message"></div>
-            </div>
+                      <FormikControl
+                      name="password"
+                      label="Password"
+                      type="password"
+                      control="input"
+                      className="input__container"
+                      />
 
-            <div className="input__container">
-              <label >Password</label>
-              <input autocomplete="off" type="password"placeholder="Password"/>
-              <div className="error__message"></div>
-            </div>
+                    <NavLink to="/customer/signup">
+                      Don't have an account? Signup
+                    </NavLink>
 
-            <NavLink to="/customer/signup" >Don't have an account? Signup</NavLink>
-
-            <div class="input__container button__container">
-              <button className="loginBtn" >Login</button>
-            </div>
-
-          </div>
-        </div>
-        <LoginBgFrom />
+                    <div class="input__container button__container">
+                      <button className="loginBtn">Login</button>
+                    </div>
+                    
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
+          <LoginBgFrom />
         </LoginSignupContainer>
       </LoginSignupWrapper>
     </LoginSignupPageContainer>

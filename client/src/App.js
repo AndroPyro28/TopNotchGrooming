@@ -8,6 +8,7 @@ import Contact from './pages/publicPages/contact/Contact.jsx';
 import About from './pages/publicPages/about/About';
 import {Suspense} from "react"
 import Login from './pages/publicPages/login_signup/Login';
+import Signup from './pages/publicPages/login_signup/Signup';
 function App() {
 
   
@@ -21,6 +22,7 @@ function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path="/customer/login" element={<Login/>} />
+        <Route path="/customer/signup" element={<Signup/>} />
         <Route path='/customer/' element={<Home/>}/>
         <Route path='/admin/' element={<Dashboard/>}/>
         <Route path='*' element={<h1>Page Not Found</h1>}/>
