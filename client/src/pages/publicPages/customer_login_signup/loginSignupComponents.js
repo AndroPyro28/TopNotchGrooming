@@ -8,7 +8,7 @@ export const LoginSignupPageContainer = styled.section`
     height: 100vh;
     width: 100vw;
     text-align: start;
-
+    overflow-x:hidden;
 `
 
 export const LoginSignupWrapper = styled.div`
@@ -30,12 +30,12 @@ export const LoginSignupContainer = styled.div`
     width: 70%;
     /* background: black; */
     border: solid 1px rgb(122, 122, 57);
-    padding: 10px 35px 10px 30px;
+    padding: 0px 35px;
     border-radius: 20px;
 
     @media(max-width:800px) {
         & {
-            padding: 10px;
+            padding: 5px 10px;
             width: 90%;
             height: 75%;
         }
@@ -72,7 +72,7 @@ export const LoginSignupContainer = styled.div`
             overflow: hidden;
 
             & > h1 {
-                margin-top: 45px;
+                margin-top: 5px;
                 margin-bottom: 25px;
                 font-size:40px;
                 color: rgb(122, 122, 57);
@@ -163,10 +163,16 @@ export const LoginSignupContainer = styled.div`
                     color: white;
                     border-radius: 5px;
                     cursor: pointer;
+                    transition: all .3s ease-in-out;
                     @media(max-width:600px) {
                         & {
                             padding: 10px 30px;
                         }
+                    }
+
+                    &:disabled {
+                        background: rgb(56, 56, 1);
+                        cursor:default;
                     }
                 }
 

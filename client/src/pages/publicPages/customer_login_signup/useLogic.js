@@ -19,12 +19,13 @@ function useLogic({ toast }) {
       userType: "customer",
       userToken: res.data.assignedToken
     }), {
-      expires: 1
+      expires: 1,
+      secure:true
     });
 
     toast(msg, {type: "success"});
 
-    setTimeout(_ => navigate("/customer/home", {replace: true}), 2500);
+    setTimeout(_ => window.location.assign('/customer/profile'), 2500);
     
     } catch (error) {
       console.error(error.message);
@@ -88,8 +89,8 @@ function useLogic({ toast }) {
       .string()
       .email("This is invalid email")
       .required("This field is required"),
-    phoneNo: yup.number("phone number must be digits").required(),
-    address:yup.string().required("This field is required"),
+    phoneNo: yup.string().required().min(9, "must be minimum of 9 digits"),
+    address:yup.string().required("This field is required").min(9, "must be minimum of 9 of characters"),
     birthdate:yup.string().required("This field is required"),
     password: yup.string().required("This field is required").min(6),
     confirmPassword: yup.string().required("This field is required"),

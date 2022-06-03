@@ -4,7 +4,6 @@ const poolConnection = require('../config/connectDB');
 module.exports.verifyUser = async (req, res, next) => {
     try {
         const {userinfo} = req.headers;
-
         const {userToken, userType} = JSON.parse(userinfo); 
         const decodedToken = jwt.verify(userToken, process.env.jwtSecret);
         
@@ -25,10 +24,7 @@ module.exports.verifyUser = async (req, res, next) => {
         req.currentUser = result[0];
 
         next();
-    } catch (error) {
-
-        console.error(error);
-        
+    } catch (error) {        
         return res.status(200).json({
             success:false,
             msg:"session expired"

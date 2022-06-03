@@ -29,7 +29,7 @@ class Customer {
             return customer[0];
             
         } catch (error) {
-            console.error(error.message)
+            console.error(error.message);
         }
     }
 
@@ -37,7 +37,7 @@ class Customer {
         const checkEmailPhone = `SELECT * FROM customer WHERE email = ? OR phoneNo = ?`;
         const [customer, _] = await poolConnection.execute(checkEmailPhone, [this.email, this.phoneNo]);
 
-        return customer.length > 0 ? true : false;
+        return customer.length > 0;
     }
 
     insertOne = async () => {

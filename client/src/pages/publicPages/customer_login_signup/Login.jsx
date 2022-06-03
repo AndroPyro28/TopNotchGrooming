@@ -59,7 +59,7 @@ function Login() {
                       Don't have an account? Signup
                     </NavLink>
 
-                    <div class="input__container button__container">
+                    <div className="input__container button__container">
                       <button className="loginBtn">Login</button>
                     </div>
                     
