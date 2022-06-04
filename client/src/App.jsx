@@ -22,6 +22,8 @@ import Activities from "./pages/customerPages/profile/Activities.jsx";
 import { useDispatch, useSelector } from 'react-redux'
 import { authenticationFailed, authenticationSuccess } from "./redux/actions/user";
 import {AppRoot} from "./appComponents";
+import Store from "./pages/customerPages/store/Store";
+import AdminLogin from "./pages/adminPages/login/AdminLogin";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -100,6 +102,11 @@ function App() {
           element={<PublicRoutes Component={<CustomerLogin />} />}
         />
 
+        <Route
+          path="/admin/login"
+          element={<PublicRoutes Component={<AdminLogin />} />}
+        />
+
         {/* customer routes */}
         <Route
           path="/customer"
@@ -111,6 +118,8 @@ function App() {
           <Route path="personal" element={<ProtectedRoutes Component={<Personal /> } />} />
           <Route path="activities" element={<ProtectedRoutes Component={<Activities /> } />} />
         </Route>
+
+        <Route path="/customer/store" element={<ProtectedRoutes Component={<Store />} />} />
 
         {/* admin routes */}
         <Route path="/admin" element={<Dashboard />} />

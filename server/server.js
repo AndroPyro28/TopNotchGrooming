@@ -2,8 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require('cors');
 const { Server } = require('socket.io');
-const { connectDB } = require("./config/connectDB");
-const Customer = require("./models/User");
 require('dotenv').config({path: "./.env"})
 const {verifyUser} = require('./middlewares/verifyUser')
 

@@ -78,6 +78,10 @@ export const BrandLogoContainer = styled.div`
             background: rgb(230, 230, 230);
         }
     }
+
+    @media (max-width: 950px) {
+          display: none;
+        }
   `
 
   export const InfoAndCart = styled.div`
@@ -87,6 +91,11 @@ export const BrandLogoContainer = styled.div`
     color: black;
     text-overflow: 1px 3px 5px black;
     flex:1;
+
+    @media (max-width: 950px) {
+         justify-content: flex-end;
+         margin-inline: 50px;
+        }
     & a > button {
         display: flex;
         align-items: center;
@@ -99,6 +108,12 @@ export const BrandLogoContainer = styled.div`
         margin-right: 50px;
         cursor: pointer;
         transition: all .3s ease-in-out;
+
+        @media (max-width: 950px) {
+          display: none;
+        }
+
+        
 
         & > .cart__number__item {
         padding: 0px 6px;
@@ -119,14 +134,13 @@ export const BrandLogoContainer = styled.div`
         }
     }
 
-    
-
     & a > .userProfile {
         height: 50px;
         width: 50px;
         border-radius: 50%;
         margin: 0 5px 0 5px;
         cursor: pointer;
+        border:solid 2px gray;
     }
   `
 
@@ -145,5 +159,11 @@ export const BrandLogoContainer = styled.div`
     &:hover {
       border-bottom: solid 2px gray; 
     }
+  }
+
+  @media(max-width:580px) {
+    &  > a > span {
+      display:none;
+    } 
   }
   `
