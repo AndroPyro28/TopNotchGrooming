@@ -21,16 +21,18 @@ import Personal from "./pages/customerPages/profile/Personal.jsx";
 import Activities from "./pages/customerPages/profile/Activities.jsx";
 import { useDispatch, useSelector } from 'react-redux'
 import { authenticationFailed, authenticationSuccess } from "./redux/actions/user";
-import {AppRoot} from "./appComponents";
+import { AppRoot } from "./appComponents";
 import Store from "./pages/customerPages/store/Store";
 import AdminLogin from "./pages/adminPages/login/AdminLogin";
+import AdminSidebar from "./components/admin_sidebar/AdminSidebar";
+import Inventory from "./pages/adminPages/inventory/Inventory";
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [navbarType, setNavbarType] = useState(null);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     try {
       const userInfo = Cookies.get("userToken");
@@ -64,8 +66,8 @@ function App() {
             dispatch(authenticationFailed());
           }
 
-          if(success) {
-            const {currentUser} = res.data;
+          if (success) {
+            const { currentUser } = res.data;
             dispatch(authenticationSuccess(currentUser, true))
           }
         } catch (error) {
@@ -84,6 +86,10 @@ function App() {
       {navbarType === "public" && <PublicNavbar />}
 
       {navbarType === "customer" && <CustomerNavbar />}
+      
+      {navbarType === "admin" && <AdminSidebar />}
+
+
 
       <Routes>
         {/* public routes */}
@@ -113,16 +119,17 @@ function App() {
           element={<ProtectedRoutes Component={<Home />} />}
         />
 
-        <Route path="/customer/profile"element={<ProtectedRoutes Component={<Profile />} />} >
-          <Route index element={<ProtectedRoutes Component={<Personal /> } />} />   
-          <Route path="personal" element={<ProtectedRoutes Component={<Personal /> } />} />
-          <Route path="activities" element={<ProtectedRoutes Component={<Activities /> } />} />
+        <Route path="/customer/profile" element={<ProtectedRoutes Component={<Profile />} />} >
+          <Route index element={<ProtectedRoutes Component={<Personal />} />} />
+          <Route path="personal" element={<ProtectedRoutes Component={<Personal />} />} />
+          <Route path="activities" element={<ProtectedRoutes Component={<Activities />} />} />
         </Route>
 
         <Route path="/customer/store" element={<ProtectedRoutes Component={<Store />} />} />
 
         {/* admin routes */}
         <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/inventory" element={<Inventory />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
 

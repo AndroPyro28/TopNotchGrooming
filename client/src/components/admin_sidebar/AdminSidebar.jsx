@@ -1,0 +1,40 @@
+import React from 'react'
+import {NavLink} from "react-router-dom";
+import {SideNavWrapper, SideNavContainer, Title} from "./sidebarComponents"
+function AdminSidebar() {
+  return (
+    <SideNavWrapper>
+            <SideNavContainer className='close'>
+            <Title className="title">
+                <h1 class="elements"> <i class="fa-solid fa-user-shield"></i> Andro Eugenio</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </Title>
+
+            <NavLink to="/admin/#">
+                <i class="fa-solid fa-chart-line"></i> &nbsp; Dashboard
+            </NavLink>
+
+            <NavLink to="/admin/#">
+                <i class="fa-solid fa-calendar-days"></i> &nbsp; Appointment
+            </NavLink>
+
+            <NavLink to="/admin/#">
+                <i class="fa-solid fa-truck-fast"></i> &nbsp; To-Ship
+            </NavLink>
+
+            <NavLink to="/admin/#">
+                <i class="fa-solid fa-clock-rotate-left"></i> &nbsp; Records
+            </NavLink>
+            <NavLink to="/admin/#">
+                <i class="fa-solid fa-cart-flatbed"></i> &nbsp; Inventory
+            </NavLink>
+
+            <NavLink to="/admin/#">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout
+            </NavLink>
+            </SideNavContainer>
+        </SideNavWrapper>
+  )
+}
+
+export default AdminSidebar

@@ -5,5 +5,6 @@ export const CustomerRoute = styled.main`
 `
 
 export const AdminRoute = styled.main`
+    margin-left: 80px;  
     
 `
