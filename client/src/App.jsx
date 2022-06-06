@@ -13,7 +13,6 @@ import About from "./pages/publicPages/about/About";
 import { Suspense, startTransition } from "react";
 import CustomerLogin from "./pages/publicPages/customer_login_signup/Login";
 import Signup from "./pages/publicPages/customer_login_signup/Signup";
-import ProtectedRoutes from "./authentication/ProtectedRoutes";
 import PublicRoutes from "./authentication/PublicRoutes";
 import CustomerNavbar from "./components/customer_navbar/CustomerNavbar";
 import Profile from "./pages/customerPages/profile/Profile";
@@ -23,9 +22,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authenticationFailed, authenticationSuccess } from "./redux/actions/user";
 import { AppRoot } from "./appComponents";
 import Store from "./pages/customerPages/store/Store";
-import AdminLogin from "./pages/adminPages/login/AdminLogin";
+import AdminLogin from "./pages/publicPages/admin_login/AdminLogin";
 import AdminSidebar from "./components/admin_sidebar/AdminSidebar";
 import Inventory from "./pages/adminPages/inventory/Inventory";
+import CustomerRoutes from "./authentication/CustomerRoutes";
+import AdminRoutes from "./authentication/AdminRoutes";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -83,13 +84,12 @@ function App() {
 
   return (
     <AppRoot>
+
       {navbarType === "public" && <PublicNavbar />}
 
-      {navbarType === "customer" && <CustomerNavbar />}
+      {/* {navbarType === "customer" && <CustomerNavbar />} */}
       
-      {navbarType === "admin" && <AdminSidebar />}
-
-
+      {/* {navbarType === "admin" && <AdminSidebar />} */}
 
       <Routes>
         {/* public routes */}
@@ -101,34 +101,35 @@ function App() {
         <Route path="/about" element={<PublicRoutes Component={<About />} />} />
         <Route
           path="/customer/signup"
-          element={<PublicRoutes Component={<Signup />} />}
+          element={<PublicRoutes Component={<PublicRoutes Component={<Signup />} />} />}
         />
         <Route
           path="/customer/login"
-          element={<PublicRoutes Component={<CustomerLogin />} />}
+          element={<PublicRoutes Component={<PublicRoutes Component={<CustomerLogin />} />} />}
         />
 
         <Route
           path="/admin/login"
-          element={<PublicRoutes Component={<AdminLogin />} />}
+          element={<PublicRoutes Component={<PublicRoutes Component={<AdminLogin />} />} />}
         />
 
         {/* customer routes */}
         <Route
           path="/customer"
-          element={<ProtectedRoutes Component={<Home />} />}
+          element={<CustomerRoutes Component={<Home />} />}
         />
 
-        <Route path="/customer/profile" element={<ProtectedRoutes Component={<Profile />} />} >
-          <Route index element={<ProtectedRoutes Component={<Personal />} />} />
-          <Route path="personal" element={<ProtectedRoutes Component={<Personal />} />} />
-          <Route path="activities" element={<ProtectedRoutes Component={<Activities />} />} />
+        <Route path="/customer/profile" element={<CustomerRoutes Component={<Profile />} />} >
+          <Route index element={<CustomerRoutes Component={<Personal />} />} />
+          <Route path="personal" element={<CustomerRoutes Component={<Personal />} />} />
+          <Route path="activities" element={<CustomerRoutes Component={<Activities />} />} />
         </Route>
 
-        <Route path="/customer/store" element={<ProtectedRoutes Component={<Store />} />} />
+        <Route path="/customer/store" element={<CustomerRoutes Component={<Store />} />} />
 
         {/* admin routes */}
-        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin" element={<AdminRoutes Component={<Dashboard />} />} />
+        {/* <Route path="/admin/inventory" element={<AdminRoutes Component={<Inventory />} />} /> */}
         <Route path="/admin/inventory" element={<Inventory />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
@@ -137,5 +138,8 @@ function App() {
     </AppRoot>
   );
 }
+
+
+
 
 export default App;

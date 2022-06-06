@@ -41,12 +41,12 @@ function AdminLogin() {
                             <ErrorMessage name='password' component="div" className="error__message" />
                         </div>
                         <CheckboxContainer>
-                        <input type="checkbox" class="checkbox" onClick={() => setShowPassword(!showPassword)} />
+                        <input type="checkbox" className="checkbox" onClick={() => setShowPassword(!showPassword)} />
                         <label for="showPassword">Show Password</label>
                         
                         </CheckboxContainer>
 
-                        <button id="loginBtn">Login</button>
+                        <button id="loginBtn" type="submit">Login</button>
                     
                   </Form>
               }

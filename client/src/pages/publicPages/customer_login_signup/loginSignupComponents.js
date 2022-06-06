@@ -32,7 +32,6 @@ export const LoginSignupContainer = styled.div`
     border: solid 1px rgb(122, 122, 57);
     padding: 0px 35px;
     border-radius: 20px;
-
     @media(max-width:800px) {
         & {
             padding: 5px 10px;
@@ -70,7 +69,7 @@ export const LoginSignupContainer = styled.div`
             flex-direction: column;
             width:100%;
             overflow: hidden;
-
+            align-self: center;
             & > h1 {
                 margin-top: 5px;
                 margin-bottom: 25px;
@@ -197,7 +196,6 @@ background: url('/images/loginBG.png');
 background-size: contain;
 background-repeat: no-repeat;
 background-position: center;
-
 @media(max-width:800px) {
     & {
         flex: 1

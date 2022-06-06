@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 function useLogic({ toast }) {
   //login configuration of formik
@@ -10,7 +10,31 @@ function useLogic({ toast }) {
 
   const onSubmitLogin = async (values) => {
     try {
+      const { email, password } = values;
 
+      const res = await axios.post("/api/admin/login", values);
+
+      const { success, msg } = res.data;
+
+      if (!success) {
+        return toast(msg, { type: "error" });
+      }
+      
+      Cookies.set(
+        "userToken",
+        JSON.stringify({
+          userType: "admin",
+          userToken: res.data.token,
+        }),
+        {
+          expires: 1,
+          secure: true,
+        }
+      );
+
+      toast(msg, { type: "success" });
+
+      setTimeout((_) => window.location.assign("/admin/inventory"), 2500);
     } catch (error) {
       console.error(error.message);
     }
@@ -35,7 +59,7 @@ function useLogic({ toast }) {
     onSubmitLogin,
     initialValuesLogin,
     validationSchemaLogin,
-  }
+  };
 }
 
 export default useLogic;

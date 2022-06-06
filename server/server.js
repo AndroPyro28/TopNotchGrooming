@@ -19,6 +19,7 @@ app.use(express.json())
 const PORT = process.env.PORT || 3001;
 
 app.use('/api/customer', require('./routes/customerRoutes'))
+app.use('/api/admin', require('./routes/adminRoutes'))
 
 app.get('/api/auth', verifyUser, (req, res) => {
     try {

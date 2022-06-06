@@ -1,11 +1,13 @@
 import React, { useEffect, useState, startTransition } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { CustomerRoute, AdminRoute } from "./routeComponent";
-function ProtectedRoutes({ Component }) {
+import { CustomerRoute } from "./routeComponent";
+function CustomerRoutes({ Component }) {
   const navigate = useNavigate();
-  
     let userToken = Cookies.get("userToken");
+
+    const routeType = Component.props;
+
 
     if (!userToken) {
       return navigate("/", { replace: true });
@@ -26,8 +28,8 @@ function ProtectedRoutes({ Component }) {
   return JSON.parse(Cookies.get("userToken"))?.userType === "customer" ? (
     <CustomerRoute>{Component}</CustomerRoute>
   ) : (
-    <AdminRoute>{Component}</AdminRoute>
+    navigate('/admin/inventory', {replace: true})
   );
 }
 
-export default ProtectedRoutes;
+export default CustomerRoutes;
