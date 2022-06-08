@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use('/api/customer', require('./routes/customerRoutes'))
 app.use('/api/admin', require('./routes/adminRoutes'))
-
+app.use('/api/products', require('./routes/productRoutes'));
 app.get('/api/auth', verifyUser, (req, res) => {
     try {
             return res.status(200).json({

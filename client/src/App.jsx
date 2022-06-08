@@ -87,9 +87,9 @@ function App() {
 
       {navbarType === "public" && <PublicNavbar />}
 
-      {/* {navbarType === "customer" && <CustomerNavbar />} */}
+      {navbarType === "customer" && <CustomerNavbar />}
       
-      {/* {navbarType === "admin" && <AdminSidebar />} */}
+      {navbarType === "admin" && <AdminSidebar />}
 
       <Routes>
         {/* public routes */}
@@ -129,8 +129,8 @@ function App() {
 
         {/* admin routes */}
         <Route path="/admin" element={<AdminRoutes Component={<Dashboard />} />} />
-        {/* <Route path="/admin/inventory" element={<AdminRoutes Component={<Inventory />} />} /> */}
-        <Route path="/admin/inventory" element={<Inventory />} />
+        <Route path="/admin/inventory" element={<AdminRoutes Component={<Inventory />} />} />
+        {/* <Route path="/admin/inventory" element={<Inventory />} /> */}
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
 

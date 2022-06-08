@@ -22,7 +22,6 @@ module.exports.verifyUser = async (req, res, next) => {
         }
 
         req.currentUser = result[0];
-
         next();
     } catch (error) {        
         return res.status(200).json({

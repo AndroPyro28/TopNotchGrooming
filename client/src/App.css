@@ -34,3 +34,7 @@
     transform: rotate(360deg);
   }
 }
+
+.tester {
+  background: rgb(219, 236, 238);
+}

@@ -11,11 +11,11 @@ export const AdminInventoryWrapper = styled.section`
   display: flex;
   height: 100vh;
   padding: 10px;
+  justify-content: space-evenly;
 `;
 export const InventoryLeftContent = styled.div`
   display: flex;
   flex-direction: column;
-
   & > :is(h1, small) {
     margin: 5px 0;
   }
@@ -54,7 +54,7 @@ export const ProductStatisticContainer = styled.div`
   padding: 10px;
   background: white;
   border-radius: 10px;
-
+  height: 80%;
   & > .product__info {
     display: flex;
     justify-content: space-between;
@@ -77,6 +77,7 @@ export const InventoryRightContent = styled.div`
   width: 80%;
   margin: 10px;
   border-radius: 10px;
+  height: 95%;
 `;
 
 export const FilterItemsContainer = styled.div`
@@ -150,7 +151,7 @@ export const FilterContainer = styled.div`
 export const TableRow = styled.div`
   display: flex;
   align-items: center;
-
+  
   & > div {
       flex:1;
   }
@@ -161,7 +162,8 @@ export const TableRow = styled.div`
   }
 
   &.table__data {
-    padding: 15px 0;
+    padding: 0px 0px 15px 0px;
+    
   }
 
   & > .table__productName {
@@ -193,13 +195,14 @@ export const T_HEAD = styled.div`
 `;
 
 export const T_DATA = styled.div`
-margin-top: 50px;
+margin-top: 20px;
   & > img {
-    width: 40px;
+    width: 50px;
     object-fit: contain;
     padding: 5px;
     border-radius: 10px;
     border: solid 1px gray;
+    height: 50px;
   }
 `;
 
@@ -218,7 +221,7 @@ export const ProductItem = styled.div`
   cursor: default;
   border-bottom: solid 1px gray;
   &:hover {
-    background: #f0f0f0;
+    background: rgb(219, 236, 238);
   }
 `;
 
@@ -235,6 +238,17 @@ export const ImageContainer = styled.div`
   align-items: center;
   justify-content: center;
   align-items: center;
+  position: relative;
+  & > .imgUploader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  height: 60%;
+  cursor: pointer;
+  }
+
   & > button {
     background: rgb(124, 4, 0);
     color: white;
@@ -253,12 +267,13 @@ export const ImageContainer = styled.div`
 
   & > .item__image {
       width: 100px;
-      object-fit: contain;
+      object-fit: cover;
       padding: 15px;
       border-radius: 10px;
       border: solid 1px gray;
       height: 100px;
       align-self: center;
+      cursor: pointer;
     }
 `;
 export const ItemInfoContainer = styled.div`
@@ -291,6 +306,18 @@ export const InfoRow = styled.div`
       border-bottom: solid 1px gray;
       outline: none;
       background: none;
+    }
+
+    & > textarea {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border: solid 1px gray;
+      outline: none;
+      background: none;
+      height: 5em;
+      border-radius: 10px;
+      resize: none;
     }
 
     & > select {
