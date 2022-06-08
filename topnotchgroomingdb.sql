@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2022 at 07:45 AM
+-- Generation Time: Jun 08, 2022 at 08:07 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,12 +28,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `adminID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `firstname`, `lastname`, `email`, `password`) VALUES
+(1, 'andro', 'eugenio', 'menandroeugenio1028@gmail.com', '123123');
 
 -- --------------------------------------------------------
 
@@ -89,7 +96,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `firstname`, `lastname`, `birthdate`, `email`, `password`, `phoneNo`, `address`) VALUES
-(1, 'Andro', 'Eugenio', '', 'Menandroeugeino1028@gmail.com', 'sample_password', '09123324251', 'California St Encanto Angat');
+(1, 'Andro', 'Eugenio', '', 'Menandroeugeino1028@gmail.com', 'sample_password', '09123324251', 'California St Encanto Angat'),
+(2, 'Andro', 'Eugenio', '2000-02-10', 'Jeanmargarette11@gmail.com', '$2a$06$gT1JCOip2MeKML.Rt6LRROgyAIvbxNOdSPQH0RgdREuYZJyVFxNva', '123123123', 'San Sebastian Hagonoy Bulacan');
 
 -- --------------------------------------------------------
 
@@ -126,15 +134,27 @@ CREATE TABLE `order_details` (
 --
 
 CREATE TABLE `products` (
-  `productID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `product_name` varchar(100) DEFAULT NULL,
   `product_price` bigint(20) DEFAULT NULL,
   `product_description` varchar(100) DEFAULT NULL,
+  `pet_type` varchar(50) NOT NULL,
   `product_date_added` varchar(100) DEFAULT NULL,
   `product_stocks` bigint(20) DEFAULT NULL,
   `product_age_limit` varchar(50) DEFAULT NULL,
-  `productCategory` varchar(50) DEFAULT NULL
+  `product_category` varchar(50) DEFAULT NULL,
+  `product_image_url` varchar(500) NOT NULL,
+  `product_image_id` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`) VALUES
+(4, 'QR ODE', 1200, 'nice qr code', 'Dog', '08-06-2022', 5, '5-6', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654703500/topnotch_productImg/ujbh45svndwiuwge2hlo.png', 'topnotch_productImg/ujbh45svndwiuwge2hlo'),
+(5, 'hotdog', 555, 'hotdog', 'Dog', '09-06-2022', 15, '1-3', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654710445/topnotch_productImg/fy6vafhcrcxxpbuffxtb.png', 'topnotch_productImg/fy6vafhcrcxxpbuffxtb'),
+(6, 'asdasd', 12, 'asddas', 'Dog', '09-06-2022', 12, '23', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654710535/topnotch_productImg/wimhm5z48bnt6hyuau8l.png', 'topnotch_productImg/wimhm5z48bnt6hyuau8l');
 
 -- --------------------------------------------------------
 
@@ -173,7 +193,7 @@ CREATE TABLE `yearly_sales` (
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`adminID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `appointments`
@@ -213,7 +233,7 @@ ALTER TABLE `order_details`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`productID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `product_details`
@@ -237,7 +257,7 @@ ALTER TABLE `yearly_sales`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `adminID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `appointments`
@@ -255,7 +275,7 @@ ALTER TABLE `appointment_history`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monthly_sales`
@@ -273,7 +293,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product_details`
@@ -320,7 +340,7 @@ ALTER TABLE `order_details`
 --
 ALTER TABLE `product_details`
   ADD CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `order_details` (`orderID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `product_details_ibfk_2` FOREIGN KEY (`productID`) REFERENCES `products` (`productID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `product_details_ibfk_2` FOREIGN KEY (`productID`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
