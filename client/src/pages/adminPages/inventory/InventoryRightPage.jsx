@@ -92,7 +92,7 @@ function InventoryRightPage() {
 
         {
           products?.length > 0 && products.map((product, index) => {
-            return <ProductItem product={product} key={index} /> 
+            return <ProductItem product={product} key={index} setProducts={setProducts} /> 
           })
         }
 

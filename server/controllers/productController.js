@@ -45,3 +45,22 @@ module.exports.getAllItems = async (req, res) => {
       console.error(error.message)
     }
 }
+
+module.exports.deleteProduct = async (req, res) => {
+  try {
+    const {id} = req.params;
+
+    const product = new Product({});
+
+    const deleteResponse = await product.deleteItemById(id)
+
+    if(deleteResponse.affectedRows) {
+      return res.status(200).json({
+        msg: "Product Deleted",
+        success: true
+      })
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+}

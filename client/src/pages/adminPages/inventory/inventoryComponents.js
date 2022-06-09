@@ -1,12 +1,11 @@
-import styled, {createGlobalStyle} from "styled-components";
-
+import styled, { createGlobalStyle } from "styled-components";
 
 export const PageGlobal = createGlobalStyle`
     body {
         background: aliceblue;
     overflow: hidden;
     }
-`
+`;
 export const AdminInventoryWrapper = styled.section`
   display: flex;
   height: 100vh;
@@ -84,9 +83,8 @@ export const FilterItemsContainer = styled.div`
   display: flex;
   margin: 20px 10px;
   align-items: center;
-justify-content: center;
+  justify-content: center;
   & > button {
-    background: rgb(0, 109, 143);
     color: white;
     border: none;
     outline: none;
@@ -94,6 +92,7 @@ justify-content: center;
     padding: 10px 40px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    background: rgb(0, 109, 143);
 
     &:hover {
       background: rgb(1, 59, 77);
@@ -101,7 +100,6 @@ justify-content: center;
   }
 
   & > .pagination {
-
     & > span {
       font-weight: 1000;
       font-size: 1.1em;
@@ -151,9 +149,9 @@ export const FilterContainer = styled.div`
 export const TableRow = styled.div`
   display: flex;
   align-items: center;
-  
+
   & > div {
-      flex:1;
+    flex: 1;
   }
 
   &.table__header {
@@ -163,7 +161,6 @@ export const TableRow = styled.div`
 
   &.table__data {
     padding: 0px 0px 15px 0px;
-    
   }
 
   & > .table__productName {
@@ -190,12 +187,12 @@ export const TableRow = styled.div`
 `;
 
 export const T_HEAD = styled.div`
-    margin-top: 50px;
+  margin-top: 50px;
   color: gray;
 `;
 
 export const T_DATA = styled.div`
-margin-top: 20px;
+  margin-top: 20px;
   & > img {
     width: 50px;
     object-fit: contain;
@@ -239,18 +236,18 @@ export const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+
   & > .imgUploader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  height: 60%;
-  cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    height: 60%;
+    cursor: pointer;
   }
 
   & > button {
-    background: rgb(124, 4, 0);
     color: white;
     border: none;
     outline: none;
@@ -259,22 +256,26 @@ export const ImageContainer = styled.div`
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     margin: 10px;
+  }
 
-    &:hover {
-      background: rgb(59, 3, 1);
-    }
+  & > .deleteBtn {  
+    background-color: maroon !important;
+  }
+
+  & > .updateBtn {
+    background: lightgreen !important;
   }
 
   & > .item__image {
-      width: 100px;
-      object-fit: cover;
-      padding: 15px;
-      border-radius: 10px;
-      border: solid 1px gray;
-      height: 100px;
-      align-self: center;
-      cursor: pointer;
-    }
+    width: 100px;
+    object-fit: cover;
+    padding: 15px;
+    border-radius: 10px;
+    border: solid 1px gray;
+    height: 100px;
+    align-self: center;
+    cursor: pointer;
+  }
 `;
 export const ItemInfoContainer = styled.div`
   display: flex;
@@ -286,7 +287,7 @@ export const ItemInfoContainer = styled.div`
 export const InfoRow = styled.div`
   display: flex;
   width: 100%;
- text-align: star;
+  text-align: star;
   & > .info {
     flex: 1;
     display: flex;

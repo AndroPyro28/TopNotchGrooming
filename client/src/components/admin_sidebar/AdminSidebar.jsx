@@ -6,31 +6,31 @@ function AdminSidebar() {
     <SideNavWrapper>
             <SideNavContainer className='close'>
             <Title className="title">
-                <h1 class="elements"> <i class="fa-solid fa-user-shield"></i> Andro Eugenio</h1>
-                <i class="fa-solid fa-bars hamburger"></i>
+                <h1 className="elements"> <i className="fa-solid fa-user-shield"></i> Andro Eugenio</h1>
+                <i className="fa-solid fa-bars hamburger"></i>
             </Title>
 
             <NavLink to="/admin/#">
-                <i class="fa-solid fa-chart-line"></i> &nbsp; Dashboard
+                <i className="fa-solid fa-chart-line"></i> &nbsp; Dashboard
             </NavLink>
 
             <NavLink to="/admin/#">
-                <i class="fa-solid fa-calendar-days"></i> &nbsp; Appointment
+                <i className="fa-solid fa-calendar-days"></i> &nbsp; Appointment
             </NavLink>
 
             <NavLink to="/admin/#">
-                <i class="fa-solid fa-truck-fast"></i> &nbsp; To-Ship
+                <i className="fa-solid fa-truck-fast"></i> &nbsp; To-Ship
             </NavLink>
 
             <NavLink to="/admin/#">
-                <i class="fa-solid fa-clock-rotate-left"></i> &nbsp; Records
+                <i className="fa-solid fa-clock-rotate-left"></i> &nbsp; Records
             </NavLink>
-            <NavLink to="/admin/#">
-                <i class="fa-solid fa-cart-flatbed"></i> &nbsp; Inventory
+            <NavLink to="/admin/inventory">
+                <i className="fa-solid fa-cart-flatbed"></i> &nbsp; Inventory
             </NavLink>
 
             <NavLink to="/admin/#">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout
+                <i className="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout
             </NavLink>
             </SideNavContainer>
         </SideNavWrapper>
