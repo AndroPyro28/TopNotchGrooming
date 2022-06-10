@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2022 at 08:07 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Jun 10, 2022 at 11:12 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `firstname`, `lastname`, `email`, `password`) VALUES
-(1, 'andro', 'eugenio', 'menandroeugenio1028@gmail.com', '123123');
+(1, 'admin', 'topnotch', 'topnotchgrooming@gmail.com', '123123');
 
 -- --------------------------------------------------------
 
@@ -82,6 +82,8 @@ CREATE TABLE `appointment_history` (
 
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
+  `profile_image_id` varchar(500) DEFAULT NULL,
+  `profile_image_url` varchar(500) DEFAULT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
   `birthdate` varchar(50) NOT NULL,
@@ -95,9 +97,8 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`id`, `firstname`, `lastname`, `birthdate`, `email`, `password`, `phoneNo`, `address`) VALUES
-(1, 'Andro', 'Eugenio', '', 'Menandroeugeino1028@gmail.com', 'sample_password', '09123324251', 'California St Encanto Angat'),
-(2, 'Andro', 'Eugenio', '2000-02-10', 'Jeanmargarette11@gmail.com', '$2a$06$gT1JCOip2MeKML.Rt6LRROgyAIvbxNOdSPQH0RgdREuYZJyVFxNva', '123123123', 'San Sebastian Hagonoy Bulacan');
+INSERT INTO `customer` (`id`, `profile_image_id`, `profile_image_url`, `firstname`, `lastname`, `birthdate`, `email`, `password`, `phoneNo`, `address`) VALUES
+(6, 'topnotch_profilepic/oh60tt59gdc2f8u6mi1x', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654850833/topnotch_profilepic/oh60tt59gdc2f8u6mi1x.jpg', 'firstname', 'lastname', '2000-02-10', 'user1@gmail.com', '$2a$06$0QeR0p9vev9aGIC7kUM/geyd2V1oVnS0E/DHfCAYTgw5jjKMlwP92', '9555551112', 'some address');
 
 -- --------------------------------------------------------
 
@@ -152,9 +153,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`) VALUES
-(4, 'QR ODE', 1200, 'nice qr code', 'Dog', '08-06-2022', 5, '5-6', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654703500/topnotch_productImg/ujbh45svndwiuwge2hlo.png', 'topnotch_productImg/ujbh45svndwiuwge2hlo'),
-(5, 'hotdog', 555, 'hotdog', 'Dog', '09-06-2022', 15, '1-3', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654710445/topnotch_productImg/fy6vafhcrcxxpbuffxtb.png', 'topnotch_productImg/fy6vafhcrcxxpbuffxtb'),
-(6, 'asdasd', 12, 'asddas', 'Dog', '09-06-2022', 12, '23', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654710535/topnotch_productImg/wimhm5z48bnt6hyuau8l.png', 'topnotch_productImg/wimhm5z48bnt6hyuau8l');
+(12, 'product 1', 510, 'nice one', 'Dog', '6-10-2022', 10, '5-4', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654838930/topnotch_productImg/pczvtfgiycf9xn7utvu6.png', 'topnotch_productImg/pczvtfgiycf9xn7utvu6'),
+(13, 'product 2', 1200, 'some description', 'Dog', '6-10-2022', 5, '5-3', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654851091/topnotch_productImg/bl4diobto3gfj7vsaaab.png', 'topnotch_productImg/bl4diobto3gfj7vsaaab');
 
 -- --------------------------------------------------------
 
@@ -275,7 +275,7 @@ ALTER TABLE `appointment_history`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `monthly_sales`
@@ -293,7 +293,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `product_details`
