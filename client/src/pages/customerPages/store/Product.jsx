@@ -9,12 +9,12 @@ import {
 function Product({product}) {
   return (
     <ProductItem>
-      <ProductItemImg src={product.productImg} />
-      <ProductItemName>{product.productName}</ProductItemName>
+      <ProductItemImg src={product?.product_image_url} />
+      <ProductItemName>{product?.product_name}</ProductItemName>
       <ProductItemDescription>
-        {product.productDesc}
+        {product?.product_description}
       </ProductItemDescription>
-      <ProductItemPrice>₱ {product.productPrice}</ProductItemPrice>
+      <ProductItemPrice>₱ {product?.product_price}</ProductItemPrice>
       <span className="add__to__cart">
         <i className="fa-solid fa-cart-plus"></i> <span>Add To Cart</span>
       </span>

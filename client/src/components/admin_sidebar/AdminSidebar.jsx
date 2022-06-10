@@ -1,7 +1,14 @@
 import React from 'react'
 import {NavLink} from "react-router-dom";
-import {SideNavWrapper, SideNavContainer, Title} from "./sidebarComponents"
+import {SideNavWrapper, SideNavContainer, Title} from "./sidebarComponents";
+import Cookies from "js-cookie"
 function AdminSidebar() {
+
+    const handleLogout = () => {
+        Cookies.remove("userToken");
+        window.location.reload();
+    }
+    
   return (
     <SideNavWrapper>
             <SideNavContainer className='close'>
@@ -29,9 +36,9 @@ function AdminSidebar() {
                 <i className="fa-solid fa-cart-flatbed"></i> &nbsp; Inventory
             </NavLink>
 
-            <NavLink to="/admin/#">
+            <a onClick={handleLogout}>
                 <i className="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout
-            </NavLink>
+            </a>
             </SideNavContainer>
         </SideNavWrapper>
   )

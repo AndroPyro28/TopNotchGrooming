@@ -1,7 +1,9 @@
 const poolConnection = require("../config/connectDB");
 const bcrypt = require("bcryptjs");
+const { updateInfo } = require("../controllers/customerController");
 
 class Customer {
+  #id;
   #firstname;
   #lastname;
   #email;
@@ -9,8 +11,11 @@ class Customer {
   #phoneNo;
   #address;
   #birthdate;
+  #profile_image_url;
+  #profile_image_id;
   constructor(ctorCustomer) {
     const {
+      id = "",
       firstname = "",
       lastname = "",
       email = "",
@@ -18,8 +23,11 @@ class Customer {
       phoneNo = "",
       address = "",
       birthdate = "",
-    } = ctorCustomer;
+      profile_image_url = "",
+      profile_image_id = ""
 
+    } = ctorCustomer;
+    this.#id = id;
     this.#firstname = firstname;
     this.#lastname = lastname;
     this.#email = email;
@@ -27,6 +35,9 @@ class Customer {
     this.#phoneNo = phoneNo;
     this.#address = address;
     this.#birthdate = birthdate;
+    this.#profile_image_id = profile_image_id;
+    this.#profile_image_url = profile_image_url;
+    
   }
 
   findOneById = async (id) => {
@@ -52,13 +63,12 @@ class Customer {
   insertOne = async () => {
     try {
       const hashedPassword = await bcrypt.hash(this.#password, 6);
-    //   const { firstname, lastname, email, phoneNo, address, birthdate } = this;
-      
+      //   const { firstname, lastname, email, phoneNo, address, birthdate } = this;
 
       const insertOne = `INSERT INTO customer 
-            (firstname, lastname, email, phoneNo, address, birthdate, password)
+            (firstname, lastname, email, phoneNo, address, birthdate, password, profile_image_url, profile_image_id)
             VALUES
-            (?, ?, ?, ?, ?, ?, ?)`;
+            (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
       const [result, _] = await poolConnection.execute(insertOne, [
         this.#firstname,
@@ -68,6 +78,8 @@ class Customer {
         this.#address,
         this.#birthdate,
         hashedPassword,
+        this.#profile_image_url,
+        this.#profile_image_id
       ]);
       return result;
     } catch (error) {
@@ -81,11 +93,36 @@ class Customer {
       const selectOne = `SELECT * FROM customer WHERE email = ?;
             `;
 
-      const [result, _] = await poolConnection.execute(selectOne, [this.#email]);
+      const [result, _] = await poolConnection.execute(selectOne, [
+        this.#email,
+      ]);
 
       return result.length > 0 ? result[0] : false;
     } catch (error) {
       console.error(error.message);
+    }
+  };
+  updateInfo = async () => {
+    try {
+      const updateInfo = `UPDATE customer 
+      SET firstname = ?, lastname = ?, address = ?, phoneNo = ?, birthdate = ?, email = ?, profile_image_url = ?, profile_image_id = ?
+      WHERE id = ?`;
+
+      const [result, _] = await poolConnection.execute(updateInfo, [
+        this.#firstname,
+        this.#lastname,
+        this.#address,
+        this.#phoneNo,
+        this.#birthdate,
+        this.#email,
+        this.#profile_image_url,
+        this.#profile_image_id,
+        this.#id,
+      ]);
+
+      return result;
+    } catch (error) {
+      console.log(error.message);
     }
   };
 }

@@ -1,6 +1,7 @@
 const poolConnection = require("../config/connectDB");
 
 class Product {
+  #id;
   #productName;
   #productStocks;
   #productPrice;
@@ -13,6 +14,7 @@ class Product {
 
   constructor(ctorProduct) {
     const {
+      id = "",
       productName = "",
       productStocks = "",
       productPrice = "",
@@ -23,7 +25,7 @@ class Product {
       productImgId = "",
       petType = "",
     } = ctorProduct;
-
+    this.#id = id;
     this.#productName = productName;
     this.#productStocks = productStocks;
     this.#productPrice = productPrice;
@@ -35,7 +37,8 @@ class Product {
     this.#petType = petType;
   }
 
-  getDateToday = () => new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
+  getDateToday = () =>
+    new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
   insertProduct = async () => {
     try {
@@ -75,17 +78,68 @@ class Product {
     }
   };
 
-
-deleteItemById = async (id) => {
-  try {
+  deleteItemById = async (id) => {
+    try {
       const deleteQuery = `DELETE FROM products WHERE id = ?`;
       const [result, _] = await poolConnection.execute(deleteQuery, [id]);
 
       return result;
-  } catch (error) {
-    console.error(error.message)
-  }
-}
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  updateItem = async () => {
+    try {
+      const updateQuery = `UPDATE products 
+    SET product_name = ?,  
+    product_price = ?, 
+    product_description = ?,
+    pet_type = ?,
+    product_stocks = ?,
+    product_age_limit = ?,
+    product_category = ?,
+    product_image_url = ?,
+    product_image_id = ?
+    WHERE id = ?`;
+      const [result, _] = await poolConnection.execute(updateQuery, [
+        this.#productName,
+        this.#productPrice,
+        this.#productDescription,
+        this.#petType,
+        this.#productStocks,
+        this.#productAgeGap,
+        this.#productCategory,
+        this.#productImgUrl,
+        this.#productImgId,
+        this.#id,
+      ]);
+
+      return result;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  searchItems = async (itemName, petCategory, itemCategory, ageLimit) => {
+    try {
+      const selectQuery = `SELECT * FROM products 
+      WHERE 
+      product_name LIKE ? AND
+      pet_type LIKE ? AND
+      product_age_limit LIKE ? AND
+      product_category LIKE ?
+      LIMIT 5`;
+
+      const [result, _] = await poolConnection.execute(selectQuery, 
+        [`%${itemName}%`, `%${petCategory}%`, `%${ageLimit}%`, `%${itemCategory}%`]
+        );
+        
+        return result;
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
 }
 
 module.exports = Product;

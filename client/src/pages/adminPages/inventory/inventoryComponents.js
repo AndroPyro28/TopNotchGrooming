@@ -256,6 +256,7 @@ export const ImageContainer = styled.div`
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     margin: 10px;
+    background: gray;
   }
 
   & > .deleteBtn {  
@@ -307,6 +308,11 @@ export const InfoRow = styled.div`
       border-bottom: solid 1px gray;
       outline: none;
       background: none;
+
+      &:disabled {
+        color: rgb(187, 187, 187) !important;
+        /* background: rgb(187, 187, 187); */
+      }
     }
 
     & > textarea {
@@ -319,6 +325,10 @@ export const InfoRow = styled.div`
       height: 5em;
       border-radius: 10px;
       resize: none;
+      &:disabled {
+        color: rgb(177, 177, 177) !important;
+        /* background: rgb(187, 187, 187); */
+      }
     }
 
     & > select {
@@ -329,6 +339,24 @@ export const InfoRow = styled.div`
       border-bottom: solid 1px gray;
       outline: none;
       border-radius: 1px;
+      &:disabled {
+        color: rgb(150, 150, 150) !important;
+        /* background: rgb(187, 187, 187); */
+      }
     }
   }
 `;
+
+export const Sign = styled.label`
+  color: gray;
+  text-align: center;
+  margin-top: 100px;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: cursive;
+  & > img {
+    width:120px;
+  }
+`

@@ -10,7 +10,7 @@ import { Line } from "react-chartjs-2";
 
 import { Chart as ChartJS } from "chart.js/auto";
 
-function InventoryLeftPage() {
+function InventoryLeftPage({ setSearchItem, searchItem }) {
   const [productData, setProductData] = useState({});
 
   useEffect(() => {
@@ -59,7 +59,12 @@ function InventoryLeftPage() {
       <small>Name of item or category</small>
 
       <SearchItemContainer>
-        <input type="text" placeholder="Search items..." />
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={searchItem.itemName}
+          onChange={(e) => setSearchItem({ ...searchItem, itemName: e.target.value })}
+        />
         <i className="fa-solid fa-magnifying-glass"></i>
       </SearchItemContainer>
 
@@ -83,8 +88,7 @@ function InventoryLeftPage() {
         <ProductStatistic>
           {productData != null ||
             (productData != {} && (
-              <Line data={productData} style={{ height: "300px" }}
-              />
+              <Line data={productData} style={{ height: "300px" }} />
             ))}
         </ProductStatistic>
       </ProductStatisticContainer>

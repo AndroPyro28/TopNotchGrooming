@@ -91,7 +91,8 @@ export const BrandLogoContainer = styled.div`
     color: black;
     text-overflow: 1px 3px 5px black;
     flex:1;
-
+  
+    
     @media (max-width: 950px) {
          justify-content: flex-end;
          margin-inline: 50px;
@@ -140,6 +141,7 @@ export const BrandLogoContainer = styled.div`
         border-radius: 50%;
         margin: 0 5px 0 5px;
         cursor: pointer;
+        object-fit: cover;
         border:solid 2px gray;
     }
   `
@@ -165,5 +167,39 @@ export const BrandLogoContainer = styled.div`
     &  > a > span {
       display:none;
     } 
+  }
+  `
+
+  export const DropDown = styled.div`
+    position: relative;
+
+    & > .dropDownBtn {
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 50%;
+      &:hover {
+        background: rgb(255,231,147);
+      }
+    }
+
+
+    & > .dropdown__content {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      background: #EAEAEA;
+      margin-left: -50px;
+      margin-top: -5px;
+      border-radius: 10px;
+      overflow: hidden;
+      & > a {
+        padding: 10px 20px;
+        cursor: pointer;
+        color: black;
+        &:hover {
+          background: gray;
+          color: white;
+        }
+      }
   }
   `

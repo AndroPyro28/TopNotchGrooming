@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
+import { Sign } from "../../adminPages/inventory/inventoryComponents";
 import Product from "./Product";
 import {
   StorePageContainer,
@@ -9,25 +10,40 @@ import {
   ProductsWrapper,
   ProductsContainer,
   Content,
-  CircleBackground
-  
+  CircleBackground,
 } from "./storeComponents";
 
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function Store() {
-    const [testProduct] = useState({
-        productImg:"/images/puppy-food2.png",
-        productName: "Pedigree Daily Food And Chicken",
-        productDesc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-        productPrice: "150.99"
-    })
+  const [testProduct] = useState({
+    productImg: "/images/puppy-food2.png",
+    productName: "Pedigree Daily Food And Chicken",
+    productDesc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+    productPrice: "150.99",
+  });
 
-    const [activeFilter, setActiveFilter] = useState("")
-    const switchFilter = (e) => {
-        const {id} = e.target;
+  const [activeFilter, setActiveFilter] = useState("");
+  const switchFilter = (e) => {
+    const { id } = e.target;
 
-        setActiveFilter(id);
-    }
+    setActiveFilter(id);
+  };
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get("/api/products/getAllItems", {
+        headers: {
+          userinfo: Cookies.get("userToken"),
+        },
+      });
+      const { products } = res.data;
+      setProducts(products);
+    })();
+  }, []);
   return (
     <StorePageContainer>
       <Banner>
@@ -42,21 +58,27 @@ function Store() {
       <PetFilterWrapper>
         <h1> W e &nbsp; D e a l &nbsp; I n</h1>
         <PetFilterContainer>
-
-          <PetContainer active={activeFilter.toLowerCase() === "dog"} id="Dog" onClick={switchFilter}>
+          <PetContainer
+            active={activeFilter.toLowerCase() === "dog"}
+            id="Dog"
+            onClick={switchFilter}
+          >
             <CircleBackground id="dog" />
             <img src="/images/dog7.png" id="dog" />
             <h3 id="dog">Dog</h3>
             <p id="dog">Healthy food for active woof</p>
           </PetContainer>
 
-          <PetContainer active={activeFilter.toLowerCase() === "cat"} id="cat" onClick={switchFilter}>
-            <CircleBackground id="cat"/>
+          <PetContainer
+            active={activeFilter.toLowerCase() === "cat"}
+            id="cat"
+            onClick={switchFilter}
+          >
+            <CircleBackground id="cat" />
             <img src="/images/cat1.png" id="cat" />
             <h3 id="cat">Cat</h3>
             <p id="cat">Healthy food for active meow</p>
           </PetContainer>
-
         </PetFilterContainer>
         <h1> P l e a s e &nbsp; C h o o s e &nbsp; H e r e </h1>
       </PetFilterWrapper>
@@ -68,14 +90,23 @@ function Store() {
         <ProductsContainer>
           {/* products here */}
 
+          {/* <Product product={testProduct}/>
           <Product product={testProduct}/>
           <Product product={testProduct}/>
           <Product product={testProduct}/>
           <Product product={testProduct}/>
           <Product product={testProduct}/>
-          <Product product={testProduct}/>
-          <Product product={testProduct}/>
+          <Product product={testProduct}/> */}
 
+          {products?.length > 0 ? (
+            products?.map((product, index) => {
+              return <Product product={product} key={index} />;
+            })
+          ) : (
+            <Sign>
+              <img src="/images/emptyCart.png" alt="" /> No Products
+            </Sign>
+          )}
         </ProductsContainer>
 
         <div class="pageNumber">

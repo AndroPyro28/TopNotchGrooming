@@ -20,6 +20,14 @@ export const RowInfo = styled.div`
         flex-direction: column;
         flex: 1;
 
+        & > input {
+            padding:10px;
+            border-radius: 10px;
+            width: 70%;
+            border: solid 1px gray;
+            outline: none;
+        }
+
         & > h3 {
             /* font-family: "Open Sans", sans-serif; */
             margin: 5px 0px;

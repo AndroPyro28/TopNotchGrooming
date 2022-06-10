@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   CustomerNavbarContainer,
   TopNavbar,
@@ -6,8 +6,12 @@ import {
   BrandLogoContainer,
   InfoAndCart,
   BotNavbar,
+  DropDown
 } from "./navbarComponents";
+import Cookies from "js-cookie";
 import { Link, NavLink } from "react-router-dom";
+import {useSelector} from "react-redux";
+
 
 function CustomerNavbar() {
   const navLinkStyles = ({ isActive }) => {
@@ -15,6 +19,19 @@ function CustomerNavbar() {
       borderBottom: isActive ? "solid 2px gray" : "",
     };
   };
+
+  const handleLogout = () => {
+    Cookies.remove("userToken");
+    window.location.reload();
+}
+
+const {currentUser} = useSelector((state) => state.userReducer)
+
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  useEffect(() => {
+
+  }, [currentUser])
 
   return (
     <CustomerNavbarContainer>
@@ -40,9 +57,19 @@ function CustomerNavbar() {
             </button>
           </Link>
           <Link to="/customer/profile">
-            <img src="/images/logo.png" alt="" class="userProfile" />
+            <img src={currentUser?.profile_image_url} alt="" class="userProfile" />
           </Link>
-          <i class="fa-solid fa-chevron-down"></i>
+          <DropDown>
+            <i class="fa-solid fa-chevron-down dropDownBtn" onClick={() => setOpenDropdown(!openDropdown)}></i>
+            {
+              openDropdown && <div className="dropdown__content">
+              <Link to={"/customer/profile"}>Profile</Link>
+              <a onClick={handleLogout}>Logout</a>
+            </div>
+            }
+            
+          </DropDown>
+         
         </InfoAndCart>
       </TopNavbar>
 
