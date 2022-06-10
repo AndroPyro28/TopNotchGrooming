@@ -142,7 +142,6 @@ export const FilterContainer = styled.div`
     outline: none;
     border-radius: 10px;
     text-align: center;
-    padding: 0px 10px;
   }
 `;
 
@@ -239,11 +238,12 @@ export const ImageContainer = styled.div`
 
   & > .imgUploader {
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
     width: 100%;
     opacity: 0;
-    height: 60%;
+    height: 37%;
+    background: black;
     cursor: pointer;
   }
 

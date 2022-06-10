@@ -7,7 +7,7 @@ import {
   TableRow,
   T_HEAD,
   ProductListContainer,
-  Sign
+  Sign,
 } from "./inventoryComponents";
 
 import InventoryModal from "../../../components/modals/admin_modals/InventoryModal";
@@ -22,7 +22,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
 
   useEffect(() => {
     (async () => {
-      const { petCategory, itemCategory, ageLimit, itemName} = searchItem;
+      const { petCategory, itemCategory, ageLimit, itemName } = searchItem;
       if (!petCategory && !itemCategory && !ageLimit && !itemName) {
         console.log("not search");
 
@@ -35,26 +35,49 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         setProducts(products);
       } else {
         console.log("search");
-        const res = await axios.post(
-          "/api/products/searchItems",
-          searchItem,
-          {
-            headers: {
-              userinfo: Cookies.get("userToken"),
-            },
-          }
-        );
+        const res = await axios.post("/api/products/searchItems", searchItem, {
+          headers: {
+            userinfo: Cookies.get("userToken"),
+          },
+        });
 
-        const {success, products} = res.data;
-        setProducts(products)
+        const { success, products } = res.data;
+        setProducts(products);
       }
     })();
-  }, [searchItem.petCategory, searchItem.itemCategory, searchItem.ageLimit, searchItem.itemName]);
+  }, [
+    searchItem.petCategory,
+    searchItem.itemCategory,
+    searchItem.ageLimit,
+    searchItem.itemName,
+  ]);
+
+  const dropDownAgeGap = [
+    {
+      key: "Select age limit",
+      value: "",
+    },
+    {
+      key: "1-2 (yrs old)",
+      value: "1-2 (yrs old)",
+    },
+    {
+      key: "2-4 (yrs old)",
+      value: "2-4 (yrs old)",
+    },
+    {
+      key: "5-7 (yrs old)",
+      value: "5-7 (yrs old)",
+    },
+    {
+      key: "Above 7+ (yrs old)",
+      value: "Above 7+ (yrs old)",
+    },
+  ];
 
   const setProps = (e) => {
-    setSearchItem(prev => ({...prev, [e.target.name] : e.target.value}))
-  }
-
+    setSearchItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   return (
     <InventoryRightContent>
@@ -70,7 +93,12 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
       <FilterItemsContainer>
         <FilterContainer>
           <span>Category</span>
-          <select name="petCategory" id="" value={setSearchItem.petCategory} onChange={setProps}>
+          <select
+            name="petCategory"
+            id=""
+            value={setSearchItem.petCategory}
+            onChange={setProps}
+          >
             <option value="Dog">Dog</option>
             <option value="Cat">Cat</option>
           </select>
@@ -79,8 +107,13 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         <FilterContainer>
           <span>Age</span>
           <select name="ageLimit" id="" onChange={setProps}>
-            <option value="2-4">2-4</option>
-            <option value="5-9">5-9</option>
+            {dropDownAgeGap.map((option) => {
+              return (
+                <option key={option.key} value={option.value}>
+                  {option.key}
+                </option>
+              );
+            })}
           </select>
         </FilterContainer>
 
@@ -119,7 +152,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
       <ProductListContainer>
         {/* products here */}
 
-        {products?.length > 0 ?
+        {products?.length > 0 ? (
           products.map((product, index) => {
             return (
               <ProductItem
@@ -129,8 +162,13 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
                 toast={toast}
               />
             );
-          }) : 
-          <Sign> <img src="/images/emptyCart.png" alt="" /> No Products</Sign>}
+          })
+        ) : (
+          <Sign>
+            {" "}
+            <img src="/images/emptyCart.png" alt="" /> No Products
+          </Sign>
+        )}
       </ProductListContainer>
     </InventoryRightContent>
   );

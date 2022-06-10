@@ -77,6 +77,25 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
       key: "Cat", value: "Cat"
     }
   ]
+
+  const dropDownAgeGap = [
+    {
+      key: "Select age limit", value: ""
+    }, 
+    {
+      key: "1-2 (yrs old)", value: "1-2 (yrs old)"
+    },
+    {
+      key: "2-4 (yrs old)", value: "2-4 (yrs old)"
+    },
+    {
+      key: "5-7 (yrs old)", value: "5-7 (yrs old)"
+    },
+    {
+      key: "Above 7+ (yrs old)", value: "Above 7+ (yrs old)"
+    },
+
+  ]
   return (
     <ModalBackdrop openItem={openItem}>
       <Formik
@@ -152,11 +171,20 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
                 <label htmlFor={"productAgeGap"}>Product Age Dedicated</label>
                 <InputContainer>
                   <Field
-                    type="text"
+                    as="select"
                     name={"productAgeGap"}
                     placeholder="(e.g: 1-2, 3-4, 5,9)"
                     id={"productAgeGap"}
-                  />
+                  >
+                    {dropDownAgeGap.map((option) => {
+                      return (
+                        <option key={option.key} value={option.value}>
+                          {option.key}
+                        </option>
+                      );
+                    })}
+
+                  </Field>
                   <ErrorMessage
                     component={"div"}
                     name={"productAgeGap"}
