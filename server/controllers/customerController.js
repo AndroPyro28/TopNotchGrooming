@@ -5,8 +5,8 @@ const cloudinary = require("../config/cloudinary");
 
 module.exports.signup = async (req, res) => {
   req.body.profile_image_url =
-    "https://res.cloudinary.com/iamprogrammer/image/upload/v1654847894/topnotch_profilepic/nahdzulmxcwfefndjlx3.png";
-  req.body.profile_image_id = "topnotch_profilepic/nahdzulmxcwfefndjlx3";
+    "https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png";
+  req.body.profile_image_id = "topnotch_profilepic/eadlgosq2pioplvi6lfs";
   const customer = new Customer(req.body);
 
   const isExists = await customer.checkIfExistByPhoneEmail();
@@ -83,7 +83,8 @@ module.exports.updateInfo = async (req, res) => {
     if (
       req.body?.profileImg?.length > 0 &&
       req.body?.profileImg?.includes("image") &&
-      req.body.user.profile_image_url?.length > 0
+      req.body.user.profile_image_url?.length > 0 &&
+      req.body?.user.profile_image_id != "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
       const cloudinaryDelete = await cloudinary.uploader.destroy(
         req.body.user.profile_image_id,

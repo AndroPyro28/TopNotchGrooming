@@ -31,6 +31,8 @@ function Profile() {
 
   const updateInfo = async () => {
     try {
+      setAllowChanges(false);
+
       const res = await axios.post(`/api/customer/updateInfo`, {user, profileImg}, {
         headers: {
           userinfo: Cookies.get("userToken"),
@@ -40,15 +42,13 @@ function Profile() {
       const { success, msg } = res.data;
 
       if (success) {
-        dispatch(authenticationSuccess(user, true));
-        return toast(msg, { type: "success" });
+        // dispatch(authenticationSuccess(user, true));
+        // return toast(msg, { type: "success" });
+        return window.location.reload();
       }
-
       return toast(msg, { type: "error" });
     } catch (error) {
       console.log(error.message);
-    } finally {
-      setAllowChanges(false);
     }
   };
   const [profileImg, setProfileImg] = useState(null);
