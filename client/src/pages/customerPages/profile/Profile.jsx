@@ -39,13 +39,16 @@ function Profile() {
         },
       });
 
-      const { success, msg } = res.data;
+      const { success, msg, reset } = res.data;
 
-      if (success) {
-        // dispatch(authenticationSuccess(user, true));
-        // return toast(msg, { type: "success" });
+      if (success && reset) {
         return window.location.reload();
       }
+
+      if(success && !reset) {
+        return toast(msg, { type: "success" });
+      }
+
       return toast(msg, { type: "error" });
     } catch (error) {
       console.log(error.message);

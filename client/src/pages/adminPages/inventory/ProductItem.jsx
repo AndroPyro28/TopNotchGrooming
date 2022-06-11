@@ -25,7 +25,7 @@ function Product({ product, setProducts, toast }) {
     imageDisplay,
     setProducts,
     toast,
-    setDisableUpdate
+    setDisableUpdate,
   });
 
   useEffect(() => {
@@ -43,6 +43,29 @@ function Product({ product, setProducts, toast }) {
       console.error(error.message);
     }
   }, [imageDisplay]);
+
+  const dropDownAgeGap = [
+    {
+      key: "Select age limit",
+      value: "",
+    },
+    {
+      key: "1-2 (yrs old)",
+      value: "1-2",
+    },
+    {
+      key: "2-4 (yrs old)",
+      value: "2-4",
+    },
+    {
+      key: "5-7 (yrs old)",
+      value: "5-7",
+    },
+    {
+      key: "Above 7+ (yrs old)",
+      value: "7+",
+    },
+  ];
 
   return (
     <ProductItem>
@@ -88,6 +111,7 @@ function Product({ product, setProducts, toast }) {
             type={"file"}
             className="imgUploader"
             onChange={(e) => setImageDisplay(e.target.files[0])}
+            disabled={disableUpdate}
           />
 
           {imageDisplay ? (
@@ -95,10 +119,11 @@ function Product({ product, setProducts, toast }) {
           ) : (
             <img src={item?.product_image_url} alt="" class="item__image" />
           )}
-          
+
           {disableUpdate ? (
             <button onClick={() => setDisableUpdate(false)}>Edit</button>
-          ) : (<button onClick={updateProduct} classname="updateBtn">
+          ) : (
+            <button onClick={updateProduct} classname="updateBtn">
               Save
             </button>
           )}
@@ -152,16 +177,24 @@ function Product({ product, setProducts, toast }) {
                   className={
                     disableUpdate ? "fa-solid fa-lock" : "fa-solid fa-lock-open"
                   }
-                ></i>{" "}
+                ></i>
                 &nbsp; Age Limit
               </label>
-              <input
+              <select
                 type="text"
                 value={item?.product_age_limit}
                 name="product_age_limit"
                 onChange={setProps}
                 disabled={disableUpdate}
-              />
+              >
+                {dropDownAgeGap.map((option) => {
+                  return (
+                    <option key={option.key} value={option.value}>
+                      {option.key}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           </InfoRow>
 

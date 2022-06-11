@@ -140,6 +140,23 @@ class Product {
       console.log(error.message)
     }
   };
+
+  selectItemById = async (id) => {
+    // try {
+    //   const selectQuery = `SELECT * FROM products WHERE id = ?`;
+
+    //   const [result, _] = await poolConnection.execute(selectQuery, [id]);
+
+    //   if(result.length > 0) {
+    //     return result[0];
+    //   }
+    //   else {
+    //     return {}
+    //   }
+    // } catch (error) {
+    //   console.error(error.message);
+    // }
+  }
 }
 
 module.exports = Product;

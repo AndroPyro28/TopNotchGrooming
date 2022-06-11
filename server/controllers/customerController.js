@@ -2,6 +2,7 @@ const Customer = require("../models/Customer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
+const ProductDetails = require('../models/ProductDetails');
 
 module.exports.signup = async (req, res) => {
   req.body.profile_image_url =
@@ -80,6 +81,7 @@ module.exports.login = async (req, res) => {
 
 module.exports.updateInfo = async (req, res) => {
   try {
+    let reset = false;
     if (
       req.body?.profileImg?.length > 0 &&
       req.body?.profileImg?.includes("image") &&
@@ -106,6 +108,7 @@ module.exports.updateInfo = async (req, res) => {
       );
       req.body.user.profile_image_url = cloudinaryUpload.url;
       req.body.user.profile_image_id = cloudinaryUpload.public_id;
+      reset = true
     }
 
     const customer = new Customer(req.body.user);
@@ -115,6 +118,7 @@ module.exports.updateInfo = async (req, res) => {
       return res.status(200).json({
         success: true,
         msg: "Profile update successful",
+        reset
       });
     }
 
@@ -130,3 +134,20 @@ module.exports.updateInfo = async (req, res) => {
     });
   }
 };
+
+module.exports.addItemsToCart = async (req, res) => {
+  try {
+    const productDetails = new ProductDetails({
+      product_id: req.body.id,
+      customer_id: req.currentUser.id
+    });
+
+    const result = await productDetails.addItem();
+    console.log(result)
+    return res.status(200).json({
+
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+}

@@ -59,25 +59,26 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
     },
     {
       key: "1-2 (yrs old)",
-      value: "1-2 (yrs old)",
+      value: "1-2",
     },
     {
       key: "2-4 (yrs old)",
-      value: "2-4 (yrs old)",
+      value: "2-4",
     },
     {
       key: "5-7 (yrs old)",
-      value: "5-7 (yrs old)",
+      value: "5-7",
     },
     {
       key: "Above 7+ (yrs old)",
-      value: "Above 7+ (yrs old)",
+      value: "7+",
     },
   ];
 
   const setProps = (e) => {
     setSearchItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
 
   return (
     <InventoryRightContent>
@@ -92,13 +93,14 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
       <ToastContainer autoClose={1500} />
       <FilterItemsContainer>
         <FilterContainer>
-          <span>Category</span>
+          <span>Pet</span>
           <select
             name="petCategory"
             id=""
             value={setSearchItem.petCategory}
             onChange={setProps}
           >
+            <option value="">Select Pet</option>
             <option value="Dog">Dog</option>
             <option value="Cat">Cat</option>
           </select>
@@ -118,8 +120,9 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         </FilterContainer>
 
         <FilterContainer>
-          <span>Item Category</span>
+          <span>Category: </span>
           <select name="itemCategory" id="" onChange={setProps}>
+          <option value="">Select Category</option>
             <option value="Food">Food</option>
             <option value="Toy">Toy</option>
             <option value="Hygiene">Hygiene kit</option>

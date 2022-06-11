@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2022 at 11:12 AM
+-- Generation Time: Jun 11, 2022 at 12:42 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -98,7 +98,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `profile_image_id`, `profile_image_url`, `firstname`, `lastname`, `birthdate`, `email`, `password`, `phoneNo`, `address`) VALUES
-(6, 'topnotch_profilepic/oh60tt59gdc2f8u6mi1x', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654850833/topnotch_profilepic/oh60tt59gdc2f8u6mi1x.jpg', 'firstname', 'lastname', '2000-02-10', 'user1@gmail.com', '$2a$06$0QeR0p9vev9aGIC7kUM/geyd2V1oVnS0E/DHfCAYTgw5jjKMlwP92', '9555551112', 'some address');
+(6, 'topnotch_profilepic/lq8ccclreuyrl7ueyc6b', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654940122/topnotch_profilepic/lq8ccclreuyrl7ueyc6b.jpg', 'Andro', 'Eugenio', '2000-02-10', 'user1@gmail.com', '$2a$06$0QeR0p9vev9aGIC7kUM/geyd2V1oVnS0E/DHfCAYTgw5jjKMlwP92', '9555551112', 'some address'),
+(7, 'topnotch_profilepic/eadlgosq2pioplvi6lfs', 'https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png', 'user2 fname', 'user2 lname', '2000-10-28', 'user2@gmail.com', '$2a$06$gx3EWCE15zpiVQQkhFQC/OhG3AcTbDLo1Jiznc.COBsZSWIFaBQsi', '123123123', 'some address');
 
 -- --------------------------------------------------------
 
@@ -120,13 +121,21 @@ CREATE TABLE `monthly_sales` (
 --
 
 CREATE TABLE `order_details` (
-  `orderID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `order_date` varchar(50) DEFAULT NULL,
   `order_status` varchar(50) DEFAULT NULL,
   `total_amount` bigint(20) DEFAULT NULL,
   `payment_type` varchar(100) DEFAULT NULL,
-  `monthlyID` int(11) DEFAULT NULL
+  `monthly_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `customer_id`, `order_date`, `order_status`, `total_amount`, `payment_type`, `monthly_id`) VALUES
+(1, 6, 'sdasda', 'sdadsadsa', 123, 'dsadsasdadsa', NULL);
 
 -- --------------------------------------------------------
 
@@ -163,15 +172,23 @@ INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_descript
 --
 
 CREATE TABLE `product_details` (
-  `productDetail` int(11) NOT NULL,
-  `productID` int(11) DEFAULT NULL,
-  `orderID` int(11) DEFAULT NULL,
-  `product_name` varchar(50) DEFAULT NULL,
-  `product_quantity` bigint(20) DEFAULT NULL,
-  `product_description` varchar(50) DEFAULT NULL,
-  `product_category` varchar(50) DEFAULT NULL,
-  `product_age_limit` varchar(50) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) NOT NULL,
+  `quantity` bigint(20) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product_details`
+--
+
+INSERT INTO `product_details` (`id`, `product_id`, `order_id`, `customer_id`, `quantity`, `is_active`) VALUES
+(9, 12, NULL, 6, 4, 1),
+(10, 13, NULL, 6, 2, 1),
+(11, 12, NULL, 7, 5, 1),
+(12, 13, NULL, 7, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -226,8 +243,9 @@ ALTER TABLE `monthly_sales`
 -- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`orderID`),
-  ADD KEY `monthlyID` (`monthlyID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `monthlyID` (`monthly_id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `products`
@@ -239,9 +257,10 @@ ALTER TABLE `products`
 -- Indexes for table `product_details`
 --
 ALTER TABLE `product_details`
-  ADD PRIMARY KEY (`productDetail`),
-  ADD KEY `orderID` (`orderID`),
-  ADD KEY `productID` (`productID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orderID` (`order_id`),
+  ADD KEY `productID` (`product_id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `yearly_sales`
@@ -275,7 +294,7 @@ ALTER TABLE `appointment_history`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `monthly_sales`
@@ -287,7 +306,7 @@ ALTER TABLE `monthly_sales`
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -299,7 +318,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `productDetail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `yearly_sales`
@@ -333,14 +352,16 @@ ALTER TABLE `monthly_sales`
 -- Constraints for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`monthlyID`) REFERENCES `monthly_sales` (`monthlyID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`monthly_id`) REFERENCES `monthly_sales` (`monthlyID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_details`
 --
 ALTER TABLE `product_details`
-  ADD CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `order_details` (`orderID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `product_details_ibfk_2` FOREIGN KEY (`productID`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_details_ibfk_3` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
