@@ -123,7 +123,6 @@ export const ProductsWrapper = styled.div`
     width: 100%;
     margin-top: 80px;
     position: relative;
-
     & > h1 {
         
         color: rgb(141,124,87);
@@ -141,7 +140,8 @@ export const ProductsWrapper = styled.div`
         bottom: 0;
         width: fit-content;
         height: fit-content;
-        padding: 15px 20px ;
+        margin: auto 0;
+        padding: 15px ;
         border-radius: 50%;
         background: rgb(216, 216, 216);
         cursor: pointer;
@@ -164,7 +164,7 @@ export const ProductsWrapper = styled.div`
 
 export const ProductsContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: auto;
     grid-gap: 20px;
     position: relative;
@@ -181,6 +181,10 @@ export const ProductItem = styled.div`
     justify-content: center;
     overflow: hidden;
     margin-bottom: 30px;
+    padding: 20px;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+
     & > .add__to__cart {
         border-radius: 10px;
     border: solid 1px black;
@@ -188,7 +192,7 @@ export const ProductItem = styled.div`
     color: black;
     padding: 5px 10px;
     cursor: pointer;
-    transition: all .2s ease-in-out;
+    transition: all .3s ease-in-out;
 
     &:hover {
         background: gray;
@@ -201,10 +205,14 @@ export const ProductItem = styled.div`
     background: black !important;
     }
     }
+
+    &:hover {
+        box-shadow: 1px 3px 5px gray;
+    }
 `
 export const ProductItemImg = styled.img`
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
     object-fit: contain;
     object-position: center;
     border-radius: 20px;
@@ -213,17 +221,76 @@ export const ProductItemImg = styled.img`
 export const ProductItemName = styled.h3`
     font-size: 15px;
     color: rgb(54, 54, 54);
-    margin: 5px;
     text-transform: capitalize;
+    margin: 10px;
 `
 
 export const ProductItemPrice = styled.h4`
     font-size: 15px;
     color: rgb(94, 94, 94);
-    margin: 5px;
+    margin: 10px;
 `
 
 export const ProductItemDescription = styled.p`
     color: gray;
     font-size: 0.9em;
+    margin: 10px;
+`
+
+export const FilterProductContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0px 100px 0px;
+`
+
+export const Filter = styled.div`
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px gray;
+    margin-inline: 10px;
+    align-items: center;
+
+    & > span {
+        font-size: 0.9em;
+    }
+    & > select {
+
+        border-radius: 1px;
+        border: none;
+        text-align: center;
+        font-size: 0.8em;
+        background: none;
+        outline: none;
+        color: gray;
+    }
+
+    & > input {
+        border: none;
+        font-size: 0.8em;
+        background: none;
+        outline: none;
+        color: gray;
+    }
+
+    & > i {
+        color: gray;
+    }
+
+    & > input[type="text"] {
+        height: 100%;
+        margin: 0px 10px 0px 10px;
+    }
+
+`
+
+export const FilterContainer = styled.div`
+    display: flex;
+    align-items: center;
+
+    & > .productRefreshBtn {
+        font-size: 1.5em;
+        margin: 10px;
+        cursor: pointer;
+    }
 `

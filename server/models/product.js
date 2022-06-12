@@ -128,8 +128,7 @@ class Product {
       product_name LIKE ? AND
       pet_type LIKE ? AND
       product_age_limit LIKE ? AND
-      product_category LIKE ?
-      LIMIT 5`;
+      product_category LIKE ?`;
 
       const [result, _] = await poolConnection.execute(selectQuery, 
         [`%${itemName}%`, `%${petCategory}%`, `%${ageLimit}%`, `%${itemCategory}%`]

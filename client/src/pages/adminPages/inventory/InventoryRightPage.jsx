@@ -24,7 +24,6 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
     (async () => {
       const { petCategory, itemCategory, ageLimit, itemName } = searchItem;
       if (!petCategory && !itemCategory && !ageLimit && !itemName) {
-        console.log("not search");
 
         const res = await axios.get("/api/products/getAllItems", {
           headers: {
@@ -34,7 +33,6 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         const { products } = res.data;
         setProducts(products);
       } else {
-        console.log("search");
         const res = await axios.post("/api/products/searchItems", searchItem, {
           headers: {
             userinfo: Cookies.get("userToken"),

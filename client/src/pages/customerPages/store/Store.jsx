@@ -11,39 +11,94 @@ import {
   ProductsContainer,
   Content,
   CircleBackground,
+  FilterProductContainer,
+  Filter,
+  FilterContainer,
 } from "./storeComponents";
 
 import axios from "axios";
 import Cookies from "js-cookie";
-
+import storeLogic from "./storeLogic";
 function Store() {
-  const [testProduct] = useState({
-    productImg: "/images/puppy-food2.png",
-    productName: "Pedigree Daily Food And Chicken",
-    productDesc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    productPrice: "150.99",
+  const [activeFilter, setActiveFilter] = useState({
+    petCategory: "",
+    ageLimit: "",
+    itemCategory: "",
+    itemName: "",
   });
 
-  const [activeFilter, setActiveFilter] = useState("");
-  const switchFilter = (e) => {
-    const { id } = e.target;
-
-    setActiveFilter(id);
-  };
+  const { setProps } = storeLogic({ setActiveFilter });
 
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get("/api/products/getAllItems", {
-        headers: {
-          userinfo: Cookies.get("userToken"),
-        },
-      });
-      const { products } = res.data;
-      setProducts(products);
+      try {
+        const { petCategory, ageLimit, ItemCategory, itemName } = activeFilter;
+        if (!petCategory && !ageLimit && !ItemCategory && !itemName) {
+          const res = await axios.get("/api/products/getAllItems", {
+            headers: {
+              userinfo: Cookies.get("userToken"),
+            },
+          });
+          const { products } = res.data;
+          setProducts(products);
+        } else {
+          const res = await axios.post(
+            "/api/products/searchItems",
+            activeFilter,
+            {
+              headers: {
+                userinfo: Cookies.get("userToken"),
+              },
+            }
+          );
+
+          const { success, products } = res.data;
+          setProducts(products);
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
     })();
-  }, []);
+  }, [
+    activeFilter.petCategory,
+    activeFilter.itemName,
+    activeFilter.ageLimit,
+    activeFilter.itemCategory,
+  ]);
+
+  const dropDownItemCategory = [
+    { key: "Select Category", value: "" },
+    { key: "Food", value: "Food" },
+    { key: "Toy", value: "Toy" },
+    { key: "Hygiene", value: "Hygiene" },
+    { key: "Utility", value: "Utility" },
+  ];
+
+  const dropDownAgeGap = [
+    {
+      key: "Select age limit",
+      value: "",
+    },
+    {
+      key: "1-2 (yrs old)",
+      value: "1-2",
+    },
+    {
+      key: "2-4 (yrs old)",
+      value: "2-4",
+    },
+    {
+      key: "5-7 (yrs old)",
+      value: "5-7",
+    },
+    {
+      key: "Above 7+ (yrs old)",
+      value: "7+",
+    },
+  ];
+
   return (
     <StorePageContainer>
       <Banner>
@@ -59,9 +114,11 @@ function Store() {
         <h1> W e &nbsp; D e a l &nbsp; I n</h1>
         <PetFilterContainer>
           <PetContainer
-            active={activeFilter.toLowerCase() === "dog"}
+            active={activeFilter.petCategory.toLowerCase() === "dog"}
             id="Dog"
-            onClick={switchFilter}
+            onClick={(e) =>
+              setActiveFilter((prev) => ({ ...prev, petCategory: prev.petCategory === e.target.id ? "" : e.target.id}))
+            }
           >
             <CircleBackground id="dog" />
             <img src="/images/dog7.png" id="dog" />
@@ -70,9 +127,11 @@ function Store() {
           </PetContainer>
 
           <PetContainer
-            active={activeFilter.toLowerCase() === "cat"}
+            active={activeFilter.petCategory.toLowerCase() === "cat"}
             id="cat"
-            onClick={switchFilter}
+            onClick={(e) =>
+              setActiveFilter((prev) => ({ ...prev, petCategory: e.target.id }))
+            }
           >
             <CircleBackground id="cat" />
             <img src="/images/cat1.png" id="cat" />
@@ -87,16 +146,64 @@ function Store() {
         <h1>P r o d u c t s</h1>
         <i class="fa-solid fa-chevron-left left"></i>
         <i class="fa-solid fa-chevron-right right"></i>
+
+        <FilterProductContainer>
+          <FilterContainer>
+          <Filter>
+            <i className="fa-solid fa-magnifying-glass"></i>{" "}
+            <input
+              type={"text"}
+              onChange={setProps}
+              name="itemName"
+              value={activeFilter.itemName}
+              placeholder="Search item by name"
+            />
+          </Filter>
+          <i class="fa-solid fa-rotate productRefreshBtn"></i>
+          </FilterContainer>
+          
+
+          <FilterContainer>
+            <Filter>
+              <span>Category: &nbsp;</span>
+              <select
+                name="itemCategory"
+                value={activeFilter.itemCategory}
+                onChange={setProps}
+              >
+                {dropDownItemCategory.map((option) => {
+                  return (
+                    <option key={option.key} value={option.value}>
+                      {option.key}
+                    </option>
+                  );
+                })}
+              </select>
+            </Filter>
+
+            <Filter>
+              <span>Age:&nbsp;</span>
+              <select
+                name="ageLimit"
+                id=""
+                value={activeFilter.ageLimit}
+                onChange={setProps}
+              >
+                {dropDownAgeGap.map((option) => {
+                  return (
+                    <option key={option.key} value={option.value}>
+                      {" "}
+                      {option.key}{" "}
+                    </option>
+                  );
+                })}
+              </select>
+            </Filter>
+          </FilterContainer>
+        </FilterProductContainer>
+
         <ProductsContainer>
           {/* products here */}
-
-          {/* <Product product={testProduct}/>
-          <Product product={testProduct}/>
-          <Product product={testProduct}/>
-          <Product product={testProduct}/>
-          <Product product={testProduct}/>
-          <Product product={testProduct}/>
-          <Product product={testProduct}/> */}
 
           {products?.length > 0 ? (
             products?.map((product, index) => {
@@ -107,6 +214,7 @@ function Store() {
               <img src="/images/emptyCart.png" alt="" /> No Products
             </Sign>
           )}
+          
         </ProductsContainer>
 
         <div class="pageNumber">
