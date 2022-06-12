@@ -16,6 +16,11 @@ function inventoryLogic({ toast, img, imgError, setOpenItem, setImgError, setPro
     });
 
     const { msg, success, newProduct } = res.data;
+
+    if(msg?.includes('session expired') && !success) {
+      toast(msg, { type: "error" });
+      return window.location.reload();
+    }
     
     if (!success) {
       return toast(msg, { type: "error" });

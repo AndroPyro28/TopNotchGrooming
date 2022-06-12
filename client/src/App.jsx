@@ -27,6 +27,7 @@ import AdminSidebar from "./components/admin_sidebar/AdminSidebar";
 import Inventory from "./pages/adminPages/inventory/Inventory";
 import CustomerRoutes from "./authentication/CustomerRoutes";
 import AdminRoutes from "./authentication/AdminRoutes";
+import Loader from "./components/loader/Loader";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -80,7 +81,7 @@ function App() {
     });
   }, []);
 
-  if (loading) return <h1>loading...</h1>;
+  if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
 
   return (
     <AppRoot>

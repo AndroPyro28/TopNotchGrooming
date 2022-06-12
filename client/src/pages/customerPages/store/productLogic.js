@@ -12,7 +12,13 @@ function productLogic() {
                     userinfo: Cookies.get('userToken')
                 }
             })
-            console.log(res.data)
+
+            const {msg, success} = res.data;
+            
+            if(msg?.includes('session expired') && !success) {
+                return window.location.reload();
+              }
+              
         } catch (error) {
             console.error(error.message)
         }

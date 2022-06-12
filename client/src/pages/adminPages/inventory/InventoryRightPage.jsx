@@ -30,7 +30,14 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
             userinfo: Cookies.get("userToken"),
           },
         });
-        const { products } = res.data;
+        
+        const { products, msg, success } = res.data;
+
+        if(msg?.includes('session expired') && !success) {
+          toast(msg, { type: "error" });
+          return window.location.reload();
+        }
+
         setProducts(products);
       } else {
         const res = await axios.post("/api/products/searchItems", searchItem, {
@@ -39,7 +46,11 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           },
         });
 
-        const { success, products } = res.data;
+        const { success, products, msg } = res.data;
+        if(msg?.includes('session expired') && !success) {
+          toast(msg, { type: "error" });
+          return window.location.reload();
+        }
         setProducts(products);
       }
     })();

@@ -16,6 +16,9 @@ import {
   FilterContainer,
 } from "./storeComponents";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import axios from "axios";
 import Cookies from "js-cookie";
 import storeLogic from "./storeLogic";
@@ -41,7 +44,13 @@ function Store() {
               userinfo: Cookies.get("userToken"),
             },
           });
-          const { products } = res.data;
+          const { products, success, msg} = res.data;
+
+          if(msg?.includes('session expired') && !success) {
+            toast(msg, { type: "error" });
+            return window.location.reload();
+          }
+
           setProducts(products);
         } else {
           const res = await axios.post(
@@ -54,7 +63,12 @@ function Store() {
             }
           );
 
-          const { success, products } = res.data;
+          const { success, products, msg } = res.data;
+
+          if(msg?.includes('session expired') && !success) {
+            toast(msg, { type: "error" });
+            return window.location.reload();
+          }
           setProducts(products);
         }
       } catch (error) {
@@ -102,6 +116,7 @@ function Store() {
   return (
     <StorePageContainer>
       <Banner>
+        <ToastContainer autoClose />
         <Content>
           <h1>
             W e &nbsp; p r o v i d e &nbsp; w h a t &nbsp; y o u &nbsp; n e e d

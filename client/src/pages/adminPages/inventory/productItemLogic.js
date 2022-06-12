@@ -12,6 +12,11 @@ function productItemLogic({ setProducts, item, setItem, imageDisplay, toast, set
 
       const { success, msg } = res.data;
 
+      if(msg?.includes('session expired') && !success) {
+        toast(msg, { type: "error" });
+        return window.location.reload();
+      }
+
       if (success) {
         setProducts((prev) => prev.filter((product) => product.id != id));
         return toast(msg, {type: "success"})
@@ -40,6 +45,11 @@ function productItemLogic({ setProducts, item, setItem, imageDisplay, toast, set
         }
       );
       const { success, msg } = res.data;
+
+      if(msg?.includes('session expired') && !success) {
+        toast(msg, { type: "error" });
+        return window.location.reload();
+      }
 
       if (success) {
         return toast(msg, {type: "success"})

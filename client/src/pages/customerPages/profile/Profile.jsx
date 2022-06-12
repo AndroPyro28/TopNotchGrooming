@@ -12,10 +12,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { authenticationSuccess } from "../../../redux/actions/user";
+import Loader from "../../../components/loader/Loader";
 
 function Profile() {
   const { currentUser } = useSelector((state) => state.userReducer);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,7 +34,7 @@ function Profile() {
   const updateInfo = async () => {
     try {
       setAllowChanges(false);
-
+      setLoading(true)
       const res = await axios.post(`/api/customer/updateInfo`, {user, profileImg}, {
         headers: {
           userinfo: Cookies.get("userToken"),
@@ -40,6 +42,11 @@ function Profile() {
       });
 
       const { success, msg, reset } = res.data;
+
+      if(msg?.includes('session expired') && !success) {
+        toast(msg, { type: "error" });
+        return window.location.reload();
+      }
 
       if (success && reset) {
         return window.location.reload();
@@ -52,6 +59,9 @@ function Profile() {
       return toast(msg, { type: "error" });
     } catch (error) {
       console.log(error.message);
+    }
+    finally {
+      setLoading(false)
     }
   };
   const [profileImg, setProfileImg] = useState(null);
@@ -73,7 +83,10 @@ function Profile() {
     }
   }, [profileImg]);
   return (
-    <ProfilePageContainer>
+   <ProfilePageContainer>
+     {
+      loading &&  <Loader bg="rgba(0,0,0,0.5)"/>
+    }
       <ToastContainer autoClose={1500} />
       {allowChanges && (
         <i className="fa-solid fa-floppy-disk" onClick={updateInfo}></i>
