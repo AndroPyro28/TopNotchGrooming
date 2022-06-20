@@ -133,7 +133,6 @@ class Product {
       const [result, _] = await poolConnection.execute(selectQuery, 
         [`%${itemName}%`, `%${petCategory}%`, `%${ageLimit}%`, `%${itemCategory}%`]
         );
-        
         return result;
     } catch (error) {
       console.log(error.message)

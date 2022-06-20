@@ -36,6 +36,7 @@ function Store() {
 
   useEffect(() => {
     (async () => {
+      setProducts([])
       try {
         const { petCategory, ageLimit, ItemCategory, itemName } = activeFilter;
         if (!petCategory && !ageLimit && !ItemCategory && !itemName) {

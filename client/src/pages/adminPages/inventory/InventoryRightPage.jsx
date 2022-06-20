@@ -22,6 +22,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
 
   useEffect(() => {
     (async () => {
+      setProducts([])
       const { petCategory, itemCategory, ageLimit, itemName } = searchItem;
       if (!petCategory && !itemCategory && !ageLimit && !itemName) {
 
@@ -47,6 +48,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         });
 
         const { success, products, msg } = res.data;
+
         if(msg?.includes('session expired') && !success) {
           toast(msg, { type: "error" });
           return window.location.reload();

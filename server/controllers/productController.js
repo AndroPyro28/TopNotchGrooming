@@ -131,7 +131,6 @@ module.exports.updateItem = async (req, res) => {
 
 module.exports.searchItems = async (req, res) => {
   const {petCategory, ageLimit, itemCategory, itemName} = req.body;
-
   try {
     const product = new Product({});
 

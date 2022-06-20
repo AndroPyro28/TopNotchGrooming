@@ -83,7 +83,7 @@ function Product({ product, setProducts, toast }) {
           {item?.product_category}
         </T_DATA>
         <T_DATA className="table__productAge">
-          {item?.product_age_limit}{" "}
+          {item?.product_age_limit}
         </T_DATA>
         <T_DATA className="table__productPrice">{item?.product_price}</T_DATA>
         <T_DATA className="table__productStock"> {item?.product_stocks}</T_DATA>
