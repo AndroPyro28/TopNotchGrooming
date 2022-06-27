@@ -143,7 +143,6 @@ module.exports.addItemsToCart = async (req, res) => {
     });
 
     const result = await productDetails.addItem();
-    console.log(result)
     return res.status(200).json({
       
     })

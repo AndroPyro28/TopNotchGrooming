@@ -19,7 +19,7 @@ import Profile from "./pages/customerPages/profile/Profile";
 import Personal from "./pages/customerPages/profile/Personal.jsx";
 import Activities from "./pages/customerPages/profile/Activities.jsx";
 import { useDispatch, useSelector } from 'react-redux'
-import { authenticationFailed, authenticationSuccess } from "./redux/actions/user";
+import { authenticationFailed, authenticationSuccess } from "./redux/userSlice";
 import { AppRoot } from "./appComponents";
 import Store from "./pages/customerPages/store/Store";
 import AdminLogin from "./pages/publicPages/admin_login/AdminLogin";
@@ -70,7 +70,7 @@ function App() {
 
           if (success) {
             const { currentUser } = res.data;
-            dispatch(authenticationSuccess(currentUser, true))
+            dispatch(authenticationSuccess({currentUser, isAuth:true}))
           }
         } catch (error) {
           console.error(error);

@@ -11,7 +11,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { authenticationSuccess } from "../../../redux/actions/user";
 import Loader from "../../../components/loader/Loader";
 
 function Profile() {
@@ -20,6 +19,7 @@ function Profile() {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     setUser(currentUser);
   }, [currentUser]);
