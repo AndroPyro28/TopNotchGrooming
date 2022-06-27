@@ -11,7 +11,7 @@ import {
 import Cookies from "js-cookie";
 import { Link, NavLink } from "react-router-dom";
 import {useSelector} from "react-redux";
-
+import shopingCartLogic from "../cartComponents/logic/shopingCartLogic";
 
 function CustomerNavbar() {
   const navLinkStyles = ({ isActive }) => {
@@ -19,7 +19,6 @@ function CustomerNavbar() {
       borderBottom: isActive ? "solid 2px gray" : "",
     };
   };
-
   const handleLogout = () => {
     Cookies.remove("userToken");
     window.location.reload();
@@ -28,10 +27,18 @@ function CustomerNavbar() {
 const {currentUser} = useSelector((state) => state.userReducer)
 
   const [openDropdown, setOpenDropdown] = useState(false);
+  const {fetcher} = shopingCartLogic()
+  const [nocartItems, setNoCartItems] = useState(0)
+  
 
   useEffect(() => {
+    (async () => {
+      const itemLength = await fetcher();
+      setNoCartItems(itemLength?.length)
+    })()
+  }, [])
 
-  }, [currentUser])
+  
 
   return (
     <CustomerNavbarContainer>
@@ -53,7 +60,7 @@ const {currentUser} = useSelector((state) => state.userReducer)
           <Link to="/customer/cart">
             <button>
               <i class="fa-solid fa-cart-shopping"></i> &nbsp; Cart &nbsp;
-              <span class="cart__number__item">5</span>
+              <span class="cart__number__item">{nocartItems}</span>
             </button>
           </Link>
           <Link to="/customer/profile">
@@ -70,7 +77,7 @@ const {currentUser} = useSelector((state) => state.userReducer)
             
           </DropDown>
          
-        </InfoAndCart>
+        </InfoAndCart >
       </TopNavbar>
 
       <BotNavbar>
