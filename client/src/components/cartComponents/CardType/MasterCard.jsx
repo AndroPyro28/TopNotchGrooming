@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   CardInput,
   CartInputContainer,
@@ -6,8 +6,16 @@ import {
   CheckOutDetails,
   CheckOutButton,
 } from "../../../pages/customerPages/cart/cartComponents";
+import shopingCartLogic from "../logic/shopingCartLogic";
 
-function MasterCard() {
+function MasterCard({items}) {
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const {calculateTotalAmount} = shopingCartLogic()
+
+  useEffect(() => {
+    setTotalAmount(calculateTotalAmount(items))
+  }, [items])
   return (
     <>
       <CardInput>
@@ -79,22 +87,22 @@ function MasterCard() {
       <CheckoutDetailsContainer>
         <CheckOutDetails>
           <span class="leftDetails">Subtotal</span>
-          <span class="rightDetails subtotalPrice">₱ 0.00</span>
+          <span class="rightDetails subtotalPrice">₱ {totalAmount}</span>
         </CheckOutDetails>
 
         <CheckOutDetails>
           <span class="leftDetails">Shipping</span>
-          <span class="rightDetails shippingPrice">₱ 0.00</span>
+          <span class="rightDetails shippingPrice">₱ {totalAmount * 0.01}</span>
         </CheckOutDetails>
 
         <CheckOutDetails>
           <span class="leftDetails">Total</span>
-          <span class="rightDetails totalAmount">₱ 0.00</span>
+          <span class="rightDetails totalAmount">₱ {(totalAmount * 0.01) + totalAmount} </span>
         </CheckOutDetails>
       </CheckoutDetailsContainer>
 
       <CheckOutButton>
-        <span class="check__out__price">₱ 0.00</span>
+        <span class="check__out__price">₱ {(totalAmount * 0.01) + totalAmount}</span>
         <span class="check__out__proceed">
           Checkout <i class="fa-solid fa-arrow-right"></i>
         </span>

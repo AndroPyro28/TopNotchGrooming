@@ -6,12 +6,11 @@ import {
 import MasterCard from "./CardType/MasterCard";
 import MasterCardInputs from "./CardType/MasterCard";
 import Paypal from "./CardType/Paypal";
-function CardDetails() {
+function CardDetails({items, setItems}) {
   const [cartType, setCardType] = useState("");
 
   const pickCardType = (cardType) => {
     setCardType(cardType);
-    console.log(cardType);
   };
 
   return (
@@ -51,9 +50,10 @@ function CardDetails() {
         </div>
       </CartTypeContainer>
 
-      {cartType === "paypal" && <Paypal />}
+      {cartType === "paypal" && <Paypal items={items}/>}
 
-      {cartType === "mastercard" && <MasterCard />}
+      {cartType === "mastercard" && <MasterCard items={items}/>}
+
     </CartDetailsContainer>
   );
 }

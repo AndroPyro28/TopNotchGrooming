@@ -4,20 +4,10 @@ import {
   ShoppingCartDetails,
   ProductListContainer,
 } from "../../pages/customerPages/cart/cartComponents";
-import shopingCartLogic from "./logic/shopingCartLogic";
 import ProductItem from "./ProductItem";
 
-function ShoppingCart() {
-  const { fetcher } = shopingCartLogic();
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    setItems([]);
-
-    (async () => {
-      setItems(await fetcher());
-    })();
-  }, []);
+function ShoppingCart({items, setItems}) {
+  
 
   return (
     <ShoppingCartContainer>
@@ -26,13 +16,13 @@ function ShoppingCart() {
       </h2>
 
       <ShoppingCartDetails>
-        <small>You have 4 items in your cart</small>
+        <small>You have {items?.length} items in your cart</small>
         <small>**</small>
       </ShoppingCartDetails>
 
       <ProductListContainer>
-        {items.length > 0 ? (
-          items.map((product) => (
+        {items?.length > 0 ? (
+          items?.map((product) => (
             <ProductItem key={product.id} product={product} />
           ))
         ) : (

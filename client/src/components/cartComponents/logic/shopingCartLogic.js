@@ -19,8 +19,13 @@ function shopingCartLogic() {
         }
     }
 
+    const calculateTotalAmount = (items) => {
+        return items.reduce((total, item) => (item.quantity * item.product_price ) + total, 0)
+      }
+
   return {
-    fetcher
+    fetcher,
+    calculateTotalAmount
   }
 }
 
