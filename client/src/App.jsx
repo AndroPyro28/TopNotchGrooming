@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/publicPages/index/Index";
-import Home from "./pages/customerPages/homepage/Home";
+import Home from "./pages/customerPages/home/Home";
 import Dashboard from "./pages/adminPages/dashboard/Dashboard";
 import PublicNavbar from "./components/public_navbar/PublicNavbar";
 import Footer from "./components/footer/Footer";
@@ -28,6 +28,7 @@ import Inventory from "./pages/adminPages/inventory/Inventory";
 import CustomerRoutes from "./authentication/CustomerRoutes";
 import AdminRoutes from "./authentication/AdminRoutes";
 import Loader from "./components/loader/Loader";
+import Cart from "./pages/customerPages/cart/Cart";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -127,6 +128,7 @@ function App() {
         </Route>
 
         <Route path="/customer/store" element={<CustomerRoutes Component={<Store />} />} />
+        <Route path="/customer/cart" element={<CustomerRoutes Component={<Cart />} />} />
 
         {/* admin routes */}
         <Route path="/admin" element={<AdminRoutes Component={<Dashboard />} />} />

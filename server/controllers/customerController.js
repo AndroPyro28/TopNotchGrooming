@@ -150,3 +150,28 @@ module.exports.addItemsToCart = async (req, res) => {
     console.error(error.message)
   }
 }
+
+module.exports.getItemsIncart = async (req, res) => {
+  try {
+    const {id} = req.currentUser;
+    const productDetails = new ProductDetails({customer_id: id});
+    const cartItems = await productDetails.getItems()
+
+    if(!cartItems) {
+      return res.status(200).json({
+        msg:"No products in cart yet",
+        success: true,
+        notFound:true
+      })
+    }
+
+    return res.status(200).json({
+      items:cartItems,
+      success: true,
+      notFound:false
+    })
+
+  } catch (error) {
+    console.error(error.message)
+  }
+}
