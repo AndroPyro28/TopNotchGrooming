@@ -14,7 +14,10 @@ function Paypal({items}) {
 
   return (
     <div style={{marginBlock:50}}>
-    <PayPalScriptProvider>
+    <PayPalScriptProvider options={{
+      "client-id": "AauSqmwmXlqH208Cq4ZTGo5beG8jl3zf2enkD2n-XjbtAkMqn-mv7-Aeue8ZvkQ8TFmhksQ-t670qDEy",
+      
+      }}>
         <PayPalButtons
           createOrder={(data, actions) => {
             return actions.order.create({

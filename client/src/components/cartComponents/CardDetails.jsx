@@ -7,7 +7,7 @@ import MasterCard from "./CardType/MasterCard";
 import MasterCardInputs from "./CardType/MasterCard";
 import Paypal from "./CardType/Paypal";
 function CardDetails({items, setItems}) {
-  const [cartType, setCardType] = useState("");
+  const [cartType, setCardType] = useState("mastercard");
 
   const pickCardType = (cardType) => {
     setCardType(cardType);
