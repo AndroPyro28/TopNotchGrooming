@@ -10,12 +10,12 @@ function Paypal({items}) {
       const total = (calculateTotalAmount(items) * 0.01 + calculateTotalAmount(items)) / 55;
       setTotalAmount(total.toFixed(2))
     })()
-  }, [items])
-
+  }, [items]);
+  
   return (
     <div style={{marginBlock:50}}>
     <PayPalScriptProvider options={{
-      "client-id": "AauSqmwmXlqH208Cq4ZTGo5beG8jl3zf2enkD2n-XjbtAkMqn-mv7-Aeue8ZvkQ8TFmhksQ-t670qDEy",
+      "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
       
       }}>
         <PayPalButtons

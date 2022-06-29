@@ -29,6 +29,8 @@ import CustomerRoutes from "./authentication/CustomerRoutes";
 import AdminRoutes from "./authentication/AdminRoutes";
 import Loader from "./components/loader/Loader";
 import Cart from "./pages/customerPages/cart/Cart";
+import PaymentSuccess from "./pages/customerPages/payment/PaymentSuccess";
+import PaymentFailed from "./pages/customerPages/payment/PaymentFailed";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -129,6 +131,8 @@ function App() {
 
         <Route path="/customer/store" element={<CustomerRoutes Component={<Store />} />} />
         <Route path="/customer/cart" element={<CustomerRoutes Component={<Cart />} />} />
+        <Route path="/customer/payment=success" element={<CustomerRoutes Component={<PaymentSuccess />} />} />
+        <Route path="/customer/payment=failed" element={<CustomerRoutes Component={<PaymentFailed />} />} />
 
         {/* admin routes */}
         <Route path="/admin" element={<AdminRoutes Component={<Dashboard />} />} />

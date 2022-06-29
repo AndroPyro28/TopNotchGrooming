@@ -3,10 +3,13 @@ import {
   CartDetailsContainer,
   CartTypeContainer,
 } from "../../pages/customerPages/cart/cartComponents";
-import MasterCard from "./CardType/MasterCard";
-import MasterCardInputs from "./CardType/MasterCard";
-import Paypal from "./CardType/Paypal";
-function CardDetails({items, setItems}) {
+import Gcash from "./PaymentType/Gcash";
+import MasterCard from "./PaymentType/MasterCard";
+import Paypal from "./PaymentType/Paypal";
+
+
+function CardDetails({ items, setItems }) {
+
   const [cartType, setCardType] = useState("mastercard");
 
   const pickCardType = (cardType) => {
@@ -15,10 +18,10 @@ function CardDetails({items, setItems}) {
 
   return (
     <CartDetailsContainer>
-      <h2>Card Details</h2>
+      <h2>Payment</h2>
 
       <CartTypeContainer>
-        <h4>Cart Type</h4>
+        <h4>Choose your prefered payment method</h4>
 
         <div className="card__type">
           <div
@@ -31,12 +34,10 @@ function CardDetails({items, setItems}) {
           </div>
 
           <div
-            className={
-              cartType === "visa" ? `card activeCardPayment` : "card"
-            }
-            onClick={() => pickCardType("visa")}
+            className={cartType === "gcash" ? `card activeCardPayment` : "card"}
+            onClick={() => pickCardType("gcash")}
           >
-            <img src="/images/imgbin_visa-png.png" />
+            <img src="/images/gcash.png" />
           </div>
 
           <div
@@ -50,10 +51,11 @@ function CardDetails({items, setItems}) {
         </div>
       </CartTypeContainer>
 
-      {cartType === "paypal" && <Paypal items={items}/>}
+      {cartType === "paypal" && <Paypal items={items} />}
 
-      {cartType === "mastercard" && <MasterCard items={items}/>}
+      {cartType === "mastercard" && <MasterCard items={items} />}
 
+      {cartType === "gcash" && <Gcash items={items} />}
     </CartDetailsContainer>
   );
 }

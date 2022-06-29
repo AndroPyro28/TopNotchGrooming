@@ -60,7 +60,7 @@ const {currentUser} = useSelector((state) => state.userReducer)
           <Link to="/customer/cart">
             <button>
               <i class="fa-solid fa-cart-shopping"></i> &nbsp; Cart &nbsp;
-              <span class="cart__number__item">{nocartItems}</span>
+              <span class="cart__number__item">{nocartItems > 0 ? nocartItems : 0}</span>
             </button>
           </Link>
           <Link to="/customer/profile">

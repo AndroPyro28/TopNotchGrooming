@@ -13,7 +13,7 @@ import {
 import {motion} from "framer-motion";
 
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiYW5kcm9weXJvMjgiLCJhIjoiY2wyOXlxcWJ2MDBhYzNjczV6dGp2OGx3MiJ9.A8TYyGaDsKLqwqtyy5XjVA";
+  process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 function Contact() {
   const mapContainer = useRef(null);

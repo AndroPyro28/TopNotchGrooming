@@ -39,6 +39,7 @@ function Store() {
       setProducts([])
       try {
         const { petCategory, ageLimit, ItemCategory, itemName } = activeFilter;
+        console.log(activeFilter);
         if (!petCategory && !ageLimit && !ItemCategory && !itemName) {
           const res = await axios.get("/api/products/getAllItems", {
             headers: {
