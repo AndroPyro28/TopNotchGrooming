@@ -8,14 +8,14 @@ import {
 } from "../../../pages/customerPages/cart/cartComponents";
 import shopingCartLogic from "../logic/shopingCartLogic";
 
-function MasterCard({items}) {
+function MasterCard({ items }) {
   const [totalAmount, setTotalAmount] = useState(0);
 
-  const {calculateTotalAmount} = shopingCartLogic()
+  const { calculateTotalAmount, productPriceFormatter } = shopingCartLogic();
 
   useEffect(() => {
-    setTotalAmount(calculateTotalAmount(items))
-  }, [items])
+    setTotalAmount(calculateTotalAmount(items));
+  }, [items]);
   return (
     <>
       <CardInput>
@@ -87,22 +87,30 @@ function MasterCard({items}) {
       <CheckoutDetailsContainer>
         <CheckOutDetails>
           <span class="leftDetails">Subtotal</span>
-          <span class="rightDetails subtotalPrice">₱ {totalAmount}</span>
+          <span class="rightDetails subtotalPrice">
+            {productPriceFormatter(totalAmount)}
+          </span>
         </CheckOutDetails>
 
         <CheckOutDetails>
           <span class="leftDetails">Shipping</span>
-          <span class="rightDetails shippingPrice">₱ {totalAmount * 0.01}</span>
+          <span class="rightDetails shippingPrice">
+            {productPriceFormatter(totalAmount * 0.01)}
+          </span>
         </CheckOutDetails>
 
         <CheckOutDetails>
           <span class="leftDetails">Total</span>
-          <span class="rightDetails totalAmount">₱ {(totalAmount * 0.01) + totalAmount} </span>
+          <span class="rightDetails totalAmount">
+            {productPriceFormatter(totalAmount * 0.01 + totalAmount)}{" "}
+          </span>
         </CheckOutDetails>
       </CheckoutDetailsContainer>
 
       <CheckOutButton>
-        <span class="check__out__price">₱ {(totalAmount * 0.01) + totalAmount}</span>
+        <span class="check__out__price">
+          {productPriceFormatter(totalAmount * 0.01 + totalAmount)}
+        </span>
         <span class="check__out__proceed">
           Checkout <i class="fa-solid fa-arrow-right"></i>
         </span>

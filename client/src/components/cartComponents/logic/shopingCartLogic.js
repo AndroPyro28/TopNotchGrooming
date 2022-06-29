@@ -23,7 +23,16 @@ function shopingCartLogic() {
         return items.reduce((total, item) => (item.quantity * item.product_price ) + total, 0)
       }
 
+      const productPriceFormatter = (price) => {
+        const PRICE_FORMATTER = Intl.NumberFormat(undefined, {
+            style:'currency', currency:"PHP"
+        })
+
+        return PRICE_FORMATTER.format(price)
+      }
+
   return {
+    productPriceFormatter,
     fetcher,
     calculateTotalAmount
   }

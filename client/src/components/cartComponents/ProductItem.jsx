@@ -1,7 +1,9 @@
 import React from 'react'
 import {ProductItemContainer} from "../../pages/customerPages/cart/cartComponents";
+import shopingCartLogic from './logic/shopingCartLogic';
 function ProductItem({product}) {
   const {product_image_url, product_name, product_description, product_price, quantity} = product;
+  const {productPriceFormatter} = shopingCartLogic()
   return (
     <ProductItemContainer>
           <i className="fa-solid fa-basket-shopping addToShop"></i> 
@@ -18,9 +20,9 @@ function ProductItem({product}) {
             <button className="incremeant">+</button>
           </div>
 
-          <h5 className="product__price">₱ {product_price}</h5>
+          <h5 className="product__price">{productPriceFormatter(product_price)}</h5>
 
-          <h5 className="product__price">₱ {product_price * quantity}</h5>
+          <h5 className="product__price">{productPriceFormatter(product_price * quantity)}</h5>
 
           <i class="fa-solid fa-circle-xmark checkbox"></i>
 
