@@ -1,12 +1,13 @@
 import React from 'react'
 import {ProductItemContainer} from "../../pages/customerPages/cart/cartComponents";
 import shopingCartLogic from './logic/shopingCartLogic';
-function ProductItem({product}) {
-  const {product_image_url, product_name, product_description, product_price, quantity} = product;
-  const {productPriceFormatter} = shopingCartLogic()
+function ProductItem({product, setItems}) {
+  const {product_image_url, product_name, product_description, product_price, quantity, purchase} = product;
+  const {productPriceFormatter, handleItem, removeToCart} = shopingCartLogic();
+
   return (
-    <ProductItemContainer>
-          <i className="fa-solid fa-basket-shopping addToShop"></i> 
+    <ProductItemContainer isInPurchase={purchase} >
+          <i className="fa-solid fa-basket-shopping addToShop" onClick={() => handleItem(product, setItems)} ></i> 
           <img src={product_image_url} className="product__image" />
 
           <div className="product__name">
@@ -24,7 +25,7 @@ function ProductItem({product}) {
 
           <h5 className="product__price">{productPriceFormatter(product_price * quantity)}</h5>
 
-          <i class="fa-solid fa-circle-xmark checkbox"></i>
+          <i class="fa-solid fa-circle-xmark checkbox" onClick={() => removeToCart(product, setItems)}></i>
 
         </ProductItemContainer>
   )

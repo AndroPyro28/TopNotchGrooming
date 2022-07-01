@@ -2,7 +2,7 @@ const Customer = require("../models/Customer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
-const ProductDetails = require('../models/ProductDetails');
+const ProductDetails = require("../models/ProductDetails");
 
 module.exports.signup = async (req, res) => {
   req.body.profile_image_url =
@@ -86,7 +86,8 @@ module.exports.updateInfo = async (req, res) => {
       req.body?.profileImg?.length > 0 &&
       req.body?.profileImg?.includes("image") &&
       req.body.user.profile_image_url?.length > 0 &&
-      req.body?.user.profile_image_id != "topnotch_profilepic/eadlgosq2pioplvi6lfs"
+      req.body?.user.profile_image_id !=
+        "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
       const cloudinaryDelete = await cloudinary.uploader.destroy(
         req.body.user.profile_image_id,
@@ -108,7 +109,7 @@ module.exports.updateInfo = async (req, res) => {
       );
       req.body.user.profile_image_url = cloudinaryUpload.url;
       req.body.user.profile_image_id = cloudinaryUpload.public_id;
-      reset = true
+      reset = true;
     }
 
     const customer = new Customer(req.body.user);
@@ -118,7 +119,7 @@ module.exports.updateInfo = async (req, res) => {
       return res.status(200).json({
         success: true,
         msg: "Profile update successful",
-        reset
+        reset,
       });
     }
 
@@ -139,39 +140,56 @@ module.exports.addItemsToCart = async (req, res) => {
   try {
     const productDetails = new ProductDetails({
       product_id: req.body.id,
-      customer_id: req.currentUser.id
+      customer_id: req.currentUser.id,
     });
 
     const result = await productDetails.addItem();
-    return res.status(200).json({
-      
-    })
+    return res.status(200).json({});
   } catch (error) {
-    console.error(error.message)
+    console.error(error.message);
   }
-}
+};
 
 module.exports.getItemsIncart = async (req, res) => {
   try {
-    const {id} = req.currentUser;
-    const productDetails = new ProductDetails({customer_id: id});
-    const cartItems = await productDetails.getItems()
+    const { id } = req.currentUser;
+    const productDetails = new ProductDetails({ customer_id: id });
+    const cartItems = await productDetails.getItems();
 
-    if(!cartItems) {
+    if (!cartItems) {
       return res.status(200).json({
-        msg:"No products in cart yet",
+        msg: "No products in cart yet",
         success: true,
-        notFound:true
-      })
+        notFound: true,
+      });
     }
 
     return res.status(200).json({
-      items:cartItems,
+      items: cartItems,
       success: true,
-      notFound:false
-    })
-
+      notFound: false,
+    });
   } catch (error) {
-    console.error(error.message)
+    console.error(error.message);
   }
-}
+};
+
+module.exports.deleteItemInCart = async (req, res) => {
+  try {
+    const productDetails = new ProductDetails({
+      customer_id: req.currentUser.id,
+      product_id: req.params.id,
+    });
+
+    const isDeleted = await productDetails.deleteItem();
+
+    return res.status(200).json({
+      msg: isDeleted
+        ? "Product removed to cart"
+        : "Product did not removed to cart",
+      success: isDeleted,
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+};

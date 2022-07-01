@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Sign } from "../../adminPages/inventory/inventoryComponents";
 import Product from "./Product";
+import Sign_Products from "../../../components/sign/Sign_Products";
+
 import {
   StorePageContainer,
   Banner,
@@ -22,6 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import storeLogic from "./storeLogic";
+
 function Store() {
   const [activeFilter, setActiveFilter] = useState({
     petCategory: "",
@@ -227,9 +229,7 @@ function Store() {
               return <Product product={product} key={index} />;
             })
           ) : (
-            <Sign>
-              <img src="/images/emptyCart.png" alt="" /> No Products
-            </Sign>
+            <Sign_Products/>
           )}
           
         </ProductsContainer>

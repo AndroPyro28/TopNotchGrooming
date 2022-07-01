@@ -11,15 +11,15 @@ import {
 function Cart() {
   const [items, setItems] = useState([]);
 
-  const {fetcher} = shopingCartLogic()
+  const {fetcher} = shopingCartLogic({setItems})
 
   useEffect(() => {
     setItems([]);
-
     (async () => {
       setItems(await fetcher());
     })();
   }, []);
+  
   return (
     <MainContainer>
       <GlobalStyles />

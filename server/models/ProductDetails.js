@@ -102,6 +102,24 @@ class ProductDetails {
       console.error(error.message);
     }
   };
+
+  deleteItem = async () => {
+
+    try {
+      const deleteQuery = `
+      DELETE FROM product_details WHERE id = ? AND customer_id = ? AND is_active = ?;
+      `
+      const [result,_] = await poolConnection.execute(deleteQuery, [this.#productId,this.#customerId,true]);
+
+      return result.affectedRows > 0
+
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
 }
+
+
 
 module.exports = ProductDetails;

@@ -4,11 +4,11 @@ import {
   ShoppingCartDetails,
   ProductListContainer,
 } from "../../pages/customerPages/cart/cartComponents";
+import Sign_Products from "../sign/Sign_Products";
 import ProductItem from "./ProductItem";
 
 function ShoppingCart({items, setItems}) {
   
-
   return (
     <ShoppingCartContainer>
       <h2>
@@ -17,16 +17,16 @@ function ShoppingCart({items, setItems}) {
 
       <ShoppingCartDetails>
         <small>You have {items?.length} items in your cart</small>
-        <small>**</small>
+        <small>*Select the items you want to purchase*</small>
       </ShoppingCartDetails>
 
       <ProductListContainer>
         {items?.length > 0 ? (
           items?.map((product) => (
-            <ProductItem key={product.id} product={product} />
+            <ProductItem key={product.id} product={product} setItems={setItems} />
           ))
         ) : (
-          <h1>No items in cart</h1>
+          <Sign_Products />
         )}
       </ProductListContainer>
     </ShoppingCartContainer>

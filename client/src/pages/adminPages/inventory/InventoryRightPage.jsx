@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ModalBackdrop } from "../../../components/modals/admin_modals/modalComponent";
 import {
   InventoryRightContent,
   FilterItemsContainer,
@@ -7,7 +6,6 @@ import {
   TableRow,
   T_HEAD,
   ProductListContainer,
-  Sign,
 } from "./inventoryComponents";
 
 import InventoryModal from "../../../components/modals/admin_modals/InventoryModal";
@@ -16,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ProductItem from "./ProductItem";
+import Sign_Products from "../../../components/sign/Sign_Products";
 function InventoryRightPage({ searchItem, setSearchItem }) {
   const [openItem, setOpenItem] = useState(false);
   const [products, setProducts] = useState([]);
@@ -178,10 +177,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
             );
           })
         ) : (
-          <Sign>
-            {" "}
-            <img src="/images/emptyCart.png" alt="" /> No Products
-          </Sign>
+          <Sign_Products />
         )}
       </ProductListContainer>
     </InventoryRightContent>

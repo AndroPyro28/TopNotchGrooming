@@ -63,7 +63,7 @@ export const ShoppingCartContainer = styled.div`
 `;
 
 export const ShoppingCartDetails = styled.p`
-  margin: 5px;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
   font-weight: 500;
@@ -78,6 +78,7 @@ export const ProductListContainer = styled.div`
   align-items: center;
   border-radius: 15px;
   overflow: auto;
+  padding-block: 5px;
   box-shadow: -1px 2px 11px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -1px 2px 11px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 2px 11px 0px rgba(0, 0, 0, 0.75);
@@ -96,7 +97,7 @@ export const ProductItemContainer = styled.figure`
   border-radius: 10px;
   margin: 10px;
   max-height: 90px;
-
+  border: ${({isInPurchase}) => isInPurchase ? `#F0AF4C solid 2px` : 'white solid 2px'} ;
   & > .checkbox {
     flex: 1;
     align-self: center;
@@ -148,6 +149,11 @@ export const ProductItemContainer = styled.figure`
       border-radius: 20px;
       cursor: pointer;
       font-weight: 900;
+      background: none;
+
+      &:hover {
+        background: white;
+      }
     }
 
     & > .incremeant {
@@ -174,11 +180,15 @@ export const ProductItemContainer = styled.figure`
     flex: 1;
     border-radius: 20px;
     font-size: 1.5em;
-    color: rgb(255,231,147);
+    color: ${({isInPurchase}) => isInPurchase ? `#F0AF4C` : 'rgb(255,231,147)'} ;
     cursor: pointer;
     transition: all .3s ease;
     &:hover {
       color: #F0AF4C;
+    }
+
+    &:active {
+      font-size: 3em;
     }
   }
 
