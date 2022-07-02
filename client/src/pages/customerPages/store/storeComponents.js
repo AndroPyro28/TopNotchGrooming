@@ -1,296 +1,289 @@
 import styled from "styled-components";
 
 export const StorePageContainer = styled.section`
-    display:flex;
-    flex-direction: column;
-`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const Banner = styled.section`
-    width: 100%;
-    height: 500px;
-    background: url('/images/storePicEdited2.png');
-    position: relative;
-
-    
-`
+  width: 100%;
+  height: 500px;
+  background: url("/images/storePicEdited2.png");
+  position: relative;
+`;
 
 export const Content = styled.div`
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    width: fit-content;
-    height: fit-content;
-    margin: auto auto auto auto;
-    font-size: 20px;
-    color: white;
-    text-align: center;
-    text-shadow: 1px 3px 5px black;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: fit-content;
+  height: fit-content;
+  margin: auto auto auto auto;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 3px 5px black;
 
-        & > h1 {
-            font-family:  'league spartan', sans-serif;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
-`
+  & > h1 {
+    font-family: "league spartan", sans-serif;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+`;
 
 export const PetFilterWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    margin: 50px;
-    box-shadow: 3px 0px 26px -10px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 3px 0px 26px -10px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 0px 26px -10px rgba(0,0,0,0.75);
-    border-radius: 20px;
-    /* width: ; */
-    padding: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  margin: 50px;
+  box-shadow: 3px 0px 26px -10px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 3px 0px 26px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 0px 26px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  /* width: ; */
+  padding: 50px;
 
-    & > h1 {
+  & > h1 {
     margin-top: 60px;
     margin-bottom: 50px;
-    
-    color: rgb(141,124,87);
+
+    color: rgb(141, 124, 87);
     font-size: 30px;
-    font-family:  'league spartan', sans-serif;
+    font-family: "league spartan", sans-serif;
     text-transform: uppercase;
-    }
-`
+  }
+`;
 
 export const PetFilterContainer = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-`
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+`;
 
 export const PetContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 20px;
-    position: relative;
-    width: 300px;
-    height: 450px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  position: relative;
+  width: 300px;
+  height: 450px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
-    box-shadow: ${({active}) => active ? "1px 3px 5px gray" : "none"} ;
+  box-shadow: ${({ active }) => (active ? "1px 3px 5px gray" : "none")};
 
-    &:hover {
-        box-shadow: 1px 3px 5px gray;
-    }
+  &:hover {
+    box-shadow: 1px 3px 5px gray;
+  }
 
-    
+  & > h3 {
+    z-index: 2;
+    color: rgb(141, 124, 87);
+    margin: 10px;
+  }
 
-    & > h3 {
-        z-index: 2;
-        color: rgb(141, 124, 87);
-        margin: 10px;
-    }
+  & > img {
+    width: 100%;
+    height: 50%;
+    z-index: 2;
+    object-position: top;
+    object-fit: cover;
+  }
 
-    & > img {
-        width: 100%;
-        height: 50%;
-        z-index: 2;
-        object-position: top;
-        object-fit: cover;
-    }
-
-    & > p {
-        color: gray;
-        font-size: 100%;
-        z-index: 2;
-    }
-`
+  & > p {
+    color: gray;
+    font-size: 100%;
+    z-index: 2;
+  }
+`;
 
 export const CircleBackground = styled.div`
-        border-radius: 50%;
-        position: absolute;
-        height: 200px;
-        width: 200px;
-        margin: auto;
-        background: lightgoldenrodyellow;
-`
+  border-radius: 50%;
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  background: lightgoldenrodyellow;
+`;
 
 export const ProductsWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-    margin-top: 80px;
-    position: relative;
-    & > h1 {
-        
-        color: rgb(141,124,87);
-        font-size: 30px;
-        font-family:  'league spartan', sans-serif;
-        text-transform: uppercase; 
-        margin-bottom:50px; 
-    }
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  margin-top: 80px;
+  position: relative;
+  & > h1 {
+    color: rgb(141, 124, 87);
+    font-size: 30px;
+    font-family: "league spartan", sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+  }
 
-    & > .left, .right {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: fit-content;
-        height: fit-content;
-        margin: auto 0;
-        padding: 15px ;
-        border-radius: 50%;
-        background: rgb(216, 216, 216);
-        cursor: pointer;
-        transition: all .3s ease-in-out;
-        z-index: 5;
-    }
+  & > .left,
+  .right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: fit-content;
+    height: fit-content;
+    margin: auto 0;
+    padding: 15px;
+    border-radius: 50%;
+    background: rgb(216, 216, 216);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    z-index: 5;
+  }
 
-    & > .left {
+  & > .left {
     margin: auto auto auto 20px;
-    }
-    & > .right {
-        margin: auto 20px auto auto;
-    }
+  }
+  & > .right {
+    margin: auto 20px auto auto;
+  }
 
-    & > :is(.left, .right):hover {
+  & > :is(.left, .right):hover {
     background: black;
     color: white;
-}
-`
+  }
+`;
 
 export const ProductsContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: auto;
-    grid-gap: 20px;
-    position: relative;
-    padding: 20px;
-
-`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 20px;
+  position: relative;
+  padding: 20px;
+`;
 // produc item
 
 export const ProductItem = styled.div`
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-bottom: 30px;
-    padding: 20px;
-    transition: all .3s ease-in-out;
-    cursor: pointer;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 30px;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 
-    & > .add__to__cart {
-        border-radius: 10px;
+  & > .add__to__cart {
+    border-radius: 10px;
     border: solid 1px black;
     background: white;
     color: black;
     padding: 5px 10px;
     cursor: pointer;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
-        background: gray;
-        color: white;
+      background: rgb(255, 231, 147);
+      color: black;
     }
 
     &:active {
-        transition: all .0s ease-in-out;
+      transition: all 0s ease-in-out;
+      color: white;
+      background: rgb(240, 175, 76);
+    }
+  }
 
-    background: black !important;
-    }
-    }
-
-    &:hover {
-        box-shadow: 1px 3px 5px gray;
-    }
-`
+  &:hover {
+    box-shadow: 1px 3px 5px rgb(240, 175, 76);
+  }
+`;
 export const ProductItemImg = styled.img`
-    width: 50%;
-    height: 50%;
-    object-fit: contain;
-    object-position: center;
-    border-radius: 20px;
-`
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 20px;
+`;
 
 export const ProductItemName = styled.h3`
-    font-size: 15px;
-    color: rgb(54, 54, 54);
-    text-transform: capitalize;
-    margin: 10px;
-`
+  font-size: 15px;
+  color: rgb(54, 54, 54);
+  text-transform: capitalize;
+  margin: 10px;
+`;
 
 export const ProductItemPrice = styled.h4`
-    font-size: 15px;
-    color: rgb(94, 94, 94);
-    margin: 10px;
-`
+  font-size: 15px;
+  color: rgb(94, 94, 94);
+  margin: 10px;
+`;
 
 export const ProductItemDescription = styled.p`
-    color: gray;
-    font-size: 0.9em;
-    margin: 10px;
-`
+  color: gray;
+  font-size: 0.9em;
+  margin: 10px;
+`;
 
 export const FilterProductContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin: 50px 0px 100px 0px;
-`
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0px 100px 0px;
+`;
 
 export const Filter = styled.div`
-    display: flex;
-    padding: 10px;
-    border-radius: 10px;
-    border: solid 1px gray;
-    margin-inline: 10px;
-    align-items: center;
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  border: solid 1px gray;
+  margin-inline: 10px;
+  align-items: center;
 
-    & > span {
-        font-size: 0.9em;
-    }
-    & > select {
+  & > span {
+    font-size: 0.9em;
+  }
+  & > select {
+    border-radius: 1px;
+    border: none;
+    text-align: center;
+    font-size: 0.8em;
+    background: none;
+    outline: none;
+    color: gray;
+  }
 
-        border-radius: 1px;
-        border: none;
-        text-align: center;
-        font-size: 0.8em;
-        background: none;
-        outline: none;
-        color: gray;
-    }
+  & > input {
+    border: none;
+    font-size: 0.8em;
+    background: none;
+    outline: none;
+    color: gray;
+  }
 
-    & > input {
-        border: none;
-        font-size: 0.8em;
-        background: none;
-        outline: none;
-        color: gray;
-    }
+  & > i {
+    color: gray;
+  }
 
-    & > i {
-        color: gray;
-    }
-
-    & > input[type="text"] {
-        height: 100%;
-        margin: 0px 10px 0px 10px;
-    }
-
-`
+  & > input[type="text"] {
+    height: 100%;
+    margin: 0px 10px 0px 10px;
+  }
+`;
 
 export const FilterContainer = styled.div`
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    & > .productRefreshBtn {
-        font-size: 1.5em;
-        margin: 10px;
-        cursor: pointer;
-    }
-`
+  & > .productRefreshBtn {
+    font-size: 1.5em;
+    margin: 10px;
+    cursor: pointer;
+  }
+`;

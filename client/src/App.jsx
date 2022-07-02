@@ -31,6 +31,8 @@ import Loader from "./components/loader/Loader";
 import Cart from "./pages/customerPages/cart/Cart";
 import PaymentSuccess from "./pages/customerPages/payment/PaymentSuccess";
 import PaymentFailed from "./pages/customerPages/payment/PaymentFailed";
+import shopingCartLogic from "./components/cartComponents/logic/shopingCartLogic";
+import {setToCartReducer } from "./redux/cartSlice";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -83,6 +85,15 @@ function App() {
       })();
     });
   }, []);
+
+  const {fetcher} = shopingCartLogic()
+  useEffect(() => {
+    (async () => {
+      const cart = await fetcher();
+      dispatch(setToCartReducer(cart))
+    })();
+  }, []);
+
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
 

@@ -347,16 +347,3 @@ export const InfoRow = styled.div`
   }
 `;
 
-export const Sign = styled.label`
-  color: gray;
-  text-align: center;
-  margin-top: 100px;
-  font-size: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: cursive;
-  & > img {
-    width:120px;
-  }
-`

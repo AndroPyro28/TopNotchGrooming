@@ -18,7 +18,7 @@ function Product({ product }) {
       </ProductItemDescription>
       <ProductItemDescription>{product.product_age_limit} yrs old</ProductItemDescription>
       <ProductItemPrice>₱ {product?.product_price}</ProductItemPrice>
-      <span className="add__to__cart" onClick={() => addToCart(product.id)}>
+      <span className="add__to__cart" onClick={() => addToCart(product)}>
         <i className="fa-solid fa-cart-plus"></i> <span>Add To Cart</span>
       </span>
     </ProductItem>

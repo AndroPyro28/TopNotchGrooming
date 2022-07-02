@@ -1,14 +1,7 @@
 const Admin = require("../models/Admin");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
-const maxAge = 24 * 60 * 60;
-
-const assignToken = (id) => {
-  return jwt.sign({ id }, process.env.jwtSecret, {
-    expiresIn: maxAge,
-  });
-};
+const {assignToken} = require('../helpers/AuthTokenHandler')
 
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;

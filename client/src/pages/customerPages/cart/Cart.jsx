@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 import CardDetails from "../../../components/cartComponents/CardDetails";
 import shopingCartLogic from "../../../components/cartComponents/logic/shopingCartLogic";
 import ShoppingCart from "../../../components/cartComponents/ShoppingCart";
@@ -11,14 +12,14 @@ import {
 function Cart() {
   const [items, setItems] = useState([]);
 
-  const {fetcher} = shopingCartLogic({setItems})
-
+  const cart = useSelector(state => state.cart)
+  
   useEffect(() => {
     setItems([]);
     (async () => {
-      setItems(await fetcher());
+      setItems(cart);
     })();
-  }, []);
+  }, [cart]);
   
   return (
     <MainContainer>

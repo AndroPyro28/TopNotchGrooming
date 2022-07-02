@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
 const ProductDetails = require("../models/ProductDetails");
+const { assignToken } = require("../helpers/AuthTokenHandler");
 
 module.exports.signup = async (req, res) => {
   req.body.profile_image_url =
@@ -30,14 +31,6 @@ module.exports.signup = async (req, res) => {
   return res.status(200).json({
     msg: "Your account registered successfully!",
     success: true,
-  });
-};
-
-const maxAge = 24 * 60 * 60;
-
-const assignToken = (id) => {
-  return jwt.sign({ id }, process.env.jwtSecret, {
-    expiresIn: maxAge,
   });
 };
 
@@ -81,7 +74,6 @@ module.exports.login = async (req, res) => {
 
 module.exports.updateInfo = async (req, res) => {
   try {
-    let reset = false;
     if (
       req.body?.profileImg?.length > 0 &&
       req.body?.profileImg?.includes("image") &&
@@ -109,7 +101,6 @@ module.exports.updateInfo = async (req, res) => {
       );
       req.body.user.profile_image_url = cloudinaryUpload.url;
       req.body.user.profile_image_id = cloudinaryUpload.public_id;
-      reset = true;
     }
 
     const customer = new Customer(req.body.user);
@@ -119,7 +110,7 @@ module.exports.updateInfo = async (req, res) => {
       return res.status(200).json({
         success: true,
         msg: "Profile update successful",
-        reset,
+        user: req.body.user,
       });
     }
 
@@ -143,8 +134,11 @@ module.exports.addItemsToCart = async (req, res) => {
       customer_id: req.currentUser.id,
     });
 
-    const result = await productDetails.addItem();
-    return res.status(200).json({});
+    const { action, result } = await productDetails.addItem();
+    return res.status(200).json({
+      action,
+      id: result.insertId,
+    });
   } catch (error) {
     console.error(error.message);
   }

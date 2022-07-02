@@ -1,6 +1,5 @@
 const poolConnection = require("../config/connectDB");
 const bcrypt = require("bcryptjs");
-const { updateInfo } = require("../controllers/customerController");
 
 class Customer {
   #id;
@@ -96,7 +95,6 @@ class Customer {
       const [result, _] = await poolConnection.execute(selectOne, [
         this.#email,
       ]);
-
       return result.length > 0 ? result[0] : false;
     } catch (error) {
       console.error(error.message);

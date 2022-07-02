@@ -51,17 +51,23 @@ class ProductDetails {
           this.#quantity,
           true,
         ]);
-        return result;
+        return {
+          result,
+          action: 'insert'
+        };
       } else {
-        const insertQuery = `UPDATE product_details SET quantity = ? WHERE product_id = ? AND customer_id = ? AND is_active = ?`;
-
-        const [result, _] = await poolConnection.execute(insertQuery, [
-          product?.quantity + 1,
+        const UpdateQuery = `UPDATE product_details SET quantity = ? WHERE product_id = ? AND customer_id = ? AND is_active = ?`;
+        const updateQuantity = product?.quantity + 1
+        const [result, _] = await poolConnection.execute(UpdateQuery, [
+          updateQuantity,
           this.#productId,
           this.#customerId,
           true,
         ]);
-        return result;
+        return {
+          result,
+          action: 'update'
+        };
       }
     } catch (error) {
       console.error(error.message);

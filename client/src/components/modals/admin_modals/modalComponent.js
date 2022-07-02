@@ -50,7 +50,6 @@ export const ModalBackdrop = styled.section`
     margin: auto;
     height: fit-content;
     padding: 20px;
-    border-radius: 10px;
     max-height: 95vh;
     animation: ${({ openItem }) =>
         openItem ? animateEntranceForm : animationExitForm}

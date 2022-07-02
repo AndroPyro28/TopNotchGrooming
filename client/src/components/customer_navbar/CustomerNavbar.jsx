@@ -24,21 +24,17 @@ function CustomerNavbar() {
     window.location.reload();
 }
 
-const {currentUser} = useSelector((state) => state.userReducer)
+const {currentUser} = useSelector((state) => state.user)
+const cart = useSelector((state) => state.cart)
 
   const [openDropdown, setOpenDropdown] = useState(false);
-  const {fetcher} = shopingCartLogic()
   const [nocartItems, setNoCartItems] = useState(0)
-  
 
   useEffect(() => {
     (async () => {
-      const itemLength = await fetcher();
-      setNoCartItems(itemLength?.length)
+      setNoCartItems(cart?.length)
     })()
-  }, [])
-
-  
+  }, [cart])
 
   return (
     <CustomerNavbarContainer>

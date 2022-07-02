@@ -2,18 +2,21 @@ import React from 'react'
 import {NavLink} from "react-router-dom";
 import {SideNavWrapper, SideNavContainer, Title} from "./sidebarComponents";
 import Cookies from "js-cookie"
+import { useSelector } from 'react-redux';
 function AdminSidebar() {
 
     const handleLogout = () => {
         Cookies.remove("userToken");
         window.location.reload();
     }
-    
+
+    const {currentUser} = useSelector(state => state.user)
+
   return (
     <SideNavWrapper>
             <SideNavContainer className='close'>
             <Title className="title">
-                <h1 className="elements"> <i className="fa-solid fa-user-shield"></i> Andro Eugenio</h1>
+                <h1 className="elements"> <i className="fa-solid fa-user-shield"></i> {currentUser?.firstname} {currentUser?.lastname} </h1>
                 <i className="fa-solid fa-bars hamburger"></i>
             </Title>
 

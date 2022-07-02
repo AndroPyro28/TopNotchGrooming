@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 function Personal() {
   const {allowChanges, setUser, user,} = useOutletContext();
-  const { currentUser } = useSelector((state) => state.userReducer);
+  const { currentUser } = useSelector((state) => state.user);
   
 
   useEffect(() => {

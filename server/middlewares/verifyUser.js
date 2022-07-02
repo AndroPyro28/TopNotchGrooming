@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const poolConnection = require('../config/connectDB');
-
+const {verifyToken} = require('../helpers/AuthTokenHandler')
 module.exports.verifyUser = async (req, res, next) => {
     try {
         const {userinfo} = req.headers;
         const {userToken, userType} = JSON.parse(userinfo); 
-        const decodedToken = jwt.verify(userToken, process.env.jwtSecret);
+        const decodedToken = verifyToken(userToken);
         
         const selectQuery = `SELECT * FROM ${userType} WHERE id = ?;`;
 

@@ -1,32 +1,44 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import React from 'react'
+import axios from "axios";
+import Cookies from "js-cookie";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCartReducer,
+  removeTocartReducer,
+  updateToCartReducer,
+} from "../../../redux/cartSlice";
 
-function productLogic() {
+function ProductLogic() {
+  const dispatch = useDispatch();
 
-    const addToCart = async (id) => {
-        try {
-            const res = await axios.post("/api/customer/addItemsToCart", {id}, 
-            {
-                headers: {
-                    userinfo: Cookies.get('userToken')
-                }
-            })
+  const cart = useSelector((state) => state.cart);
 
-            const {msg, success} = res.data;
-            
-            if(msg?.includes('session expired') && !success) {
-                return window.location.reload();
-              }
-              
-        } catch (error) {
-            console.error(error.message)
+  const addToCart = async (product) => {
+    try {
+      const res = await axios.post(
+        "/api/customer/addItemsToCart",
+        { id: product.id },
+        {
+          headers: {
+            userinfo: Cookies.get("userToken"),
+          },
         }
+      );
+
+      const { msg, success } = res.data;
+      if (msg?.includes("session expired") && !success) {
+        return window.location.reload();
+      }
+
+      dispatch(addToCartReducer({ product, data: res.data }));
+    } catch (error) {
+      console.error(error.message);
     }
+  };
 
   return {
-    addToCart
-  }
+    addToCart,
+  };
 }
 
-export default productLogic
+export default ProductLogic;

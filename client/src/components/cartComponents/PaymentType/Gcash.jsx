@@ -24,12 +24,11 @@ function Gcash({ items }) {
     const { data } = res.data;
 
     const { checkouturl } = data;
-    anchorRef.current.href = checkouturl;
-    anchorRef.current.click();
+    window.location.assign(checkouturl)
+    
   };
   return (
     <div style={{ marginBlock: 50 }}>
-      <a style={{ opacity: 0, pointerEvents: "none" }} ref={anchorRef}></a>
       <a
         onClick={gcashPayment}
         class="x-getpaid-button"
