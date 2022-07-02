@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2022 at 12:42 PM
+-- Generation Time: Jul 02, 2022 at 01:14 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -98,7 +98,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `profile_image_id`, `profile_image_url`, `firstname`, `lastname`, `birthdate`, `email`, `password`, `phoneNo`, `address`) VALUES
-(6, 'topnotch_profilepic/lq8ccclreuyrl7ueyc6b', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654940122/topnotch_profilepic/lq8ccclreuyrl7ueyc6b.jpg', 'Andro', 'Eugenio', '2000-02-10', 'user1@gmail.com', '$2a$06$0QeR0p9vev9aGIC7kUM/geyd2V1oVnS0E/DHfCAYTgw5jjKMlwP92', '9555551112', 'some address'),
+(6, 'topnotch_profilepic/q0ffvay4glc93ygn1mh4', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1656760275/topnotch_profilepic/q0ffvay4glc93ygn1mh4.jpg', 'Andro', 'Eugenio', '2000-02-10', 'user1@gmail.com', '$2a$06$0QeR0p9vev9aGIC7kUM/geyd2V1oVnS0E/DHfCAYTgw5jjKMlwP92', '09561289642', 'Some Address'),
 (7, 'topnotch_profilepic/eadlgosq2pioplvi6lfs', 'https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png', 'user2 fname', 'user2 lname', '2000-10-28', 'user2@gmail.com', '$2a$06$gx3EWCE15zpiVQQkhFQC/OhG3AcTbDLo1Jiznc.COBsZSWIFaBQsi', '123123123', 'some address');
 
 -- --------------------------------------------------------
@@ -162,8 +162,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`) VALUES
-(12, 'product 1', 510, 'nice one', 'Dog', '6-10-2022', 10, '5-4', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654838930/topnotch_productImg/pczvtfgiycf9xn7utvu6.png', 'topnotch_productImg/pczvtfgiycf9xn7utvu6'),
-(13, 'product 2', 1200, 'some description', 'Dog', '6-10-2022', 5, '5-3', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654851091/topnotch_productImg/bl4diobto3gfj7vsaaab.png', 'topnotch_productImg/bl4diobto3gfj7vsaaab');
+(12, 'product 1', 510, 'nice one', 'Dog', '6-10-2022', 10, '2-4', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654838930/topnotch_productImg/pczvtfgiycf9xn7utvu6.png', 'topnotch_productImg/pczvtfgiycf9xn7utvu6'),
+(13, 'product 2', 1200, 'some description', 'Dog', '6-10-2022', 5, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1654851091/topnotch_productImg/bl4diobto3gfj7vsaaab.png', 'topnotch_productImg/bl4diobto3gfj7vsaaab'),
+(14, 'product 3', 55, 'some toy', 'Cat', '7-2-2022', 10, '1-2 (yrs old)', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1656758429/topnotch_productImg/jzae4gtf6mud40eh0ryu.png', 'topnotch_productImg/jzae4gtf6mud40eh0ryu');
 
 -- --------------------------------------------------------
 
@@ -185,10 +186,8 @@ CREATE TABLE `product_details` (
 --
 
 INSERT INTO `product_details` (`id`, `product_id`, `order_id`, `customer_id`, `quantity`, `is_active`) VALUES
-(9, 12, NULL, 6, 4, 1),
-(10, 13, NULL, 6, 2, 1),
-(11, 12, NULL, 7, 5, 1),
-(12, 13, NULL, 7, 5, 1);
+(80, 13, NULL, 6, 1, 1),
+(81, 12, NULL, 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -312,13 +311,13 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `yearly_sales`
