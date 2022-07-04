@@ -129,8 +129,9 @@ module.exports.updateInfo = async (req, res) => {
 
 module.exports.addItemsToCart = async (req, res) => {
   try {
+    const {id} = req.body
     const productDetails = new ProductDetails({
-      product_id: req.body.id,
+      product_id: id,
       customer_id: req.currentUser.id,
     });
 
@@ -140,7 +141,7 @@ module.exports.addItemsToCart = async (req, res) => {
       id: result.insertId,
     });
   } catch (error) {
-    console.error(error.message);
+    console.error( error.message);
   }
 };
 
@@ -187,3 +188,31 @@ module.exports.deleteItemInCart = async (req, res) => {
     console.error(error.message);
   }
 };
+
+module.exports.updateItemQuantity = async (req, res) => {
+  try {
+    const productDetails = new ProductDetails({
+      customer_id: req.currentUser.id,
+      product_id: req.params.id,
+    });
+    const {action, product} = req.body
+    const {result, action:updateAction} = await productDetails.updateQuantity(action, product);
+    
+    if(result.affectedRows > 0) {
+      return res.status(200).json({
+        success: true,
+        productId: req.params.id,
+        updateAction
+      })
+    }
+    else {
+      return res.status(200).json({
+        success: false,
+        productId: req.params.id,
+        updateAction
+      })
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}

@@ -22,13 +22,12 @@ class ProductDetails {
   selectItemById = async () => {
     try {
       const selectQuery = `SELECT * FROM product_details WHERE product_id = ? AND customer_id = ? AND is_active = ?`;
-
       const [result, _] = await poolConnection.execute(selectQuery, [
         this.#productId,
         this.#customerId,
         true,
       ]);
-
+      console.log(result)
       if (result.length > 0) {
         return result[0];
       } else {
@@ -42,7 +41,7 @@ class ProductDetails {
   addItem = async () => {
     try {
       const product = await this.selectItemById();
-      if (!product) {
+      if (!product?.id) {
         const insertQuery = `INSERT INTO product_details (product_id, customer_id, quantity, is_active) VALUES (?, ?, ?, ?)`;
 
         const [result, _] = await poolConnection.execute(insertQuery, [
@@ -53,24 +52,22 @@ class ProductDetails {
         ]);
         return {
           result,
-          action: 'insert'
+          action: "insert",
         };
       } else {
-        const UpdateQuery = `UPDATE product_details SET quantity = ? WHERE product_id = ? AND customer_id = ? AND is_active = ?`;
-        const updateQuantity = product?.quantity + 1
+        const UpdateQuery = `UPDATE product_details SET quantity = ? WHERE id = ?`;
+
         const [result, _] = await poolConnection.execute(UpdateQuery, [
-          updateQuantity,
-          this.#productId,
-          this.#customerId,
-          true,
+          product?.quantity + 1,
+          product?.id,
         ]);
         return {
           result,
-          action: 'update'
+          action: "update",
         };
       }
     } catch (error) {
-      console.error(error.message);
+      console.error("...", error.message);
     }
   };
 
@@ -110,22 +107,59 @@ class ProductDetails {
   };
 
   deleteItem = async () => {
-
     try {
       const deleteQuery = `
       DELETE FROM product_details WHERE id = ? AND customer_id = ? AND is_active = ?;
-      `
-      const [result,_] = await poolConnection.execute(deleteQuery, [this.#productId,this.#customerId,true]);
+      `;
+      const [result, _] = await poolConnection.execute(deleteQuery, [
+        this.#productId,
+        this.#customerId,
+        true,
+      ]);
 
-      return result.affectedRows > 0
-
+      return result.affectedRows > 0;
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
+  updateQuantity = async (action, product) => {
+    try {
+      const { quantity } = product;
+
+      if (quantity - 1 <= 0 && action === "decremeant") {
+        const deleteQuery = `
+      DELETE FROM product_details
+      WHERE id = ?
+      `;
+        const [result, _] = await poolConnection.execute(deleteQuery, [
+          this.#productId,
+        ]);
+
+        action = "delete";
+        return {
+          result,
+          action,
+        };
+      }
+
+      const updateQuery = `
+      UPDATE product_details SET quantity = ?
+      WHERE id = ?
+      `;
+      const [result, _] = await poolConnection.execute(updateQuery, [
+        action === "incremeant" ? quantity + 1 : quantity - 1,
+        this.#productId,
+      ]);
+
+      return {
+        result,
+        action,
+      };
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 }
-
-
 
 module.exports = ProductDetails;

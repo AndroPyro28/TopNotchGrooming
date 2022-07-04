@@ -11,7 +11,10 @@ import {
 function ProductLogic() {
   const dispatch = useDispatch();
 
+const GetCart = () => {
   const cart = useSelector((state) => state.cart);
+  return cart
+}   
 
   const addToCart = async (product) => {
     try {

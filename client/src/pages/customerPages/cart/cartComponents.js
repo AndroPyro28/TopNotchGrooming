@@ -195,8 +195,19 @@ export const ProductItemContainer = styled.figure`
   & > .productShopAdded {
     color: rgb(89, 180, 89) !important;
     background: rgb(255, 255, 255);
-    /* background: rgb(4, 180, 4);
-    color: rgb(255, 255, 255); */
+  }
+
+  & > .removeProduct {
+    font-size: 10px;
+    color: red;
+    cursor: pointer;
+    padding: 5px;
+    height: fit-content;
+    transition: all .3s ease-out;
+    border-radius: 5px;
+    &:hover {
+      background: #F0AF4C;
+    }
   }
 `;
 

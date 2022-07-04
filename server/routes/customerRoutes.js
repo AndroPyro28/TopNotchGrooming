@@ -8,5 +8,6 @@ router.post('/login', customerController.login)
 router.post('/updateInfo', verifyUser, customerController.updateInfo)
 router.post('/addItemsToCart', verifyUser, customerController.addItemsToCart)
 router.get('/getItemsIncart', verifyUser, customerController.getItemsIncart)
-router.delete('/deleteItemInCart/:id', verifyUser, customerController.deleteItemInCart)
+router.delete('/deleteItemInCart/:id', verifyUser, customerController.deleteItemInCart);
+router.patch('/updateItemQuantity/:id', verifyUser, customerController.updateItemQuantity)
 module.exports = router;

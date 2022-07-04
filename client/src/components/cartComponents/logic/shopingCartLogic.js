@@ -1,7 +1,13 @@
 import React from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-function shopingCartLogic() {
+import { useDispatch } from "react-redux";
+import {
+  removeTocartReducer,
+  updateToCartReducer,
+} from "../../../redux/cartSlice";
+function ShopingCartLogic() {
+  const dispatch = useDispatch();
   const fetcher = async () => {
     try {
       const res = await axios.get("/api/customer/getItemsIncart", {
@@ -53,16 +59,51 @@ function shopingCartLogic() {
 
   const removeToCart = async (product, setItems) => {
     const { id } = product;
-    setItems((prevItems) => prevItems.filter((item) => item.id != id));
+    dispatch(removeTocartReducer(id));
     const res = await axios.delete(`/api/customer/deleteItemInCart/${id}`, {
       headers: {
         userinfo: Cookies.get("userToken"),
       },
     });
-
     const { success } = res.data;
+    if (!success) window.location.reload();
+  };
 
-    return !success && setItems((prevItems) => [...prevItems, product]);
+  const incremeantDecreament = async (product, action) => {
+    try {
+      const { id } = product;
+      dispatch(updateToCartReducer({ id, updateAction: action }));
+      const res = await axios.patch(
+        `/api/customer/updateItemQuantity/${id}`,
+        {
+          action,
+          product,
+        },
+        {
+          headers: {
+            userinfo: Cookies.get("userToken"),
+          },
+        }
+      );
+      const { success, updateAction } = res.data;
+
+      if (updateAction === "delete" && success) {
+        return dispatch(removeTocartReducer(id));
+      }
+
+      if (!success && action === "incremeant") {
+        return dispatch(
+          updateToCartReducer({ id, updateAction: "decremeant" })
+        );
+      }
+      if (!success && action === "decremeant") {
+        return dispatch(
+          updateToCartReducer({ id, updateAction: "incremeant" })
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return {
@@ -71,7 +112,8 @@ function shopingCartLogic() {
     calculateTotalAmount,
     handleItem,
     removeToCart,
+    incremeantDecreament,
   };
 }
 
-export default shopingCartLogic;
+export default ShopingCartLogic;
