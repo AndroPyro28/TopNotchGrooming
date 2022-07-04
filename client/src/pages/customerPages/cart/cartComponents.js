@@ -122,7 +122,7 @@ export const ProductItemContainer = styled.figure`
     display: flex;
     flex-direction: column;
     padding: 10px;
-    flex: 2;
+    flex: 1.5;
     overflow: hidden;
     & > h5 {
       font-size: 1em;
@@ -137,7 +137,7 @@ export const ProductItemContainer = styled.figure`
 
   & > .product__quantity {
     display: flex;
-    flex: 2;
+    flex: 1;
     align-items: center;
     & > button {
       height: fit-content;
