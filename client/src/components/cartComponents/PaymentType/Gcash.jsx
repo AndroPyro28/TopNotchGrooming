@@ -1,12 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
 
-function Gcash({ items }) {
-  const anchorRef = useRef(null);
+function Gcash({ items, totalAmount, toast }) {
+  console.log(totalAmount);
+
   const gcashPayment = async () => {
     const formData = new FormData();
+    if(totalAmount<=10) {
+      return toast('Checkout an item first', {type:"info"})
+    }
     formData.append("x-public-key", process.env.REACT_APP_GCASH_PUBLIC_KEY);
-    formData.append("amount", "1");
+    formData.append("amount", `${totalAmount}`);
     formData.append("description", "Payment for services rendered");
     formData.append(
       "redirectsuccessurl",
@@ -20,15 +23,15 @@ function Gcash({ items }) {
         withCredentials: false,
       }
     );
-
+    
     const { data } = res.data;
 
     const { checkouturl } = data;
-    window.location.assign(checkouturl)
-    
+    window.location.assign(checkouturl);
   };
+
   return (
-    <div style={{ marginBlock: 50 }}>
+    <div style={{ marginBlock: 20 }}>
       <a
         onClick={gcashPayment}
         class="x-getpaid-button"

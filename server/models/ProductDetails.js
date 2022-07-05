@@ -27,7 +27,6 @@ class ProductDetails {
         this.#customerId,
         true,
       ]);
-      console.log(result)
       if (result.length > 0) {
         return result[0];
       } else {

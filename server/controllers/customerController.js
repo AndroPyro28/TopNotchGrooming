@@ -5,6 +5,8 @@ const cloudinary = require("../config/cloudinary");
 const ProductDetails = require("../models/ProductDetails");
 const { assignToken } = require("../helpers/AuthTokenHandler");
 
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 module.exports.signup = async (req, res) => {
   req.body.profile_image_url =
     "https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png";
@@ -129,7 +131,7 @@ module.exports.updateInfo = async (req, res) => {
 
 module.exports.addItemsToCart = async (req, res) => {
   try {
-    const {id} = req.body
+    const { id } = req.body;
     const productDetails = new ProductDetails({
       product_id: id,
       customer_id: req.currentUser.id,
@@ -141,7 +143,7 @@ module.exports.addItemsToCart = async (req, res) => {
       id: result.insertId,
     });
   } catch (error) {
-    console.error( error.message);
+    console.error(error.message);
   }
 };
 
@@ -195,24 +197,67 @@ module.exports.updateItemQuantity = async (req, res) => {
       customer_id: req.currentUser.id,
       product_id: req.params.id,
     });
-    const {action, product} = req.body
-    const {result, action:updateAction} = await productDetails.updateQuantity(action, product);
-    
-    if(result.affectedRows > 0) {
+    const { action, product } = req.body;
+    const { result, action: updateAction } =
+      await productDetails.updateQuantity(action, product);
+
+    if (result.affectedRows > 0) {
       return res.status(200).json({
         success: true,
         productId: req.params.id,
-        updateAction
-      })
-    }
-    else {
+        updateAction,
+      });
+    } else {
       return res.status(200).json({
         success: false,
         productId: req.params.id,
-        updateAction
-      })
+        updateAction,
+      });
     }
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
-}
+};
+
+module.exports.checkout = async (req, res) => {
+  console.log(req.params); // card
+  try {
+    const storeItems = [
+      {
+        id: 1,
+        price: 100,
+        name: "Lean React Today",
+        quantity: 1
+      },
+      {
+        id: 2,
+        price: 100,
+        name: "Lean Css Today",
+        quantity: 1
+      },
+    ];
+  
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: storeItems.map(item => {
+        return {
+          price_data: {
+            currency:'usd',
+            product_data: {
+              name: item.name
+            },
+            unit_amount: item.price * 100
+          },
+          quantity:item.quantity,
+        }
+      }),
+      success_url:`${process.env.CLIENT_URL}/customer/payment=success`,
+      cancel_url:`${process.env.CLIENT_URL}/customer/cart`
+    })
+    return res.status(200).json({checkoutUrl:session.url})
+  } catch (error) {
+    console.error(error.message)
+  }
+  
+};

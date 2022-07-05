@@ -6,8 +6,9 @@ import {
   removeTocartReducer,
   updateToCartReducer,
 } from "../../../redux/cartSlice";
-function ShopingCartLogic() {
+function ShopingCartLogic(props) {
   const dispatch = useDispatch();
+
   const fetcher = async () => {
     try {
       const res = await axios.get("/api/customer/getItemsIncart", {

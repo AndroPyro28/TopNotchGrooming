@@ -11,11 +11,6 @@ import {
 function ProductLogic() {
   const dispatch = useDispatch();
 
-const GetCart = () => {
-  const cart = useSelector((state) => state.cart);
-  return cart
-}   
-
   const addToCart = async (product) => {
     try {
       const res = await axios.post(
@@ -29,11 +24,11 @@ const GetCart = () => {
       );
 
       const { msg, success } = res.data;
-      if (msg?.includes("session expired") && !success) {
+      if (msg?.includes("session expired") && !success)
         return window.location.reload();
-      }
 
-      dispatch(addToCartReducer({ product, data: res.data }));
+      const newProduct = JSON.parse(JSON.stringify(product));
+      dispatch(addToCartReducer({ product: newProduct, data: res.data }));
     } catch (error) {
       console.error(error.message);
     }

@@ -10,9 +10,7 @@ import {
 } from "./storeComponents";
 function Product({ product }) {
   const { addToCart } = productLogic();
-
-  const cart = useSelector((state) => state.cart);
-
+  
   return (
     <ProductItem>
       <ProductItemImg src={product?.product_image_url} />

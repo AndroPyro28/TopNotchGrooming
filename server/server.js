@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const { Server } = require('socket.io');
 require('dotenv').config({path: "./.env"})
+
 const {verifyUser} = require('./middlewares/verifyUser')
 
 const server = require('http').createServer(app);
@@ -31,7 +32,6 @@ app.get('/api/auth', verifyUser, (req, res) => {
         console.error(error);
     }
 })
-
 
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
 

@@ -13,7 +13,7 @@ export const MainContainer = styled.main`
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  margin-top: -40px;
+  margin-top: -55px;
   margin-bottom: 0;
 `;
 
@@ -24,7 +24,7 @@ export const PaymentSectionWrapper = styled.section`
   border-radius: 20px;
   background: white;
   flex-direction: column;
-  padding: 20px 40px 10px 40px;
+  padding: 20px 20px 10px 40px;
 
   & > h3 {
     color: rgb(133, 133, 133);
@@ -213,15 +213,18 @@ export const ProductItemContainer = styled.figure`
 
 export const CartDetailsContainer = styled.div`
   flex: 1;
-  background: rgb(120, 155, 160);
   background: rgb(86, 92, 186);
   width: 100%;
-  height: 100%;
-  transform: translateY(-40px);
+  transform: translateY(25px);
+  margin: 20px;
+  height: fit-content;
+  min-height: 80%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  align-self: center;
   padding: 10px;
   overflow-y: auto;
   & > h2 {
@@ -235,7 +238,8 @@ export const CartTypeContainer = styled.div`
   margin: 5px;
   & > h4 {
     color: white;
-    font-size: 0.7em;
+    font-size: 0.9em;
+    margin: 5px;
   }
 
   & > .card__type {
@@ -261,7 +265,7 @@ export const CartTypeContainer = styled.div`
       }
 
       & > img {
-        width: 50px;
+        width: 60px;
         object-fit: contain;
         object-position: center;
       }
@@ -314,12 +318,13 @@ export const CheckoutDetailsContainer = styled.section`
   width: 80%;
   color: white;
   font-size: 0.8em;
-  margin: 5px;
+  margin-top: 30px;
 `;
 
 export const CheckOutDetails = styled.div`
   display: flex;
   width: 100%;
+  font-size: 1.2em;
   justify-content: space-between;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -335,7 +340,7 @@ export const CheckOutButton = styled.button`
   font-weight: 900;
   display: flex;
   justify-content: space-between;
-  margin: 5px !important;
+  margin-block: 20px !important;
   cursor: pointer;
   transition: all 0.3s ease-in;
 

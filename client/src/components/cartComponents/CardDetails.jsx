@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   CartDetailsContainer,
   CartTypeContainer,
 } from "../../pages/customerPages/cart/cartComponents";
+import {
+  CheckoutDetailsContainer,
+  CheckOutDetails,
+} from "../../pages/customerPages/cart/cartComponents";
 import Gcash from "./PaymentType/Gcash";
-import MasterCard from "./PaymentType/MasterCard";
+import Card from "./PaymentType/Card";
 import Paypal from "./PaymentType/Paypal";
+import shopingCartLogic from "./logic/shopingCartLogic";
 
+function CardDetails({ items, setItems, toast }) {
 
-function CardDetails({ items, setItems }) {
-
-  const [cartType, setCardType] = useState("mastercard");
+  const [cartType, setCardType] = useState("card");
 
   const pickCardType = (cardType) => {
     setCardType(cardType);
   };
+
+  const [totalAmount, setTotalAmount] = useState(0);
+  const { calculateTotalAmount, productPriceFormatter } = shopingCartLogic();
+
+  useEffect(() => {
+    setTotalAmount(calculateTotalAmount(items));
+  }, [items]);
 
   return (
     <CartDetailsContainer>
@@ -26,9 +37,9 @@ function CardDetails({ items, setItems }) {
         <div className="card__type">
           <div
             className={
-              cartType === "mastercard" ? `card activeCardPayment` : "card"
+              cartType === "card" ? `card activeCardPayment` : "card"
             }
-            onClick={() => pickCardType("mastercard")}
+            onClick={() => pickCardType("card")}
           >
             <img src="/images/imgbin_mastercard-png.png" />
           </div>
@@ -51,11 +62,36 @@ function CardDetails({ items, setItems }) {
         </div>
       </CartTypeContainer>
 
-      {cartType === "paypal" && <Paypal items={items} />}
+      <CheckoutDetailsContainer>
+        <CheckOutDetails>
+          <span class="leftDetails">Subtotal</span>
+          <span class="rightDetails subtotalPrice">
+            {productPriceFormatter(totalAmount)}
+          </span>
+        </CheckOutDetails>
 
-      {cartType === "mastercard" && <MasterCard items={items} />}
+        <CheckOutDetails>
+          <span class="leftDetails">Shipping</span>
+          <span class="rightDetails shippingPrice">
+            {productPriceFormatter(totalAmount * 0.01)}
+          </span>
+        </CheckOutDetails>
 
-      {cartType === "gcash" && <Gcash items={items} />}
+        <CheckOutDetails>
+          <span class="leftDetails">Total</span>
+          <span class="rightDetails totalAmount">
+            {productPriceFormatter(totalAmount * 0.01 + totalAmount)}{" "}
+          </span>
+        </CheckOutDetails>
+      </CheckoutDetailsContainer>
+
+      {cartType === "paypal" && <Paypal items={items} totalAmount={totalAmount} toast={toast} />}
+
+      {cartType === "card" && <Card items={items} totalAmount={totalAmount} toast={toast} />}
+
+      {cartType === "gcash" && <Gcash items={items} totalAmount={totalAmount} toast={toast} />}
+      
+
     </CartDetailsContainer>
   );
 }
