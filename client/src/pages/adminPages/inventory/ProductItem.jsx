@@ -10,6 +10,7 @@ import {
 } from "./inventoryComponents";
 
 import productItemLogic from "./productItemLogic";
+
 function Product({ product, setProducts, toast }) {
   const [openItem, setOpenItem] = useState(false);
   const [item, setItem] = useState();
@@ -26,6 +27,8 @@ function Product({ product, setProducts, toast }) {
     setProducts,
     toast,
     setDisableUpdate,
+    setImageDisplay,
+    setOpenItem
   });
 
   useEffect(() => {
@@ -83,7 +86,7 @@ function Product({ product, setProducts, toast }) {
           {item?.product_category}
         </T_DATA>
         <T_DATA className="table__productAge">
-          {item?.product_age_limit}
+          {item?.product_age_limit} (yrs old)
         </T_DATA>
         <T_DATA className="table__productPrice">{item?.product_price}</T_DATA>
         <T_DATA className="table__productStock"> {item?.product_stocks}</T_DATA>
@@ -114,11 +117,16 @@ function Product({ product, setProducts, toast }) {
             disabled={disableUpdate}
           />
 
-          {imageDisplay ? (
-            <img src={imageDisplay} alt="" class="item__image" />
-          ) : (
-            <img src={item?.product_image_url} alt="" class="item__image" />
-          )}
+          {
+            !disableUpdate ? (
+              imageDisplay ? <img src={imageDisplay} alt="" class="item__image" /> :
+              <img src='/images/upload.png' alt="" class="item__image" />
+
+            ) : (
+              imageDisplay ? <img src={imageDisplay} alt="" class="item__image" /> :
+              <img src={item?.product_image_url} alt="" class="item__image" />
+            )
+          }
 
           {disableUpdate ? (
             <button onClick={() => setDisableUpdate(false)}>Edit</button>

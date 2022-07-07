@@ -74,12 +74,16 @@ export const PetContainer = styled.div`
   height: 450px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-
+  transition: all .3s ease-in-out;
   box-shadow: ${({ active }) => (active ? "1px 3px 5px gray" : "none")};
 
   &:hover {
-    box-shadow: 1px 3px 5px gray;
+    box-shadow: 1px 3px 5px lightgray;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.9);
   }
 
   & > h3 {

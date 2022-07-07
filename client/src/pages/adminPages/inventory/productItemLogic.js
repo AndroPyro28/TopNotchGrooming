@@ -1,7 +1,15 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-function productItemLogic({ setProducts, item, setItem, imageDisplay, toast, setDisableUpdate }) {
-
+function productItemLogic({
+  setProducts,
+  item,
+  setItem,
+  imageDisplay,
+  toast,
+  setDisableUpdate,
+  setOpenItem,
+  setImageDisplay
+}) {
   const deleteProduct = async (id) => {
     try {
       const res = await axios.delete(`/api/products/deleteProduct/${id}`, {
@@ -12,17 +20,16 @@ function productItemLogic({ setProducts, item, setItem, imageDisplay, toast, set
 
       const { success, msg } = res.data;
 
-      if(msg?.includes('session expired') && !success) {
+      if (msg?.includes("session expired") && !success) {
         toast(msg, { type: "error" });
         return window.location.reload();
       }
 
-      if (success) {
-        setProducts((prev) => prev.filter((product) => product.id != id));
-        return toast(msg, {type: "success"})
+      if (!success) {
+        return toast(msg, { type: "error" });
       }
-
-      return toast(msg, {type:"error"})
+      setProducts((prev) => prev.filter((product) => product.id !== id));  // !bug detected!
+      return toast(msg, { type: "success" });
     } catch (error) {
       console.error(error.message);
     }
@@ -34,7 +41,6 @@ function productItemLogic({ setProducts, item, setItem, imageDisplay, toast, set
 
   const updateProduct = async () => {
     try {
-      //to becontinue here
       const res = await axios.post(
         `/api/products/updateItem`,
         { item, imageDisplay },
@@ -44,23 +50,23 @@ function productItemLogic({ setProducts, item, setItem, imageDisplay, toast, set
           },
         }
       );
-      const { success, msg } = res.data;
+      const { success, msg, product } = res.data;
 
-      if(msg?.includes('session expired') && !success) {
+      if (msg?.includes("session expired") && !success) {
         toast(msg, { type: "error" });
         return window.location.reload();
       }
-
       if (success) {
-        return toast(msg, {type: "success"})
+      setItem(product)
+        return toast(msg, { type: "success" });
       }
 
-      return toast(msg, {type:"error"})
+      return toast(msg, { type: "error" });
     } catch (error) {
       console.error(error.message);
-    }
-    finally {
-      setDisableUpdate(true)
+    } finally {
+      setImageDisplay(null);
+      setDisableUpdate(true);
     }
   };
 

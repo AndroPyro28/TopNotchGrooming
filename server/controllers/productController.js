@@ -115,6 +115,7 @@ module.exports.updateItem = async (req, res) => {
 
     if(result.affectedRows > 0) {
       return res.status(200).json({
+        product: req.body.item,
         msg: "Product updated",
         success: true
       })

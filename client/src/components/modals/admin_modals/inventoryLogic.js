@@ -2,13 +2,14 @@ import React from "react";
 import * as yup from "yup";
 import axios from "axios";
 import Cookies from "js-cookie";
-function inventoryLogic({ toast, img, imgError, setOpenItem, setImgError, setProducts }) {
+function inventoryLogic({ toast, img, imgError, setOpenItem, setImgError, setProducts, setDisabled }) {
   const onSubmit = async (values) => {
     if (imgError.length > 0 || img == null || img == undefined ||!img?.includes("image") ) 
     {
       return setImgError("Please set an image to this product");
     }
     values.productImg = img;
+    setDisabled(true)
     const res = await axios.post("/api/products/addItem", values, {
       headers: {
         userinfo: Cookies.get("userToken"),
@@ -51,6 +52,7 @@ function inventoryLogic({ toast, img, imgError, setOpenItem, setImgError, setPro
       product_image_id: productImgId,
       pet_type: petType
      }])
+     setDisabled(false)
      return setOpenItem(false);
   };
 

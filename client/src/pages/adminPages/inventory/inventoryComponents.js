@@ -216,8 +216,11 @@ export const ProductItem = styled.div`
   transition: all 0.3s ease-in-out;
   cursor: default;
   border-bottom: solid 1px gray;
-  &:hover {
+  /* &:hover {
     background: rgb(219, 236, 238);
+  } */
+  &:nth-child(even) {
+    background: rgb(240,248,255);
   }
 `;
 

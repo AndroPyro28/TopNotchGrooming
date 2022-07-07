@@ -12,6 +12,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
 
   const [img, setImg] = useState(null);
   const [imgError, setImgError] = useState("");
+  const [disabled, setDisabled] = useState(false)
 
   useEffect(() => {
     try {
@@ -43,7 +44,8 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
     setOpenItem,
     toast,
     setImgError,
-    setProducts
+    setProducts,
+    setDisabled
   });
 
   const dropDownCategory = [
@@ -83,19 +85,20 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
       key: "Select age limit", value: ""
     }, 
     {
-      key: "1-2 (yrs old)", value: "1-2 (yrs old)"
+      key: "1-2 (yrs old)", value: "1-2"
     },
     {
-      key: "2-4 (yrs old)", value: "2-4 (yrs old)"
+      key: "2-4 (yrs old)", value: "2-4"
     },
     {
-      key: "5-7 (yrs old)", value: "5-7 (yrs old)"
+      key: "5-7 (yrs old)", value: "5-7"
     },
     {
-      key: "Above 7+ (yrs old)", value: "Above 7+ (yrs old)"
+      key: "Above 7+ (yrs old)", value: "7+"
     },
 
   ]
+
   return (
     <ModalBackdrop openItem={openItem}>
       <Formik
@@ -272,7 +275,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
                 </InputContainer>
               </FormInputsContainer>
 
-              <button type="submit">Add Item</button>
+              <button disabled={disabled}  type="submit">Add Item</button>
             </Form>
           );
         }}

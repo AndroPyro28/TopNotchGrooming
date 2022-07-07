@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Product from "./Product";
 import Sign_Products from "../../../components/sign/Sign_Products";
 
@@ -31,14 +31,16 @@ function Store() {
     itemCategory: "",
     itemName: "",
   });
-
-  const { setProps } = storeLogic({ setActiveFilter });
-
+  const [refresher, setRefresher] = useState(false);
+  const { setProps, shuffleArray, dropDownItemCategory, dropDownAgeGap } =
+    storeLogic({ setActiveFilter });
+  // const [loading, setLoading] = useState(false);
+  const [loading, startTransition] = useTransition();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      setProducts([])
+    startTransition(async () => {
+      setProducts([]);
       try {
         const { petCategory, ageLimit, ItemCategory, itemName } = activeFilter;
         console.log(activeFilter);
@@ -48,14 +50,14 @@ function Store() {
               userinfo: Cookies.get("userToken"),
             },
           });
-          const { products, success, msg} = res.data;
+          const { products, success, msg } = res.data;
 
-          if(msg?.includes('session expired') && !success) {
+          if (msg?.includes("session expired") && !success) {
             toast(msg, { type: "error" });
             return window.location.reload();
           }
 
-          setProducts(products);
+          setProducts(shuffleArray(products));
         } else {
           const res = await axios.post(
             "/api/products/searchItems",
@@ -69,53 +71,23 @@ function Store() {
 
           const { success, products, msg } = res.data;
 
-          if(msg?.includes('session expired') && !success) {
+          if (msg?.includes("session expired") && !success) {
             toast(msg, { type: "error" });
             return window.location.reload();
           }
-          setProducts(products);
+          setProducts(shuffleArray(products));
         }
       } catch (error) {
         console.error(error.message);
       }
-    })();
+    });
   }, [
     activeFilter.petCategory,
     activeFilter.itemName,
     activeFilter.ageLimit,
     activeFilter.itemCategory,
+    refresher,
   ]);
-
-  const dropDownItemCategory = [
-    { key: "Select Category", value: "" },
-    { key: "Food", value: "Food" },
-    { key: "Toy", value: "Toy" },
-    { key: "Hygiene", value: "Hygiene" },
-    { key: "Utility", value: "Utility" },
-  ];
-
-  const dropDownAgeGap = [
-    {
-      key: "Select age limit",
-      value: "",
-    },
-    {
-      key: "1-2 (yrs old)",
-      value: "1-2",
-    },
-    {
-      key: "2-4 (yrs old)",
-      value: "2-4",
-    },
-    {
-      key: "5-7 (yrs old)",
-      value: "5-7",
-    },
-    {
-      key: "Above 7+ (yrs old)",
-      value: "7+",
-    },
-  ];
 
   return (
     <StorePageContainer>
@@ -134,9 +106,13 @@ function Store() {
         <PetFilterContainer>
           <PetContainer
             active={activeFilter.petCategory.toLowerCase() === "dog"}
-            id="Dog"
+            id="dog"
             onClick={(e) =>
-              setActiveFilter((prev) => ({ ...prev, petCategory: prev.petCategory === e.target.id ? "" : e.target.id}))
+              setActiveFilter((prev) => ({
+                ...prev,
+                petCategory:
+                  prev.petCategory === e.target.id ? "" : e.target.id,
+              }))
             }
           >
             <CircleBackground id="dog" />
@@ -149,7 +125,11 @@ function Store() {
             active={activeFilter.petCategory.toLowerCase() === "cat"}
             id="cat"
             onClick={(e) =>
-              setActiveFilter((prev) => ({ ...prev, petCategory: e.target.id }))
+              setActiveFilter((prev) => ({
+                ...prev,
+                petCategory:
+                  prev.petCategory === e.target.id ? "" : e.target.id,
+              }))
             }
           >
             <CircleBackground id="cat" />
@@ -168,19 +148,21 @@ function Store() {
 
         <FilterProductContainer>
           <FilterContainer>
-          <Filter>
-            <i className="fa-solid fa-magnifying-glass"></i>{" "}
-            <input
-              type={"text"}
-              onChange={setProps}
-              name="itemName"
-              value={activeFilter.itemName}
-              placeholder="Search item by name"
-            />
-          </Filter>
-          <i class="fa-solid fa-rotate productRefreshBtn"></i>
+            <Filter>
+              <i className="fa-solid fa-magnifying-glass"></i>{" "}
+              <input
+                type={"text"}
+                onChange={setProps}
+                name="itemName"
+                value={activeFilter.itemName}
+                placeholder="Search item by name"
+              />
+            </Filter>
+            <i
+              class="fa-solid fa-rotate productRefreshBtn"
+              onClick={() => setRefresher(!refresher)}
+            ></i>
           </FilterContainer>
-          
 
           <FilterContainer>
             <Filter>
@@ -221,18 +203,19 @@ function Store() {
           </FilterContainer>
         </FilterProductContainer>
 
-        <ProductsContainer>
-          {/* products here */}
-
-          {products?.length > 0 ? (
-            products?.map((product, index) => {
-              return <Product product={product} key={index} />;
-            })
-          ) : (
-            <Sign_Products/>
-          )}
-          
-        </ProductsContainer>
+        {loading ? (
+          <h1>loading...</h1>
+        ) : (
+          <ProductsContainer>
+            {products?.length > 0 ? (
+              products?.map((product, index) => {
+                return <Product product={product} key={index} />;
+              })
+            ) : (
+              <Sign_Products />
+            )}
+          </ProductsContainer>
+        )}
 
         <div class="pageNumber">
           <span class="activePage">1</span> / <span class="maxPage">2</span>{" "}

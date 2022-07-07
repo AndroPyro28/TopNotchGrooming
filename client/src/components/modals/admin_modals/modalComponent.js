@@ -80,6 +80,10 @@ export const ModalBackdrop = styled.section`
       background: #1363df;
       color: white;
       cursor: pointer;
+      &:disabled {
+        background: gray;
+        cursor: wait;
+      }
     }
 
     & > .closeBtn {

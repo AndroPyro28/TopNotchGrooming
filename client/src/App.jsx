@@ -18,7 +18,7 @@ import CustomerNavbar from "./components/customer_navbar/CustomerNavbar";
 import Profile from "./pages/customerPages/profile/Profile";
 import Personal from "./pages/customerPages/profile/Personal.jsx";
 import Activities from "./pages/customerPages/profile/Activities.jsx";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { authenticationFailed, authenticationSuccess } from "./redux/userSlice";
 import { AppRoot } from "./appComponents";
 import Store from "./pages/customerPages/store/Store";
@@ -32,7 +32,8 @@ import Cart from "./pages/customerPages/cart/Cart";
 import PaymentSuccess from "./pages/customerPages/payment/PaymentSuccess";
 import PaymentFailed from "./pages/customerPages/payment/PaymentFailed";
 import shopingCartLogic from "./components/cartComponents/logic/shopingCartLogic";
-import {setToCartReducer } from "./redux/cartSlice";
+import { setToCartReducer } from "./redux/cartSlice";
+import Appointment from "./pages/customerPages/appointment/Appointment";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -75,7 +76,7 @@ function App() {
 
           if (success) {
             const { currentUser } = res.data;
-            dispatch(authenticationSuccess({currentUser, isAuth:true}))
+            dispatch(authenticationSuccess({ currentUser, isAuth: true }));
           }
         } catch (error) {
           console.error(error);
@@ -86,24 +87,23 @@ function App() {
     });
   }, []);
 
-  const {fetcher} = shopingCartLogic()
+  const { fetcher } = shopingCartLogic();
+  
   useEffect(() => {
     (async () => {
       const cart = await fetcher();
-      dispatch(setToCartReducer(cart))
+      dispatch(setToCartReducer(cart));
     })();
   }, []);
-
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
 
   return (
     <AppRoot>
-
       {navbarType === "public" && <PublicNavbar />}
 
       {navbarType === "customer" && <CustomerNavbar />}
-      
+
       {navbarType === "admin" && <AdminSidebar />}
 
       <Routes>
@@ -116,16 +116,26 @@ function App() {
         <Route path="/about" element={<PublicRoutes Component={<About />} />} />
         <Route
           path="/customer/signup"
-          element={<PublicRoutes Component={<PublicRoutes Component={<Signup />} />} />}
+          element={
+            <PublicRoutes Component={<PublicRoutes Component={<Signup />} />} />
+          }
         />
         <Route
           path="/customer/login"
-          element={<PublicRoutes Component={<PublicRoutes Component={<CustomerLogin />} />} />}
+          element={
+            <PublicRoutes
+              Component={<PublicRoutes Component={<CustomerLogin />} />}
+            />
+          }
         />
 
         <Route
           path="/admin/login"
-          element={<PublicRoutes Component={<PublicRoutes Component={<AdminLogin />} />} />}
+          element={
+            <PublicRoutes
+              Component={<PublicRoutes Component={<AdminLogin />} />}
+            />
+          }
         />
 
         {/* customer routes */}
@@ -134,20 +144,50 @@ function App() {
           element={<CustomerRoutes Component={<Home />} />}
         />
 
-        <Route path="/customer/profile" element={<CustomerRoutes Component={<Profile />} />} >
+        <Route
+          path="/customer/profile"
+          element={<CustomerRoutes Component={<Profile />} />}
+        >
           <Route index element={<CustomerRoutes Component={<Personal />} />} />
-          <Route path="personal" element={<CustomerRoutes Component={<Personal />} />} />
-          <Route path="activities" element={<CustomerRoutes Component={<Activities />} />} />
+          <Route
+            path="personal"
+            element={<CustomerRoutes Component={<Personal />} />}
+          />
+          <Route
+            path="activities"
+            element={<CustomerRoutes Component={<Activities />} />}
+          />
         </Route>
 
-        <Route path="/customer/store" element={<CustomerRoutes Component={<Store />} />} />
-        <Route path="/customer/cart" element={<CustomerRoutes Component={<Cart />} />} />
-        <Route path="/customer/payment=success" element={<CustomerRoutes Component={<PaymentSuccess />} />} />
-        <Route path="/customer/payment=failed" element={<CustomerRoutes Component={<PaymentFailed />} />} />
-
+        <Route
+          path="/customer/store"
+          element={<CustomerRoutes Component={<Store />} />}
+        />
+        <Route
+          path="/customer/cart"
+          element={<CustomerRoutes Component={<Cart />} />}
+        />
+        <Route
+          path="/customer/payment=success"
+          element={<CustomerRoutes Component={<PaymentSuccess />} />}
+        />
+        <Route
+          path="/customer/payment=failed"
+          element={<CustomerRoutes Component={<PaymentFailed />} />}
+        />
+        <Route
+          path="/customer/appointment"
+          element={<CustomerRoutes Component={<Appointment />} />}
+        />
         {/* admin routes */}
-        <Route path="/admin" element={<AdminRoutes Component={<Dashboard />} />} />
-        <Route path="/admin/inventory" element={<AdminRoutes Component={<Inventory />} />} />
+        <Route
+          path="/admin"
+          element={<AdminRoutes Component={<Dashboard />} />}
+        />
+        <Route
+          path="/admin/inventory"
+          element={<AdminRoutes Component={<Inventory />} />}
+        />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
 
@@ -155,8 +195,5 @@ function App() {
     </AppRoot>
   );
 }
-
-
-
 
 export default App;

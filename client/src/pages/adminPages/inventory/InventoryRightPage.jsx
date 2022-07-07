@@ -97,6 +97,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           setOpenItem={setOpenItem}
           openItem={openItem}
           toast={toast}
+          
           setProducts={setProducts}
         />
       )}

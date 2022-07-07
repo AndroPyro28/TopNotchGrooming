@@ -5,3 +5,10 @@
 }
 */
 
+.error__message {
+    color: maroon;
+    font-size: 0.9em;
+}
+textarea {
+    resize: none;
+}

@@ -85,7 +85,7 @@ function Profile() {
   }, [profileImg]);
   return (
     <ProfilePageContainer>
-      {loading && <Loader bg="rgba(0,0,0,0.5)" />}
+      { loading && <Loader bg="rgba(0,0,0,0.5)" />}
 
       <ToastContainer autoClose={1500} />
       {allowChanges && (
