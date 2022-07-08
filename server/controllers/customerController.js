@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
 const ProductDetails = require("../models/ProductDetails");
 const { assignToken } = require("../helpers/AuthTokenHandler");
+const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -83,26 +84,16 @@ module.exports.updateInfo = async (req, res) => {
       req.body?.user.profile_image_id !=
         "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
-      const cloudinaryDelete = await cloudinary.uploader.destroy(
-        req.body.user.profile_image_id,
-        {
-          upload_preset: "topnotch_profilepic",
-        }
-      );
+        deleteOne(req.body.user.profile_image_id)
     }
 
     if (
       req.body?.profileImg?.length > 0 &&
       req.body?.profileImg?.includes("image")
     ) {
-      const cloudinaryUpload = await cloudinary.uploader.upload(
-        req.body?.profileImg,
-        {
-          upload_preset: "topnotch_profilepic",
-        }
-      );
-      req.body.user.profile_image_url = cloudinaryUpload.url;
-      req.body.user.profile_image_id = cloudinaryUpload.public_id;
+      const cloudinaryResponse = await uploadOne(req.body?.profileImg)
+      req.body.user.profile_image_url = cloudinaryResponse.url;
+      req.body.user.profile_image_id = cloudinaryResponse.public_id;
     }
 
     const customer = new Customer(req.body.user);

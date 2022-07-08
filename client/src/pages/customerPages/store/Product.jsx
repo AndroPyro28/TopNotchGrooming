@@ -15,12 +15,13 @@ function Product({ product }) {
     <ProductItem>
       <ProductItemImg src={product?.product_image_url} />
       <ProductItemName>{product?.product_name}</ProductItemName>
+      <small>
+      For {product?.pet_type}s {product.product_age_limit} yrs old
+      </small>
       <ProductItemDescription>
-        {product?.product_description}
+         {product?.product_description}
       </ProductItemDescription>
-      <ProductItemDescription>
-        {product.product_age_limit} yrs old
-      </ProductItemDescription>
+      
       <ProductItemPrice>₱ {product?.product_price}</ProductItemPrice>
         <span className="add__to__cart" onClick={() => addToCart(product)}>
           <i className="fa-solid fa-cart-plus"></i> <span>Add To Cart</span>

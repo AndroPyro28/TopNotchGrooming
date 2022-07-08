@@ -227,13 +227,19 @@ export const ProductItemName = styled.h3`
 export const ProductItemPrice = styled.h4`
   font-size: 15px;
   color: rgb(94, 94, 94);
-  margin: 10px;
+  margin: 10px 0px 20px 0px;
 `;
 
 export const ProductItemDescription = styled.p`
   color: gray;
   font-size: 0.9em;
-  margin: 10px;
+  margin: 20px;
+  overflow: hidden;
+  /* white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; */
+      max-height: 60px;
+      
 `;
 
 export const FilterProductContainer = styled.div`
