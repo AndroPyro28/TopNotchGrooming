@@ -42,9 +42,8 @@ function Store() {
     startTransition(async () => {
       setProducts([]);
       try {
-        const { petCategory, ageLimit, ItemCategory, itemName } = activeFilter;
-        console.log(activeFilter);
-        if (!petCategory && !ageLimit && !ItemCategory && !itemName) {
+        const { petCategory, ageLimit, itemCategory, itemName } = activeFilter;
+        if (!petCategory && !ageLimit && !itemCategory && !itemName) {
           const res = await axios.get("/api/products/getAllItems", {
             headers: {
               userinfo: Cookies.get("userToken"),
@@ -159,7 +158,7 @@ function Store() {
               />
             </Filter>
             <i
-              class="fa-solid fa-rotate productRefreshBtn"
+              className={`fa-solid fa-rotate productRefreshBtn`}
               onClick={() => setRefresher(!refresher)}
             ></i>
           </FilterContainer>
@@ -193,8 +192,7 @@ function Store() {
                 {dropDownAgeGap.map((option) => {
                   return (
                     <option key={option.key} value={option.value}>
-                      {" "}
-                      {option.key}{" "}
+                      {option.key}
                     </option>
                   );
                 })}

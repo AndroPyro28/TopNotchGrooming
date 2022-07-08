@@ -40,6 +40,24 @@ class Product {
   getDateToday = () =>
     new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
+    selectItemById = async (id=this.#id) => {
+      try {
+        const selectQuery = `SELECT * FROM products WHERE id = ?`;
+  
+        const [result, _] = await poolConnection.execute(selectQuery, [id]);
+  
+        if(result.length > 0) {
+          return result[0];
+        }
+        else {
+          return {}
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+
   insertProduct = async () => {
     try {
       const insertQuery = `
@@ -69,6 +87,7 @@ class Product {
 
   getAllItems = async () => {
     try {
+      this.selectItemById()
       const selectQuery = `SELECT * FROM products;`;
       const [result, _] = await poolConnection.execute(selectQuery);
 
@@ -139,22 +158,7 @@ class Product {
     }
   };
 
-  selectItemById = async (id) => {
-    // try {
-    //   const selectQuery = `SELECT * FROM products WHERE id = ?`;
-
-    //   const [result, _] = await poolConnection.execute(selectQuery, [id]);
-
-    //   if(result.length > 0) {
-    //     return result[0];
-    //   }
-    //   else {
-    //     return {}
-    //   }
-    // } catch (error) {
-    //   console.error(error.message);
-    // }
-  }
+  
 }
 
 module.exports = Product;

@@ -97,7 +97,8 @@ export const ProductItemContainer = styled.figure`
   border-radius: 10px;
   margin: 10px;
   max-height: 90px;
-  border: ${({isInPurchase}) => isInPurchase ? `#F0AF4C solid 2px` : 'white solid 2px'} ;
+  border: ${({ isInPurchase }) =>
+    isInPurchase ? `#F0AF4C solid 2px` : "white solid 2px"};
   & > .checkbox {
     flex: 1;
     align-self: center;
@@ -106,7 +107,7 @@ export const ProductItemContainer = styled.figure`
     cursor: pointer;
     width: fit-content;
     padding: 5px;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 
     &:hover {
       color: maroon;
@@ -130,8 +131,12 @@ export const ProductItemContainer = styled.figure`
     }
 
     & > h6 {
+      margin: 5px;
       font-size: 0.7em;
       color: gray;
+      /* white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; */
     }
   }
 
@@ -180,11 +185,12 @@ export const ProductItemContainer = styled.figure`
     flex: 1;
     border-radius: 20px;
     font-size: 1.5em;
-    color: ${({isInPurchase}) => isInPurchase ? `#F0AF4C` : 'rgb(255,231,147)'} ;
+    color: ${({ isInPurchase }) =>
+      isInPurchase ? `#F0AF4C` : "rgb(255,231,147)"};
     cursor: pointer;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     &:hover {
-      color: #F0AF4C;
+      color: #f0af4c;
     }
 
     &:active {
@@ -203,10 +209,10 @@ export const ProductItemContainer = styled.figure`
     cursor: pointer;
     padding: 5px;
     height: fit-content;
-    transition: all .3s ease-out;
+    transition: all 0.3s ease-out;
     border-radius: 5px;
     &:hover {
-      background: #F0AF4C;
+      background: #f0af4c;
     }
   }
 `;
@@ -256,9 +262,9 @@ export const CartTypeContainer = styled.div`
       cursor: pointer;
       transition: all 0.3s ease-in;
       cursor: pointer;
-
+      
       &:hover {
-        border-color: white;
+        border-color: lightgray;
       }
       &.activeCardPayment {
         border-color: white;
@@ -304,7 +310,7 @@ export const CartInputContainer = styled.div`
     display: flex;
     align-items: center;
     & > label {
-        text-align: center !important;
+      text-align: center !important;
     }
     & > .input {
       width: 85%;

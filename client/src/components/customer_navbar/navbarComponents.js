@@ -122,6 +122,10 @@ export const BrandLogoContainer = styled.div`
         color: white;
         transition: all .3s ease-in-out;
         border-radius: 50%;
+
+        &.active {
+          background:rgb(141,124,87);
+        }
     }
 
         &:hover {

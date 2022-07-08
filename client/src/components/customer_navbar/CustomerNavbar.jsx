@@ -56,7 +56,7 @@ const cart = useSelector((state) => state.cart)
           <Link to="/customer/cart">
             <button>
               <i class="fa-solid fa-cart-shopping"></i> &nbsp; Cart &nbsp;
-              <span class="cart__number__item">{nocartItems > 0 ? nocartItems : 0}</span>
+              <span class={`cart__number__item ${nocartItems && 'active'}`}>{nocartItems}</span>
             </button>
           </Link>
           <Link to="/customer/profile">

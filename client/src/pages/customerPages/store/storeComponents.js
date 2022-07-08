@@ -286,8 +286,24 @@ export const FilterContainer = styled.div`
   align-items: center;
 
   & > .productRefreshBtn {
+
+    @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
     font-size: 1.5em;
     margin: 10px;
     cursor: pointer;
+    &:hover {
+      animation: rotate infinite 1.5s;
+    }
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import {
   InventoryRightContent,
   FilterItemsContainer,
@@ -18,9 +18,9 @@ import Sign_Products from "../../../components/sign/Sign_Products";
 function InventoryRightPage({ searchItem, setSearchItem }) {
   const [openItem, setOpenItem] = useState(false);
   const [products, setProducts] = useState([]);
-
+  const [loading, startTransition] = useTransition()
   useEffect(() => {
-    (async () => {
+    startTransition(async () => {
       setProducts([])
       const { petCategory, itemCategory, ageLimit, itemName } = searchItem;
       if (!petCategory && !itemCategory && !ageLimit && !itemName) {
@@ -37,7 +37,6 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           toast(msg, { type: "error" });
           return window.location.reload();
         }
-
         setProducts(products);
       } else {
         const res = await axios.post("/api/products/searchItems", searchItem, {
@@ -54,7 +53,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         }
         setProducts(products);
       }
-    })();
+    });
   }, [
     searchItem.petCategory,
     searchItem.itemCategory,
@@ -167,11 +166,11 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         {/* products here */}
 
         {products?.length > 0 ? (
-          products.map((product, index) => {
+          products.map(product => {
             return (
               <ProductItem
                 product={product}
-                key={index}
+                key={product.id}
                 setProducts={setProducts}
                 toast={toast}
               />

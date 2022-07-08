@@ -24,7 +24,7 @@ function ProductItem({ product, setItems }) {
         onClick={() => handleItem(product, setItems)}
       ></i>
       <img src={product_image_url} className="product__image" />
-
+      
       <div className="product__name">
         <h5>{product_name}</h5>
         <h6>{product_description}</h6>

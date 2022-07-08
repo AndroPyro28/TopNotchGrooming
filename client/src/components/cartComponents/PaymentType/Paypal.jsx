@@ -3,8 +3,9 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import shopingCartLogic from '../logic/shopingCartLogic';
 import {useNavigate} from "react-router-dom"
 function Paypal({items, totalAmount, toast}) {
+  const navigate = useNavigate();
   console.log(totalAmount);
-  const navigate = useNavigate()
+
   return (
     <div style={{marginBlock:20}}>
         <PayPalScriptProvider options={{
@@ -16,7 +17,7 @@ function Paypal({items, totalAmount, toast}) {
                   purchase_units: [
                     {
                       amount: {
-                        value: `${totalAmount / 55}`,
+                        value: Math.ceil(totalAmount / 55),
                       },
                     },
                   ],
@@ -28,10 +29,9 @@ function Paypal({items, totalAmount, toast}) {
                 alert("Transaction completed by " + name);
                 navigate.push('/localhost:3000/customer/payment=success')
               }}
-              onError={() => {
+              onError={(error) => {
                 if(totalAmount <= 0) {
                 return toast('Checkout an item first', {type:'info'})
-
                 }
               }}
             />

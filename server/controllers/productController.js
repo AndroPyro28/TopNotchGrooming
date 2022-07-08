@@ -1,19 +1,15 @@
 const Product = require("../models/product");
-const cloudinary = require("../config/cloudinary");
+
+const { uploadOne, deleteOne } = require("../helpers/CloudinaryHandler");
 module.exports.addItem = async (req, res) => {
   try {
     if (
       req.body?.productImg?.length > 0 &&
       req.body?.productImg?.includes("image")
     ) {
-      const cloudinaryUpload = await cloudinary.uploader.upload(
-        req.body.productImg,
-        {
-          upload_preset: "topnotch_productImg",
-        }
-      );
-      req.body.productImg = cloudinaryUpload.url;
-      req.body.productImgId = cloudinaryUpload.public_id;
+      const cloudinary = await uploadOne(req.body.productImg);
+      req.body.productImg = cloudinary.url;
+      req.body.productImgId = cloudinary.public_id;
     }
     const product = new Product(req.body);
 
@@ -55,7 +51,8 @@ module.exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
 
     const product = new Product({});
-
+    const item = await product.selectItemById(id);
+    deleteOne(item.product_image_id);
     const deleteResponse = await product.deleteItemById(id);
 
     if (deleteResponse.affectedRows) {
@@ -73,18 +70,10 @@ module.exports.updateItem = async (req, res) => {
   try {
     const { imageDisplay } = req.body;
     if (imageDisplay?.length > 0 && imageDisplay?.includes("image")) {
-      const cloudinaryDelete = await cloudinary.uploader.destroy(
-        req.body.item.product_image_id,
-        {
-          upload_preset: "topnotch_productImg",
-        }
-      );
-
-      const cloudinaryUpload = await cloudinary.uploader.upload(imageDisplay, {
-        upload_preset: "topnotch_productImg",
-      });
-      req.body.item.product_image_url = cloudinaryUpload.url;
-      req.body.item.product_image_id = cloudinaryUpload.public_id;
+      deleteOne(req.body.item.product_image_id);
+      const cloudinary = await uploadOne(imageDisplay);
+      req.body.item.product_image_url = cloudinary.url;
+      req.body.item.product_image_id = cloudinary.public_id;
     }
     const {
       id,
@@ -99,50 +88,54 @@ module.exports.updateItem = async (req, res) => {
       pet_type,
     } = req.body.item;
     const product = new Product({
-      id : id,
-      productName : product_name,
-      productStocks : product_stocks,
-      productPrice : product_price,
-      productCategory : product_category,
-      productDescription : product_description,
-      productAgeGap : product_age_limit,
-      productImg : product_image_url,
-      productImgId : product_image_id,
-      petType : pet_type,
+      id: id,
+      productName: product_name,
+      productStocks: product_stocks,
+      productPrice: product_price,
+      productCategory: product_category,
+      productDescription: product_description,
+      productAgeGap: product_age_limit,
+      productImg: product_image_url,
+      productImgId: product_image_id,
+      petType: pet_type,
     });
 
     const result = await product.updateItem();
 
-    if(result.affectedRows > 0) {
+    if (result.affectedRows > 0) {
       return res.status(200).json({
         product: req.body.item,
         msg: "Product updated",
-        success: true
-      })
+        success: true,
+      });
     }
 
     return res.status(200).json({
       msg: "Product updated failed",
-      success: false
-    })
+      success: false,
+    });
   } catch (error) {
     console.error("error", error.message);
   }
 };
 
 module.exports.searchItems = async (req, res) => {
-  const {petCategory, ageLimit, itemCategory, itemName} = req.body;
+  const { petCategory, ageLimit, itemCategory, itemName } = req.body;
   try {
     const product = new Product({});
 
-    const products = await product.searchItems(itemName, petCategory, itemCategory, ageLimit)
+    const products = await product.searchItems(
+      itemName,
+      petCategory,
+      itemCategory,
+      ageLimit
+    );
 
     return res.status(200).json({
       products,
-      success: true
+      success: true,
     });
-    
   } catch (error) {
     console.error(error.message);
   }
-}
+};

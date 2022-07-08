@@ -35,12 +35,12 @@ function productItemLogic({
     }
   };
 
-  const setProps = (e) => {
-    setItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const setProps = (e) => setItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  
 
   const updateProduct = async () => {
     try {
+      setDisableUpdate(true);
       const res = await axios.post(
         `/api/products/updateItem`,
         { item, imageDisplay },
@@ -57,16 +57,16 @@ function productItemLogic({
         return window.location.reload();
       }
       if (success) {
-      setItem(product)
+        setItem(product)
         return toast(msg, { type: "success" });
       }
-
+      setDisableUpdate(false);
       return toast(msg, { type: "error" });
     } catch (error) {
       console.error(error.message);
     } finally {
       setImageDisplay(null);
-      setDisableUpdate(true);
+      
     }
   };
 
