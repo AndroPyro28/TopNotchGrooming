@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2022 at 10:28 AM
+-- Generation Time: Jul 09, 2022 at 11:40 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -49,17 +49,31 @@ INSERT INTO `admin` (`id`, `firstname`, `lastname`, `email`, `password`) VALUES
 --
 
 CREATE TABLE `appointments` (
-  `appointmentID` int(11) NOT NULL,
-  `petName` varchar(50) DEFAULT NULL,
-  `petType` varchar(50) DEFAULT NULL,
-  `petBreed` varchar(50) DEFAULT NULL,
-  `petBirth` varchar(50) DEFAULT NULL,
-  `appointmentType` varchar(50) DEFAULT NULL,
-  `additionalDetails` varchar(500) DEFAULT NULL,
-  `livestreampublicity` tinyint(1) DEFAULT 0,
+  `id` int(11) NOT NULL,
+  `pet_name` varchar(50) DEFAULT NULL,
+  `pet_type` varchar(50) DEFAULT NULL,
+  `pet_breed` varchar(50) DEFAULT NULL,
+  `birthdate` varchar(50) DEFAULT NULL,
+  `gender` varchar(20) NOT NULL,
+  `appointment_type` varchar(50) DEFAULT NULL,
+  `additional_details` varchar(500) DEFAULT NULL,
+  `date_n_time` varchar(20) NOT NULL,
+  `live_stream_type` varchar(20) DEFAULT NULL,
   `archived` tinyint(1) DEFAULT 0,
-  `customerID` int(11) DEFAULT NULL
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `customer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdate`, `gender`, `appointment_type`, `additional_details`, `date_n_time`, `live_stream_type`, `archived`, `status`, `customer_id`) VALUES
+(20, 'pinti', 'dog', 'German shepperd', '2022-07-09', 'female', 'walk-in-consulting', 'paki ayos lang', '2022-07-09', NULL, 0, 'pending', 7),
+(21, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'grooming', 'paki ayos ulet', '2022-07-09', 'public', 0, 'pending', 7),
+(22, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'grooming', 'paki ayos ulet', '2022-07-09', 'private', 0, 'pending', 7),
+(23, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'walk-in-consulting', 'paki ayos ulet', '2022-07-09', NULL, 0, 'pending', 7),
+(24, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'walk-in-consulting', 'paki ayos ulet', '2022-07-09', NULL, 0, 'pending', 7);
 
 -- --------------------------------------------------------
 
@@ -220,8 +234,8 @@ ALTER TABLE `admin`
 -- Indexes for table `appointments`
 --
 ALTER TABLE `appointments`
-  ADD PRIMARY KEY (`appointmentID`),
-  ADD KEY `customerID` (`customerID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customerID` (`customer_id`);
 
 --
 -- Indexes for table `appointment_history`
@@ -286,7 +300,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `appointment_history`
@@ -338,13 +352,13 @@ ALTER TABLE `yearly_sales`
 -- Constraints for table `appointments`
 --
 ALTER TABLE `appointments`
-  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`customerID`) REFERENCES `customer` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `appointment_history`
 --
 ALTER TABLE `appointment_history`
-  ADD CONSTRAINT `appointment_history_ibfk_1` FOREIGN KEY (`appointmentID`) REFERENCES `appointments` (`appointmentID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appointment_history_ibfk_1` FOREIGN KEY (`appointmentID`) REFERENCES `appointments` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `monthly_sales`

@@ -1,10 +1,17 @@
 import React from "react";
 import * as yup from "yup";
 import Cookies from "js-cookie";
+import axios from "axios";
 function AppointmentLogic() {
   const onSubmit = async (values) => {
     try {
-      console.log(values);
+      const res = await axios.post("/api/customer/appointment", values, {
+        headers: {
+          userinfo: Cookies.get("userToken"),
+        },
+      });
+
+      console.log(res.data);
     } catch (error) {
       console.error(error.message);
     }
@@ -19,7 +26,8 @@ function AppointmentLogic() {
       breed: "",
       appointmentType: "",
       dateNtime: "",
-      additionalRequest: "",
+      liveStreamType: "",
+      additional_details: "",
     };
   };
 
@@ -31,7 +39,8 @@ function AppointmentLogic() {
     breed: yup.string().required("Breed is required"),
     appointmentType: yup.string().required("Appointment is required"),
     dateNtime: yup.date().required("Date and time is required"),
-    additionalRequest: yup.string(),
+    liveStreamType: yup.string(),
+    additional_details: yup.string(),
   });
 
   const genderOptions = [
@@ -79,6 +88,20 @@ function AppointmentLogic() {
     },
   ];
 
+  const liveStreamOptions = [
+    { key: "Select", value: "" },
+    { key: "Public Live Stream", value: "public" },
+    { key: "Private Live Stream", value: "private" },
+  ];
+
+  const dateTodayFormatter = () => {
+    const date = new Date();
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    const today = `${yyyy}-${mm}-${dd}`;
+    return today
+  }
   return {
     onSubmit,
     initialValues,
@@ -86,6 +109,8 @@ function AppointmentLogic() {
     genderOptions,
     petTypeOptions,
     requestTypeOptions,
+    liveStreamOptions,
+    dateTodayFormatter
   };
 }
 

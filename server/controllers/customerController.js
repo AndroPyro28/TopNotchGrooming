@@ -5,6 +5,8 @@ const cloudinary = require("../config/cloudinary");
 const ProductDetails = require("../models/ProductDetails");
 const { assignToken } = require("../helpers/AuthTokenHandler");
 const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
+const Appointment = require("../models/Appointment");
+const { DateFormatter } = require("../helpers/DateFormatter");
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -252,3 +254,38 @@ module.exports.checkout = async (req, res) => {
   }
   
 };
+
+module.exports.addAppointment = async (req, res) => {
+  try {
+    let {petName, petType, birthdate, breed, gender, appointmentType, liveStreamType="", dateNtime, additional_details} = req.body;
+    dateNtime = DateFormatter(dateNtime)
+
+    if(appointmentType != 'grooming') {
+      liveStreamType = null;
+    }
+
+
+    const appointment = new Appointment({
+      pet_name: petName,
+      pet_type: petType,
+      pet_breed: breed,
+      gender: gender,
+      birthdate: birthdate,
+      appointment_type: appointmentType,
+      date_n_time: dateNtime,
+      additional_details: additional_details,
+      live_stream_type: typeof liveStreamType != undefined ? liveStreamType : null,
+      customer_id: req.currentUser.id,
+    });
+
+     const {result, success} = await appointment.addAppointment()
+
+      return res.status(201).json({
+        msg: success ?'Appointment added' : 'something went wrong...',
+        success
+      })
+
+  } catch (error) {
+    console.log(error.message)
+  }
+}
