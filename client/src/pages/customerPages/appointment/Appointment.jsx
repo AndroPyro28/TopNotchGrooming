@@ -7,6 +7,7 @@ import {
   AppointmentFormInputsContainer,
   FormInputsContainer,
 } from "./appointmentComponents";
+import {toast, ToastContainer} from "react-toastify";
 import FormikControl from "../../../formik/FormikControl";
 function Appointment() {
   const {
@@ -18,7 +19,7 @@ function Appointment() {
     requestTypeOptions,
     liveStreamOptions,
     dateTodayFormatter,
-  } = AppointmentLogic();
+  } = AppointmentLogic({toast});
 
   useEffect(() => {
     const birthdate = document.querySelector("#birthdate");
@@ -43,10 +44,10 @@ function Appointment() {
         const appointmentType = formik.values.appointmentType;
         const liveStreamType = formik.values.liveStreamType;
         return (
-          <Form class="appointment__form__container">
+          <Form class="appointment__form__container" autoComplete="off">
             <AppointmentFormPhoto></AppointmentFormPhoto>
             <GlobalStyles />
-
+            <ToastContainer autoClose={1500} />
             <AppointmentFormInputsContainer>
               <h2>
                 B o o k &nbsp; A n &nbsp; A p p o i n t m e n t &nbsp; O n l i n

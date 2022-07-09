@@ -2,7 +2,13 @@ import React from "react";
 import * as yup from "yup";
 import Cookies from "js-cookie";
 import axios from "axios";
-function AppointmentLogic() {
+import {useNavigate} from "react-router-dom";
+import { replace } from "formik";
+function AppointmentLogic({toast}) {
+
+  const navigate = useNavigate();
+
+
   const onSubmit = async (values) => {
     try {
       const res = await axios.post("/api/customer/appointment", values, {
@@ -11,7 +17,19 @@ function AppointmentLogic() {
         },
       });
 
-      console.log(res.data);
+      const {success, msg} = res.data;
+
+      if(!success && msg.includes('session expired')) {
+        return window.location.reload();
+      }
+
+      if(!success) {
+        return toast(msg, {type: 'error'});
+      }
+
+      toast(msg, {type: 'success'});
+
+      setTimeout( _ => navigate('/customer/profile', {replace: true}), 2500)
     } catch (error) {
       console.error(error.message);
     }
