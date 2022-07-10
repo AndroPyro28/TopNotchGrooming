@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2022 at 11:40 AM
+-- Generation Time: Jul 10, 2022 at 01:35 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -57,7 +57,7 @@ CREATE TABLE `appointments` (
   `gender` varchar(20) NOT NULL,
   `appointment_type` varchar(50) DEFAULT NULL,
   `additional_details` varchar(500) DEFAULT NULL,
-  `date_n_time` varchar(20) NOT NULL,
+  `date_n_time` datetime(6) NOT NULL,
   `live_stream_type` varchar(20) DEFAULT NULL,
   `archived` tinyint(1) DEFAULT 0,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
@@ -69,11 +69,8 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdate`, `gender`, `appointment_type`, `additional_details`, `date_n_time`, `live_stream_type`, `archived`, `status`, `customer_id`) VALUES
-(20, 'pinti', 'dog', 'German shepperd', '2022-07-09', 'female', 'walk-in-consulting', 'paki ayos lang', '2022-07-09', NULL, 0, 'pending', 7),
-(21, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'grooming', 'paki ayos ulet', '2022-07-09', 'public', 0, 'pending', 7),
-(22, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'grooming', 'paki ayos ulet', '2022-07-09', 'private', 0, 'pending', 7),
-(23, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'walk-in-consulting', 'paki ayos ulet', '2022-07-09', NULL, 0, 'pending', 7),
-(24, 'mingming', 'cat', 'pusang gala', '2022-07-09', 'male', 'walk-in-consulting', 'paki ayos ulet', '2022-07-09', NULL, 0, 'pending', 7);
+(33, 'mingming', 'cat', 'Pusang gala', '2022-06-05', 'male', 'Walkin consultation', 'paki palo po sa ulo hehe', '2022-07-11 14:00:00.000000', 'public', 0, 'pending', 6),
+(34, 'Pinti', 'dog', 'Aspin', '2022-07-09', 'female', 'grooming', 'paki ayos po ha', '2022-07-11 13:00:00.000000', 'private', 0, 'pending', 7);
 
 -- --------------------------------------------------------
 
@@ -113,7 +110,7 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id`, `profile_image_id`, `profile_image_url`, `firstname`, `lastname`, `birthdate`, `email`, `password`, `phoneNo`, `address`) VALUES
 (6, 'topnotch_profilepic/tpbnfv7dskbouegofcki', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262462/topnotch_profilepic/tpbnfv7dskbouegofcki.jpg', 'Jean', 'Correa', '2000-02-11', 'jeanmargarette11@gmail.com', '$2a$06$0QeR0p9vev9aGIC7kUM/geyd2V1oVnS0E/DHfCAYTgw5jjKMlwP92', '09561289642', 'Encanto Angat Bulacan'),
-(7, 'topnotch_profilepic/hqrujeqrzeuvb84di3zt', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657268059/topnotch_profilepic/hqrujeqrzeuvb84di3zt.jpg', 'Andro', 'Eugenio', '2000-10-28', 'user2@gmail.com', '$2a$06$gx3EWCE15zpiVQQkhFQC/OhG3AcTbDLo1Jiznc.COBsZSWIFaBQsi', '123123123', 'some address');
+(7, 'topnotch_profilepic/tzospww2hy53pf8bnfgi', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657452763/topnotch_profilepic/tzospww2hy53pf8bnfgi.jpg', 'Menandro', 'Eugenio', '2000-10-28', 'User1@gmail.com', '$2a$06$gx3EWCE15zpiVQQkhFQC/OhG3AcTbDLo1Jiznc.COBsZSWIFaBQsi', '09561289642', '........');
 
 -- --------------------------------------------------------
 
@@ -176,13 +173,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`) VALUES
-(43, 'product 2', 200, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f', 'Cat', '7-8-2022', 200, '2-4', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260537/topnotch_productImg/xdqyua7cj64izz1a4met.png', 'topnotch_productImg/xdqyua7cj64izz1a4met'),
-(44, 'product 3', 300, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '7-8-2022', 300, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260560/topnotch_productImg/m9rngujripkhgnjqsilc.png', 'topnotch_productImg/m9rngujripkhgnjqsilc'),
+(43, 'food bowl', 200, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f\nLorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetu', 'Cat', '7-8-2022', 200, '2-4', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657452391/topnotch_productImg/bnvzxlfnarajutyk55fn.png', 'topnotch_productImg/bnvzxlfnarajutyk55fn'),
+(44, 'gcash', 300, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '7-8-2022', 300, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657452869/topnotch_productImg/hxuplq9ora6vbmpvssxo.png', 'topnotch_productImg/hxuplq9ora6vbmpvssxo'),
 (45, 'product 4', 400, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '7-8-2022', 400, '7+', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260600/topnotch_productImg/qjkky0r5ws6uj0zoizsm.png', 'topnotch_productImg/qjkky0r5ws6uj0zoizsm'),
 (46, 'product 5', 500, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Cat', '7-8-2022', 500, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260636/topnotch_productImg/gmzxy5gl2pmtsfam8vij.png', 'topnotch_productImg/gmzxy5gl2pmtsfam8vij'),
 (49, 'product 1', 100, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '7-8-2022', 100, '1-2', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262303/topnotch_productImg/pkxt0wnyspli9vmpn71t.png', 'topnotch_productImg/pkxt0wnyspli9vmpn71t'),
 (50, 'product 6', 600, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Dog', '7-8-2022', 600, '7+', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262354/topnotch_productImg/ivfx6h0e4ekghpzni8cq.png', 'topnotch_productImg/ivfx6h0e4ekghpzni8cq'),
-(51, 'product 7', 700, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '7-8-2022', 700, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262390/topnotch_productImg/labogcn14nhhnicjmrkn.png', 'topnotch_productImg/labogcn14nhhnicjmrkn');
+(51, 'product 7', 700, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '7-8-2022', 700, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262390/topnotch_productImg/labogcn14nhhnicjmrkn.png', 'topnotch_productImg/labogcn14nhhnicjmrkn'),
+(52, 'product 8', 800, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f', 'Dog', '7-10-2022', 800, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657451719/topnotch_productImg/nx1b0dbhb9lh3hxk9hb6.png', 'topnotch_productImg/nx1b0dbhb9lh3hxk9hb6');
 
 -- --------------------------------------------------------
 
@@ -204,9 +202,8 @@ CREATE TABLE `product_details` (
 --
 
 INSERT INTO `product_details` (`id`, `product_id`, `order_id`, `customer_id`, `quantity`, `is_active`) VALUES
-(447, 49, NULL, 7, 10, 1),
-(449, 51, NULL, 7, 10, 1),
-(450, 46, NULL, 7, 1, 1);
+(474, 49, NULL, 7, 2, 1),
+(475, 46, NULL, 7, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -300,7 +297,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `appointment_history`
@@ -330,13 +327,13 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=476;
 
 --
 -- AUTO_INCREMENT for table `yearly_sales`

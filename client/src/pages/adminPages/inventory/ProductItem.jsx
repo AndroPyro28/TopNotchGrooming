@@ -280,8 +280,10 @@ function Product({ product, setProducts, toast }) {
                 ></i>
                 &nbsp; Product Description
               </label>
+              
               <textarea
                 type="text"
+                rows="6" 
                 value={item?.product_description}
                 name="product_description"
                 onChange={setProps}

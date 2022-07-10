@@ -78,7 +78,7 @@ export const TableData = styled.div`
   cursor: pointer;
   display: flex;
   transition: all 0.3s ease-in-out;
-
+  
   &:hover {
     background: #f1f1f1;
   }
@@ -89,10 +89,13 @@ export const TableData = styled.div`
 
   & > div {
     flex: 1;
-    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  & > div:nth-child(1) {
+    justify-content: start;
   }
 
   & > *:last-child {
@@ -129,6 +132,10 @@ export const TableHeader = styled.div`
     justify-content: center;
     align-items: center;
   }
+/* 
+  & > div:nth-child(1) {
+    justify-content: start;
+  } */
 
   & > *:last-child {
     flex: 0.5 !important;

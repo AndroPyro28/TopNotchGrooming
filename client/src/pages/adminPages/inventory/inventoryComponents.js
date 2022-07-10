@@ -142,6 +142,7 @@ export const FilterContainer = styled.div`
     outline: none;
     border-radius: 10px;
     text-align: center;
+    
   }
 `;
 
@@ -325,7 +326,6 @@ export const InfoRow = styled.div`
       border: solid 1px gray;
       outline: none;
       background: none;
-      height: 5em;
       border-radius: 10px;
       resize: none;
       &:disabled {
