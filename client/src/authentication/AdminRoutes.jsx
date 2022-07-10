@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { CustomerRoute, AdminRoute } from "./routeComponent";
 function AdminRoutes({ Component }) {
   const navigate = useNavigate();
+
     let userToken = Cookies.get("userToken");
 
     if (!userToken) return navigate("/", { replace: true });

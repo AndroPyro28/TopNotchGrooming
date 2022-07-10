@@ -11,6 +11,7 @@ module.exports.DateFormatter = (date) => {
     if(day < 10) {
         day = `0${day}`;
     }
+
     const today = `${year}-${month}-${day}`;
     return today;
 }

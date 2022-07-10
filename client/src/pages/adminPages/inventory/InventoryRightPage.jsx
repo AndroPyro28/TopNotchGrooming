@@ -23,6 +23,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
     startTransition(async () => {
       setProducts([])
       const { petCategory, itemCategory, ageLimit, itemName } = searchItem;
+      
       if (!petCategory && !itemCategory && !ageLimit && !itemName) {
 
         const res = await axios.get("/api/products/getAllItems", {

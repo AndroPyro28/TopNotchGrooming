@@ -34,6 +34,8 @@ import PaymentFailed from "./pages/customerPages/payment/PaymentFailed";
 import shopingCartLogic from "./components/cartComponents/logic/shopingCartLogic";
 import { setToCartReducer } from "./redux/cartSlice";
 import Appointment from "./pages/customerPages/appointment/Appointment";
+import AppointmentList from "./pages/adminPages/appointment/AppointmentList";
+import Record from "./pages/adminPages/records/Record";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -88,7 +90,7 @@ function App() {
   }, []);
 
   const { fetcher } = shopingCartLogic();
-  
+
   useEffect(() => {
     (async () => {
       const cart = await fetcher();
@@ -109,33 +111,24 @@ function App() {
       <Routes>
         {/* public routes */}
         <Route path="/" element={<PublicRoutes Component={<Index />} />} />
+
         <Route
           path="/contact"
           element={<PublicRoutes Component={<Contact />} />}
         />
         <Route path="/about" element={<PublicRoutes Component={<About />} />} />
+
         <Route
           path="/customer/signup"
-          element={
-            <PublicRoutes Component={<PublicRoutes Component={<Signup />} />} />
-          }
+          element={<PublicRoutes Component={<Signup />} />}
         />
         <Route
           path="/customer/login"
-          element={
-            <PublicRoutes
-              Component={<PublicRoutes Component={<CustomerLogin />} />}
-            />
-          }
-        />
+          element={ <PublicRoutes Component={<CustomerLogin />} />}/>
 
         <Route
           path="/admin/login"
-          element={
-            <PublicRoutes
-              Component={<PublicRoutes Component={<AdminLogin />} />}
-            />
-          }
+          element={<PublicRoutes Component={<AdminLogin />} />}
         />
 
         {/* customer routes */}
@@ -188,6 +181,13 @@ function App() {
           path="/admin/inventory"
           element={<AdminRoutes Component={<Inventory />} />}
         />
+
+      <Route path="/admin/record/" element={<AdminRoutes Component={<Record />} />} >
+        <Route index element={<AppointmentList/>} />
+        <Route path="appointments" element={<AppointmentList />} />
+        
+      </Route>
+
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
 

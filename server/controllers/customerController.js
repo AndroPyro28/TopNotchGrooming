@@ -258,7 +258,7 @@ module.exports.checkout = async (req, res) => {
 module.exports.addAppointment = async (req, res) => {
   try {
     let {petName, petType, birthdate, breed, gender, appointmentType, liveStreamType="", dateNtime, additional_details} = req.body;
-    dateNtime = DateFormatter(dateNtime)
+    // dateNtime = DateFormatter(dateNtime)
 
     if(appointmentType != 'grooming') {
       liveStreamType = null;

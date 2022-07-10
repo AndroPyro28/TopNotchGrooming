@@ -25,6 +25,29 @@ class Appointment {
     this.#customer_id = params.customer_id;
   }
 
+  getSchedule = async (filter) => {
+    try {
+      const selectQuery = `
+      SELECT 
+      appointments.*,
+      customer.firstname as firstname,
+      customer.lastname as lastname,
+      customer.profile_image_url as profile_image_url
+      FROM appointments 
+      INNER JOIN customer
+      ON customer.id = appointments.customer_id
+      ${filter?.length > 0 ? 'WHERE status = ?' : ''}`;
+
+      const [results, _] = await poolConnection.execute(selectQuery, [filter]);
+      
+      return results
+
+
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   addAppointment = async () => {
     try {
       const insertQuery = `INSERT INTO appointments 

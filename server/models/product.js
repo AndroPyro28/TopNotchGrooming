@@ -140,7 +140,7 @@ class Product {
     }
   };
 
-  searchItems = async (itemName, petCategory, itemCategory, ageLimit) => {
+  searchItems = async (itemName="", petCategory="", itemCategory="", ageLimit="") => {
     try {
       const selectQuery = `SELECT * FROM products 
       WHERE 

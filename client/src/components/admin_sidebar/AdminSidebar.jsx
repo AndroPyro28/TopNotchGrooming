@@ -24,17 +24,22 @@ function AdminSidebar() {
                 <i className="fa-solid fa-chart-line"></i> &nbsp; Dashboard
             </NavLink>
 
-            <NavLink to="/admin/#">
+            <NavLink to="/admin/record/appointments">
                 <i className="fa-solid fa-calendar-days"></i> &nbsp; Appointment
+            </NavLink>
+
+            <NavLink to="/admin/record/sales">
+                <i className="fa-solid fa-chart-pie"></i> &nbsp; sales
             </NavLink>
 
             <NavLink to="/admin/#">
                 <i className="fa-solid fa-truck-fast"></i> &nbsp; To-Ship
             </NavLink>
 
-            <NavLink to="/admin/#">
+            {/* <NavLink to="/admin/#">
                 <i className="fa-solid fa-clock-rotate-left"></i> &nbsp; Records
-            </NavLink>
+            </NavLink> */}
+
             <NavLink to="/admin/inventory">
                 <i className="fa-solid fa-cart-flatbed"></i> &nbsp; Inventory
             </NavLink>
