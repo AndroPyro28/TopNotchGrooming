@@ -303,6 +303,7 @@ export const InfoRow = styled.div`
       font-size: 0.8em;
       color: gray;
       margin: 5px;
+      text-align: start;
     }
 
     & > input {
