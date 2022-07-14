@@ -32,7 +32,7 @@ function AdminSidebar() {
                 <i className="fa-solid fa-chart-pie"></i> &nbsp; sales
             </NavLink>
 
-            <NavLink to="/admin/#">
+            <NavLink to="/admin/orders">
                 <i className="fa-solid fa-truck-fast"></i> &nbsp; To-Ship
             </NavLink>
 
