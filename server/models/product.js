@@ -158,6 +158,19 @@ class Product {
     }
   };
 
+  selectMany = async (productIds) => {
+    try { 
+      const selectQuery = `
+      SELECT * FROM products
+      WHERE id IN (?)
+    `;
+    const [result, _] = await poolConnection.query(selectQuery, [productIds]);
+    return result;
+    } catch (error) {
+      console.error(error.message)
+    }    
+  }
+
   
 }
 

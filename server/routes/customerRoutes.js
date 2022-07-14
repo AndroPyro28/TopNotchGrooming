@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const customerController = require('../controllers/customerController');
+const { validateProducts } = require('../middlewares/checkout');
 const {verifyUser} = require('../middlewares/verifyUser')
 router.post('/signup', customerController.signup)
 router.post('/login', customerController.login)
@@ -10,6 +11,6 @@ router.post('/addItemsToCart', verifyUser, customerController.addItemsToCart)
 router.get('/getItemsIncart', verifyUser, customerController.getItemsIncart)
 router.delete('/deleteItemInCart/:id', verifyUser, customerController.deleteItemInCart);
 router.patch('/updateItemQuantity/:id', verifyUser, customerController.updateItemQuantity)
-router.post('/checkout/:checkoutType', verifyUser, customerController.checkout);
+router.post('/checkout/:checkoutType', verifyUser, validateProducts, customerController.checkout);
 router.post('/appointment', verifyUser, customerController.addAppointment)
 module.exports = router;

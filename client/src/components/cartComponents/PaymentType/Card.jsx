@@ -9,9 +9,10 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import shopingCartLogic from "../logic/shopingCartLogic";
+import productPriceFormatter from "../../../helpers/ProductPriceFormatter";
 function MasterCard({ items, totalAmount, toast}) {
 
-  const { productPriceFormatter } = shopingCartLogic();
+  const { } = shopingCartLogic();
 
   const checkout = async () => {
     try {

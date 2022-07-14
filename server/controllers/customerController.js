@@ -3,11 +3,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
 const ProductDetails = require("../models/ProductDetails");
+const Product = require("../models/product");
 const { assignToken } = require("../helpers/AuthTokenHandler");
 const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
 const Appointment = require("../models/Appointment");
 const { DateFormatter } = require("../helpers/DateFormatter");
-
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 module.exports.signup = async (req, res) => {
@@ -86,14 +86,14 @@ module.exports.updateInfo = async (req, res) => {
       req.body?.user.profile_image_id !=
         "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
-        deleteOne(req.body.user.profile_image_id)
+      deleteOne(req.body.user.profile_image_id);
     }
 
     if (
       req.body?.profileImg?.length > 0 &&
       req.body?.profileImg?.includes("image")
     ) {
-      const cloudinaryResponse = await uploadOne(req.body?.profileImg)
+      const cloudinaryResponse = await uploadOne(req.body?.profileImg);
       req.body.user.profile_image_url = cloudinaryResponse.url;
       req.body.user.profile_image_id = cloudinaryResponse.public_id;
     }
@@ -213,57 +213,107 @@ module.exports.updateItemQuantity = async (req, res) => {
 };
 
 module.exports.checkout = async (req, res) => {
-  console.log(req.params); // card
+  const { checkoutType } = req.params; // card
+  const { checkoutProducts, totalAmount } = req.body;
   try {
-    const storeItems = [
-      {
-        id: 1,
-        price: 100,
-        name: "Lean React Today",
-        quantity: 1
+
+    if(checkoutType === 'gcash') {
+      var request = require('request')
+
+    var options = {
+      method: "POST",
+      url: "https://g.payx.ph/payment_request",
+      formData: {
+        "x-public-key": process.env.GCASH_API_KEY,
+        amount: `1`, // ${totalAmount}
+        description: "Payment for services rendered",
+          redirectsuccessurl:`http://localhost:3000:3000/customer/payment=success`,
+          redirectfailurl:`${process.env.CLIENT_URL}/customer/cart`,
+          customeremail: `${req.currentUser?.email}`,
+          customermobile: `${req.currentUser?.phoneNo}`,
+          customername: `${req.currentUser?.firstname} ${req.currentUser?.lastname}`
       },
-      {
-        id: 2,
-        price: 100,
-        name: "Lean Css Today",
-        quantity: 1
-      },
-    ];
-  
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "payment",
-      line_items: storeItems.map(item => {
-        return {
-          price_data: {
-            currency:'usd',
-            product_data: {
-              name: item.name
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+
+      const {data} = JSON.parse(response.body);
+
+      const {checkouturl} = data;
+
+      return res.status(200).json({
+        proceedPayment: true,
+        method: checkoutType,
+        checkoutProducts,
+        checkoutUrl:checkouturl
+      });
+    });
+    }
+    
+    if(checkoutType === "card") {
+      const storeItems = [
+        {
+          id: 1,
+          price: 100,
+          name: "Lean React Today",
+          quantity: 1,
+        },
+        {
+          id: 2,
+          price: 100,
+          name: "Lean Css Today",
+          quantity: 1,
+        },
+      ];
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "payment",
+        line_items: storeItems.map((item) => {
+          return {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: item.name,
+              },
+              unit_amount: item.price * 100,
             },
-            unit_amount: item.price * 100
-          },
-          quantity:item.quantity,
-        }
-      }),
-      success_url:`${process.env.CLIENT_URL}/customer/payment=success`,
-      cancel_url:`${process.env.CLIENT_URL}/customer/cart`
-    })
-    return res.status(200).json({checkoutUrl:session.url})
+            quantity: item.quantity,
+          };
+        }),
+        success_url: `${process.env.CLIENT_URL}/customer/payment=success`,
+        cancel_url: `${process.env.CLIENT_URL}/customer/cart`,
+      });
+      return res.status(200).json({
+        proceedPayment: true,
+        method: checkoutType,
+        checkoutProducts,
+        checkoutUrl:session.url
+      });
+    }
+    // return res.status(200).json({checkoutUrl:session.url})
   } catch (error) {
-    console.error(error.message)
+    console.error(error.message);
   }
-  
 };
 
 module.exports.addAppointment = async (req, res) => {
   try {
-    let {petName, petType, birthdate, breed, gender, appointmentType, liveStreamType="", dateNtime, additional_details} = req.body;
+    let {
+      petName,
+      petType,
+      birthdate,
+      breed,
+      gender,
+      appointmentType,
+      liveStreamType = "",
+      dateNtime,
+      additional_details,
+    } = req.body;
     // dateNtime = DateFormatter(dateNtime)
 
-    if(appointmentType != 'grooming') {
+    if (appointmentType != "grooming") {
       liveStreamType = null;
     }
-
 
     const appointment = new Appointment({
       pet_name: petName,
@@ -274,18 +324,18 @@ module.exports.addAppointment = async (req, res) => {
       appointment_type: appointmentType,
       date_n_time: dateNtime,
       additional_details: additional_details,
-      live_stream_type: typeof liveStreamType != undefined ? liveStreamType : null,
+      live_stream_type:
+        typeof liveStreamType != undefined ? liveStreamType : null,
       customer_id: req.currentUser.id,
     });
 
-     const {result, success} = await appointment.addAppointment()
+    const { result, success } = await appointment.addAppointment();
 
-      return res.status(201).json({
-        msg: success ?'Appointment added' : 'something went wrong...',
-        success
-      })
-
+    return res.status(201).json({
+      msg: success ? "Appointment added" : "something went wrong...",
+      success,
+    });
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
-}
+};

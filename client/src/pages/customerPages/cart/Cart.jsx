@@ -17,6 +17,7 @@ function Cart() {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
+    localStorage.removeItem('onCheckoutProducts');
     setItems([]);
     (async () => {
       setItems(cart);

@@ -4,7 +4,7 @@ import shopingCartLogic from '../logic/shopingCartLogic';
 import {useNavigate} from "react-router-dom"
 function Paypal({items, totalAmount, toast}) {
   const navigate = useNavigate();
-  console.log(totalAmount);
+  console.log(items);
 
   return (
     <div style={{marginBlock:20}}>

@@ -37,14 +37,7 @@ function ShopingCartLogic(props) {
       : 0;
   };
 
-  const productPriceFormatter = (price) => {
-    const PRICE_FORMATTER = Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency: "PHP",
-    });
-
-    return PRICE_FORMATTER.format(price);
-  };
+  
 
   const handleItem = (item, setItems) => {
     setItems((cartItems) => {
@@ -108,7 +101,6 @@ function ShopingCartLogic(props) {
   };
 
   return {
-    productPriceFormatter,
     fetcher,
     calculateTotalAmount,
     handleItem,

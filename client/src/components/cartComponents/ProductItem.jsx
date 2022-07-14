@@ -1,6 +1,7 @@
 import React from "react";
 import { ProductItemContainer } from "../../pages/customerPages/cart/cartComponents";
 import shopingCartLogic from "./logic/shopingCartLogic";
+import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 function ProductItem({ product, setItems }) {
   const {
     product_image_url,
@@ -11,7 +12,6 @@ function ProductItem({ product, setItems }) {
     purchase,
   } = product;
   const {
-    productPriceFormatter,
     handleItem,
     removeToCart,
     incremeantDecreament,

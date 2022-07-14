@@ -11,6 +11,7 @@ import Gcash from "./PaymentType/Gcash";
 import Card from "./PaymentType/Card";
 import Paypal from "./PaymentType/Paypal";
 import shopingCartLogic from "./logic/shopingCartLogic";
+import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 
 function CardDetails({ items, setItems, toast }) {
   const [paymentType, setPaymentType] = useState("card");
@@ -20,7 +21,7 @@ function CardDetails({ items, setItems, toast }) {
   };
 
   const [totalAmount, setTotalAmount] = useState(0);
-  const { calculateTotalAmount, productPriceFormatter } = shopingCartLogic();
+  const { calculateTotalAmount } = shopingCartLogic();
 
   useEffect(() => {
     setTotalAmount(calculateTotalAmount(items));

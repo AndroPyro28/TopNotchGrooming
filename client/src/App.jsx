@@ -36,6 +36,7 @@ import { setToCartReducer } from "./redux/cartSlice";
 import Appointment from "./pages/customerPages/appointment/Appointment";
 import AppointmentList from "./pages/adminPages/appointment/AppointmentList";
 import Record from "./pages/adminPages/records/Record";
+import OrderList from "./pages/adminPages/orders/OrderList";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -185,11 +186,19 @@ function App() {
       <Route path="/admin/record/" element={<AdminRoutes Component={<Record />} />} >
         <Route index element={<AppointmentList/>} />
         <Route path="appointments" element={<AppointmentList />} />
-        
       </Route>
 
+      <Route
+          path="/admin/orders"
+          element={<AdminRoutes Component={<OrderList />} />}
+        />
+
         <Route path="*" element={<h1>Page Not Found</h1>} />
+
+        
       </Routes>
+
+      
 
       {/* <Footer /> */}
     </AppRoot>
