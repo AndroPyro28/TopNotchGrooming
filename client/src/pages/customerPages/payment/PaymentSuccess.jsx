@@ -11,10 +11,12 @@ function PaymentSuccess() {
     (async () => {
       try {
         const onCheckoutProducts = JSON.parse(localStorage.getItem('onCheckoutProducts'));
-        
+
         if(onCheckoutProducts?.length <= 0 || onCheckoutProducts == undefined) {
           return navigate('/customer/cart', {replace: true});
         }
+
+        const res = await axios.post(`/api/customer/`)
 
       } catch (error) {
         
