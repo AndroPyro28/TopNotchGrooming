@@ -9,6 +9,8 @@ const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
 const Appointment = require("../models/Appointment");
 const { DateFormatter } = require("../helpers/DateFormatter");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { v4: uuidv4 } = require('uuid');
+const Order = require("../models/Order");
 
 module.exports.signup = async (req, res) => {
   req.body.profile_image_url =
@@ -239,43 +241,33 @@ module.exports.checkout = async (req, res) => {
 
       const {data} = JSON.parse(response.body);
 
-      const {checkouturl} = data;
+      const {checkouturl, hash} = data;
 
       return res.status(200).json({
         proceedPayment: true,
         method: checkoutType,
         checkoutProducts,
-        checkoutUrl:checkouturl
+        checkoutUrl:checkouturl,
+        orderId: hash,
+        totalAmount
       });
     });
     }
-    
     if(checkoutType === "card") {
-      const storeItems = [
-        {
-          id: 1,
-          price: 100,
-          name: "Lean React Today",
-          quantity: 1,
-        },
-        {
-          id: 2,
-          price: 100,
-          name: "Lean Css Today",
-          quantity: 1,
-        },
-      ];
+
+      const dollarRate = 56.39;
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
-        line_items: storeItems.map((item) => {
+        line_items: checkoutProducts.map((item) => {
           return {
             price_data: {
               currency: "usd",
               product_data: {
-                name: item.name,
+                name: item.product_name,
               },
-              unit_amount: item.price * 100,
+              unit_amount: Number((item.product_price / dollarRate ) * 100).toFixed(0),
             },
             quantity: item.quantity,
           };
@@ -283,12 +275,16 @@ module.exports.checkout = async (req, res) => {
         success_url: `${process.env.CLIENT_URL}/customer/payment=success`,
         cancel_url: `${process.env.CLIENT_URL}/customer/cart`,
       });
+
       return res.status(200).json({
         proceedPayment: true,
         method: checkoutType,
         checkoutProducts,
-        checkoutUrl:session.url
+        checkoutUrl:session.url,
+        orderId: session.id,
+        totalAmount
       });
+
     }
     // return res.status(200).json({checkoutUrl:session.url})
   } catch (error) {
@@ -339,3 +335,38 @@ module.exports.addAppointment = async (req, res) => {
     console.log(error.message);
   }
 };
+
+module.exports.payment = async (req, res) => {
+  try {
+    const {checkoutProducts, method, orderId, totalAmount} = req.body;
+
+    const productModel = new Product({});
+
+    productModel.updatePaidItems(checkoutProducts);
+
+    const OrderModel = new Order({
+      reference: orderId,
+      customer_id: req.currentUser.id,
+      order_date: 'today',
+      total_amount: totalAmount,
+      payment_type: method,
+    });
+    
+    const result = await OrderModel.addNewOrder();
+    const ProductDetailModel = new ProductDetails({ order_id: result.insertId})
+    ProductDetailModel.insertOrderId(checkoutProducts);
+
+    return res.status(201).json({
+      msg: 'Payment successful',
+      success: true
+    })
+
+  } catch (error) {
+    console.error(error.message)
+    return res.status(500).json({
+      msg: 'Something went wrong',
+      success: false
+    })
+    
+  }
+}

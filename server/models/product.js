@@ -40,23 +40,21 @@ class Product {
   getDateToday = () =>
     new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
-    selectItemById = async (id=this.#id) => {
-      try {
-        const selectQuery = `SELECT * FROM products WHERE id = ?`;
-  
-        const [result, _] = await poolConnection.execute(selectQuery, [id]);
-  
-        if(result.length > 0) {
-          return result[0];
-        }
-        else {
-          return {}
-        }
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
+  selectItemById = async (id = this.#id) => {
+    try {
+      const selectQuery = `SELECT * FROM products WHERE id = ?`;
 
+      const [result, _] = await poolConnection.execute(selectQuery, [id]);
+
+      if (result.length > 0) {
+        return result[0];
+      } else {
+        return {};
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   insertProduct = async () => {
     try {
@@ -87,7 +85,7 @@ class Product {
 
   getAllItems = async () => {
     try {
-      this.selectItemById()
+      this.selectItemById();
       const selectQuery = `SELECT * FROM products;`;
       const [result, _] = await poolConnection.execute(selectQuery);
 
@@ -140,7 +138,12 @@ class Product {
     }
   };
 
-  searchItems = async (itemName="", petCategory="", itemCategory="", ageLimit="") => {
+  searchItems = async (
+    itemName = "",
+    petCategory = "",
+    itemCategory = "",
+    ageLimit = ""
+  ) => {
     try {
       const selectQuery = `SELECT * FROM products 
       WHERE 
@@ -149,29 +152,50 @@ class Product {
       product_age_limit LIKE ? AND
       product_category LIKE ?`;
 
-      const [result, _] = await poolConnection.execute(selectQuery, 
-        [`%${itemName}%`, `%${petCategory}%`, `%${ageLimit}%`, `%${itemCategory}%`]
-        );
-        return result;
+      const [result, _] = await poolConnection.execute(selectQuery, [
+        `%${itemName}%`,
+        `%${petCategory}%`,
+        `%${ageLimit}%`,
+        `%${itemCategory}%`,
+      ]);
+      return result;
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   };
 
   selectMany = async (productIds) => {
-    try { 
+    try {
       const selectQuery = `
       SELECT * FROM products
       WHERE id IN (?)
     `;
-    const [result, _] = await poolConnection.query(selectQuery, [productIds]);
-    return result;
+      const [result, _] = await poolConnection.query(selectQuery, [productIds]);
+      return result;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  updatePaidItems = async (checkoutProducts) => {
+    try {
+      let updateQuery = `UPDATE products SET product_stocks = ( 
+          case`;
+      for (let i = 0; i < checkoutProducts.length; i++) {
+        updateQuery += `
+          WHEN id = ${checkoutProducts[i].product_id} THEN product_stocks - ${checkoutProducts[i].quantity}`;
+      }
+      updateQuery += `
+        END)
+        WHERE id IN (?)`;
+
+        const productIds = checkoutProducts.map(product => product.product_id);
+
+      const [result, _] = await poolConnection.query(updateQuery, [productIds]);
     } catch (error) {
       console.error(error.message)
-    }    
-  }
-
-  
+    }
+  };
 }
 
 module.exports = Product;

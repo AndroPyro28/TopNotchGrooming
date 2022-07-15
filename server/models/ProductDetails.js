@@ -21,7 +21,7 @@ class ProductDetails {
 
   selectItemById = async () => {
     try {
-      const selectQuery = `SELECT * FROM product_details WHERE product_id = ? AND customer_id = ? AND is_active = ?`;
+      const selectQuery = `SELECT * FROM product_details WHERE product_id = ? AND customer_id = ? AND is_active = ? AND order_id IS NULL`;
       const [result, _] = await poolConnection.execute(selectQuery, [
         this.#productId,
         this.#customerId,
@@ -88,7 +88,8 @@ class ProductDetails {
         FROM product_details pd
         INNER JOIN products p
         ON p.id = pd.product_id
-        WHERE pd.customer_id = ? AND 
+        WHERE order_id IS NULL AND
+        pd.customer_id = ? AND 
         pd.is_active = ?`;
 
       const [result, _] = await poolConnection.execute(selectQuery, [
@@ -155,6 +156,21 @@ class ProductDetails {
         result,
         action,
       };
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  insertOrderId = async (products) => {
+    try {
+      const updateQuery = `UPDATE product_details SET order_id = ? WHERE id IN (?);`;
+      const productIds = products.map((product) => product.id);
+
+      const result = await poolConnection.query(updateQuery, [
+        this.#orderId,
+        productIds,
+      ]);
+      return result;
     } catch (error) {
       console.error(error.message);
     }
