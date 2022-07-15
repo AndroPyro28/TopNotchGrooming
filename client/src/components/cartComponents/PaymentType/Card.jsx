@@ -19,27 +19,41 @@ function MasterCard({ items, totalAmount, toast}) {
       if(totalAmount <= 0) {
         return toast('Checkout an item first', {type:"info"})
       }
+      const checkoutProducts = items.filter(item => item.purchase);
       const res = await axios.post(
         `/api/customer/checkout/card`,
-        {},
+        {
+          checkoutProducts,
+          totalAmount
+        },
         {
           headers: {
             userinfo: Cookies.get("userToken"),
           },
         }
       );
-      const { checkoutUrl } = res.data;
+      const {success, msg, proceedPayment, method, checkoutUrl, orderId} = res.data;
+
+      if(!success && msg?.includes('session expired')) {
+        return window.location.reload();
+      }
+
+      if(!proceedPayment) {
+        return toast(msg, {type: 'warning'})
+      }
+
+      localStorage.setItem('onCheckoutProducts', JSON.stringify({checkoutProducts, method, orderId, totalAmount}));
+  
       window.location.assign(checkoutUrl);
     } catch (error) {
       console.error(error.message);
     }
   };
 
-  console.log(totalAmount);
   return (
       <CheckOutButton onClick={checkout}>
         <span class="check__out__price">
-          {productPriceFormatter(totalAmount * 0.01 + totalAmount)}
+          {productPriceFormatter(totalAmount)}
         </span>
         <span class="check__out__proceed">
           Checkout <i class="fa-solid fa-arrow-right"></i>

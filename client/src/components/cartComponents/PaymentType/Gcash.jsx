@@ -20,7 +20,7 @@ function Gcash({ items, totalAmount, toast }) {
           userInfo: Cookies.get('userToken')
         }
       });
-      const {success, msg, proceedPayment, method, checkoutUrl } = res.data;
+      const {success, msg, proceedPayment, method, checkoutUrl, orderId} = res.data;
 
       if(!success && msg?.includes('session expired')) {
         return window.location.reload();
@@ -29,7 +29,7 @@ function Gcash({ items, totalAmount, toast }) {
       if(!proceedPayment) {
         return toast(msg, {type: 'warning'})
       }
-      localStorage.setItem('onCheckoutProducts', JSON.stringify({checkoutProducts, method}));
+      localStorage.setItem('onCheckoutProducts', JSON.stringify({checkoutProducts, method, orderId, totalAmount}));
   
       window.location.assign(checkoutUrl);
 
