@@ -162,5 +162,8 @@ export const T_Head = styled.div`
 
 export const T_Data = styled.div`
   flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   text-align: center;
 `;

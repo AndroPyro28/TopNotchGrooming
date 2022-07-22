@@ -1,6 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect, useTransition } from "react";
 import OrderData from "../../../components/order/OrderData";
+import axios from 'axios';
+import Cookies from 'js-cookie'
 import {
   OrderDetailsContainer,
   OrderDetailsList,
@@ -11,19 +14,33 @@ import {
   T_Head,
   GlobalStyles
 } from "./components";
+
 function OrderList() {
     const [loading, startTranstion] = useTransition();
-    
+    const [status, setStatus] = useState('all');
+    const [orders, setOrders] = useState([])
     useEffect(() => {
-        startTranstion(() => {
+      
+        startTranstion(async () => {
             try {
-                
+              setOrders([])
+                const res = await axios.get(`/api/admin/getOrders/${status}`, {
+                  headers: {
+                    userinfo: Cookies.get('userToken')
+                  }
+                });
+                const {msg, success} = res.data;
+                if(!success && msg?.includes('session expired')) {
+                  return window.location.reload()
+                }
+                const {orders} = res.data;
+                setOrders(orders);
+
             } catch (error) {
-                
+                console.error(error.message);
             }
         })
-    }, []);
-
+    }, [status]);
 
   return (
     <OrderDetailsContainer>
@@ -49,11 +66,11 @@ function OrderList() {
             />
           </SearchBarContainer>
 
-          <select name="" id="" className="select">
-            <option value="">All Orders</option>
-            <option value="">Completed</option>
-            <option value="">Pending</option>
-            <option value="">Cancelled</option>
+          <select name="" id="" className="select" onChange={(e) => setStatus(e.target.value)}>
+            <option value="all">All Orders</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </SearchBarWrapper>
 
@@ -69,8 +86,16 @@ function OrderList() {
             <T_Head> Payment </T_Head>
           </TableRowHeader>
 
-          <OrderData />
 
+          {
+            orders?.length <= 0 ? (
+              <h2>No Orders Yet</h2>
+            )
+            :
+            orders?.map(order => (
+              <OrderData key={order.id} data={order} />
+            ))
+          }
           
         </TableContainer>
 

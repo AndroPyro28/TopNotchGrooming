@@ -2,7 +2,7 @@ const Admin = require("../models/Admin");
 const bcrypt = require("bcryptjs");
 const Appointment = require('../models/Appointment')
 const {assignToken} = require('../helpers/AuthTokenHandler')
-
+const Order = require("../models/Order");
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -59,5 +59,21 @@ module.exports.getSchedule = async (req, res) => {
       msg: 'something went wrong',
       success: false
     })
+  }
+}
+
+module.exports.getOrders = async (req, res) => {
+  const {status} = req.params;
+  try {
+    const orderModel = new Order({
+      order_status: status
+    })
+
+    const orders = await orderModel.getOrders()
+    return res.status(200).json({
+      orders
+    })
+  } catch (error) {
+    
   }
 }

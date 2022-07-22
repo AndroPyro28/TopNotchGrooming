@@ -37,6 +37,7 @@ import Appointment from "./pages/customerPages/appointment/Appointment";
 import AppointmentList from "./pages/adminPages/appointment/AppointmentList";
 import Record from "./pages/adminPages/records/Record";
 import OrderList from "./pages/adminPages/orders/OrderList";
+import { memo } from "react";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -161,10 +162,12 @@ function App() {
           path="/customer/cart"
           element={<CustomerRoutes Component={<Cart />} />}
         />
+
         <Route
           path="/customer/payment=success"
           element={<CustomerRoutes Component={<PaymentSuccess />} />}
         />
+
         <Route
           path="/customer/payment=failed"
           element={<CustomerRoutes Component={<PaymentFailed />} />}
@@ -205,4 +208,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(App);

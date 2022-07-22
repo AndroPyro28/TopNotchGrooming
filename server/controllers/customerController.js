@@ -242,7 +242,6 @@ module.exports.checkout = async (req, res) => {
       const {data} = JSON.parse(response.body);
 
       const {checkouturl, hash} = data;
-
       return res.status(200).json({
         proceedPayment: true,
         method: checkoutType,
@@ -276,12 +275,14 @@ module.exports.checkout = async (req, res) => {
         cancel_url: `${process.env.CLIENT_URL}/customer/cart`,
       });
 
+
       return res.status(200).json({
         proceedPayment: true,
         method: checkoutType,
         checkoutProducts,
         checkoutUrl:session.url,
-        orderId: session.id,
+        sessionId: session.id,
+        orderId:session.payment_intent,
         totalAmount
       });
 

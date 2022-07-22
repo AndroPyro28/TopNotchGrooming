@@ -4,10 +4,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
+import { useState } from "react";
+import {PaymentSuccessContainer, Title, Line, TransactionNumber, PaymentData, ProceedButton} from "./components";
+import productPriceFormatter from "../../../helpers/ProductPriceFormatter";
+import GetDateToday from "../../../helpers/DateToday";
+
 function PaymentSuccess() {
+
   const { search } = useLocation();
-  const hashId = search.replace("?hash=", "");
+
   const navigate = useNavigate();
+
+  const [transactionId, setTransactionId] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState(null);
+
   useEffect(() => {
     (async () => {
       try {
@@ -21,8 +32,14 @@ function PaymentSuccess() {
         ) {
           return ;
         }
-        localStorage.removeItem("onCheckoutProducts");
+         localStorage.removeItem("onCheckoutProducts");
 
+         const {method, orderId, totalAmount, checkoutProducts} = onCheckoutProducts;
+
+         setTotalAmount(totalAmount);
+         setTransactionId(orderId);
+         setPaymentMethod(method);
+         
         const res = await axios.post(
           `/api/customer/payment`,
           onCheckoutProducts,
@@ -38,21 +55,57 @@ function PaymentSuccess() {
           return window.location.reload();
         }
         toast(msg, { type: "success" });
-
-        setTimeout(() => {
-          navigate("/customer/profile", { replace: true });
-        }, 2500);
       } catch (error) {
         console.error(error.message);
       }
     })();
   }, []);
 
+  if(totalAmount == 0 || transactionId == null || paymentMethod == null ) {
+    return navigate('/customer/cart');
+  }
+  
   return (
-    <div>
+    <PaymentSuccessContainer>
       <ToastContainer autoClose={1500} />
-      PaymentSuccess your hash id is {hashId}
-    </div>
+      
+      <i className="fa-solid fa-circle-check"></i>
+
+      <Title>
+        <h1>Payment Successful</h1>
+        <p>Your payment has been processed!</p>
+        <small>Details of transaction are included below</small>
+      </Title>
+
+      <Line />
+
+    <TransactionNumber>
+      Transaction ID: {transactionId}
+    </TransactionNumber>
+
+    <PaymentData>
+      <span>TOTAL AMOUNT PAID</span>
+      <strong>{productPriceFormatter(totalAmount)}</strong>
+    </PaymentData>
+
+    <Line/>
+
+    <PaymentData>
+      <span>payed by</span>
+      <strong>{paymentMethod}</strong>
+    </PaymentData>
+
+    <Line/>
+
+    <PaymentData>
+      <span>transaction date</span>
+      <strong>{GetDateToday()}</strong>
+    </PaymentData>
+
+    <ProceedButton onClick={() => navigate('/customer/profile')}>
+      Proceed
+      </ProceedButton>
+    </PaymentSuccessContainer>
   );
 }
 

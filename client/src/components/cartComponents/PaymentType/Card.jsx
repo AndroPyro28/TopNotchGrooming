@@ -43,7 +43,7 @@ function MasterCard({ items, totalAmount, toast}) {
       }
 
       localStorage.setItem('onCheckoutProducts', JSON.stringify({checkoutProducts, method, orderId, totalAmount}));
-  
+      
       window.location.assign(checkoutUrl);
     } catch (error) {
       console.error(error.message);

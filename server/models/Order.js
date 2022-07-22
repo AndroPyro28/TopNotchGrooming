@@ -1,4 +1,5 @@
 const poolConnection = require('../config/connectDB');
+const { jsonParser } = require('../helpers/JsonParser');
 
 class Order {
   #reference;
@@ -8,7 +9,6 @@ class Order {
   #total_amount;
   #payment_type;
   #monthly_id;
-
   constructor({
     reference = "",
     customer_id = "",
@@ -45,6 +45,33 @@ class Order {
         console.error(error.message)
     }
   };
+
+  getOrders = async () => {
+    try {
+      const selectQuery = `SELECT 
+        od.*,
+
+        JSON_OBJECT('userId', c.id, 'firstname', c.firstname, 'lastname', c.lastname) as customer,
+        
+       GROUP_CONCAT(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name),'*DIVIDER*') as products
+
+       FROM order_details od
+       INNER JOIN product_details pd
+       INNER JOIN products p
+       ON od.id = pd.order_id AND p.id = pd.product_id
+       INNER JOIN customer c
+       ON c.id = od.customer_id
+       ${this.#order_status == 'all' ? '' : 'WHERE order_status = ?'} 
+       GROUP BY od.id`;
+
+      const [result,_] = await poolConnection.execute(selectQuery, [
+        this.#order_status
+      ]);
+      return jsonParser(result)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 }
 
 module.exports = Order;
