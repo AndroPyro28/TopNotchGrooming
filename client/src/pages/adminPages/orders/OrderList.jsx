@@ -11,20 +11,23 @@ import {
   SearchBarContainer,
   TableContainer,
   TableRowHeader,
-  T_Head,
+  T_Head as Thead,
   GlobalStyles
 } from "./components";
 
 function OrderList() {
     const [loading, startTranstion] = useTransition();
     const [status, setStatus] = useState('all');
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState([]);
+    const [textSearch, setTextSearch] = useState('');
     useEffect(() => {
       
         startTranstion(async () => {
             try {
               setOrders([])
-                const res = await axios.get(`/api/admin/getOrders/${status}`, {
+                const res = await axios.post(`/api/admin/getOrders`,{
+                  status,textSearch
+                }, {
                   headers: {
                     userinfo: Cookies.get('userToken')
                   }
@@ -40,7 +43,7 @@ function OrderList() {
                 console.error(error.message);
             }
         })
-    }, [status]);
+    }, [status, textSearch]);
 
   return (
     <OrderDetailsContainer>
@@ -62,7 +65,8 @@ function OrderList() {
             <i className="fa-solid fa-magnifying-glass"></i>
             <input
               type="text"
-              placeholder="Search for Order ID, Customer Name"
+              placeholder="Search for Order ID"
+              onChange={(e) => setTextSearch(e.target.value)}
             />
           </SearchBarContainer>
 
@@ -70,6 +74,7 @@ function OrderList() {
             <option value="all">All Orders</option>
             <option value="completed">Completed</option>
             <option value="pending">Pending</option>
+            <option value="onGoing">On Going</option>
             <option value="cancelled">Cancelled</option>
           </select>
         </SearchBarWrapper>
@@ -77,15 +82,14 @@ function OrderList() {
         <TableContainer>
             
           <TableRowHeader>
-            <T_Head> Order ID </T_Head>
-            <T_Head> Customer </T_Head>
-            <T_Head> Order </T_Head>
-            <T_Head> Delivery Date </T_Head>
-            <T_Head> Delivery Price </T_Head>
-            <T_Head> Delivery Status </T_Head>
-            <T_Head> Payment </T_Head>
+            <Thead> Order ID </Thead>
+            <Thead> Customer </Thead>
+            <Thead> Products </Thead>
+            <Thead> Date </Thead>
+            <Thead> Price </Thead>
+            <Thead> Order Status </Thead>
+            <Thead> Payment Method</Thead>
           </TableRowHeader>
-
 
           {
             orders?.length <= 0 ? (

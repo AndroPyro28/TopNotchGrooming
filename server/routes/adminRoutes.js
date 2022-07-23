@@ -6,5 +6,6 @@ const adminController = require('../controllers/adminController');
 
 router.post('/login', adminController.login)
 router.get('/appointments/:status', verify, adminController.getSchedule)
-router.get('/getOrders/:status', verify, adminController.getOrders)
+router.post('/getOrders/', verify, adminController.getOrders)
+router.get('/getOrderDetails/:reference', verify, adminController.getOrderDetails)
 module.exports = router;

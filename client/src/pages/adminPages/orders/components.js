@@ -119,6 +119,7 @@ export const TableRowData = styled.div`
   color: rgb(85, 85, 85);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  align-items: center;
 
   /* & > .status__complete {
     background: rgb(235, 249, 244);
@@ -142,7 +143,7 @@ export const TableRowData = styled.div`
 
   &:hover {
     color: rgb(38, 67, 110);
-    background: #eaeaea;
+    background: #EAEAEA;
   }
 
   &:hover > .status {
@@ -152,6 +153,7 @@ export const TableRowData = styled.div`
   & > .status {
     width: fit-content;
     padding: 0px 1px;
+    max-height: 25px;
     border-radius: 5px;
   }
 `;
@@ -159,11 +161,18 @@ export const T_Head = styled.div`
   flex: 1;
   text-align: center;
 `;
-
 export const T_Data = styled.div`
   flex: 1;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
+
+  & > .actionBtn {
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 10px 15px;
+    color: black;
+    border-radius: 50%;
+  }
 `;

@@ -1,5 +1,9 @@
-const poolConnection = require('../config/connectDB');
-const { jsonParser } = require('../helpers/JsonParser');
+const poolConnection = require("../config/connectDB");
+const { customerDataParser } = require("../helpers/customerDataParser");
+const {
+  orderProductParserList,
+  orderProductParserOne,
+} = require("../helpers/orderProductParser");
 
 class Order {
   #reference;
@@ -33,20 +37,20 @@ class Order {
       (reference, customer_id, order_date, total_amount, payment_type)
       VALUES (?,?,?,?,?);`;
 
-      const [result,_] = await poolConnection.execute(insertQuery, [
+      const [result, _] = await poolConnection.execute(insertQuery, [
         this.#reference,
         this.#customer_id,
         this.#order_date,
         this.#total_amount,
-        this.#payment_type
-      ])
-     return result;
+        this.#payment_type,
+      ]);
+      return result;
     } catch (error) {
-        console.error(error.message)
+      console.error(error.message);
     }
   };
 
-  getOrders = async () => {
+  getOrders = async (search = "") => {
     try {
       const selectQuery = `SELECT 
         od.*,
@@ -61,17 +65,53 @@ class Order {
        ON od.id = pd.order_id AND p.id = pd.product_id
        INNER JOIN customer c
        ON c.id = od.customer_id
-       ${this.#order_status == 'all' ? '' : 'WHERE order_status = ?'} 
+       WHERE od.order_status LIKE ? AND
+       od.reference LIKE ?
        GROUP BY od.id`;
 
-      const [result,_] = await poolConnection.execute(selectQuery, [
-        this.#order_status
+      const [result, _] = await poolConnection.execute(selectQuery, [
+        `%${this.#order_status == "all" ? "" : this.#order_status}%`,
+        `%${search}%`,
       ]);
-      return jsonParser(result)
+
+      return orderProductParserList(result);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
+
+  getOrderDetails = async () => {
+    try {
+      const selectQuery = `SELECT 
+    od.*,
+
+    JSON_OBJECT('userId', c.id, 'firstname', c.firstname, 'lastname', c.lastname, 'email', c.email, 'phone', c.phoneNo, 'address', c.address) as customer,
+      
+     GROUP_CONCAT(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name, 'imageUrl', p.product_image_url, 'product_description', p.product_description, 'product_price', p.product_price, 'quantity', pd.quantity),'*DIVIDER*') as products
+
+     FROM order_details od
+     INNER JOIN product_details pd
+     INNER JOIN products p
+     ON od.id = pd.order_id AND p.id = pd.product_id
+     INNER JOIN customer c
+     ON c.id = od.customer_id
+     WHERE od.reference = ?
+     GROUP BY od.id`;
+
+      const [result, _] = await poolConnection.execute(selectQuery, [
+        this.#reference,
+      ]);
+
+      if (result.length > 0) {
+        result[0].customer = customerDataParser(result[0].customer);
+        return orderProductParserOne(result[0]);
+      }
+
+      return false;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 }
 
 module.exports = Order;

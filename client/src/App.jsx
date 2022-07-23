@@ -38,6 +38,7 @@ import AppointmentList from "./pages/adminPages/appointment/AppointmentList";
 import Record from "./pages/adminPages/records/Record";
 import OrderList from "./pages/adminPages/orders/OrderList";
 import { memo } from "react";
+import OrderDetails from "./pages/adminPages/order_detail/OrderDetails";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -195,6 +196,12 @@ function App() {
           path="/admin/orders"
           element={<AdminRoutes Component={<OrderList />} />}
         />
+
+      <Route
+          path="/admin/orders/:reference"
+          element={<AdminRoutes Component={<OrderDetails />} />}
+        />
+
 
         <Route path="*" element={<h1>Page Not Found</h1>} />
 

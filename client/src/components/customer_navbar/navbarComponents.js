@@ -61,6 +61,7 @@ export const BrandLogoContainer = styled.div`
     }
 
     & > button {
+      position: relative;
         padding: 17px 20px;
         display: flex;
         align-items: center;
@@ -206,4 +207,109 @@ export const BrandLogoContainer = styled.div`
         }
       }
   }
+  `
+
+  export const CartPopupBox = styled.div`
+    display: flex;
+    flex-direction:column;
+    position: absolute;
+    width: 30%;
+    margin-right: 50px;
+    right: -30px;
+    top: 70px;
+    background: white;
+    box-shadow: 1px 3px 5px gray;
+    border-radius: 10px;
+    color: black;
+    max-height: 75vh;
+  `
+
+  export const ProductListContainer = styled.div`
+    display: flex;
+    flex-direction:column;
+    height: 50vh;
+    overflow: auto;
+  `
+
+  export const ProductContainer = styled.div`
+  display: flex;
+  border-bottom: solid 2px lightgray;
+  border-width: 80%;
+  margin: 10px;
+  padding: 10px;
+  & > img {
+    width: 100px;
+    max-height: 100px;
+    max-width: 100px;
+    margin: 0;
+  }
+
+  & > * {
+    flex: 1;
+    margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  `
+
+  export const ProductName = styled.div`
+    font-size: 0.9em;
+    flex: 2 !important;
+  `
+  export const ProductQuantity = styled.div`
+    font-size: 0.9em;
+
+  `
+  export const ProductPrice = styled.div`
+    font-size: 0.9em;
+  `
+
+  export const CartPopupBoxContainer = styled.div`
+    position: relative;
+    height: 100%;
+    & > h1 {
+      margin: 20px;
+      text-align: start;
+      color: dimgray;
+    }
+  `
+
+  export const CartSummary = styled.div`
+  height: 100px;
+  text-align: start;
+  display: flex;
+  flex-direction:column;
+  padding: 10px;
+
+  & > button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: rgb(247,207,49);
+    color: white;
+    font-size: 1em;
+    margin: 5px;
+    cursor: pointer;
+    transition: all .3s ease;
+    &:hover {
+      background: black;
+    }
+
+  }
+  `
+  export const SummaryRow = styled.div`
+    display: flex;
+    margin: 5px;
+
+    justify-content: space-between;
+    & > h1 {
+      flex: 1;
+      color: gray;
+    }
+
+    & > span {
+      flex: 1;
+      text-align: end;
+    }
   `

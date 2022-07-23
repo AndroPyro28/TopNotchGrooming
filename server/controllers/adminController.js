@@ -63,17 +63,43 @@ module.exports.getSchedule = async (req, res) => {
 }
 
 module.exports.getOrders = async (req, res) => {
-  const {status} = req.params;
+  const {status, textSearch} = req.body;
   try {
     const orderModel = new Order({
       order_status: status
     })
 
-    const orders = await orderModel.getOrders()
+    const orders = await orderModel.getOrders(textSearch)
     return res.status(200).json({
       orders
     })
   } catch (error) {
     
+  }
+}
+
+module.exports.getOrderDetails = async (req, res) => {
+  try {
+    const {reference} = req.params;
+
+    const orderModel = new Order({
+      reference: reference
+    });
+
+    const order = await orderModel.getOrderDetails();
+    
+    if(!order) {
+      return res.status(200).json({
+        success: false
+      })
+    }
+    
+    return res.status(200).json({
+      order,
+      success: true
+    })
+    
+  } catch (error) {
+    console.error(error.message)
   }
 }

@@ -6,11 +6,20 @@ import {
   BrandLogoContainer,
   InfoAndCart,
   BotNavbar,
-  DropDown
+  DropDown,
+  ProductContainer,
+  CartPopupBox,
+  ProductName,
+  ProductQuantity,
+  ProductPrice,
+  CartSummary,
+  SummaryRow,
+  CartPopupBoxContainer,
+  ProductListContainer,
 } from "./navbarComponents";
 import Cookies from "js-cookie";
-import { Link, NavLink } from "react-router-dom";
-import {useSelector} from "react-redux";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import shopingCartLogic from "../cartComponents/logic/shopingCartLogic";
 
 function CustomerNavbar() {
@@ -22,19 +31,27 @@ function CustomerNavbar() {
   const handleLogout = () => {
     Cookies.remove("userToken");
     window.location.reload();
-}
+  };
 
-const {currentUser} = useSelector((state) => state.user)
-const cart = useSelector((state) => state.cart)
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { currentUser } = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
 
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [nocartItems, setNoCartItems] = useState(0)
+  const [nocartItems, setNoCartItems] = useState(0);
+  const [openCart, setOpenCart] = useState(false);
+  useEffect(() => {
+    (async () => {
+      setNoCartItems(cart?.length);
+    })();
+  }, [cart]);
 
   useEffect(() => {
     (async () => {
-      setNoCartItems(cart?.length)
-    })()
-  }, [cart])
+      setOpenCart(false);
+    })();
+  }, [pathname]);
 
   return (
     <CustomerNavbarContainer>
@@ -53,27 +70,110 @@ const cart = useSelector((state) => state.cart)
         </SearchBarContainer>
 
         <InfoAndCart>
-          <Link to="/customer/cart">
-            <button>
+          <a>
+            <button onClick={() => setOpenCart(!openCart) }>
               <i class="fa-solid fa-cart-shopping"></i> &nbsp; Cart &nbsp;
-              <span class={`cart__number__item ${nocartItems && 'active'}`}>{nocartItems}</span>
+              <span class={`cart__number__item ${nocartItems && "active"}`}>
+                {nocartItems}
+              </span>
             </button>
-          </Link>
+          </a>
+
           <Link to="/customer/profile">
-            <img src={currentUser?.profile_image_url} alt="" class="userProfile" />
+            <img
+              src={currentUser?.profile_image_url}
+              alt=""
+              class="userProfile"
+            />
           </Link>
+
           <DropDown>
-            <i class="fa-solid fa-chevron-down dropDownBtn" onClick={() => setOpenDropdown(!openDropdown)}></i>
-            {
-              openDropdown && <div className="dropdown__content">
-              <Link to={"/customer/profile"}>Profile</Link>
-              <a onClick={handleLogout}>Logout</a>
-            </div>
-            }
-            
+            <i
+              class="fa-solid fa-chevron-down dropDownBtn"
+              onClick={() => setOpenDropdown(!openDropdown)}
+            ></i>
+            {openDropdown && (
+              <div className="dropdown__content">
+                <Link to={"/customer/profile"}>Profile</Link>
+                <a onClick={handleLogout}>Logout</a>
+              </div>
+            )}
           </DropDown>
-         
-        </InfoAndCart >
+
+          {/* will move to a component base tommorow */}
+
+          {openCart && (
+            <CartPopupBox>
+              <CartPopupBoxContainer>
+                <h1>You have {nocartItems} items in your cart</h1>
+
+                <ProductListContainer>
+                  <ProductContainer>
+                    <img src="/images/pedigree.png" />
+                    <ProductName>Product name</ProductName>
+                    <ProductQuantity>Qty: 5</ProductQuantity>
+                    <ProductPrice> 500.00</ProductPrice>
+                    <i class="fa-solid fa-trash-can"></i>
+                  </ProductContainer>
+
+                  <ProductContainer>
+                    <img src="/images/pedigree.png" />
+                    <ProductName>Product name</ProductName>
+                    <ProductQuantity>Qty: 5</ProductQuantity>
+                    <ProductPrice> 500.00</ProductPrice>
+                    <i class="fa-solid fa-trash-can"></i>
+                  </ProductContainer>
+
+                  <ProductContainer>
+                    <img src="/images/pedigree.png" />
+                    <ProductName>
+                      Product name asd a asasd asd asd as dsasad sd asas dasd
+                      sda sda sda sda asd sda sdasdasdasdaasd
+                    </ProductName>
+                    <ProductQuantity>Qty: 5</ProductQuantity>
+                    <ProductPrice> 500.00</ProductPrice>
+                    <i class="fa-solid fa-trash-can"></i>
+                  </ProductContainer>
+
+                  <ProductContainer>
+                    <img src="/images/pedigree.png" />
+                    <ProductName>Product name</ProductName>
+                    <ProductQuantity>Qty: 5</ProductQuantity>
+                    <ProductPrice> 500.00</ProductPrice>
+                    <i class="fa-solid fa-trash-can"></i>
+                  </ProductContainer>
+
+                  <ProductContainer>
+                    <img src="/images/pedigree.png" />
+                    <ProductName>Product name</ProductName>
+                    <ProductQuantity>Qty: 5</ProductQuantity>
+                    <ProductPrice> 500.00</ProductPrice>
+                    <i class="fa-solid fa-trash-can"></i>
+                  </ProductContainer>
+
+                  <ProductContainer>
+                    <img src="/images/pedigree.png" />
+                    <ProductName>Product name</ProductName>
+                    <ProductQuantity>Qty: 5</ProductQuantity>
+                    <ProductPrice> 500.00</ProductPrice>
+                    <i class="fa-solid fa-trash-can"></i>
+                  </ProductContainer>
+                </ProductListContainer>
+
+                <CartSummary>
+                  <SummaryRow>
+                    <h1>Cart Total</h1>
+                    <span>500.00</span>
+                  </SummaryRow>
+
+                  <button onClick={() => navigate("/customer/cart")}>
+                    Checkout
+                  </button>
+                </CartSummary>
+              </CartPopupBoxContainer>
+            </CartPopupBox>
+          )}
+        </InfoAndCart>
       </TopNavbar>
 
       <BotNavbar>
