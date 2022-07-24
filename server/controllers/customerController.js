@@ -9,36 +9,41 @@ const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
 const Appointment = require("../models/Appointment");
 const { DateFormatter } = require("../helpers/DateFormatter");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 const Order = require("../models/Order");
 
 module.exports.signup = async (req, res) => {
-  req.body.profile_image_url =
-    "https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png";
-  req.body.profile_image_id = "topnotch_profilepic/eadlgosq2pioplvi6lfs";
-  const customer = new Customer(req.body);
+  try {
+    req.body.profile_image_url =
+      "https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png";
+    req.body.profile_image_id = "topnotch_profilepic/eadlgosq2pioplvi6lfs";
+    const customer = new Customer(req.body);
 
-  const isExists = await customer.checkIfExistByPhoneEmail();
-  if (isExists) {
+    const isExists = await customer.checkIfExistByPhoneEmail();
+    if (isExists) {
+      return res.status(200).json({
+        msg: "Phone number or email already exist",
+        success: false,
+      });
+    }
+
+    const result = await customer.insertOne();
+
+    if (!result) {
+      throw new Error("something went wrong");
+    }
+
     return res.status(200).json({
-      msg: "Phone number or email already exist",
+      msg: "Your account registered successfully!",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(200).json({
+      msg: error.message,
       success: false,
     });
   }
-
-  const result = await customer.insertOne();
-
-  if (!result) {
-    return res.status(200).json({
-      msg: "Something went wrong...",
-      success: false,
-    });
-  }
-
-  return res.status(200).json({
-    msg: "Your account registered successfully!",
-    success: true,
-  });
 };
 
 module.exports.login = async (req, res) => {
@@ -110,16 +115,11 @@ module.exports.updateInfo = async (req, res) => {
         user: req.body.user,
       });
     }
-
-    return res.status(200).json({
-      success: false,
-      msg: "something went wrong...",
-    });
   } catch (error) {
     console.log(error.message);
     return res.status(200).json({
+      msg: error.message,
       success: false,
-      msg: "something went wrong...",
     });
   }
 };
@@ -139,6 +139,11 @@ module.exports.addItemsToCart = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
+
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -163,6 +168,10 @@ module.exports.getItemsIncart = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -183,6 +192,10 @@ module.exports.deleteItemInCart = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -211,6 +224,11 @@ module.exports.updateItemQuantity = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -218,42 +236,40 @@ module.exports.checkout = async (req, res) => {
   const { checkoutType } = req.params; // card
   const { checkoutProducts, totalAmount } = req.body;
   try {
+    if (checkoutType === "gcash") {
+      var request = require("request");
 
-    if(checkoutType === 'gcash') {
-      var request = require('request')
-
-    var options = {
-      method: "POST",
-      url: "https://g.payx.ph/payment_request",
-      formData: {
-        "x-public-key": process.env.GCASH_API_KEY,
-        amount: `1`, // ${totalAmount}
-        description: "Payment for services rendered",
-          redirectsuccessurl:`http://localhost:3000:3000/customer/payment=success`,
-          redirectfailurl:`${process.env.CLIENT_URL}/customer/cart`,
+      var options = {
+        method: "POST",
+        url: "https://g.payx.ph/payment_request",
+        formData: {
+          "x-public-key": process.env.GCASH_API_KEY,
+          amount: `1`, // ${totalAmount}
+          description: "Payment for services rendered",
+          redirectsuccessurl: `http://localhost:3000:3000/customer/payment=success`,
+          redirectfailurl: `${process.env.CLIENT_URL}/customer/cart`,
           customeremail: `${req.currentUser?.email}`,
           customermobile: `${req.currentUser?.phoneNo}`,
-          customername: `${req.currentUser?.firstname} ${req.currentUser?.lastname}`
-      },
-    };
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
+          customername: `${req.currentUser?.firstname} ${req.currentUser?.lastname}`,
+        },
+      };
+      request(options, function (error, response) {
+        if (error) throw new Error(error);
 
-      const {data} = JSON.parse(response.body);
+        const { data } = JSON.parse(response.body);
 
-      const {checkouturl, hash} = data;
-      return res.status(200).json({
-        proceedPayment: true,
-        method: checkoutType,
-        checkoutProducts,
-        checkoutUrl:checkouturl,
-        orderId: hash,
-        totalAmount
+        const { checkouturl, hash } = data;
+        return res.status(200).json({
+          proceedPayment: true,
+          method: checkoutType,
+          checkoutProducts,
+          checkoutUrl: checkouturl,
+          orderId: hash,
+          totalAmount,
+        });
       });
-    });
     }
-    if(checkoutType === "card") {
-
+    if (checkoutType === "card") {
       const dollarRate = 56.39;
 
       const session = await stripe.checkout.sessions.create({
@@ -266,7 +282,9 @@ module.exports.checkout = async (req, res) => {
               product_data: {
                 name: item.product_name,
               },
-              unit_amount: Number((item.product_price / dollarRate ) * 100).toFixed(0),
+              unit_amount: Number(
+                (item.product_price / dollarRate) * 100
+              ).toFixed(0),
             },
             quantity: item.quantity,
           };
@@ -275,21 +293,23 @@ module.exports.checkout = async (req, res) => {
         cancel_url: `${process.env.CLIENT_URL}/customer/cart`,
       });
 
-
       return res.status(200).json({
         proceedPayment: true,
         method: checkoutType,
         checkoutProducts,
-        checkoutUrl:session.url,
+        checkoutUrl: session.url,
         sessionId: session.id,
-        orderId:session.payment_intent,
-        totalAmount
+        orderId: session.payment_intent,
+        totalAmount,
       });
-
     }
     // return res.status(200).json({checkoutUrl:session.url})
   } catch (error) {
     console.error(error.message);
+    return res.status(200).json({
+      success: false,
+      msg: error.message,
+    });
   }
 };
 
@@ -339,7 +359,7 @@ module.exports.addAppointment = async (req, res) => {
 
 module.exports.payment = async (req, res) => {
   try {
-    const {checkoutProducts, method, orderId, totalAmount} = req.body;
+    const { checkoutProducts, method, orderId, totalAmount } = req.body;
 
     const productModel = new Product({});
 
@@ -348,26 +368,26 @@ module.exports.payment = async (req, res) => {
     const OrderModel = new Order({
       reference: orderId,
       customer_id: req.currentUser.id,
-      order_date: 'today',
+      order_date: "today",
       total_amount: totalAmount,
       payment_type: method,
     });
-    
+
     const result = await OrderModel.addNewOrder();
-    const ProductDetailModel = new ProductDetails({ order_id: result.insertId})
+    const ProductDetailModel = new ProductDetails({
+      order_id: result.insertId,
+    });
     ProductDetailModel.insertOrderId(checkoutProducts);
 
     return res.status(201).json({
-      msg: 'Payment successful',
-      success: true
-    })
-
+      msg: "Payment successful",
+      success: true,
+    });
   } catch (error) {
-    console.error(error.message)
+    console.error(error.message);
     return res.status(500).json({
-      msg: 'Something went wrong',
-      success: false
-    })
-    
+      msg: "Something went wrong",
+      success: false,
+    });
   }
-}
+};

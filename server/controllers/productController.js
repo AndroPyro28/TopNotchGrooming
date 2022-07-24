@@ -18,18 +18,20 @@ module.exports.addItem = async (req, res) => {
     if (result.insertId) {
       req.body.id = result.insertId;
       return res.status(200).json({
-        msg: "Product added to the database",
+        msg: "Product added",
         newProduct: req.body,
         success: true,
       });
     }
 
-    return res.status(200).json({
-      msg: "Product did not added to the database",
-      success: false,
-    });
+    throw new error("product did not update");
   } catch (error) {
     console.error(error.message);
+
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -43,6 +45,11 @@ module.exports.getAllItems = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
+
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -63,6 +70,11 @@ module.exports.deleteProduct = async (req, res) => {
     }
   } catch (error) {
     console.error(error.message);
+
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -109,13 +121,12 @@ module.exports.updateItem = async (req, res) => {
         success: true,
       });
     }
-
-    return res.status(200).json({
-      msg: "Product updated failed",
-      success: false,
-    });
   } catch (error) {
     console.error("error", error.message);
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 
@@ -137,5 +148,9 @@ module.exports.searchItems = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };

@@ -112,6 +112,17 @@ class Order {
       console.error(error.message);
     }
   };
+
+  orderNextStage = async (deliver_status) => {
+    try {
+      const updateQuery = `UPDATE order_details SET order_status = ?, delivery_status = ? WHERE reference = ?`;
+
+      const [result, _] = await poolConnection.execute(updateQuery, [this.#order_status, deliver_status, this.#reference]);
+      return result;
+    } catch (error) {
+      console.error(console.error)
+    }
+  }
 }
 
 module.exports = Order;

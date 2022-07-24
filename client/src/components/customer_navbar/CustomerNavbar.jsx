@@ -7,20 +7,12 @@ import {
   InfoAndCart,
   BotNavbar,
   DropDown,
-  ProductContainer,
-  CartPopupBox,
-  ProductName,
-  ProductQuantity,
-  ProductPrice,
-  CartSummary,
-  SummaryRow,
-  CartPopupBoxContainer,
-  ProductListContainer,
+  
 } from "./navbarComponents";
 import Cookies from "js-cookie";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import shopingCartLogic from "../cartComponents/logic/shopingCartLogic";
+import CartPopup from "../cartComponents/CartPopup";
 
 function CustomerNavbar() {
   const navLinkStyles = ({ isActive }) => {
@@ -33,7 +25,6 @@ function CustomerNavbar() {
     window.location.reload();
   };
 
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { currentUser } = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
@@ -102,77 +93,9 @@ function CustomerNavbar() {
 
           {/* will move to a component base tommorow */}
 
-          {openCart && (
-            <CartPopupBox>
-              <CartPopupBoxContainer>
-                <h1>You have {nocartItems} items in your cart</h1>
+          {openCart && <CartPopup nocartItems={nocartItems} /> } 
 
-                <ProductListContainer>
-                  <ProductContainer>
-                    <img src="/images/pedigree.png" />
-                    <ProductName>Product name</ProductName>
-                    <ProductQuantity>Qty: 5</ProductQuantity>
-                    <ProductPrice> 500.00</ProductPrice>
-                    <i class="fa-solid fa-trash-can"></i>
-                  </ProductContainer>
 
-                  <ProductContainer>
-                    <img src="/images/pedigree.png" />
-                    <ProductName>Product name</ProductName>
-                    <ProductQuantity>Qty: 5</ProductQuantity>
-                    <ProductPrice> 500.00</ProductPrice>
-                    <i class="fa-solid fa-trash-can"></i>
-                  </ProductContainer>
-
-                  <ProductContainer>
-                    <img src="/images/pedigree.png" />
-                    <ProductName>
-                      Product name asd a asasd asd asd as dsasad sd asas dasd
-                      sda sda sda sda asd sda sdasdasdasdaasd
-                    </ProductName>
-                    <ProductQuantity>Qty: 5</ProductQuantity>
-                    <ProductPrice> 500.00</ProductPrice>
-                    <i class="fa-solid fa-trash-can"></i>
-                  </ProductContainer>
-
-                  <ProductContainer>
-                    <img src="/images/pedigree.png" />
-                    <ProductName>Product name</ProductName>
-                    <ProductQuantity>Qty: 5</ProductQuantity>
-                    <ProductPrice> 500.00</ProductPrice>
-                    <i class="fa-solid fa-trash-can"></i>
-                  </ProductContainer>
-
-                  <ProductContainer>
-                    <img src="/images/pedigree.png" />
-                    <ProductName>Product name</ProductName>
-                    <ProductQuantity>Qty: 5</ProductQuantity>
-                    <ProductPrice> 500.00</ProductPrice>
-                    <i class="fa-solid fa-trash-can"></i>
-                  </ProductContainer>
-
-                  <ProductContainer>
-                    <img src="/images/pedigree.png" />
-                    <ProductName>Product name</ProductName>
-                    <ProductQuantity>Qty: 5</ProductQuantity>
-                    <ProductPrice> 500.00</ProductPrice>
-                    <i class="fa-solid fa-trash-can"></i>
-                  </ProductContainer>
-                </ProductListContainer>
-
-                <CartSummary>
-                  <SummaryRow>
-                    <h1>Cart Total</h1>
-                    <span>500.00</span>
-                  </SummaryRow>
-
-                  <button onClick={() => navigate("/customer/cart")}>
-                    Checkout
-                  </button>
-                </CartSummary>
-              </CartPopupBoxContainer>
-            </CartPopupBox>
-          )}
         </InfoAndCart>
       </TopNavbar>
 

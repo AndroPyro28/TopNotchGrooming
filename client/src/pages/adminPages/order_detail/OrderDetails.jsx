@@ -17,6 +17,7 @@ import {
   CustomerDetailsContainer,
   GlobalStyles,
 } from "./components";
+import Loader from "../../../components/loader/Loader"
 function OrderDetails() {
 
   const {reference} = useParams();
@@ -47,8 +48,9 @@ function OrderDetails() {
     }
     
   }, [])
+
   return (
-    <>
+  <>
       <GlobalStyles />
       
       <OrderNumber>

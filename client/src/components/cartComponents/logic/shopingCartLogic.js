@@ -37,6 +37,16 @@ function ShopingCartLogic(props) {
       : 0;
   };
 
+  const calculateTotalAmountOnCart = (items) => {
+    return items.length > 0
+      ? items.reduce(
+          (total, item) =>
+             item.quantity * item.product_price + total,
+          0
+        )
+      : 0;
+  };
+
   
 
   const handleItem = (item, setItems) => {
@@ -106,6 +116,7 @@ function ShopingCartLogic(props) {
     handleItem,
     removeToCart,
     incremeantDecreament,
+    calculateTotalAmountOnCart
   };
 }
 

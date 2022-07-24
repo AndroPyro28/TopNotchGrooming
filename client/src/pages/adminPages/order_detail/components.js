@@ -185,8 +185,13 @@ export const OrderStatusContainer = styled.section`
     transition: all 0.3s ease;
     color: white;
 
-    &:hover {
-      background: rgb(68,215,123);
+    &:active {
+      background: rgb(135,153,255);
+    }
+
+    &:disabled {
+      background: rgb(163,191,255);
+      cursor: default;
     }
   }
 `;
@@ -211,7 +216,7 @@ export const OrderStatus = styled.div`
     
   }
   &.active {
-    animation: animateStatus infinite 800ms alternate ease-out;
+    animation: animateStatus infinite 700ms alternate ease-out;
     font-weight: 1000;
 
     &::before {
@@ -329,7 +334,7 @@ export const ShippingDetails = styled.div`
 
   & > i {
     font-size: 8em;
-    animation: animateStatus infinite 800ms alternate ease-out;
+    animation: animateStatus infinite 700ms alternate ease-out;
     color: rgb(150, 182, 255);
   }
 `;
