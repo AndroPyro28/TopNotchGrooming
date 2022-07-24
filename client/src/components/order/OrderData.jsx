@@ -2,12 +2,12 @@ import React from "react";
 import { TableRowData, T_Data } from "../../pages/adminPages/orders/components";
 import productPriceFormatter from '../../helpers/ProductPriceFormatter'
 import {useNavigate} from 'react-router-dom';
-
+import DateFormatter from "../../helpers/DateFormatter"
 function OrderData({ data }) {
   const navigate = useNavigate()
   const { firstname, lastname } = JSON.parse(data.customer);
   const {products, order_date, total_amount, reference, order_status, payment_type, delivery_status} = data;
-
+  
   const orderedProducts = products.reduce((string, product) => {
     return string += `${product.product_name} `
   }, '');
@@ -17,7 +17,7 @@ function OrderData({ data }) {
       <T_Data> {reference}</T_Data>
       <T_Data> {firstname} {lastname}</T_Data>
       <T_Data> {orderedProducts} </T_Data>
-      <T_Data> {order_date} </T_Data>
+      <T_Data> {DateFormatter(order_date)} </T_Data>
       <T_Data className="price"> {productPriceFormatter(total_amount)} </T_Data>
 
       {

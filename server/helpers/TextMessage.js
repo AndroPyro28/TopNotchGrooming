@@ -1,28 +1,72 @@
-module.exports.sendTextMessageByStatus = (status) => {
-    let textMsg = ""
-    if(status == 1) {
-        textMsg = "Your order is now being prepared"
-    }
+const Vonage = require("@vonage/server-sdk");
 
-    if(status == 2) {
-        textMsg = `Your order is done packing
+module.exports.sendTextMessageByStatus = (status, data, reference) => {
+  let textMsg = "";
+  let { phone, firstname, lastname } = data.customer;
+
+  if (phone.startsWith("0")) {
+    phone = phone.replace("0", "63");
+  }
+
+  const vonage = new Vonage({
+    apiKey: process.env.VONAGE_API_KEY,
+    apiSecret: process.env.VONAGE_API_SECRET,
+  });
+
+  if (status == 1) {
+    textMsg = `Good day ${firstname} ${lastname},
+        
+Your order in transaction: ${reference} in Top notch grooming shop is now being prepared
+
+-Top Notch Grooming Shop
+
+`;
+  }
+
+  if (status == 2) {
+    textMsg = `Good day ${firstname} ${lastname},
          
-Your order is now preparing to dispatch`
-    }
+Your order is done packing and ready to dispatch
 
-    if(status == 3) {
-        textMsg = `Your order has been dispatched
+-Top Notch Grooming Shop
+
+`;
+  }
+
+  if (status == 3) {
+    textMsg = `Good day ${firstname} ${lastname}
         
 Your order is in shipping process
-        `
+
+-Top Notch Grooming Shop
+
+`;
+  }
+
+  if (status == 4) {
+    textMsg = `Good day ${firstname} ${lastname}
+        
+Your order is completed, thank you for ordering our product enjoy!
+
+-Top Notch Grooming Shop
+
+`;
+  }
+
+  const from = "Vonage APIs";
+  const to = phone;
+
+  return vonage.message.sendSms(from, to, textMsg, (err, responseData) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (responseData.messages[0]["status"] === "0") {
+        console.log("Message sent successfully.");
+      } else {
+        console.log(
+          `Message failed with error: ${responseData.messages[0]["error-text"]}`
+        );
+      }
     }
-
-    if(status == 4) {
-        textMsg = `Order is completed
-
-Thank you for ordering our product!
-        `
-    }
-
-    return textMsg
-}
+  });
+};

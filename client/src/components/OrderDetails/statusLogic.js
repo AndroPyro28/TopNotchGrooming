@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from "axios"
 import Cookies from "js-cookie"
 function statusLogic({deliveryStatus, setDeliveryStatus, data}) {
@@ -20,7 +19,10 @@ function statusLogic({deliveryStatus, setDeliveryStatus, data}) {
       const orderNextStage = async () => {
         try {
             setDeliveryStatus(deliveryStatus + 1);
-            const res = await axios.patch(`/api/admin/orderNextStage/${data.reference}`, {deliveryStatus: deliveryStatus + 1}, {
+            const res = await axios.patch(`/api/admin/orderNextStage/${data.reference}`, {
+              deliveryStatus: deliveryStatus + 1,
+              data
+            }, {
                 headers: {
                     userinfo: Cookies.get('userToken')
                 }

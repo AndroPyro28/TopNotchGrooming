@@ -15,3 +15,8 @@ module.exports.DateFormatter = (date) => {
     const today = `${year}-${month}-${day}`;
     return today;
 }
+
+module.exports.getDateToday = () => {
+    const today = new Date().toISOString().slice(0, 10);
+    return today
+}

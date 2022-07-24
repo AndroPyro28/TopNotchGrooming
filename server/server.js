@@ -10,7 +10,6 @@ const {verifyUser} = require('./middlewares/verifyUser')
 const server = require('http').createServer(app);
 
 app.use(express.json({limit:"50mb"}));
-
 app.use(cors({
     origin:"*",
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH"]
@@ -45,7 +44,6 @@ app.get('/api/auth', verifyUser, (req, res) => {
         console.error(error);
     }
 })
-
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
 
 const io = new Server(server, { // we will use this later

@@ -122,8 +122,10 @@ module.exports.getOrderDetails = async (req, res) => {
 
 module.exports.orderNextStage = async (req, res) => {
   const { reference } = req.params;
-  const { deliveryStatus } = req.body;
+  const { deliveryStatus, data } = req.body;
+
   let orderStatus = "";
+
   try {
     if (deliveryStatus >= 1 && deliveryStatus <= 3) {
       orderStatus = "onGoing";
@@ -135,8 +137,7 @@ module.exports.orderNextStage = async (req, res) => {
     if (deliveryStatus == 5) {
       throw new Error("someting went wrong");
     }
-
-    console.log(sendTextMessageByStatus(deliveryStatus));
+    sendTextMessageByStatus(deliveryStatus, data, reference);
 
     const orderModel = new Order({
       reference,

@@ -11,7 +11,7 @@ const { DateFormatter } = require("../helpers/DateFormatter");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { v4: uuidv4 } = require("uuid");
 const Order = require("../models/Order");
-
+const {getDateToday} = require('../helpers/DateFormatter')
 module.exports.signup = async (req, res) => {
   try {
     req.body.profile_image_url =
@@ -326,7 +326,6 @@ module.exports.addAppointment = async (req, res) => {
       dateNtime,
       additional_details,
     } = req.body;
-    // dateNtime = DateFormatter(dateNtime)
 
     if (appointmentType != "grooming") {
       liveStreamType = null;
@@ -360,7 +359,6 @@ module.exports.addAppointment = async (req, res) => {
 module.exports.payment = async (req, res) => {
   try {
     const { checkoutProducts, method, orderId, totalAmount } = req.body;
-
     const productModel = new Product({});
 
     productModel.updatePaidItems(checkoutProducts);
@@ -368,15 +366,17 @@ module.exports.payment = async (req, res) => {
     const OrderModel = new Order({
       reference: orderId,
       customer_id: req.currentUser.id,
-      order_date: "today",
+      order_date: getDateToday(),
       total_amount: totalAmount,
       payment_type: method,
     });
 
     const result = await OrderModel.addNewOrder();
+
     const ProductDetailModel = new ProductDetails({
       order_id: result.insertId,
     });
+
     ProductDetailModel.insertOrderId(checkoutProducts);
 
     return res.status(201).json({

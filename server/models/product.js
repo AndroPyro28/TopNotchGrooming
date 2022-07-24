@@ -1,4 +1,5 @@
 const poolConnection = require("../config/connectDB");
+const { getDateToday } = require("../helpers/DateFormatter");
 
 class Product {
   #id;
@@ -37,9 +38,6 @@ class Product {
     this.#petType = petType;
   }
 
-  getDateToday = () =>
-    new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
-
   selectItemById = async (id = this.#id) => {
     try {
       const selectQuery = `SELECT * FROM products WHERE id = ?`;
@@ -69,7 +67,7 @@ class Product {
         this.#productName,
         this.#productPrice,
         this.#productDescription,
-        this.getDateToday(),
+        getDateToday(),
         this.#productStocks,
         this.#productAgeGap,
         this.#productCategory,
@@ -189,11 +187,11 @@ class Product {
         END)
         WHERE id IN (?)`;
 
-        const productIds = checkoutProducts.map(product => product.product_id);
+      const productIds = checkoutProducts.map((product) => product.product_id);
 
       const [result, _] = await poolConnection.query(updateQuery, [productIds]);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
   };
 }
