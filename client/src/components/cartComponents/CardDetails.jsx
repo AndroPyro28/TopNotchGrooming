@@ -13,14 +13,12 @@ import Paypal from "./PaymentType/Paypal";
 import shopingCartLogic from "./logic/shopingCartLogic";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 
-function CardDetails({ items, setItems, toast }) {
-  const [paymentType, setPaymentType] = useState("card");
+function CardDetails({ items, setItems, toast,totalAmount, setTotalAmount, paymentType,setPaymentType, setOpenBilling}) {
 
   const pickPaymentType = (cardType) => {
     setPaymentType(cardType);
   };
 
-  const [totalAmount, setTotalAmount] = useState(0);
   const { calculateTotalAmount } = shopingCartLogic();
 
   useEffect(() => {
@@ -87,6 +85,7 @@ function CardDetails({ items, setItems, toast }) {
 
       {paymentType === "paypal" && (
         <Paypal
+        setOpenBilling={setOpenBilling}
           items={items}
           totalAmount={totalAmount * 0.01 + totalAmount}
           toast={toast}
@@ -95,6 +94,7 @@ function CardDetails({ items, setItems, toast }) {
 
       {paymentType === "card" && (
         <Card
+          setOpenBilling={setOpenBilling}
           items={items}
           totalAmount={totalAmount * 0.01 + totalAmount}
           toast={toast}
@@ -103,6 +103,7 @@ function CardDetails({ items, setItems, toast }) {
 
       {paymentType === "gcash" && (
         <Gcash
+        setOpenBilling={setOpenBilling}
           items={items}
           totalAmount={totalAmount * 0.01 + totalAmount}
           toast={toast}

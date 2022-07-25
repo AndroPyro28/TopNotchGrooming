@@ -358,9 +358,10 @@ module.exports.addAppointment = async (req, res) => {
 
 module.exports.payment = async (req, res) => {
   try {
-    const { checkoutProducts, method, orderId, totalAmount } = req.body;
+    const { checkoutProducts, method, orderId, totalAmount, billingInfo} = req.body;
     const productModel = new Product({});
-
+    const {billingAddress, contactNo, zipCode, courierType} = billingInfo;
+    
     productModel.updatePaidItems(checkoutProducts);
 
     const OrderModel = new Order({
@@ -369,6 +370,10 @@ module.exports.payment = async (req, res) => {
       order_date: getDateToday(),
       total_amount: totalAmount,
       payment_type: method,
+      billing_address: billingAddress,
+      contact: contactNo,
+      zip_code: zipCode,
+      courrier_type: courierType
     });
 
     const result = await OrderModel.addNewOrder();

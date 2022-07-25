@@ -34,8 +34,7 @@ function PaymentSuccess() {
         }
          localStorage.removeItem("onCheckoutProducts");
 
-         const {method, orderId, totalAmount, checkoutProducts} = onCheckoutProducts;
-
+         const {method, orderId, totalAmount, checkoutProducts, billingInfo} = onCheckoutProducts;
          setTotalAmount(totalAmount);
          setTransactionId(orderId);
          setPaymentMethod(method);

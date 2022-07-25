@@ -17,7 +17,7 @@ function Details({data}) {
               <i class="fa-solid fa-user"></i> {customer?.firstname} {customer?.lastname}
             </div>
             <div class="customer__info">
-              <i class="fa-solid fa-flag"></i> Philippines
+              <i class="fa-solid fa-flag"></i> Philippines {data?.zip_code}
             </div>
           </CustomerInfoContainer>
 
@@ -26,7 +26,7 @@ function Details({data}) {
               <i class="fa-solid fa-envelope"></i> {customer?.email}
             </div>
             <div class="customer__info">
-              <i class="fa-solid fa-road"></i> {customer?.address}
+              <i class="fa-solid fa-road"></i> {data?.billing_address} 
             </div>
             
           </CustomerInfoContainer>
@@ -34,7 +34,7 @@ function Details({data}) {
           <CustomerInfoContainer>
 
             <div class="customer__info">
-              <i class="fa-solid fa-phone"></i> {customer?.phone}
+              <i class="fa-solid fa-phone"></i> {data?.contact}
             </div>
             <div class="customer__info">
               <i class="fa-solid fa-credit-card"></i> {data?.payment_type}

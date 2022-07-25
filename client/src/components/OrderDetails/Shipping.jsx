@@ -8,7 +8,7 @@ function Shipping({data}) {
     <ShippingDetails>
           <h3>Shipping Details</h3>
 
-          <h4>Tok-Tok Delivery</h4>
+          <h4>{data?.courrier_type} Delivery</h4>
 
           <i class="fa-solid fa-truck-fast"></i>
         </ShippingDetails>

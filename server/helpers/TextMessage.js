@@ -2,12 +2,12 @@ const Vonage = require("@vonage/server-sdk");
 
 module.exports.sendTextMessageByStatus = (status, data, reference) => {
   let textMsg = "";
-  let { phone, firstname, lastname } = data.customer;
+  let { firstname, lastname } = data.customer;
+  let {contact} = data;
 
-  if (phone.startsWith("0")) {
-    phone = phone.replace("0", "63");
+  if (contact.startsWith("09")) {
+    contact = contact.replace("09", "63");
   }
-
   const vonage = new Vonage({
     apiKey: process.env.VONAGE_API_KEY,
     apiSecret: process.env.VONAGE_API_SECRET,
@@ -54,14 +54,14 @@ Your order is completed, thank you for ordering our product enjoy!
   }
 
   const from = "Vonage APIs";
-  const to = phone;
+  const to = contact;
 
   return vonage.message.sendSms(from, to, textMsg, (err, responseData) => {
     if (err) {
       console.log(err);
     } else {
       if (responseData.messages[0]["status"] === "0") {
-        console.log("Message sent successfully.");
+        console.log(`Message sent to ${to} successfully.`);
       } else {
         console.log(
           `Message failed with error: ${responseData.messages[0]["error-text"]}`

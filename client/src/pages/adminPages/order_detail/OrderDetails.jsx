@@ -41,6 +41,7 @@ function OrderDetails() {
 
         const {order} = res.data;
         setOrderData(order)
+        console.log(order);
 
       })
     } catch (error) {
@@ -88,7 +89,7 @@ function OrderDetails() {
 
         <Details data={orderData} />
 
-        <Shipping />
+        <Shipping data={orderData}/>
     
       </CustomerDetailsContainer>
     </>
