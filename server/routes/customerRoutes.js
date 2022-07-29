@@ -14,4 +14,5 @@ router.patch('/updateItemQuantity/:id', verifyUser, customerController.updateIte
 router.post('/checkout/:checkoutType', verifyUser, validateProducts, customerController.checkout);
 router.post('/appointment', verifyUser, customerController.addAppointment);
 router.post('/payment', verifyUser, customerController.payment)
+router.get('/orders/:orderStatus', verifyUser, customerController.orders)
 module.exports = router;

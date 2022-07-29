@@ -6,7 +6,9 @@ import {
   CourierTypeContainer,
   CourierType,
   ButtonContainer,
+  Note,
 } from "./components";
+import { Checkbox, useCheckboxState } from "pretty-checkbox-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../../../loader/Loader";
@@ -14,27 +16,29 @@ import logic from "./logic";
 import { useState } from "react";
 import { useEffect } from "react";
 function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
-
   const [courierType, setCourierType] = useState("");
   const [loading, setLoading] = useState(true);
-  const { initialValues, validationSchema, onSubmit, validateContact } = logic({
+  const [agree, setAgree] = useState(false);
+  const { initialValues, validationSchema, onSubmit, validateContact, validateZipCode } = logic({
     items,
     totalAmount,
     paymentType,
     ToastContainer,
     toast,
-    courierType
+    courierType,
   });
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-  }, [])
+      setLoading(false);
+    }, 2000);
+  }, []);
 
-  if(loading) {
-    return <Loader bg="rgba(0,0,0,0.5)" />
+  if (loading) {
+    return <Loader bg="rgba(0,0,0,0.5)" />;
   }
+
+  console.log(agree);
   return (
     <ModalBackdrop>
       <Formik
@@ -58,7 +62,7 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
                     type="text"
                     name="billingAddress"
                     id={"billingAddress"}
-                    placeholder="Billing address"
+                    placeholder="Billing address Including Street"
                   />
                   <i class="fa-solid fa-location-dot"></i>
                 </InputContainer>
@@ -84,6 +88,7 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
                     name="zipCode"
                     id={"zipCode"}
                     placeholder="Zip Code"
+                    validate={validateZipCode}
                   />
                 </InputContainer>
                 <div
@@ -103,20 +108,37 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
                 </div>
               </InputWrapper>
 
+              <Note>
+                <input
+                  type={"checkbox"}
+                  onChange={(e) => setAgree(e.target.checked)}
+                  checked={agree === true}
+                />
+                &nbsp;
+                <small style={{color:"maroon"}}>
+                  Note:&nbsp; The Delivery of the product is only around malolos bulacan, Do you agree?
+                </small>
+              </Note>
+
               <CourierTypeContainer>
                 <CourierType
                   onClick={() => setCourierType("toktok")}
                   style={{
-                    borderColor:
+                    background:
+                      courierType == "toktok" ? "#EAEAEA" : "transparent",
+                      borderColor:
                       courierType == "toktok" ? "gray" : "transparent",
-                  }}  
+                  }}
                 >
                   <img src="/images/lalamove.png" />
                 </CourierType>
                 <CourierType
                   onClick={() => setCourierType("lalamove")}
                   style={{
-                    borderColor: courierType == "lalamove" ? "gray" : "transparent",
+                    background:
+                      courierType == "lalamove" ? "#EAEAEA" : "transparent",
+                      borderColor:
+                      courierType == "lalamove" ? "gray" : "transparent",
                   }}
                 >
                   <img src="/images/jnt.png" />
@@ -124,8 +146,13 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
               </CourierTypeContainer>
 
               <ButtonContainer>
-                <button className="cancell" onClick={() => setOpenBilling(false)}>Cancel</button>
-                <button className="proceed" type="submit">
+                <button
+                  className="cancell"
+                  onClick={() => setOpenBilling(false)}
+                >
+                  Cancel
+                </button>
+                <button className="proceed" type="submit" disabled={!agree}>
                   Proceed
                 </button>
               </ButtonContainer>

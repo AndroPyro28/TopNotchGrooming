@@ -155,6 +155,12 @@ export const ButtonContainer = styled.div`
         background: linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
         background-color: #019ad2;
       }
+
+      &:disabled {
+        background: gray;
+        border: none;
+        cursor: default;
+      }
     }
 
     &.cancell {
@@ -176,3 +182,11 @@ export const ButtonContainer = styled.div`
     }
   }
 `;
+
+export const Note = styled.div`
+  width: 80%;
+  margin: 10px 80px;
+  display: flex;
+  align-items: center;
+  
+`

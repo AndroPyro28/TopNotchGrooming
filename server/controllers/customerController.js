@@ -1,17 +1,15 @@
 const Customer = require("../models/Customer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const cloudinary = require("../config/cloudinary");
 const ProductDetails = require("../models/ProductDetails");
 const Product = require("../models/product");
 const { assignToken } = require("../helpers/AuthTokenHandler");
 const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
 const Appointment = require("../models/Appointment");
-const { DateFormatter } = require("../helpers/DateFormatter");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const { v4: uuidv4 } = require("uuid");
 const Order = require("../models/Order");
-const {getDateToday} = require('../helpers/DateFormatter')
+const { getDateToday } = require("../helpers/DateFormatter");
+
 module.exports.signup = async (req, res) => {
   try {
     req.body.profile_image_url =
@@ -278,12 +276,12 @@ module.exports.checkout = async (req, res) => {
         line_items: checkoutProducts.map((item) => {
           return {
             price_data: {
-              currency: "usd",
+              currency: "php",
               product_data: {
                 name: item.product_name,
               },
               unit_amount: Number(
-                (item.product_price / dollarRate) * 100
+                (item.product_price) * 100
               ).toFixed(0),
             },
             quantity: item.quantity,
@@ -358,10 +356,11 @@ module.exports.addAppointment = async (req, res) => {
 
 module.exports.payment = async (req, res) => {
   try {
-    const { checkoutProducts, method, orderId, totalAmount, billingInfo} = req.body;
+    const { checkoutProducts, method, orderId, totalAmount, billingInfo } =
+      req.body;
     const productModel = new Product({});
-    const {billingAddress, contactNo, zipCode, courierType} = billingInfo;
-    
+    const { billingAddress, contactNo, zipCode, courierType } = billingInfo;
+
     productModel.updatePaidItems(checkoutProducts);
 
     const OrderModel = new Order({
@@ -373,7 +372,7 @@ module.exports.payment = async (req, res) => {
       billing_address: billingAddress,
       contact: contactNo,
       zip_code: zipCode,
-      courrier_type: courierType
+      courrier_type: courierType,
     });
 
     const result = await OrderModel.addNewOrder();
@@ -394,5 +393,26 @@ module.exports.payment = async (req, res) => {
       msg: "Something went wrong",
       success: false,
     });
+  }
+};
+
+module.exports.orders = async (req, res) => {
+  const { orderStatus } = req.params;
+  try {
+    const orderModel = new Order({});
+
+    const result = await orderModel.getOrderByStatus(orderStatus)
+
+    return res.status(200).json({
+      orders: result,
+      success: true
+    })
+    
+  } catch (error) {
+    console.log(error.message);
+
+    return res.status(200).json({
+      msg:error.message
+    })
   }
 };

@@ -21,13 +21,13 @@ function logic({
     billingAddress: yup
       .string()
       .required("Billing Address is required")
-      .min(10),
+      .min(10, "Billing address must be 10 characters long"),
     contactNo: yup.string().min(11).required("Contact number is required"),
-    zipCode: yup.number("Invalid zip code").required("Zip code is required"),
+    zipCode: yup.string().required("Zip code is required"),
   });
 
   const onSubmit = async (billingInfo) => {
-
+    console.log(billingInfo)
     if(courierType == "lalamove" || courierType == 'toktok') {
       billingInfo.courierType = courierType;
       const checkoutProducts = items.filter((item) => item.purchase);
@@ -87,11 +87,20 @@ function logic({
     return "Phone must be valid ph number";
   };
 
+  const validateZipCode = (value) => {
+    if (isNaN(Number(value))) {
+      return "Zip Code is not valid";
+    }
+
+    return null
+  }
+
   return {
     initialValues,
     validationSchema,
     onSubmit,
     validateContact,
+    validateZipCode
   };
 }
 

@@ -28,7 +28,7 @@ class Order {
     billing_address = "",
     contact = "",
     zip_code = "",
-    courrier_type=""
+    courrier_type = "",
   }) {
     this.#reference = reference;
     this.#customer_id = customer_id;
@@ -58,7 +58,7 @@ class Order {
         this.#billing_address,
         this.#contact,
         this.#zip_code,
-        this.#courrier_type
+        this.#courrier_type,
       ]);
       return result;
     } catch (error) {
@@ -141,6 +141,29 @@ class Order {
       return result;
     } catch (error) {
       console.error(console.error);
+    }
+  };
+
+  getOrderByStatus = async (status) => {
+    try {
+      const selectQuery = `SELECT order_details.*,
+      GROUP_CONCAT(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name, 'imageUrl', p.product_image_url, 'product_description', p.product_description, 'product_price', p.product_price, 'quantity', pd.quantity),'*DIVIDER*') as products
+      FROM order_details
+      INNER JOIN product_details pd
+      INNER JOIN products p
+      ON order_details.id = pd.order_id AND p.id = pd.product_id
+      WHERE ${
+        status === "pending"
+          ? "delivery_status = 0 OR delivery_status = 1"
+          : `delivery_status = ${status}`
+      }
+      
+      GROUP BY order_details.id`;
+
+      const [result, _] = await poolConnection.execute(selectQuery);
+      return orderProductParserList(result);
+    } catch (error) {
+      
     }
   };
 }

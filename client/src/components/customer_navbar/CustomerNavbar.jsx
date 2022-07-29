@@ -112,6 +112,9 @@ function CustomerNavbar() {
         <NavLink style={navLinkStyles} to="/customer/appointment">
           <i className="fa-solid fa-calendar-days"></i> <span>Appointment</span>
         </NavLink>
+        <NavLink style={navLinkStyles} to="/customer/purchases">
+        <i className="fa-solid fa-bag-shopping"></i> <span>My purchases</span>
+        </NavLink>
       </BotNavbar>
     </CustomerNavbarContainer>
   );
