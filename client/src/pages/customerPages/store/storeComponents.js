@@ -146,7 +146,7 @@ export const ProductsWrapper = styled.div`
     background: rgb(216, 216, 216);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    z-index: 5;
+    z-index: 1;
   }
 
   & > .left {

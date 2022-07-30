@@ -1,8 +1,10 @@
 import React from "react";
 import { Order, Info, Row, ViewButton } from "./components";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
+import { useNavigate } from "react-router-dom";
 
 function ToReceiveOrder({ data }) {
+  const navigate = useNavigate()
   return (
     <Order key={data.id}>
       <img src={data.products[0].imageUrl} />
@@ -47,7 +49,7 @@ function ToReceiveOrder({ data }) {
         </Row>
 
         <Row>
-          <ViewButton className="" onClick={() => console.log("no")}>
+          <ViewButton className="" onClick={() => navigate(`/customer/purchases/${data.reference}`)}>
             View Order
           </ViewButton>
         </Row>

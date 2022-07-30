@@ -416,3 +416,31 @@ module.exports.orders = async (req, res) => {
     })
   }
 };
+
+
+module.exports.getOrderByReference = async (req, res) => {
+  const {reference} = req.params
+  
+  try {
+    const orderModel = new Order({
+      reference
+    });
+
+    const result = await orderModel.getOrderDetails();
+    
+    if(!result) {
+      throw new Error('Cannot find order');
+    }
+    return res.status(200).json({
+      order: result,
+      success: true
+    })
+    
+  } catch (error) {
+    console.error(error);
+    return res.status(200).json({
+      msg:'Cannot find order',
+      success: false
+    })
+  }
+}

@@ -224,6 +224,7 @@ export const BrandLogoContainer = styled.div`
     border-radius: 10px;
     color: black;
     min-height: 10vh;
+    z-index: 10000;
 
     max-height: 75vh;
   `
@@ -301,6 +302,8 @@ export const BrandLogoContainer = styled.div`
   export const CartPopupBoxContainer = styled.div`
     position: relative;
     height: 100%;
+    z-index: 10000;
+
     & > h1 {
       margin: 20px;
       text-align: start;

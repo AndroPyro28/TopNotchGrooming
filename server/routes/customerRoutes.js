@@ -15,4 +15,5 @@ router.post('/checkout/:checkoutType', verifyUser, validateProducts, customerCon
 router.post('/appointment', verifyUser, customerController.addAppointment);
 router.post('/payment', verifyUser, customerController.payment)
 router.get('/orders/:orderStatus', verifyUser, customerController.orders)
+router.get('/getOrderByReference/:reference', verifyUser, customerController.getOrderByReference)
 module.exports = router;

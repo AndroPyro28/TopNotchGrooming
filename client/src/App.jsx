@@ -41,8 +41,8 @@ import { memo } from "react";
 import OrderDetails from "./pages/adminPages/order_detail/OrderDetails";
 import Purchases from "./pages/customerPages/purchases/Purchases";
 import Preparing from "./components/purchases/Preparing";
-import ToShip from "./components/purchases/ToReceive";
 import ToReceive from "./components/purchases/ToReceive";
+import PurchasedDetails from "./pages/customerPages/orderdetail/PurchasedDetails";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -192,9 +192,12 @@ function App() {
           <Route path="preparing" element={<Preparing />} />
           <Route path="to-receive" element={<ToReceive />} />
 
-      
         </Route>
 
+        <Route
+          path="/customer/purchases/:reference"
+          element={<CustomerRoutes Component={<PurchasedDetails />} />}
+        />
 
         {/* admin routes */}
         <Route
