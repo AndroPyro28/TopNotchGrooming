@@ -93,11 +93,9 @@ export const CarouselContainer = styled.div`
         }
     }
 
-    @media(max-width: 450px) {
+    @media(max-width: 550px) {
         & {
-            width: 200px;
-            height: 200px;
-            align-self: center;
+            display: none;
         }
     }
   }

@@ -40,6 +40,15 @@ export const BannerContent = styled.div`
     transform: translateY(30px);
     font-family: "mukta mahee", sans-serif;
   }
+
+  @media(max-width: 600px) {
+    & {
+    margin: 0px;
+    text-align: center;
+    width: 100%;
+
+    }
+  }
 `;
 
 export const StepsWrapper = styled.div`
@@ -61,6 +70,16 @@ export const StepsWrapper = styled.div`
     margin-bottom: 50px;
     font-size: 2em;
     color: rgb(90, 90, 90);
+
+    @media(max-width: 330px) {
+      font-size: 1.5em;
+
+  }
+  }
+
+  @media (max-width:500px) {
+  width: 100%;
+  border-radius: 0px;
   }
 `;
 export const StepsContainer = styled.div`
@@ -68,6 +87,14 @@ export const StepsContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   padding: 20px;
   grid-gap: 20px;
+
+  @media(max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media(max-width: 450px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 export const Step = styled.div`
   display: flex;

@@ -54,6 +54,22 @@ export const PetFilterWrapper = styled.div`
     font-size: 30px;
     font-family: "league spartan", sans-serif;
     text-transform: uppercase;
+
+    @media(max-width: 500px) {
+    & {
+      margin-top: 0;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+  }
+
+  @media(max-width: 600px) {
+    & {
+      margin: 0;
+      width: 100%;
+      padding: 20px;
+    }
   }
 `;
 
@@ -61,6 +77,7 @@ export const PetFilterContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+
 `;
 
 export const PetContainer = styled.div`
@@ -76,6 +93,21 @@ export const PetContainer = styled.div`
   cursor: pointer;
   transition: all .3s ease-in-out;
   box-shadow: ${({ active }) => (active ? "1px 3px 5px gray" : "none")};
+
+  @media(max-width: 600px) {
+    & {
+      max-width: 150px;
+
+      height: 450px;
+      margin: 10px;
+    }
+  }
+
+  @media(max-width: 460px) {
+    & {
+      max-width: 100px;
+    }
+  }
 
   &:hover {
     box-shadow: 1px 3px 5px lightgray;
@@ -169,6 +201,21 @@ export const ProductsContainer = styled.div`
   grid-gap: 20px;
   position: relative;
   padding: 20px;
+
+  @media (max-width: 900px) {
+  grid-template-columns: repeat(3, 1fr);
+
+  }
+
+  @media (max-width: 700px) {
+  grid-template-columns: repeat(2, 1fr);
+
+  }
+
+  @media (max-width: 450px) {
+  grid-template-columns: repeat(1, 1fr);
+
+  }
 `;
 // produc item
 
@@ -256,8 +303,13 @@ export const Filter = styled.div`
   margin-inline: 10px;
   align-items: center;
 
+  
+
   & > span {
     font-size: 0.9em;
+    @media (max-width:800px) {
+      display:none;
+  }
   }
   & > select {
     border-radius: 1px;
@@ -267,6 +319,18 @@ export const Filter = styled.div`
     background: none;
     outline: none;
     color: gray;
+
+    @media (max-width:800px) {
+      width: 150px;
+  }
+
+  @media (max-width:600px) {
+      width: 100px;
+  }
+  @media (max-width:500px) {
+      width: 80px;
+  }
+    
   }
 
   & > input {
@@ -275,10 +339,27 @@ export const Filter = styled.div`
     background: none;
     outline: none;
     color: gray;
+    
+    @media (max-width:800px) {
+      width: 150px;
+  }
+
+  @media (max-width:600px) {
+      width: 100px;
+  }
+
+  @media (max-width:500px) {
+      width: 80px;
+  }
+
+  
   }
 
   & > i {
     color: gray;
+    @media (max-width:800px) {
+      display: none;
+  }
   }
 
   & > input[type="text"] {
@@ -312,4 +393,6 @@ export const FilterContainer = styled.div`
       animation: rotate infinite 1.5s;
     }
   }
+
+  
 `;
