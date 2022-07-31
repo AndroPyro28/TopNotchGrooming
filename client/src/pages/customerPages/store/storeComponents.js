@@ -330,6 +330,10 @@ export const Filter = styled.div`
   @media (max-width:500px) {
       width: 80px;
   }
+
+  @media (max-width:430px) {
+      display:none;
+  }
     
   }
 
@@ -352,13 +356,17 @@ export const Filter = styled.div`
       width: 80px;
   }
 
+  @media (max-width:430px) {
+    width: 120px;
+
+  }
+
   
   }
 
   & > i {
     color: gray;
     @media (max-width:800px) {
-      display: none;
   }
   }
 
