@@ -9,10 +9,13 @@ import {
 } from "../../../redux/cartSlice";
 
 function ProductLogic() {
+  const {socket} = useSelector(state => state);
   const dispatch = useDispatch();
-
   const addToCart = async (product) => {
     try {
+      
+      // socket?.emit('someEvent', ++counter);
+
       const res = await axios.post(
         "/api/customer/addItemsToCart",
         { id: product.id },

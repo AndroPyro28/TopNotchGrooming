@@ -9,6 +9,7 @@ import {
   DropDown,
   
 } from "./navbarComponents";
+
 import Cookies from "js-cookie";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -22,22 +23,22 @@ function CustomerNavbar() {
   };
   const handleLogout = () => {
     Cookies.remove("userToken");
-    window.location.reload();
+    window.location.assign('/customer/login');
   };
 
   const { pathname } = useLocation();
   const { currentUser } = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
-
   const [openDropdown, setOpenDropdown] = useState(false);
   const [nocartItems, setNoCartItems] = useState(0);
   const [openCart, setOpenCart] = useState(false);
+
   useEffect(() => {
     (async () => {
       setNoCartItems(cart?.length);
     })();
   }, [cart]);
-
+ 
   useEffect(() => {
     (async () => {
       setOpenCart(false);

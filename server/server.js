@@ -4,12 +4,12 @@ const cors = require('cors');
 const axios = require('axios')
 const { Server } = require('socket.io');
 require('dotenv').config({path: "./.env"})
+const {verifyUser} = require('./middlewares/verifyUser');
+const socketRoutes = require("./socket/socketRoutes");
 
-const {verifyUser} = require('./middlewares/verifyUser')
-
-const server = require('http').createServer(app);
 
 app.use(express.json({limit:"50mb"}));
+
 app.use(cors({
     origin:"*",
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH"]
@@ -22,6 +22,8 @@ const PORT = process.env.PORT || 3001;
 app.use('/api/customer', require('./routes/customerRoutes'))
 app.use('/api/admin', require('./routes/adminRoutes'))
 app.use('/api/products', require('./routes/productRoutes'));
+
+const server = require('http').createServer(app);
 
 // app.get('/', async (req, res) => {
 //     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -44,7 +46,8 @@ app.get('/api/auth', verifyUser, (req, res) => {
         console.error(error);
     }
 })
-app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+
+server.listen(PORT, () => console.log(`server listening on port ${PORT}`)) // fuck this
 
 const io = new Server(server, { // we will use this later
     cors: {
@@ -53,3 +56,4 @@ const io = new Server(server, { // we will use this later
     }
 })
 
+socketRoutes(io)

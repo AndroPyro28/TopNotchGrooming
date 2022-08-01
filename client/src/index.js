@@ -6,14 +6,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import {Suspense, startTransition} from "react"
 
 import { BrowserRouter } from "react-router-dom";
-
 import rootReducers from './redux/rootReducers';
 import {Provider} from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const store = configureStore({reducer: rootReducers})
+const store = configureStore({
+  reducer: rootReducers,
+  middleware: getDefaultMiddleware({
+    immutableCheck: false
+  }),
+  
+})
 
 root.render(
   <BrowserRouter>

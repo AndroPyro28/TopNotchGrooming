@@ -43,10 +43,9 @@ export const BannerContent = styled.div`
 
   @media(max-width: 600px) {
     & {
-    margin: 0px;
-    text-align: center;
-    width: 100%;
-
+      margin: 0px;
+      text-align: center;
+      width: 100%;
     }
   }
 `;

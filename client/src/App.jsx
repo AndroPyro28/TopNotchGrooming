@@ -43,6 +43,8 @@ import Purchases from "./pages/customerPages/purchases/Purchases";
 import Preparing from "./components/purchases/Preparing";
 import ToReceive from "./components/purchases/ToReceive";
 import PurchasedDetails from "./pages/customerPages/orderdetail/PurchasedDetails";
+import {connection} from "./redux/socketSlice"
+import io from "socket.io-client";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -86,11 +88,13 @@ function App() {
           if (success) {
             const { currentUser } = res.data;
             dispatch(authenticationSuccess({ currentUser, isAuth: true }));
+            dispatch(connection(io("http://localhost:3001")));
           }
         } catch (error) {
           console.error(error);
         } finally {
           setLoading(false);
+
         }
       })();
     });
@@ -102,6 +106,7 @@ function App() {
     (async () => {
       const cart = await fetcher();
       dispatch(setToCartReducer(cart));
+
     })();
   }, []);
 

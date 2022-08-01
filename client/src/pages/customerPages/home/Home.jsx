@@ -7,8 +7,8 @@ import {
   StepsContainer,
   Step
 } from "./homeComponents.js";
-import { NavLink } from "react-router-dom";
 function Home() {
+  
   return (
     <HomePageContainer>
       <HomeBannerContainer>
