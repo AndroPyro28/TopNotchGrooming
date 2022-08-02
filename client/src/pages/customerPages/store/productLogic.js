@@ -4,8 +4,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCartReducer,
-  removeTocartReducer,
-  updateToCartReducer,
 } from "../../../redux/cartSlice";
 
 function ProductLogic() {
@@ -13,8 +11,10 @@ function ProductLogic() {
   const dispatch = useDispatch();
   const addToCart = async (product) => {
     try {
-      
-      // socket?.emit('someEvent', ++counter);
+      const headers = {
+        userinfo: Cookies.get('userToken')
+      }
+      socket?.emit('someEvent', 1, headers);
 
       const res = await axios.post(
         "/api/customer/addItemsToCart",

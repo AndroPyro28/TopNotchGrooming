@@ -1,8 +1,8 @@
 import React, { useState, useTransition } from "react";
 import { useEffect } from "react";
-import axios from 'axios'
-import Cookies from "js-cookie"
-import Loader from "../../../components/loader/Loader"
+import axios from "axios";
+import Cookies from "js-cookie";
+import Loader from "../../../components/loader/Loader";
 import {
   AdminListWrapper,
   ListNavigationButton,
@@ -14,60 +14,58 @@ import {
   TableHeader,
   GlobalStyles,
   Pagination,
-  Shifts
+  Shifts,
 } from "./components";
 import AppointmentData from "../../../components/appointment/AppointmentData";
 
 function AppointmentList() {
+  const [appointments, setAppointments] = useState([]);
+  const [loading, startTransition] = useTransition();
 
-  const [appointments, setAppointments] = useState([])
-  const [loading, startTransition] = useTransition()
-  
   useEffect(() => {
     startTransition(async () => {
       setAppointments([]);
-      try { 
-        const res = await axios.get(`/api/admin/appointments/${'pending'}`, { // might change later to post request
+      try {
+        const res = await axios.get(`/api/admin/appointments/${"pending"}`, {
+          // might change later to post request
           headers: {
-            userinfo: Cookies.get('userToken')
-          }
+            userinfo: Cookies.get("userToken"),
+          },
         });
 
-        const {success, msg, results} = res.data;
+        const { success, msg, results } = res.data;
 
-        if(!success && msg.includes('session expired')) {
+        if (!success && msg.includes("session expired")) {
           return window.location.reload();
         }
 
-        setAppointments(results)
-
+        setAppointments(results);
       } catch (error) {
         console.log(error.message);
       }
-    })
-
+    });
   }, []);
 
-  if(loading) return <Loader bg="rgba(0,0,0,0.5)" />
+  if (loading) return <Loader bg="rgba(0,0,0,0.5)" />;
 
   return (
     <>
       <ShiftScheduleContainer>
         <Shifts>
-        <div class="am__shifts active">
-          <h3>AM</h3>
-          <span>Schedule</span>
-        </div>
-        <div class="pm__shifts">
-          <h3>PM</h3>
-          <span>Schedule</span>
-        </div>
+          <div class="am__shifts active">
+            <h3>AM</h3>
+            <span>Schedule</span>
+          </div>
+          <div class="pm__shifts">
+            <h3>PM</h3>
+            <span>Schedule</span>
+          </div>
         </Shifts>
         <select>
-            <option value={""}>Select by Status</option>
-            <option value={""}>On going Schedules</option>
-            <option value={""}>Completed Schedules</option>
-            <option value={""}>Pending Schedules</option>
+          <option value={""}>Select by Status</option>
+          <option value={""}>On going Schedules</option>
+          <option value={""}>Completed Schedules</option>
+          <option value={""}>Pending Schedules</option>
         </select>
       </ShiftScheduleContainer>
 
@@ -82,12 +80,13 @@ function AppointmentList() {
       </TableHeader>
 
       <AdminListContainer>
-        
-        {
-          appointments.length > 0 ? appointments?.map(data => <AppointmentData key={data.id} data={data} />) : <h1>No Appointments yet</h1>
-        }
-        
-        
+        {appointments.length > 0 ? (
+          appointments?.map((data) => (
+            <AppointmentData key={data.id} data={data} />
+          ))
+        ) : (
+          <h1>No Appointments yet</h1>
+        )}
       </AdminListContainer>
 
       <Pagination>

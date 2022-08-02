@@ -45,6 +45,7 @@ import ToReceive from "./components/purchases/ToReceive";
 import PurchasedDetails from "./pages/customerPages/orderdetail/PurchasedDetails";
 import {connection} from "./redux/socketSlice"
 import io from "socket.io-client";
+import AppointmentDetails from "./pages/adminPages/AppointmentDetail/AppointmentDetails";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -88,7 +89,10 @@ function App() {
           if (success) {
             const { currentUser } = res.data;
             dispatch(authenticationSuccess({ currentUser, isAuth: true }));
-            dispatch(connection(io("http://localhost:3001")));
+            const headers = {
+              userinfo: Cookies.get('userToken')
+            }
+            dispatch(connection(io("http://localhost:3001", headers )));
           }
         } catch (error) {
           console.error(error);
@@ -109,6 +113,7 @@ function App() {
 
     })();
   }, []);
+
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
 
@@ -227,6 +232,11 @@ function App() {
       <Route
           path="/admin/orders/:reference"
           element={<AdminRoutes Component={<OrderDetails />} />}
+        />
+
+      <Route
+          path="/admin/record/appointments/:id"
+          element={<AdminRoutes Component={<AppointmentDetails />} />}
         />
 
 
