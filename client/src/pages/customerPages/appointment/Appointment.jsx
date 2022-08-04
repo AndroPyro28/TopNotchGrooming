@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Formik, Form } from "formik";
 import AppointmentLogic from "./appointmentLogic";
 import {
@@ -7,9 +7,34 @@ import {
   AppointmentFormInputsContainer,
   FormInputsContainer,
 } from "./appointmentComponents";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import FormikControl from "../../../formik/FormikControl";
 function Appointment() {
+  const [image, setImage] = useState(null);
+  const [imgError, setImgError] = useState("");
+
+  useEffect(() => {
+    try {
+      setImgError("");
+
+      if (image != null) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(image);
+
+        fileReader.onloadend = async () => {
+          if (fileReader?.result?.includes("image")) {
+            return setImage(fileReader.result);
+          } else {
+            setImgError("Please set an image to this product");
+          }
+        };
+      }
+    } catch (error) {
+      // setImgError(error.message);
+      console.error(error.message);
+    }
+  }, [image]);
+
   const {
     initialValues,
     validationSchema,
@@ -19,7 +44,7 @@ function Appointment() {
     requestTypeOptions,
     liveStreamOptions,
     dateTodayFormatter,
-  } = AppointmentLogic({toast});
+  } = AppointmentLogic({ toast, image, setImgError });
 
   useEffect(() => {
     const birthdate = document.querySelector("#birthdate");
@@ -134,6 +159,20 @@ function Appointment() {
                       validate={() => validateLiveStream(liveStreamType)}
                     />
                   )}
+              </FormInputsContainer>
+
+              <FormInputsContainer>
+                <div className="input__container">
+                  <label>Sample picture of your pet</label>
+                  <input
+                    className="input"
+                    type="file"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    accept="image/*"
+                  />
+                  <div className="error__message">{imgError}</div>
+                </div>
+                
               </FormInputsContainer>
 
               <FormInputsContainer>

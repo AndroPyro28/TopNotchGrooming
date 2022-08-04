@@ -95,11 +95,11 @@ export const TableData = styled.div`
   }
 
   & > div:nth-child(1) {
-    justify-content: start;
+     font-weight:bold;
+     flex: 0.5;
   }
 
   & > *:last-child {
-    flex: 0.5 !important;
     & > i {
       padding: 10px;
       border-radius: 50%;
@@ -132,13 +132,13 @@ export const TableHeader = styled.div`
     justify-content: center;
     align-items: center;
   }
-/* 
-  & > div:nth-child(1) {
-    justify-content: start;
-  } */
+
+   & > div:nth-child(1) {
+    flex: 0.5;
+    font-style: italic;
+  } 
 
   & > *:last-child {
-    flex: 0.5 !important;
     & > i {
       padding: 10px;
       border-radius: 50%;
@@ -165,22 +165,24 @@ text-transform: capitalize;
   & > span {
     padding: 5px 20px;
     border-radius: 8px;
+    color: white;
 
-    &.onGoing,
-    &.complete,
-    &.pending {
-      color: white;
+    &.approved {
+      background:lightblue;
     }
-
     &.onGoing {
-      background: rgb(255, 207, 67);
+      background: rgb(57,130,228);
     }
-    &.complete {
+    &.completed {
       background: rgb(52, 168, 83);
     }
     &.pending {
-      background: rgb(187, 187, 187);
+      background: rgb(255, 207, 67);
     }
+    &.rejected {
+      background: maroon;
+    }
+   
   }
 `;
 

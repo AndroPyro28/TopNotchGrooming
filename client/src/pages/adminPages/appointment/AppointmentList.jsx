@@ -2,17 +2,11 @@ import React, { useState, useTransition } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Loader from "../../../components/loader/Loader";
 import {
-  AdminListWrapper,
-  ListNavigationButton,
   ShiftScheduleContainer,
   T_Head,
-  T_Data,
   AdminListContainer,
-  TableData,
   TableHeader,
-  GlobalStyles,
   Pagination,
   Shifts,
 } from "./components";
@@ -20,13 +14,16 @@ import AppointmentData from "../../../components/appointment/AppointmentData";
 
 function AppointmentList() {
   const [appointments, setAppointments] = useState([]);
-  const [loading, startTransition] = useTransition();
-
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("all");
+  const [currentPage, setCurrentPage] = useState(0);
+  const [maxPage, setMaxPage] = useState(0);
   useEffect(() => {
-    startTransition(async () => {
+    (async () => {
+      setLoading(true);
       setAppointments([]);
       try {
-        const res = await axios.get(`/api/admin/appointments/${"pending"}`, {
+        const res = await axios.get(`/api/admin/appointments/${status}`, {
           // might change later to post request
           headers: {
             userinfo: Cookies.get("userToken"),
@@ -40,13 +37,20 @@ function AppointmentList() {
         }
 
         setAppointments(results);
+        setMaxPage(Math.ceil(results.length / 10));
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
-    });
-  }, []);
+    })();
+  }, [status]);
 
-  if (loading) return <Loader bg="rgba(0,0,0,0.5)" />;
+  // if (loading) return <Loader bg="rgba(0,0,0,0.5)" />;
+
+  const fetchAppointments = appointments
+    ?.slice(10 * currentPage, 10 * currentPage + 10)
+    ?.map((data) => <AppointmentData key={data.id} data={data} />);
 
   return (
     <>
@@ -61,37 +65,53 @@ function AppointmentList() {
             <span>Schedule</span>
           </div>
         </Shifts>
-        <select>
-          <option value={""}>Select by Status</option>
-          <option value={""}>On going Schedules</option>
-          <option value={""}>Completed Schedules</option>
-          <option value={""}>Pending Schedules</option>
+        <select onChange={(e) => setStatus((prev) => e.target.value)}>
+          <option value={"all"}>Select All Schedules</option>
+          <option value={"pending"}> Select Pending Schedules</option>
+          <option value={"approved"}> Select Approved Schedules</option>
+          <option value={"onGoing"}> Select On going Schedules</option>
+          <option value={"completed"}> Select Completed Schedules</option>
         </select>
       </ShiftScheduleContainer>
 
       <TableHeader>
+        <T_Head class="table__id"># ID</T_Head>
         <T_Head class="table__customer">Customer</T_Head>
         <T_Head class="table__petname">Pet Name</T_Head>
         <T_Head class="table__date">Date</T_Head>
         <T_Head class="table__time">Time</T_Head>
         <T_Head class="table__service">Service</T_Head>
         <T_Head class="table__status">Status</T_Head>
-        <T_Head class="table__action">Action</T_Head>
       </TableHeader>
 
       <AdminListContainer>
-        {appointments.length > 0 ? (
-          appointments?.map((data) => (
-            <AppointmentData key={data.id} data={data} />
-          ))
+        {loading ? (
+          <h1 style={{ color: "gray", textAlign: "center", marginBlock: 20 }}>
+            Loading...
+          </h1>
+        ) : appointments.length > 0 ? (
+          fetchAppointments
         ) : (
-          <h1>No Appointments yet</h1>
+          <h1 style={{ color: "gray", textAlign: "center", marginBlock: 20 }}>
+            No appointments yet
+          </h1>
         )}
       </AdminListContainer>
 
       <Pagination>
-        <i class="fa-solid fa-chevron-left"></i> <span>1</span>
-        <i class="fa-solid fa-chevron-right"></i>
+        <i
+          class="fa-solid fa-chevron-left"
+          onClick={() =>
+            setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
+          }
+        ></i>{" "}
+        <span>{`${currentPage + 1} / ${maxPage}`}</span>
+        <i
+          class="fa-solid fa-chevron-right"
+          onClick={() =>
+            setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
+          }
+        ></i>
       </Pagination>
     </>
   );

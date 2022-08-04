@@ -84,7 +84,7 @@ class Product {
   getAllItems = async () => {
     try {
       this.selectItemById();
-      const selectQuery = `SELECT * FROM products;`;
+      const selectQuery = `SELECT * FROM products ORDER BY id DESC`;
       const [result, _] = await poolConnection.execute(selectQuery);
 
       return result;
@@ -148,7 +148,8 @@ class Product {
       product_name LIKE ? AND
       pet_type LIKE ? AND
       product_age_limit LIKE ? AND
-      product_category LIKE ?`;
+      product_category LIKE ?
+      ORDER BY id DESC`;
 
       const [result, _] = await poolConnection.execute(selectQuery, [
         `%${itemName}%`,

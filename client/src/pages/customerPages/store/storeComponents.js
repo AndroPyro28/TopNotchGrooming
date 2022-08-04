@@ -163,35 +163,7 @@ export const ProductsWrapper = styled.div`
     margin-bottom: 50px;
   }
 
-  & > .left,
-  .right {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: fit-content;
-    height: fit-content;
-    margin: auto 0;
-    padding: 15px;
-    border-radius: 50%;
-    background: rgb(216, 216, 216);
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    z-index: 1;
-  }
-
-  & > .left {
-    margin: auto auto auto 20px;
-  }
-  & > .right {
-    margin: auto 20px auto auto;
-  }
-
-  & > :is(.left, .right):hover {
-    background: black;
-    color: white;
-  }
+  
 `;
 
 export const ProductsContainer = styled.div`
@@ -404,3 +376,33 @@ export const FilterContainer = styled.div`
 
   
 `;
+
+
+export const PaginationNumber = styled.div`
+
+& > .left,
+  .right {
+    width: fit-content;
+    height: fit-content;
+    margin: auto 0;
+    padding: 15px;
+    border-radius: 50%;
+    background: rgb(216, 216, 216);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+  }
+
+  & > .left {
+    margin: auto auto auto 20px;
+  }
+  & > .right {
+    margin: auto 20px auto auto;
+  }
+
+  & > :is(.left, .right):hover {
+    background: black;
+    color: white;
+  }
+
+`

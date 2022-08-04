@@ -216,10 +216,8 @@ export const ProductItem = styled.div`
   flex-direction: column;
   transition: all 0.3s ease-in-out;
   cursor: default;
-  border-bottom: solid 1px gray;
-  /* &:hover {
-    background: rgb(219, 236, 238);
-  } */
+  /* border-bottom: solid 1px gray; */
+  justify-content: center;
   &:nth-child(even) {
     background: rgb(240,248,255);
   }

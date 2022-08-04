@@ -1,6 +1,8 @@
 
 function FormateDateLocal(date) {
-    return date.substring(0,date.indexOf(".")).replace("T", " ") - 2;
+
+    const newDate =  date.substring(0,date.indexOf(".") - 3).replace("T", " ");
+    return newDate
 }
 
 export default FormateDateLocal

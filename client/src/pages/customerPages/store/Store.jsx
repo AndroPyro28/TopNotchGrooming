@@ -15,6 +15,7 @@ import {
   FilterProductContainer,
   Filter,
   FilterContainer,
+  PaginationNumber,
 } from "./storeComponents";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -37,9 +38,11 @@ function Store() {
   // const [loading, setLoading] = useState(false);
   const [loading, startTransition] = useTransition();
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [maxPage, setMaxPage] = useState();
 
   useEffect(() => {
-    startTransition(async () => {
+    (async () => {
       setProducts([]);
       try {
         const { petCategory, ageLimit, itemCategory, itemName } = activeFilter;
@@ -57,6 +60,7 @@ function Store() {
           }
 
           setProducts(shuffleArray(products));
+          setMaxPage(Math.ceil(products.length / 8));
         } else {
           const res = await axios.post(
             "/api/products/searchItems",
@@ -75,11 +79,12 @@ function Store() {
             return window.location.reload();
           }
           setProducts(shuffleArray(products));
+          setMaxPage(Math.ceil(products.length / 8));
         }
       } catch (error) {
         console.error(error.message);
       }
-    });
+    })();
   }, [
     activeFilter.petCategory,
     activeFilter.itemName,
@@ -87,6 +92,12 @@ function Store() {
     activeFilter.itemCategory,
     refresher,
   ]);
+
+  const fetchProducts = products
+    ?.slice(8 * currentPage, 8 * currentPage + 8)
+    .map((product, index) => {
+      return <Product product={product} key={index} />;
+    });
 
   return (
     <StorePageContainer>
@@ -142,8 +153,6 @@ function Store() {
 
       <ProductsWrapper>
         <h1>P r o d u c t s</h1>
-        <i class="fa-solid fa-chevron-left left"></i>
-        <i class="fa-solid fa-chevron-right right"></i>
 
         <FilterProductContainer>
           <FilterContainer>
@@ -205,19 +214,26 @@ function Store() {
           <h1>loading...</h1>
         ) : (
           <ProductsContainer>
-            {products?.length > 0 ? (
-              products?.map((product, index) => {
-                return <Product product={product} key={index} />;
-              })
-            ) : (
-              <Sign_Products />
-            )}
+            {products?.length > 0 ? fetchProducts : <Sign_Products />}
           </ProductsContainer>
         )}
 
-        <div class="pageNumber">
-          <span class="activePage">1</span> / <span class="maxPage">2</span>{" "}
-        </div>
+        <PaginationNumber>
+          <i
+            class="fa-solid fa-chevron-left left"
+            onClick={() =>
+              setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
+            }
+          ></i>{" "}
+          <span class="activePage">{currentPage + 1}</span> /{" "}
+          <span class="maxPage">{maxPage} </span>{" "}
+          <i
+            class="fa-solid fa-chevron-right right"
+            onClick={() =>
+              setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
+            }
+          ></i>
+        </PaginationNumber>
       </ProductsWrapper>
     </StorePageContainer>
   );

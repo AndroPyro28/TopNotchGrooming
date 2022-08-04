@@ -24,11 +24,22 @@ export const InfoRow = styled.div`
     border: none;
     margin-inline: 10px;
     color: white;
+    cursor: pointer;
     &.reject {
       background: red;
+
+      &:hover {
+      background: pink;
+
+      }
     }
     &.approve {
       background: green;
+
+      &:hover {
+      background: lightgreen;
+
+      }
     }
   }
 `;
@@ -39,6 +50,7 @@ export const Info = styled.div`
   text-align: start;
   flex: 1;
   margin-inline: 10px;
+
   & > h4 {
     color: dimgray;
     font-size: 0.9em;
@@ -52,15 +64,6 @@ export const Info = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     width: 90%;
-
-    & > .editBtn {
-      font-size: 1.1em;
-      cursor: pointer;
-      padding: 10px;
-      color: dimgray;
-      background: lightgray;
-      border-radius: 50%;
-    }
   }
 
   & > input[type="datetime-local"] {
@@ -106,7 +109,26 @@ export const AppointmentInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   /* background: black; */
+  position: relative;
   & > h2 {
     margin: 50px 0px 20px 0px;
+  }
+`;
+
+export const UpdateBtn = styled.div`
+  position: absolute;
+  top: 180px;
+  right: 0px;
+  & > .editBtn {
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 10px;
+    color: dimgray;
+    border-radius: 50%;
+    
+    &:hover {
+    background: lightgray;
+
+    }
   }
 `;

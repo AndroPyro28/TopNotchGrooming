@@ -20,10 +20,9 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
         setImgError("");
         const fileReader = new FileReader();
         fileReader.readAsDataURL(img);
-        console.log(img);
         fileReader.onloadend = async () => {
           if (!fileReader.result.includes("image")) {
-            return setImgError("Please set an image to this product");
+            throw new Error("Please set an image to this product");
           }
           if (fileReader.result.includes("image")) {
             setImg(fileReader.result);
@@ -33,7 +32,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
     }
       
     } catch (error) {
-      // setImgError("Please set an image to this product");
+       setImgError(error.message);
       console.error(error.message);
     }
   }, [img]);

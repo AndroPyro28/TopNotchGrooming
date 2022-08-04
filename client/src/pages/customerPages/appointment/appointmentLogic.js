@@ -4,13 +4,19 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import { replace } from "formik";
-function AppointmentLogic({toast}) {
+function AppointmentLogic({toast, image, setImgError}) {
 
   const navigate = useNavigate();
 
 
   const onSubmit = async (values) => {
     try {
+
+      values.image = image;
+      if(image == null || !image) {
+        return setImgError("Please set an image to this product");
+
+      }
       const res = await axios.post("/api/customer/appointment", values, {
         headers: {
           userinfo: Cookies.get("userToken"),

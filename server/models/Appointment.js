@@ -1,4 +1,5 @@
 const poolConnection = require("../config/connectDB");
+const { DataJsonParser } = require("../helpers/DataJsonParser");
 
 class Appointment {
   #pet_name;
@@ -11,7 +12,9 @@ class Appointment {
   #date_n_time;
   #live_stream_type;
   #archived = false;
+  #status;
   #customer_id;
+  #image;
   constructor(params) {
     this.#pet_name = params.pet_name;
     this.#pet_type = params.pet_type;
@@ -23,6 +26,8 @@ class Appointment {
     this.#date_n_time = params.date_n_time;
     this.#live_stream_type = params.live_stream_type;
     this.#customer_id = params.customer_id;
+    this.#status = params.status;
+    this.#image = params.image;
   }
 
   getSchedule = async (filter) => {
@@ -36,20 +41,19 @@ class Appointment {
       FROM appointments 
       INNER JOIN customer
       ON customer.id = appointments.customer_id
-      ${filter?.length > 0 ? 'WHERE status = ?' : ''}`;
+      ${filter != "all" ? "WHERE appointments.status = ?" : ""}
+      ORDER BY appointments.id ASC`;
 
       const [results, _] = await poolConnection.execute(selectQuery, [filter]);
-      
-      return results
-
-
+      return results;
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   addAppointment = async () => {
     try {
+
       const insertQuery = `INSERT INTO appointments 
         (pet_name,
         pet_type,
@@ -60,34 +64,84 @@ class Appointment {
         gender,
         date_n_time, 
         live_stream_type, 
-        customer_id) 
+        customer_id, 
+        pet_image)
         VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `;
+      const [result, _] = await poolConnection.execute(insertQuery, [
+        this.#pet_name,
+        this.#pet_type,
+        this.#pet_breed,
+        this.#birthdate,
+        this.#appointment_type,
+        this.#additional_details,
+        this.#gender,
+        this.#date_n_time,
+        this.#live_stream_type,
+        this.#customer_id,
+        this.#image,
+      ]);
 
-        const [result, _] = await poolConnection.execute(insertQuery, 
-            [
-                this.#pet_name,
-                this.#pet_type,
-                this.#pet_breed,
-                this.#birthdate,
-                this.#appointment_type,
-                this.#additional_details,
-                this.#gender,
-                this.#date_n_time,
-                this.#live_stream_type,
-                this.#customer_id
-            ])
-
-            return {
-                success: true,
-                result
-            };
+      return {
+        success: true,
+        result,
+      };
     } catch (error) {
-        return {
-            success: false
-        };
-        console.error(error.message)
+      console.error(error.message);
+
+      return {
+        success: false,
+      };
+    }
+  };
+
+  getAppointmentById = async (id) => {
+    try {
+      const selectQuery = `SELECT 
+
+      JSON_OBJECT(
+        'id', appointments.id, 'pet_name', appointments.pet_name, 'pet_type', appointments.pet_type,
+        'pet_breed', appointments.pet_breed, 'birthdate', appointments.birthdate, 'gender', appointments.gender,
+        'appointment_type', appointments.appointment_type, 'date_n_time', appointments.date_n_time, 
+        'live_stream_type', appointments.live_stream_type, 'status', appointments.status, 'additional_details', appointments.additional_details,
+        'pet_image',  appointments.pet_image
+      ) as appointment,
+
+      JSON_OBJECT(
+        'id', customer.id, 'firstname', customer.firstname, 'lastname', customer.lastname,
+        'address', customer.address, 'contact', customer.phoneNo, 'email', customer.email,
+        'birthdate', customer.birthdate
+      ) as customer
+      
+      FROM appointments 
+      INNER JOIN customer
+      ON customer.id = appointments.customer_id
+      WHERE appointments.id = ?`;
+
+      const [result, _] = await poolConnection.execute(selectQuery, [id]);
+      result[0].customer = DataJsonParser(result[0].customer);
+      result[0].appointment = DataJsonParser(result[0].appointment);
+      return result[0];
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  approveAppointment = async (id) => {
+    try {
+      this.#status = "approved";
+      const updateQuery = `UPDATE appointments SET date_n_time = ?, status = ? WHERE id = ?;`;
+
+      const [result, _] = await poolConnection.execute(updateQuery, [
+        this.#date_n_time,
+        this.#status,
+        id,
+      ]);
+
+      return result;
+    } catch (error) {
+      console.error(error.message);
     }
   };
 }

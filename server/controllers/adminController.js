@@ -157,3 +157,40 @@ module.exports.orderNextStage = async (req, res) => {
     });
   }
 };
+
+module.exports.getAppointment = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const appointment = new Appointment({});
+    const result = await appointment.getAppointmentById(id);
+    
+    if(!result) {
+      throw new Error('Appointment not found!');
+    }
+    return res.status(200).json({
+      success:true,
+      result
+    })
+  } catch (error) {
+    console.error(error.message);
+
+    return res.status(400).json({
+      success:false,
+      msg:error.message
+    })
+  }
+}
+
+module.exports.approveAppointment = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {appointment} = req.body;
+    const appointmentModel = new Appointment(appointment);
+    const result = await appointmentModel.approveAppointment(id);
+
+    console.log(result)
+
+  } catch (error) {
+    console.error(error.message)
+  }
+}

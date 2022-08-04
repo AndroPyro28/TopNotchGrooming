@@ -15,13 +15,20 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import ProductItem from "./ProductItem";
 import Sign_Products from "../../../components/sign/Sign_Products";
+import Loader from "../../../components/loader/Loader";
+
 function InventoryRightPage({ searchItem, setSearchItem }) {
   const [openItem, setOpenItem] = useState(false);
   const [products, setProducts] = useState([]);
-  const [loading, startTransition] = useTransition()
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [maxPage, setMaxPage] = useState()
   useEffect(() => {
-    startTransition(async () => {
+    (async () => {
+
+      try {
       setProducts([])
+      setLoading(true)
       const { petCategory, itemCategory, ageLimit, itemName } = searchItem;
       
       if (!petCategory && !itemCategory && !ageLimit && !itemName) {
@@ -39,6 +46,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           return window.location.reload();
         }
         setProducts(products);
+        setMaxPage(Math.ceil(products.length / 8))
       } else {
         const res = await axios.post("/api/products/searchItems", searchItem, {
           headers: {
@@ -53,14 +61,34 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           return window.location.reload();
         }
         setProducts(products);
+        setMaxPage(Math.ceil(products.length / 8))
       }
-    });
+      } catch (error) {
+        console.error(error.message);
+      }
+
+      finally {
+        setLoading(false)
+      }
+      
+    })();
   }, [
     searchItem.petCategory,
     searchItem.itemCategory,
     searchItem.ageLimit,
     searchItem.itemName,
   ]);
+
+  const fetchProducts = products?.slice(8 * currentPage, 8 * currentPage + 8).map(product => {
+    return (
+      <ProductItem
+        product={product}
+        key={product.id}
+        setProducts={setProducts}
+        toast={toast}
+      />
+    );
+  })
 
   const dropDownAgeGap = [
     {
@@ -89,6 +117,8 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
     setSearchItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+
+  // if (loading) return <Loader bg="rgba(0,0,0,0.5)" />;
 
   return (
     <InventoryRightContent>
@@ -146,9 +176,9 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         </button>
 
         <div className="pagination">
-          <i className="fa-solid fa-chevron-left left "></i>
-          <span>1</span>
-          <i className="fa-solid fa-chevron-right right "></i>
+          <i className="fa-solid fa-chevron-left left " onClick={() => setCurrentPage(prev => prev !== 0 ? prev -1 : prev)}></i>
+          <span>{`${currentPage + 1} / ${maxPage}`} </span>
+          <i className="fa-solid fa-chevron-right right " onClick={() => setCurrentPage(prev => prev + 1 < maxPage ? prev +1 : prev)}></i>
         </div>
       </FilterItemsContainer>
 
@@ -166,17 +196,8 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
       <ProductListContainer>
         {/* products here */}
 
-        {products?.length > 0 ? (
-          products.map(product => {
-            return (
-              <ProductItem
-                product={product}
-                key={product.id}
-                setProducts={setProducts}
-                toast={toast}
-              />
-            );
-          })
+        {loading ? <h2 style={{marginBlock:50, color:"gray"}}>Loading products...</h2> : products?.length > 0 ? (
+          fetchProducts
         ) : (
           <Sign_Products />
         )}

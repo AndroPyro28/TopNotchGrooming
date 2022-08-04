@@ -1,5 +1,5 @@
 const poolConnection = require("../config/connectDB");
-const { customerDataParser } = require("../helpers/customerDataParser");
+const { DataJsonParser } = require("../helpers/DataJsonParser");
 const {
   orderProductParserList,
   orderProductParserOne,
@@ -119,7 +119,7 @@ class Order {
       ]);
 
       if (result.length > 0) {
-        result[0].customer = customerDataParser(result[0].customer);
+        result[0].customer = DataJsonParser(result[0].customer);
         return orderProductParserOne(result[0]);
       }
 

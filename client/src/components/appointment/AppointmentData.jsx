@@ -1,16 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   TableData,
   T_Data,
 } from "../../pages/adminPages/appointment/components";
 import Logic from "./logic";
 function AppointmentData({ data }) {
-  const { dateNtimeFormatter } = Logic();
-
+  const { dateNtimeFormatter } = Logic({});
+  const navigate = useNavigate();
   const { newDate, newTime } = dateNtimeFormatter(data.date_n_time);
   return (
-    <TableData>
-      <T_Data class="table__customer">
+    <TableData
+      onClick={() => navigate(`/admin/record/appointments/${data?.id}`)}
+    >
+      <T_Data class="table__id" style={{fontStyle:"italic"}}>{data.id}</T_Data>
+      <T_Data class="table__customer" style={{justifySelf:"flex-start"}}>
         <img src={data.profile_image_url} />
         {data.firstname} {data.lastname}
       </T_Data>
@@ -20,9 +24,6 @@ function AppointmentData({ data }) {
       <T_Data class="table__service">{data.appointment_type}</T_Data>
       <T_Data class="table__status">
         <span class={data.status}>{data.status}</span>
-      </T_Data>
-      <T_Data class="table__action">
-        <i class="fa-solid fa-ellipsis"></i>
       </T_Data>
     </TableData>
   );

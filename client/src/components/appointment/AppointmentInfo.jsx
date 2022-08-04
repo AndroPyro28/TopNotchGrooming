@@ -1,61 +1,112 @@
 import React from "react";
-import { AppointmentInfoContainer, Info, InfoRow } from "./components";
-import GetDateToday from "../../helpers/DateToday"
+import {
+  AppointmentInfoContainer,
+  Info,
+  InfoRow,
+  UpdateBtn,
+} from "./components";
 import FormateDateLocal from "../../helpers/FormateDateLocal";
-function AppointmentInfo() {
+import { useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Logic from "./logic";
+import {ToastContainer, toast} from "react-toastify";
+
+
+function AppointmentInfo({ data, setData, }) {
+  const { appointment } = data;
+  const { id } = useParams();
+  const { approve } = Logic({ appointment, id, setData, toast });
+  let [formattedDateNTime, setFormattedDateNTime] = useState(null);
+  const [toggleChange, setToggleChange] = useState(false);
+
+  useEffect(() => {
+    setFormattedDateNTime(FormateDateLocal(`${appointment?.date_n_time}`));
+  }, []);
+
+  useEffect(() => {
+    setFormattedDateNTime(`${appointment?.date_n_time.replace("T", " ")}`);
+  }, [appointment?.date_n_time]);
+
   return (
     <AppointmentInfoContainer>
       <h2>Appointment Information</h2>
+    <ToastContainer autoClose={1500} />
+      {appointment?.status === "pending" && (
+        <UpdateBtn>
+          <i
+            className={`editBtn ${
+              toggleChange ? "fa-solid fa-floppy-disk" : "fa-solid fa-pencil"
+            }`}
+            onClick={() => setToggleChange((prev) => !prev)}
+          ></i>
+        </UpdateBtn>
+      )}
 
       <InfoRow>
         <Info>
           <h4>Appointment type</h4>
-          <span>Grooming</span>
+          <span>{appointment?.appointment_type}</span>
         </Info>
 
-        <Info>
-          <h4>Live stream</h4>
-          <span>Public</span>
-        </Info>
+        {appointment?.appointment_type === "grooming" && (
+          <Info>
+            <h4>Live stream</h4>
+            <span>{appointment?.live_stream_type}</span>
+          </Info>
+        )}
       </InfoRow>
 
       <InfoRow>
         <Info>
-          <h4>Date n Time</h4>
-          <span>
-            {new Date(FormateDateLocal('2022-07-11 14:00:00.000')).toDateString()} at{" "} {/**comming from */}
-            {new Date("2022-07-11 14:00:00").toLocaleTimeString()}{" "}
-            &nbsp; <i className="fa-solid fa-pencil editBtn"></i>
-          </span>
-          
-          <input type={'datetime-local'} value=" " min={`${FormateDateLocal(new Date().toISOString())}`} />
+          <h4>Date n Time </h4>
 
-          </Info>
+          {toggleChange ? (
+            <input
+              type={"datetime-local"}
+              value={formattedDateNTime}
+              min={`${FormateDateLocal(new Date().toISOString())}`}
+              onChange={(e) =>
+                setData((prev) => ({
+                  ...prev,
+                  appointment: {
+                    ...prev.appointment,
+                    date_n_time: e.target.value,
+                  },
+                }))
+              }
+            />
+          ) : (
+            <span>
+              {new Date(formattedDateNTime).toDateString()} at{" "}
+              {new Date(formattedDateNTime).toLocaleTimeString()} &nbsp;{" "}
+            </span>
+          )}
+        </Info>
       </InfoRow>
 
       <InfoRow>
         <Info>
           <h4>Additional details</h4>
-          <label>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-            rerum temporibus officia culpa dignissimos maxime? Error sint, ipsum
-            autem quos illo dolorum debitis corrupti quisquam maiores nobis odit
-            ad consectetur?
-          </label>
+          <label>{appointment?.additional_details}</label>
         </Info>
       </InfoRow>
 
       <InfoRow>
-        <Info status={"pending"} >
+        <Info status={`${appointment?.status}`}>
           <h4>Status</h4>
-          <p>pending</p>
+          <p>{appointment?.status}</p>
         </Info>
       </InfoRow>
 
-      <InfoRow style={{justifyContent:"center"}}>
-        <button className="reject">Reject</button>
-        <button className="approve">Approve</button>
-      </InfoRow>
+      {appointment?.status === "pending" && (
+        <InfoRow style={{ justifyContent: "center" }}>
+          <button className="reject">Reject</button>
+          <button className="approve" onClick={approve}>
+            Approve
+          </button>
+        </InfoRow>
+      )}
     </AppointmentInfoContainer>
   );
 }

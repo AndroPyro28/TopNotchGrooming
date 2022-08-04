@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const ProductDetails = require("../models/ProductDetails");
 const Product = require("../models/product");
 const { assignToken } = require("../helpers/AuthTokenHandler");
-const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
+const { deleteOne, uploadOne } = require("../helpers/CloudinaryPetImages");
 const Appointment = require("../models/Appointment");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Order = require("../models/Order");
@@ -313,6 +313,7 @@ module.exports.checkout = async (req, res) => {
 
 module.exports.addAppointment = async (req, res) => {
   try {
+
     let {
       petName,
       petType,
@@ -323,12 +324,15 @@ module.exports.addAppointment = async (req, res) => {
       liveStreamType = "",
       dateNtime,
       additional_details,
+      image
     } = req.body;
 
     if (appointmentType != "grooming") {
       liveStreamType = null;
     }
 
+    const cloudinaryResponse = await uploadOne(image);
+    image = cloudinaryResponse.url;
     const appointment = new Appointment({
       pet_name: petName,
       pet_type: petType,
@@ -339,8 +343,9 @@ module.exports.addAppointment = async (req, res) => {
       date_n_time: dateNtime,
       additional_details: additional_details,
       live_stream_type:
-        typeof liveStreamType != undefined ? liveStreamType : null,
+      typeof liveStreamType != undefined ? liveStreamType : null,
       customer_id: req.currentUser.id,
+      image
     });
 
     const { result, success } = await appointment.addAppointment();

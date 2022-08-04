@@ -16,14 +16,15 @@ import {
 } from "./components";
 
 function OrderList() {
-    const [loading, startTranstion] = useTransition();
+    const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('all');
     const [orders, setOrders] = useState([]);
     const [textSearch, setTextSearch] = useState('');
     useEffect(() => {
       
-        startTranstion(async () => {
+        (async () => {
             try {
+          setLoading(true)
               setOrders([])
                 const res = await axios.post(`/api/admin/getOrders`,{
                   status,textSearch
@@ -42,7 +43,10 @@ function OrderList() {
             } catch (error) {
                 console.error(error.message);
             }
-        })
+            finally {
+            setLoading(false)
+            }
+        })()
     }, [status, textSearch]);
 
   return (
@@ -92,8 +96,8 @@ function OrderList() {
           </TableRowHeader>
 
           {
-            orders?.length <= 0 ? (
-              <h2>No Orders Yet</h2>
+            loading ? <h2 style={{color:"gray", marginBlock:50}}>Loading orders...</h2> : orders?.length <= 0 ? (
+              <h2 style={{color:"gray", marginBlock:50}}>No Orders Yet</h2>
             )
             :
             orders?.map(order => (
