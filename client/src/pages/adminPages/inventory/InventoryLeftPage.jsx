@@ -6,47 +6,162 @@ import {
   ProductStatisticContainer,
   ProductStatistic,
 } from "./inventoryComponents";
-import { Line } from "react-chartjs-2";
 
-import { Chart as ChartJS } from "chart.js/auto";
+import { Line, Bar } from "react-chartjs-2";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement
+);
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
+    },
+  },
+
+};
+
+const salesChartOption = {
+  responsive:true,
+  plugins: {
+      title: {
+          display: true,
+          text: 'Overall sales chart of this product 2022',
+          align: "center",
+          fontSize: 10,
+          color: "black",
+      }
+    },
+  animations: {
+      tension: {
+        duration: 1000,
+        easing: 'linear',
+        from: 1,
+        to: 0,
+        loop: true
+      }
+    },
+    scales: {
+      y: { // defining min and max so hiding the dataset does not change scale range
+        min: 0,
+      }
+    
+  },
+  maintainAspectRatio:false
+    
+}
 
 function InventoryLeftPage({ setSearchItem, searchItem }) {
-  const [productData, setProductData] = useState({});
+  const [productData, setProductData] = useState(null);
 
   useEffect(() => {
     const mockData = [
       {
         id: 1,
         month: "January",
-        numberOfSales: 120,
-        totalSales: 10320,
+        numberOfSales: 10,
+        totalSales: 1200,
       },
       {
         id: 2,
         month: "Febuary",
-        numberOfSales: 120,
-        totalSales: 10320,
+        numberOfSales: 20,
+        totalSales: 5000,
       },
       {
         id: 3,
         month: "March",
-        numberOfSales: 120,
-        totalSales: 10320,
+        numberOfSales: 30,
+        totalSales: 12100,
       },
       {
         id: 4,
         month: "April",
-        numberOfSales: 120,
-        totalSales: 10320,
+        numberOfSales: 40,
+        totalSales: 3250,
+      },
+      
+      {
+        id: 4,
+        month: "May",
+        numberOfSales: 50,
+        totalSales: 4250,
+      },
+
+      {
+        id: 4,
+        month: "June",
+        numberOfSales: 60,
+        totalSales: 3250,
+      },
+      {
+        id: 4,
+        month: "July",
+        numberOfSales: 70,
+        totalSales: 6250,
+      },
+
+      {
+        id: 4,
+        month: "August",
+        numberOfSales: 90,
+        totalSales: 5350,
+      },
+
+      {
+        id: 4,
+        month: "September",
+        numberOfSales: 100,
+        totalSales: 2250,
+      },
+
+      {
+        id: 4,
+        month: "October",
+        numberOfSales: 300,
+        totalSales: 1250,
       },
     ];
 
     setProductData({
       labels: mockData?.map((data) => data?.month),
       datasets: [
+        // {
+        //   label: "Total number of sales",
+        //   data: mockData?.map((data) => data?.numberOfSales),
+        //   backgroundColor: 'rgb(0,109,143)',
+        // },
+        
         {
-          label: "Sales information of this product",
-          data: mockData?.map((data) => data?.numberOfSales),
+          label: "Total revenue", // quantity * price
+          data: mockData?.map((data) => data?.totalSales), 
+          backgroundColor: 'white',
+          borderColor: 'black',
         },
       ],
     });
@@ -63,7 +178,9 @@ function InventoryLeftPage({ setSearchItem, searchItem }) {
           type="text"
           placeholder="Search by name..."
           value={searchItem.itemName}
-          onChange={(e) => setSearchItem({ ...searchItem, itemName: e.target.value })}
+          onChange={(e) =>
+            setSearchItem({ ...searchItem, itemName: e.target.value })
+          }
         />
         <i className="fa-solid fa-magnifying-glass"></i>
       </SearchItemContainer>
@@ -86,10 +203,8 @@ function InventoryLeftPage({ setSearchItem, searchItem }) {
         </div>
 
         <ProductStatistic>
-          {productData != null ||
-            (productData != {} && (
-              <Line data={productData} style={{ height: "300px" }} />
-            ))}
+          {productData && <Line data={productData} options={salesChartOption} />}
+          
         </ProductStatistic>
       </ProductStatisticContainer>
     </InventoryLeftContent>

@@ -11,13 +11,15 @@ import {
   Shifts,
 } from "./components";
 import AppointmentData from "../../../components/appointment/AppointmentData";
-
+import Logic from "../../../components/appointment/logic";
 function AppointmentList() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("all");
   const [currentPage, setCurrentPage] = useState(0);
   const [maxPage, setMaxPage] = useState(0);
+  const { dateNtimeFormatter, sortDataByShift } = Logic({ setAppointments });
+  const [currentShift, setCurrentShift] = useState("all");
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -36,7 +38,21 @@ function AppointmentList() {
           return window.location.reload();
         }
 
-        setAppointments(results);
+        const organizedData = results.map((appointment) => {
+          const { newDate, newTime } = dateNtimeFormatter(
+            appointment.date_n_time
+          );
+          return {
+            ...appointment,
+            date_n_time: {
+              date: newDate,
+              time: newTime,
+            },
+          };
+        });
+
+        setAppointments(sortDataByShift(currentShift, organizedData));
+
         setMaxPage(Math.ceil(results.length / 10));
       } catch (error) {
         console.log(error.message);
@@ -44,7 +60,7 @@ function AppointmentList() {
         setLoading(false);
       }
     })();
-  }, [status]);
+  }, [status, currentShift]);
 
   // if (loading) return <Loader bg="rgba(0,0,0,0.5)" />;
 
@@ -56,11 +72,31 @@ function AppointmentList() {
     <>
       <ShiftScheduleContainer>
         <Shifts>
-          <div class="am__shifts active">
+          <div
+            className={`${
+              currentShift == "all" ? "all__shifts  active" : "all__shifts "
+            }`}
+            onClick={() => setCurrentShift(`all`)}
+          >
+            <h3>All</h3>
+            <span>Schedule</span>
+          </div>
+
+          <div
+            className={
+              currentShift == "am" ? "all__shifts  active" : "all__shifts "
+            }
+            onClick={() => setCurrentShift(`am`)}
+          >
             <h3>AM</h3>
             <span>Schedule</span>
           </div>
-          <div class="pm__shifts">
+          <div
+            className={
+              currentShift == "pm" ? "all__shifts  active" : "all__shifts "
+            }
+            onClick={() => setCurrentShift(`pm`)}
+          >
             <h3>PM</h3>
             <span>Schedule</span>
           </div>

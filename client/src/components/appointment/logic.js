@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-function Logic({ appointment, id, setData, toast }) {
+function Logic({ appointment, id, setData, toast, setAppointments}) {
   const dateNtimeFormatter = (dateLocal) => {
     const date = new Date(dateLocal);
 
@@ -18,9 +18,9 @@ function Logic({ appointment, id, setData, toast }) {
 
     let hour = date.getHours();
     const minutes =
-      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
     const ampm = hour >= 12 ? "pm" : "am";
-    hour = hour % 12 < 10 ? `0${hour % 12}` : hour % 12;
+    hour = hour % 12 < 10 ? `${hour % 12 == 0 ? 12 : `0${hour % 12 }`}` : hour % 12;
     const newTime = `${hour}:${minutes} ${ampm}`;
 
     const newDate = `${year}-${month}-${day}`;
@@ -53,9 +53,19 @@ function Logic({ appointment, id, setData, toast }) {
     }
   };
 
+  const sortDataByShift = (shift, appointmentData) => {
+    if(shift === 'all') {
+      return appointmentData;
+    }
+    const shiftedData = appointmentData.filter(data => data.date_n_time.time.includes(shift))
+    console.log(shiftedData)
+    return shiftedData
+  }
+
   return {
     dateNtimeFormatter,
     approve,
+    sortDataByShift
   };
 }
 

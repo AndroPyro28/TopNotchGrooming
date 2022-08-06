@@ -57,7 +57,7 @@ export const ProductStatisticContainer = styled.div`
   & > .product__info {
     display: flex;
     justify-content: space-between;
-
+    margin-bottom: 20px;
     & > .product__label {
       font-size: 0.7em;
     }

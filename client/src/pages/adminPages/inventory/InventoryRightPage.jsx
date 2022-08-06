@@ -117,9 +117,6 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
     setSearchItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-
-  // if (loading) return <Loader bg="rgba(0,0,0,0.5)" />;
-
   return (
     <InventoryRightContent>
       {openItem && (

@@ -8,6 +8,7 @@ import {
   InfoRow,
   TableRow,
 } from "./inventoryComponents";
+import ProductPriceFormatter from "../../../helpers/ProductPriceFormatter"
 
 import productItemLogic from "./productItemLogic";
 
@@ -88,8 +89,8 @@ function Product({ product, setProducts, toast }) {
         <T_DATA className="table__productAge">
           {item?.product_age_limit} (yrs old)
         </T_DATA>
-        <T_DATA className="table__productPrice">{item?.product_price}</T_DATA>
-        <T_DATA className="table__productStock"> {item?.product_stocks}</T_DATA>
+        <T_DATA className="table__productPrice">{ProductPriceFormatter(item?.product_price)}</T_DATA>
+        <T_DATA className="table__productStock"> Qty: {item?.product_stocks}</T_DATA>
         <T_DATA
           className="table__action"
           onClick={() => setOpenItem((prev) => !prev)}
