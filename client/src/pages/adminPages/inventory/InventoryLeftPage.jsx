@@ -171,7 +171,7 @@ function InventoryLeftPage({ setSearchItem, searchItem }) {
     <InventoryLeftContent>
       <h1>Search for items</h1>
 
-      <small>Name of item or category</small>
+      <small>Name of an item</small>
 
       <SearchItemContainer>
         <input

@@ -14,10 +14,14 @@ import {ToastContainer, toast} from "react-toastify";
 
 
 function AppointmentInfo({ data, setData, }) {
+  
   const { appointment } = data;
   const { id } = useParams();
+
   const { approve } = Logic({ appointment, id, setData, toast });
+
   let [formattedDateNTime, setFormattedDateNTime] = useState(null);
+  
   const [toggleChange, setToggleChange] = useState(false);
 
   useEffect(() => {

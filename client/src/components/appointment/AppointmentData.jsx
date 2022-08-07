@@ -13,7 +13,7 @@ function AppointmentData({ data }) {
       <T_Data class="table__id" style={{ fontStyle: "italic" }}>
         {data.id}
       </T_Data>
-      <T_Data class="table__customer" style={{ justifySelf: "flex-start" }}>
+      <T_Data class="table__customer" style={{ justifyContent: "flex-start" }}>
         <img src={data.profile_image_url} />
         {data.firstname} {data.lastname}
       </T_Data>

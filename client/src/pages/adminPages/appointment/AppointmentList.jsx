@@ -1,5 +1,4 @@
-import React, { useState, useTransition } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {
@@ -12,6 +11,7 @@ import {
 } from "./components";
 import AppointmentData from "../../../components/appointment/AppointmentData";
 import Logic from "../../../components/appointment/logic";
+
 function AppointmentList() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,6 +20,7 @@ function AppointmentList() {
   const [maxPage, setMaxPage] = useState(0);
   const { dateNtimeFormatter, sortDataByShift } = Logic({ setAppointments });
   const [currentShift, setCurrentShift] = useState("all");
+
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -62,8 +63,6 @@ function AppointmentList() {
     })();
   }, [status, currentShift]);
 
-  // if (loading) return <Loader bg="rgba(0,0,0,0.5)" />;
-
   const fetchAppointments = appointments
     ?.slice(10 * currentPage, 10 * currentPage + 10)
     ?.map((data) => <AppointmentData key={data.id} data={data} />);
@@ -101,6 +100,7 @@ function AppointmentList() {
             <span>Schedule</span>
           </div>
         </Shifts>
+
         <select onChange={(e) => setStatus((prev) => e.target.value)}>
           <option value={"all"}>Select All Schedules</option>
           <option value={"pending"}> Select Pending Schedules</option>
@@ -108,6 +108,7 @@ function AppointmentList() {
           <option value={"onGoing"}> Select On going Schedules</option>
           <option value={"completed"}> Select Completed Schedules</option>
         </select>
+
       </ShiftScheduleContainer>
 
       <TableHeader>

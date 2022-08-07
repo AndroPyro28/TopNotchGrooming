@@ -53,7 +53,6 @@ class Appointment {
 
   addAppointment = async () => {
     try {
-
       const insertQuery = `INSERT INTO appointments 
         (pet_name,
         pet_type,
@@ -140,6 +139,42 @@ class Appointment {
       ]);
 
       return result;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  getScheduleByDate = async (date) => {
+    try {
+      const selectQuery = `SELECT 
+      JSON_OBJECT(
+        'id', appointments.id,
+        'appointment_type', appointments.appointment_type,
+        'pet_name', appointments.pet_name,
+        'date_n_time', appointments.date_n_time
+        ) as appointment,
+
+      JSON_OBJECT(
+        'id', customer.id, 'firstname', customer.firstname, 'lastname', customer.lastname, 'email', customer.email,
+        'profile_image_url', customer.profile_image_url
+      ) as customer
+      
+      FROM appointments
+      INNER JOIN customer
+      ON customer.id = appointments.customer_id
+      WHERE appointments.date_n_time LIKE ?`;
+
+      const [result, _] = await poolConnection.query(selectQuery, [
+        `%${date}%`,
+      ]);
+
+      const formattedData = result?.map(data => {
+        data.customer = DataJsonParser(data.customer);
+        data.appointment = DataJsonParser(data.appointment);
+        return data;
+      })
+
+      return formattedData;
     } catch (error) {
       console.error(error.message);
     }

@@ -107,7 +107,7 @@ function CustomerNavbar() {
         <NavLink style={navLinkStyles} to="/customer/store">
           <i className="fa-solid fa-store"></i> <span>Store</span>
         </NavLink>
-        <NavLink style={navLinkStyles} to="/customer/liveStream-Channels">
+        <NavLink style={navLinkStyles} to="/customer/liveStreamChannels">
           <i class="fa-solid fa-tower-broadcast"></i> <span>Live Streams</span>{" "}
         </NavLink>
         <NavLink style={navLinkStyles} to="/customer/appointment">

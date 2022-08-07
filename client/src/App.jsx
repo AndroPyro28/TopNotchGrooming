@@ -46,7 +46,7 @@ import PurchasedDetails from "./pages/customerPages/orderdetail/PurchasedDetails
 import {connection} from "./redux/socketSlice"
 import io from "socket.io-client";
 import AppointmentDetails from "./pages/adminPages/AppointmentDetail/AppointmentDetails";
-
+import Channels from "./pages/adminPages/livestream_channels/Channels"
 function App() {
   const [loading, setLoading] = useState(false);
   const [navbarType, setNavbarType] = useState(null);
@@ -209,6 +209,11 @@ function App() {
           element={<CustomerRoutes Component={<PurchasedDetails />} />}
         />
 
+        <Route
+          path="/customer/liveStreamChannels"
+          element={<CustomerRoutes Component={<Channels />} />}
+        />
+
         {/* admin routes */}
         <Route
           path="/admin"
@@ -237,6 +242,11 @@ function App() {
       <Route
           path="/admin/record/appointments/:id"
           element={<AdminRoutes Component={<AppointmentDetails />} />}
+        />
+
+      <Route
+          path="/admin/liveStreamChannels"
+          element={<AdminRoutes Component={<Channels />} />}
         />
 
 

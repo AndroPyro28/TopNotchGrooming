@@ -26,6 +26,25 @@
   color: #61dafb;
 }
 
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+/* ::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px grey;
+}
+
+::-webkit-scrollbar-thumb {
+  background: goldenrod;
+  border-radius: 10px;
+} */
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,5 +55,5 @@
 }
 
 .tester {
-  background: rgba(139, 133, 98, 0.726);
+  background: rgb(5, 32, 59);
 }

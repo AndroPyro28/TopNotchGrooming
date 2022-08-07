@@ -3,8 +3,10 @@ const bcrypt = require("bcryptjs");
 const Appointment = require("../models/Appointment");
 const { assignToken } = require("../helpers/AuthTokenHandler");
 const Order = require("../models/Order");
-
+const generateId = require('../helpers/GenerateId');
 const { sendTextMessageByStatus } = require("../helpers/TextMessage");
+
+const LiveStreams = require("../models/LiveStreams");
 
 module.exports.login = async (req, res) => {
   try {
@@ -192,5 +194,57 @@ module.exports.approveAppointment = async (req, res) => {
 
   } catch (error) {
     console.error(error.message)
+    return res.status(400).json({
+      success:false,
+      msg:error.message
+    })
+  }
+}
+
+module.exports.generateVerifiedLink = async (req, res) => {
+  try {
+    const liveStreamModel = new LiveStreams({})
+    let linkReference = generateId()();
+    let result = await liveStreamModel.selectByReferenceId(linkReference);
+
+    while(result.length > 0) {
+      linkReference = generateId()();
+
+      result = await liveStreamModel.selectByReferenceId(linkReference);
+    }
+    
+    return res.status(200).json({
+      linkId: linkReference,
+      success: true
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(400).json({
+      success:false,
+      msg:error.message
+    })
+  }
+}
+
+module.exports.getScheduleToday = async (req, res) => {
+  try {
+    const {date} = req.params;
+
+    if(!date) {
+      throw new Error("Invalid date");
+    }
+
+    const appointmentModel = new Appointment({})
+
+    const result = await appointmentModel.getScheduleByDate(date);
+
+    return res.status(200).json({result})
+  } catch (error) {
+    console.error(error.message)
+
+    return res.status(400).json({
+      success:false,
+      msg:error.message
+    })
   }
 }

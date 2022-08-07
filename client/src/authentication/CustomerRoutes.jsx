@@ -1,7 +1,7 @@
 import React, { useEffect, useState, startTransition } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { CustomerRoute } from "./routeComponent";
+import { CustomerRoute , CustomerGlobalStyles} from "./routeComponent";
 function CustomerRoutes({ Component }) {
   const navigate = useNavigate();
     let userToken = Cookies.get("userToken");
@@ -26,7 +26,9 @@ function CustomerRoutes({ Component }) {
     }
 
   return JSON.parse(Cookies.get("userToken"))?.userType === "customer" ? (
-    <CustomerRoute>{Component}</CustomerRoute>
+    <CustomerRoute>
+      <CustomerGlobalStyles />
+      {Component}</CustomerRoute>
   ) : (
     navigate('/admin/inventory', {replace: true})
   );

@@ -23,6 +23,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [maxPage, setMaxPage] = useState()
+  
   useEffect(() => {
     (async () => {
 

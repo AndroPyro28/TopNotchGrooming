@@ -71,7 +71,6 @@ export const NewClients = styled.div`
         font-size: 3em;
         font-weight: 1000;
         padding: 20px ;
-        background: rgb(199,211,249);
         border-radius: 50%;
     }
     } 
@@ -127,10 +126,15 @@ export const T_Data = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &.customer {
+        justify-content: flex-start;
+    }
     & > img {
         width: 50px;
+        height: 50px;
         margin-right: 10px;
         border-radius: 50%;
-        object-fit: contain;
+        object-fit: cover;
     }
 `

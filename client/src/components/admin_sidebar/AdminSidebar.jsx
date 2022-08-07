@@ -38,7 +38,7 @@ function AdminSidebar() {
           <i className="fa-solid fa-truck-fast"></i> &nbsp; To-Ship
         </NavLink>
 
-        <NavLink to="/admin/">
+        <NavLink to="/admin/liveStreamChannels">
           <i className="fa-solid fa-tv"></i> &nbsp; Live streams
         </NavLink>
 

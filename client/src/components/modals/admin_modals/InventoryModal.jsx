@@ -7,12 +7,10 @@ import {
 import { Form, Formik, ErrorMessage, Field } from "formik";
 import inventoryLogic from "./inventoryLogic";
 
-
-function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
-
+function InventoryModal({ openItem, setOpenItem, toast, setProducts }) {
   const [img, setImg] = useState(null);
   const [imgError, setImgError] = useState("");
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     try {
@@ -28,11 +26,10 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
             setImg(fileReader.result);
             return setImgError("");
           }
+        };
       }
-    }
-      
     } catch (error) {
-       setImgError(error.message);
+      setImgError(error.message);
       console.error(error.message);
     }
   }, [img]);
@@ -44,7 +41,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
     toast,
     setImgError,
     setProducts,
-    setDisabled
+    setDisabled,
   });
 
   const dropDownCategory = [
@@ -69,34 +66,41 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
 
   const dropDownPetType = [
     {
-      key: "Select Applicable Pet", value: ""
-    }, 
-    {
-      key: "Dog", value: "Dog"
+      key: "Select Applicable Pet",
+      value: "",
     },
     {
-      key: "Cat", value: "Cat"
-    }
-  ]
+      key: "Dog",
+      value: "Dog",
+    },
+    {
+      key: "Cat",
+      value: "Cat",
+    },
+  ];
 
   const dropDownAgeGap = [
     {
-      key: "Select age limit", value: ""
-    }, 
-    {
-      key: "1-2 (yrs old)", value: "1-2"
+      key: "Select age limit",
+      value: "",
     },
     {
-      key: "2-4 (yrs old)", value: "2-4"
+      key: "1-2 (yrs old)",
+      value: "1-2",
     },
     {
-      key: "5-7 (yrs old)", value: "5-7"
+      key: "2-4 (yrs old)",
+      value: "2-4",
     },
     {
-      key: "Above 7+ (yrs old)", value: "7+"
+      key: "5-7 (yrs old)",
+      value: "5-7",
     },
-
-  ]
+    {
+      key: "Above 7+ (yrs old)",
+      value: "7+",
+    },
+  ];
 
   return (
     <ModalBackdrop openItem={openItem}>
@@ -185,7 +189,6 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
                         </option>
                       );
                     })}
-
                   </Field>
                   <ErrorMessage
                     component={"div"}
@@ -198,11 +201,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
               <FormInputsContainer>
                 <label htmlFor={"petType"}>Pet Type</label>
                 <InputContainer>
-                  <Field
-                    as="select"
-                    name={"petType"}
-                    id={"petType"}
-                  >
+                  <Field as="select" name={"petType"} id={"petType"}>
                     {dropDownPetType.map((option) => {
                       return (
                         <option key={option.key} value={option.value}>
@@ -218,7 +217,6 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
                   />
                 </InputContainer>
               </FormInputsContainer>
-
 
               <FormInputsContainer>
                 <label htmlFor={"productCategory"}>Product Category</label>
@@ -274,7 +272,9 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts}) {
                 </InputContainer>
               </FormInputsContainer>
 
-              <button disabled={disabled}  type="submit">Add Item</button>
+              <button disabled={disabled} type="submit">
+                Add Item
+              </button>
             </Form>
           );
         }}

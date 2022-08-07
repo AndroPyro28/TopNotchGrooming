@@ -1,21 +1,21 @@
 import styled from "styled-components";
 
 export const SideNavWrapper = styled.nav`
-    position: fixed;
+  position: fixed;
   left: 0px;
   top: 0px;
-  background: rgb(52,58,64);
-  background: rgb(52,58,64);
+  background: rgb(52, 58, 64);
+  background: rgb(52, 58, 64);
   /* background: rgb(52,58,64); */
   width: 80px;
   /* width: 450px; */
   z-index: 2;
   height: 100%;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 
   &:hover {
     width: 20%;
-    transition: all .3s ease-in;
+    transition: all 0.3s ease-in;
   }
 
   &:hover a {
@@ -27,21 +27,21 @@ export const SideNavWrapper = styled.nav`
   }
 
   &:hover h1 {
-      display:block !important;
+    display: block !important;
   }
   &:hover .title {
-      width: 100% !important;
+    width: 100% !important;
   }
-`
+`;
 
 export const SideNavContainer = styled.section`
-    display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100%;
   position: relative;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   overflow: hidden;
 
   &.close h1 {
@@ -60,20 +60,19 @@ export const SideNavContainer = styled.section`
 
   & > a {
     margin: 5px;
-  padding: 10px 20px;
-  color: #d8d8d8;
-  position: relative;
-  transition: all .3s ease-in;
-  /* border-radius: 10px; */
-  cursor: pointer;
+    padding: 10px 15px;
+    color: #d8d8d8;
+    position: relative;
+    transition: all 0.3s ease-in;
+    /* border-radius: 10px; */
+    cursor: pointer;
     text-align: start;
-  &:hover {
-    color: white;
-  background: gray;
+    &:hover {
+      color: white;
+      background: gray;
+    }
   }
-  }
-
-`
+`;
 
 export const Title = styled.div`
   height: 50px;
@@ -88,18 +87,17 @@ export const Title = styled.div`
   font-size: 1.1em;
   overflow: hidden;
   & > h1 {
-    font-size: .9em !important;
+    font-size: 0.9em !important;
     text-align: center;
-    color:rgb(216,216,216);
+    color: rgb(216, 216, 216);
     width: 100%;
     overflow: hidden;
-
   }
 
   & > i {
     color: white;
-  padding: 10px;
-  border: solid 1px gray;
-  border-radius: 10px;
+    padding: 10px;
+    border: solid 1px gray;
+    border-radius: 10px;
   }
-`
+`;

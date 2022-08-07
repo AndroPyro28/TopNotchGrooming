@@ -117,13 +117,13 @@ function DashboardCharts() {
       </MonthlySalesChartsContainer>
 
       <NewClients>
-        <h1>New Clients</h1>
+        <h1>New Clients Today</h1>
 
         <h2>
           <span>54</span>
         </h2>
 
-        <p> New 54 Clients Today</p>
+        <p> See the new 54 clients</p>
       </NewClients>
     </DashboardChartsContainer>
   );

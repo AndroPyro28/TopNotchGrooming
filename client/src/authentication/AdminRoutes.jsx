@@ -1,7 +1,7 @@
 import React, { useEffect, useState, startTransition } from "react";
 import { useNavigate, useLocation,  } from "react-router-dom";
 import Cookies from "js-cookie";
-import { CustomerRoute, AdminRoute } from "./routeComponent";
+import { AdminRoute, AdminGlobalStyles} from "./routeComponent";
 function AdminRoutes({ Component }) {
   const navigate = useNavigate();
 
@@ -19,7 +19,9 @@ function AdminRoutes({ Component }) {
     
 
   return JSON.parse(Cookies.get("userToken"))?.userType === "admin" ? (
-    <AdminRoute>{Component}</AdminRoute>
+    <AdminRoute>
+      <AdminGlobalStyles />
+      {Component}</AdminRoute>
   ) : (
     navigate('/customer/profile', {replace: true})
   );

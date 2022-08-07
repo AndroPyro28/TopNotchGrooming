@@ -16,7 +16,7 @@ export const InventoryLeftContent = styled.div`
   display: flex;
   flex-direction: column;
   & > :is(h1, small) {
-    margin: 5px 0;
+    margin-block: 30px 0;
   }
 
   & > h1 {
