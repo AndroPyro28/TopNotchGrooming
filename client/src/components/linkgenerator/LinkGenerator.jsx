@@ -3,13 +3,14 @@ import { useEffect } from "react";
 import { LinkInput, LinkGeneratorContainer, Notify} from "./components";
 function LinkGenerator({ linkId, setLinkId }) {
   const [isClicked, setIsClicked] = useState(false);
-  const streamUrl = `http://localhost:3000/liveStreamChannels/${linkId}`
+  const streamUrl = `http://localhost:3000/public/liveStreamChannels/room=${linkId}`;
 
   const clickCopyClip = () => {
     setIsClicked(true);
     navigator.clipboard.writeText(streamUrl);
     setTimeout(_ => setIsClicked(false), 2000)
   }
+
   return (
     <LinkGeneratorContainer>
       <label>Room link</label>

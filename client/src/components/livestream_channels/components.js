@@ -109,9 +109,10 @@ export const OtherLiveStreamsWrapper = styled.div`
     text-transform: capitalize;
     font-style: italic;
     text-shadow: 1px 3px 5px black;
-    margin-top: 50px;
+    margin-top: 90px;
     margin-bottom: 50px;
     text-align: center;
+    
   }
 `;
 export const OtherLiveStreamsContainer = styled.div`

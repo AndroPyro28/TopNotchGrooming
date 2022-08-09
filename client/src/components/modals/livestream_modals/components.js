@@ -39,8 +39,8 @@ export const LiveStreamModalContainer = styled.div`
 export const ScheduleList = styled.div`
   display: flex;
   flex-direction: column;
-  min-height:350px;
-  max-height:350px;
+  min-height: 350px;
+  max-height: 350px;
   overflow: hidden;
 `;
 
@@ -48,8 +48,7 @@ export const ScheduleData = styled.div`
   display: flex;
   align-items: center;
   padding: 0px 10px;
-  transition:all .3s ease-in-out;
-
+  transition: all 0.3s ease-in-out;
   &:hover {
     background: #eaeaea;
     cursor: pointer;
@@ -66,14 +65,22 @@ export const ScheduleData = styled.div`
     display: flex;
     flex-direction: column;
     text-align: start;
-    flex: 0.9;
+    width: 45%;
+    transition: all 0.2s ease-in-out;
+
     & > .name {
-      color: black;
+      color: ${({ selected }) => (selected ? "rgb(1, 37, 73) " : "black")};
+      font-weight: ${({ selected }) => (selected ? "500" : "normal")};
+
+      transition: all 0.2s ease-in-out;
     }
 
     & > .email {
-      color: gray;
+      color: ${({ selected }) => (selected ? "rgb(1, 37, 73) " : "gray")};
+
       font-size: 0.8em;
+      transition: all 0.2s ease-in-out;
+
       &::before {
         content: "@";
       }
@@ -82,36 +89,55 @@ export const ScheduleData = styled.div`
 
   & > span {
     font-weight: 600;
-    color: gray;
+    flex: 1;
+    color: ${({ selected }) => (selected ? "rgb(1, 37, 73) " : "gray")};
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover > span {
+    color: rgb(1, 37, 73);
+  }
+
+  &:hover > .info {
+    & > span {
+      color: rgb(1, 37, 73);
+
+      &.name {
+        font-weight: 500;
+      }
+    }
+  }
+
+  &:active {
+    transform: scale(0.9);
   }
 `;
 
-
 export const PaginationContainer = styled.div`
-    margin: 10px;
+  margin: 10px;
 
-    & > i {
-      padding: 10px 15px;
-      background: #EAEAEA;
-      border-radius: 10px;
-      margin-inline: 10px;
-      cursor: pointer;
-      transition: all .2s ease-in-out;
-      &:hover {
-        background: black;
-        color: white;
-      }
+  & > i {
+    padding: 10px 15px;
+    background: #eaeaea;
+    border-radius: 10px;
+    margin-inline: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background: black;
+      color: white;
     }
-`
+  }
+`;
 
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 10px 20px;
-  
+
   & > button {
     padding: 10px 20px;
-    margin-inline:10px ;
+    margin-inline: 10px;
     border: none;
     border-radius: 10px;
     color: white;
@@ -123,6 +149,5 @@ export const ButtonContainer = styled.div`
     &.goBtn {
       background: rgba(39, 123, 219, 0.726);
     }
-
   }
-`
+`;

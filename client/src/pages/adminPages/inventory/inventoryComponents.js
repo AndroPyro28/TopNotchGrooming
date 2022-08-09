@@ -11,6 +11,7 @@ export const AdminInventoryWrapper = styled.section`
   height: 100vh;
   padding: 10px;
   justify-content: space-evenly;
+  /* padding-top: 10px; */
 `;
 export const InventoryLeftContent = styled.div`
   display: flex;

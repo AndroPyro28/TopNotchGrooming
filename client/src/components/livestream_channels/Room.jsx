@@ -1,8 +1,15 @@
 import React from "react";
 import { OtherLiveStream, OtherLiveStreamInfo, OwnerName } from "./components";
+import { useNavigate, useLocation } from "react-router-dom";
+
 function Room() {
+
+  const { pathname } = useLocation();
+  
+  const navigate = useNavigate();
+
   return (
-    <OtherLiveStream>
+    <OtherLiveStream onClick={() => navigate(`${pathname}/room=asdasda`)}>
       <span class="liveStream__tag">LIVE</span>
       <span class="liveStream__viewers">
         {" "}

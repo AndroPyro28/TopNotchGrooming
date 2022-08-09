@@ -15,7 +15,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     .youLiveStreamH3 {
-      margin-top: 50px;
+      margin-top: 90px;
     margin-bottom: 30px;
     text-align: center;
     font-size: 2em;

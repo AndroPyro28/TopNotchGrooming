@@ -43,10 +43,11 @@ import Purchases from "./pages/customerPages/purchases/Purchases";
 import Preparing from "./components/purchases/Preparing";
 import ToReceive from "./components/purchases/ToReceive";
 import PurchasedDetails from "./pages/customerPages/orderdetail/PurchasedDetails";
-import {connection} from "./redux/socketSlice"
+import { connection } from "./redux/socketSlice";
 import io from "socket.io-client";
 import AppointmentDetails from "./pages/adminPages/AppointmentDetail/AppointmentDetails";
-import Channels from "./pages/adminPages/livestream_channels/Channels"
+import Channels from "./pages/shared/livestream_channels/Channels";
+import LiveStreamRoom from "./pages/shared/livestream_room/LiveStreamRoom";
 function App() {
   const [loading, setLoading] = useState(false);
   const [navbarType, setNavbarType] = useState(null);
@@ -90,15 +91,14 @@ function App() {
             const { currentUser } = res.data;
             dispatch(authenticationSuccess({ currentUser, isAuth: true }));
             const headers = {
-              userinfo: Cookies.get('userToken')
-            }
-            dispatch(connection(io("http://localhost:3001", headers )));
+              userinfo: Cookies.get("userToken"),
+            };
+            dispatch(connection(io("http://localhost:3001", headers)));
           }
         } catch (error) {
           console.error(error);
         } finally {
           setLoading(false);
-
         }
       })();
     });
@@ -110,15 +110,13 @@ function App() {
     (async () => {
       const cart = await fetcher();
       dispatch(setToCartReducer(cart));
-
     })();
   }, []);
 
-
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
-
   return (
     <AppRoot>
+
       {navbarType === "public" && <PublicNavbar />}
 
       {navbarType === "customer" && <CustomerNavbar />}
@@ -141,11 +139,22 @@ function App() {
         />
         <Route
           path="/customer/login"
-          element={ <PublicRoutes Component={<CustomerLogin />} />}/>
+          element={<PublicRoutes Component={<CustomerLogin />} />}
+        />
 
         <Route
           path="/admin/login"
           element={<PublicRoutes Component={<AdminLogin />} />}
+        />
+
+        <Route
+          path="/public/liveStreamChannels"
+          element={<PublicRoutes Component={<Channels />} />}
+        />
+
+        <Route
+          path="/public/liveStreamChannels/room=:link"
+          element={<PublicRoutes Component={<LiveStreamRoom />} />}
         />
 
         {/* customer routes */}
@@ -201,7 +210,6 @@ function App() {
 
           <Route path="preparing" element={<Preparing />} />
           <Route path="to-receive" element={<ToReceive />} />
-
         </Route>
 
         <Route
@@ -214,6 +222,11 @@ function App() {
           element={<CustomerRoutes Component={<Channels />} />}
         />
 
+        <Route
+          path="/customer/liveStreamChannels/room=:link"
+          element={<CustomerRoutes Component={<LiveStreamRoom />} />}
+        />
+
         {/* admin routes */}
         <Route
           path="/admin"
@@ -224,38 +237,41 @@ function App() {
           element={<AdminRoutes Component={<Inventory />} />}
         />
 
-      <Route path="/admin/record/" element={<AdminRoutes Component={<Record />} />} >
-        <Route index element={<AppointmentList/>} />
-        <Route path="appointments" element={<AppointmentList />} />
-      </Route>
+        <Route
+          path="/admin/record/"
+          element={<AdminRoutes Component={<Record />} />}
+        >
+          <Route index element={<AppointmentList />} />
+          <Route path="appointments" element={<AppointmentList />} />
+        </Route>
 
-      <Route
+        <Route
           path="/admin/orders"
           element={<AdminRoutes Component={<OrderList />} />}
         />
 
-      <Route
+        <Route
           path="/admin/orders/:reference"
           element={<AdminRoutes Component={<OrderDetails />} />}
         />
 
-      <Route
+        <Route
           path="/admin/record/appointments/:id"
           element={<AdminRoutes Component={<AppointmentDetails />} />}
         />
 
-      <Route
+        <Route
           path="/admin/liveStreamChannels"
           element={<AdminRoutes Component={<Channels />} />}
         />
 
+        <Route
+          path="/admin/liveStreamChannels/room=:link"
+          element={<AdminRoutes Component={<LiveStreamRoom />} />}
+        />
 
         <Route path="*" element={<h1>Page Not Found</h1>} />
-
-        
       </Routes>
-
-      
 
       {/* <Footer /> */}
     </AppRoot>

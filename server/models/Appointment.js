@@ -162,10 +162,12 @@ class Appointment {
       FROM appointments
       INNER JOIN customer
       ON customer.id = appointments.customer_id
-      WHERE appointments.date_n_time LIKE ?`;
+      WHERE appointments.date_n_time LIKE ? AND
+      status = ?`;
 
       const [result, _] = await poolConnection.query(selectQuery, [
         `%${date}%`,
+        'approved'
       ]);
 
       const formattedData = result?.map(data => {

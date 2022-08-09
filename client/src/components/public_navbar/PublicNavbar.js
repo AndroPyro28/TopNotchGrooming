@@ -49,6 +49,9 @@ function PublicNavbar() {
         <NavLink to={"/about"} style={navLinkStyles}>
           About Us
         </NavLink>
+        <NavLink to={"/public/liveStreamChannels"} style={navLinkStyles}>
+          Watch Live
+        </NavLink>
         <DropdownBtn >
           <center onClick={() => setDropdownToggle(!dropdownToggle)}>
             Login as &nbsp;{" "}

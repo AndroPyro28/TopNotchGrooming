@@ -52,9 +52,9 @@ function AppointmentTodayList() {
       </TableHeader>
 
       {loading ? (
-        <h1 style={{ color: "gray" }}>Loading please wait</h1>
-      ) : scheduleList.lenth === 0 ? (
-        <h1 style={{ color: "gray" }}>No Schedule today</h1>
+        <h1 style={{ color: "gray", textAlign:"center" }}>Loading please wait</h1>
+      ) : scheduleList.length === 0 ? (
+        <h1 style={{ color: "gray", textAlign:"center" }}>No Schedule today</h1>
       ) : (
         scheduleList.map((data) => (
           <Data data={data} key={data.appointment.id} />
