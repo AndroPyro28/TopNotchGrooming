@@ -1,23 +1,21 @@
-const socketController = require('./socketController');
-const {verifySocket} = require('../middlewares/verifySocket')
+const SocketControllers = require('./socketController');
 const socketRoutes = (io) => {
-    let currentUser = {};
-
-    // io.use((socket, next) => {
-    //     console.log(socket);
-
-    //     next()
-    // })
 
     io.on('connection', socket => {
-        console.log(`user connected with id of ${socket.id}`);
 
-        socket.on('someEvent', async (data, headers) => {
-            currentUser = await verifySocket(headers);
-            if(!currentUser) return;
+        const controller = new SocketControllers({socket, io});
 
-            socketController.num(data);
-        });
+
+        // console.log(`user connected with id of ${socket.id}`);
+
+        // socket.on('someEvent', async (data, headers) => {
+        //     currentUser = await verifySocket(headers);
+        //     if(!currentUser) return;
+
+        //     socketController.num(data);
+        // });
+
+        socket.on('joinRoom', controller.joinRoom)
 
         socket.on('disconnect', () => {
             console.log('disconnected')

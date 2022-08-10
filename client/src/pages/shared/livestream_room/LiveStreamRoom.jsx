@@ -1,15 +1,29 @@
 import React from 'react'
-import ChatBox from '../../../components/livestream_room/ChatBox';
+import Board from '../../../components/livestream_room/Board';
 import Video from '../../../components/livestream_room/Video';
 import {LiveStreamRoomContainer} from "./components";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function LiveStreamRoom() {
+
 const {pathname} = useLocation();
+const [displayBoard, setDisplayBoard] = useState(true);
+const navigate = useNavigate();
+
+  useEffect(() => {
+    
+  }, [])
+
   return (
-    <LiveStreamRoomContainer>
-      <Video />
-      <ChatBox />
+    <LiveStreamRoomContainer id="liveStreamRoomContainer" displayBoard={displayBoard}>
+        
+      <Video setDisplayBoard={setDisplayBoard} displayBoard={displayBoard} />
+        {
+          displayBoard && <Board />
+        }
+      
     </LiveStreamRoomContainer>
   )
 }

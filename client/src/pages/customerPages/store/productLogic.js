@@ -14,7 +14,7 @@ function ProductLogic() {
       const headers = {
         userinfo: Cookies.get('userToken')
       }
-      socket?.emit('someEvent', 1, headers);
+      // socket?.emit('someEvent', 1, headers);
 
       const res = await axios.post(
         "/api/customer/addItemsToCart",

@@ -6,7 +6,8 @@ import Cookies from 'js-cookie';
 function Footer() {
 
   return (
-    <div>Footer</div>
+    <div>Footer
+    </div>
   )
 }
 
