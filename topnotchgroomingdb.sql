@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2022 at 01:11 PM
+-- Generation Time: Aug 11, 2022 at 12:37 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -70,19 +70,19 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdate`, `gender`, `pet_image`, `appointment_type`, `additional_details`, `date_n_time`, `live_stream_type`, `archived`, `status`, `customer_id`) VALUES
-(40, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 10:00:00.000', 'public', 0, 'approved', 7),
-(41, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 11:00:00.000', 'public', 0, 'pending', 6),
-(42, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '1900-01-07 00:00:00.000', 'public', 0, 'onGoing', 7),
-(43, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-07 00:00:00.000', 'public', 0, 'completed', 6),
-(44, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-07 14:00:00.000', 'public', 0, 'approved', 7),
-(45, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 15:00:00.000', 'public', 0, 'approved', 6),
-(46, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 16:00:00.000', 'public', 0, 'approved', 7),
-(47, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 17:00:00.000', 'public', 0, 'pending', 7),
-(48, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 18:00:00.000', 'public', 0, 'completed', 6),
+(40, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 10:00:00.000', 'public', 0, 'completed', 7),
+(41, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 00:00:00.000', 'public', 0, 'approved', 6),
+(42, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-01-07 00:00:00.000', 'public', 0, 'onGoing', 7),
+(43, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-01-09 00:00:00.000', 'public', 0, 'completed', 6),
+(44, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-07 12:00:00.000', 'public', 0, 'approved', 7),
+(45, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-10 00:00:00.000', 'public', 0, 'approved', 6),
+(46, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 00:00:00.000', 'public', 0, 'pending', 7),
+(47, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 14:00:00.000', 'public', 0, 'approved', 7),
+(48, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '1900-01-09 02:27:29.000', 'public', 0, 'completed', 6),
 (49, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 19:00:00.000', 'public', 0, 'completed', 7),
 (50, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 20:00:00.000', 'public', 0, 'approved', 6),
-(51, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 21:00:00.000', 'public', 0, 'pending', 7),
-(52, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 00:59:59.009', 'public', 0, 'rejected', 6);
+(51, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 00:00:00.000', 'public', 0, 'pending', 7),
+(52, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '1900-01-09 00:00:00.000', 'public', 0, 'rejected', 6);
 
 -- --------------------------------------------------------
 
@@ -184,7 +184,7 @@ INSERT INTO `order_details` (`id`, `reference`, `customer_id`, `order_date`, `de
 (50, 'pi_3LPM97CPdX0vlIZo0R8iqJ61', 7, '2022-07-25 00:00:00.000000', 4, 'completed', 700, 'card', NULL, 'san sebastian hagonoy bulacan', '639561289642', '3002', 'toktok'),
 (51, 'pi_3LPMfaCPdX0vlIZo04yBPYII', 7, '2022-07-25 00:00:00.000000', 4, 'completed', 1200, 'card', NULL, 'San sebastian hagonoy bulacan', '09561289642', '3002', 'jnt'),
 (54, 'pi_3LQpOVCPdX0vlIZo0w221GAu', 7, '2022-07-29 00:00:00.000000', 4, 'completed', 500, 'card', NULL, '#109, San Sebastian Hagonoy Bulacan Del pilar st.', '09561289642', '3002', 'lalamove'),
-(55, '5a9901d49e1230689c06339d2e01c658', 7, '2022-07-29 00:00:00.000000', 0, 'pending', 400, 'gcash', NULL, '#301 Encanto Angat Bulacan California Street', '09051237552', '3001', 'toktok'),
+(55, '5a9901d49e1230689c06339d2e01c658', 7, '2022-07-29 00:00:00.000000', 4, 'completed', 400, 'gcash', NULL, '#301 Encanto Angat Bulacan California Street', '09051237552', '3001', 'toktok'),
 (56, 'pi_3LTjZJCPdX0vlIZo1y1rxRsg', 7, '2022-08-06 00:00:00.000000', 4, 'completed', 5000, 'card', NULL, 'some address 123 street del pilar', '09561289642', '3002', 'toktok');
 
 -- --------------------------------------------------------
@@ -216,12 +216,11 @@ INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_descript
 (44, 'Multivitamins', 300, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 80, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657709691/topnotch_productImg/e9neie1peletkcw6go9u.png', 'topnotch_productImg/e9neie1peletkcw6go9u'),
 (45, 'Shampoo', 400, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 85, '7+', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260600/topnotch_productImg/qjkky0r5ws6uj0zoizsm.png', 'topnotch_productImg/qjkky0r5ws6uj0zoizsm'),
 (46, 'multivitamins A plus', 500, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Cat', '2022-07-24', 89, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260636/topnotch_productImg/gmzxy5gl2pmtsfam8vij.png', 'topnotch_productImg/gmzxy5gl2pmtsfam8vij'),
-(49, 'whisks food', 100, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '2022-07-24', 90, '1-2', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262303/topnotch_productImg/pkxt0wnyspli9vmpn71t.png', 'topnotch_productImg/pkxt0wnyspli9vmpn71t'),
-(50, 'pedigree', 600, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Dog', '2022-07-24', 85, '7+', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262354/topnotch_productImg/ivfx6h0e4ekghpzni8cq.png', 'topnotch_productImg/ivfx6h0e4ekghpzni8cq'),
-(51, 'pink leashe', 700, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '2022-07-24', 95, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262390/topnotch_productImg/labogcn14nhhnicjmrkn.png', 'topnotch_productImg/labogcn14nhhnicjmrkn'),
-(52, 'blue shampoo', 800, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f', 'Dog', '2022-07-24', 91, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657451719/topnotch_productImg/nx1b0dbhb9lh3hxk9hb6.png', 'topnotch_productImg/nx1b0dbhb9lh3hxk9hb6'),
+(49, 'toy', 100, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '2022-07-24', 90, '1-2', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041142/topnotch_productImg/ycnevbj2mbl7dp77rrvd.jpg', 'topnotch_productImg/ycnevbj2mbl7dp77rrvd'),
+(50, 'pedigree update', 600, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Dog', '2022-07-24', 85, '7+', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262354/topnotch_productImg/ivfx6h0e4ekghpzni8cq.png', 'topnotch_productImg/ivfx6h0e4ekghpzni8cq'),
+(52, 'blue shampoo update', 800, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet coasd aansectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f adsd a da', 'Dog', '2022-07-24', 50, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041348/topnotch_productImg/dpnogefn44xf1w7cbhjc.png', 'topnotch_productImg/dpnogefn44xf1w7cbhjc'),
 (53, 'LEGO FOR PETS', 500, 'sadasdsda', 'Cat', '2022-07-24', 121, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659782108/topnotch_productImg/zzlo8xp4hezhsdswuurt.jpg', 'topnotch_productImg/zzlo8xp4hezhsdswuurt'),
-(54, 'some bag update', 600, 'some item description', 'Dog', '2022-07-24', 32, '7+', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658660660/topnotch_productImg/nfibuzaftaakmqibq0g0.png', 'topnotch_productImg/nfibuzaftaakmqibq0g0');
+(54, 'some bag', 600, 'some item description', 'Dog', '2022-07-24', 32, '7+', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658660660/topnotch_productImg/nfibuzaftaakmqibq0g0.png', 'topnotch_productImg/nfibuzaftaakmqibq0g0');
 
 -- --------------------------------------------------------
 
@@ -243,14 +242,11 @@ CREATE TABLE `product_details` (
 --
 
 INSERT INTO `product_details` (`id`, `product_id`, `order_id`, `customer_id`, `quantity`, `is_active`) VALUES
-(589, 51, 50, 7, 1, 1),
 (593, 49, 51, 7, 1, 1),
 (594, 45, 51, 7, 1, 1),
-(595, 51, 51, 7, 1, 1),
 (606, 46, 54, 7, 1, 1),
 (607, 45, 55, 7, 1, 1),
 (650, 54, 56, 7, 10, 1),
-(651, 51, NULL, 7, 10, 1),
 (652, 43, NULL, 7, 10, 1),
 (653, 52, NULL, 7, 10, 1),
 (654, 44, NULL, 7, 1, 1),
