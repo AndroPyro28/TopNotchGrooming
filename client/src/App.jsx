@@ -49,11 +49,12 @@ import AppointmentDetails from "./pages/adminPages/AppointmentDetail/Appointment
 import Channels from "./pages/shared/livestream_channels/Channels";
 import LiveStreamRoom from "./pages/shared/livestream_room/LiveStreamRoom";
 function App() {
+
   const [loading, setLoading] = useState(false);
   const [navbarType, setNavbarType] = useState(null);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     try {
       const userInfo = Cookies.get("userToken");
@@ -113,15 +114,16 @@ function App() {
     })();
   }, []);
 
+
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
   return (
     <AppRoot>
 
       {navbarType === "public" && <PublicNavbar />}
 
-      {navbarType === "customer" && <CustomerNavbar />}
+      {navbarType === "customer" && !pathname?.includes('room=') && <CustomerNavbar />}
 
-      {navbarType === "admin" && <AdminSidebar />}
+      {navbarType === "admin" && !pathname?.includes('room=') && <AdminSidebar />}
 
       <Routes>
         {/* public routes */}

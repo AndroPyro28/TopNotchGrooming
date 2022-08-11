@@ -2,20 +2,13 @@ const SocketControllers = require('./socketController');
 const socketRoutes = (io) => {
 
     io.on('connection', socket => {
-
+        console.log('connected');
         const controller = new SocketControllers({socket, io});
 
-
-        // console.log(`user connected with id of ${socket.id}`);
-
-        // socket.on('someEvent', async (data, headers) => {
-        //     currentUser = await verifySocket(headers);
-        //     if(!currentUser) return;
-
-        //     socketController.num(data);
-        // });
-
         socket.on('joinRoom', controller.joinRoom)
+        socket.on('sendAdminSignalToObserver', controller.sendAdminSignalToObserver)
+        socket.on('sendObserverSignalToAdmin', controller.sendObserverSignalToAdmin)
+        socket.on('getAllRooms', controller.getAllRooms)
 
         socket.on('disconnect', () => {
             console.log('disconnected')

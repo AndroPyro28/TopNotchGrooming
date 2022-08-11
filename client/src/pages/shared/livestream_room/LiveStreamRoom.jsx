@@ -4,20 +4,16 @@ import Video from '../../../components/livestream_room/Video';
 import {LiveStreamRoomContainer} from "./components";
 import {useLocation, useNavigate} from "react-router-dom";
 import { useState } from 'react';
-import { useEffect } from 'react';
 
 function LiveStreamRoom() {
 
 const {pathname} = useLocation();
 const [displayBoard, setDisplayBoard] = useState(true);
-const navigate = useNavigate();
-
-  useEffect(() => {
-    
-  }, [])
+ 
 
   return (
     <LiveStreamRoomContainer id="liveStreamRoomContainer" displayBoard={displayBoard}>
+        
         
       <Video setDisplayBoard={setDisplayBoard} displayBoard={displayBoard} />
         {

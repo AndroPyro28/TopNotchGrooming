@@ -2,18 +2,20 @@ import React from "react";
 import { OtherLiveStream, OtherLiveStreamInfo, OwnerName } from "./components";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function Room() {
-
+function Room({data}) {
   const { pathname } = useLocation();
   
   const navigate = useNavigate();
-
+  const redirect = () => {
+    window.localStorage.setItem('enter_stream', true)
+    navigate(`${pathname}/room=${data.roomLink}`)
+  }
   return (
-    <OtherLiveStream onClick={() => navigate(`${pathname}/room=asdasda`)}>
+    <OtherLiveStream onClick={redirect}>
       <span class="liveStream__tag">LIVE</span>
       <span class="liveStream__viewers">
         {" "}
-        <i class="fa-solid fa-eye"></i> 223
+        <i class="fa-solid fa-eye"></i> {data?.users?.length}
       </span>
       <img
         src="/images/petHaircutVidSample.jpg"

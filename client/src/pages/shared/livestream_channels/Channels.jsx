@@ -10,6 +10,7 @@ import LiveStreamModal from "../../../components/modals/livestream_modals/LiveSt
 function Channels() {
   const { pathname = "" } = useLocation();
   let userType = "";
+  
   if (Cookies?.get("userToken")?.length > 0 || Cookies?.get("userToken")) {
     const { userType: user = "" } = JSON?.parse(Cookies?.get("userToken"));
     userType = user;

@@ -13,12 +13,14 @@ import Cookies from "js-cookie";
 import Loader from "../../loader/Loader";
 import GetDateToday from "../../../helpers/DateToday";
 import Logic from "./Logic";
+import { useNavigate } from "react-router-dom";
 
 function LiveStreamModal({ setToggleModal }) {
   const [linkId, setLinkId] = useState("");
   const [loading, setLoading] = useState(true);
   const [scheduleList, setScheduleList] = useState([]);
   const [appointmentId, setAppointmentId] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     (async () => {
@@ -71,7 +73,7 @@ function LiveStreamModal({ setToggleModal }) {
     })();
   }, []);
 
-  const { startStream } = Logic({});
+  const { startStream } = Logic({linkId});
 
   if (loading) return <Loader bg={`rgba(0, 0, 0, 0.548)`} />;
 

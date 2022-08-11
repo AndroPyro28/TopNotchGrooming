@@ -1,9 +1,7 @@
 import styled, {createGlobalStyle }from "styled-components";
 
 export const CustomerRoute = styled.main`
-  margin-top: 135px;
-
-  
+  margin-top:  ${({giveMargin}) => giveMargin ? "135px" : "0px"};
 `;
 
 export const CustomerGlobalStyles = createGlobalStyle`
