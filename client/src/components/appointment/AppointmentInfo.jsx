@@ -52,13 +52,6 @@ function AppointmentInfo({ data, setData, }) {
           <h4>Appointment type</h4>
           <span>{appointment?.appointment_type}</span>
         </Info>
-
-        {appointment?.appointment_type === "grooming" && (
-          <Info>
-            <h4>Live stream</h4>
-            <span>{appointment?.live_stream_type}</span>
-          </Info>
-        )}
       </InfoRow>
 
       <InfoRow>

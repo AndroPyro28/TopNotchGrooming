@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2022 at 12:37 PM
+-- Generation Time: Aug 12, 2022 at 12:46 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -59,30 +59,19 @@ CREATE TABLE `appointments` (
   `appointment_type` varchar(50) DEFAULT NULL,
   `additional_details` varchar(500) DEFAULT NULL,
   `date_n_time` datetime(3) NOT NULL,
-  `live_stream_type` varchar(20) DEFAULT NULL,
-  `archived` tinyint(1) DEFAULT 0,
+  `admin_id` int(11) DEFAULT 0,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
-  `customer_id` int(11) DEFAULT NULL
+  `customer_id` int(11) DEFAULT NULL,
+  `live_stream_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdate`, `gender`, `pet_image`, `appointment_type`, `additional_details`, `date_n_time`, `live_stream_type`, `archived`, `status`, `customer_id`) VALUES
-(40, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 10:00:00.000', 'public', 0, 'completed', 7),
-(41, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 00:00:00.000', 'public', 0, 'approved', 6),
-(42, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-01-07 00:00:00.000', 'public', 0, 'onGoing', 7),
-(43, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-01-09 00:00:00.000', 'public', 0, 'completed', 6),
-(44, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-07 12:00:00.000', 'public', 0, 'approved', 7),
-(45, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-10 00:00:00.000', 'public', 0, 'approved', 6),
-(46, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 00:00:00.000', 'public', 0, 'pending', 7),
-(47, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 14:00:00.000', 'public', 0, 'approved', 7),
-(48, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '1900-01-09 02:27:29.000', 'public', 0, 'completed', 6),
-(49, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 19:00:00.000', 'public', 0, 'completed', 7),
-(50, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-05 20:00:00.000', 'public', 0, 'approved', 6),
-(51, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-09 00:00:00.000', 'public', 0, 'pending', 7),
-(52, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '1900-01-09 00:00:00.000', 'public', 0, 'rejected', 6);
+INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdate`, `gender`, `pet_image`, `appointment_type`, `additional_details`, `date_n_time`, `admin_id`, `status`, `customer_id`, `live_stream_id`) VALUES
+(46, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-12 00:00:00.000', 1, 'onGoing', 7, NULL),
+(53, 'Pondo', 'dog', 'aspinoy', '2022-08-02', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660293793/topnotch_petIImages/gl3ksth0io0gziyqko2w.png', 'walk-in-consulting', 'hotodg', '2022-08-12 17:00:00.000', 1, 'onGoing', 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -134,6 +123,7 @@ CREATE TABLE `live_streams` (
   `id` int(11) NOT NULL,
   `reference_id` varchar(20) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
+  `appointment_id` int(11) DEFAULT NULL,
   `admin_id` int(11) DEFAULT NULL,
   `video_url` varchar(500) DEFAULT NULL,
   `date` varchar(20) DEFAULT NULL,
@@ -282,7 +272,9 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `customerID` (`customer_id`);
+  ADD KEY `customerID` (`customer_id`),
+  ADD KEY `live_stream_id` (`live_stream_id`),
+  ADD KEY `admin_id` (`admin_id`);
 
 --
 -- Indexes for table `appointment_history`
@@ -303,7 +295,8 @@ ALTER TABLE `customer`
 ALTER TABLE `live_streams`
   ADD PRIMARY KEY (`id`),
   ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `admin_id` (`admin_id`);
+  ADD KEY `admin_id` (`admin_id`),
+  ADD KEY `live_stream_id` (`id`);
 
 --
 -- Indexes for table `monthly_sales`
@@ -355,7 +348,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `appointment_history`
@@ -373,7 +366,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `live_streams`
 --
 ALTER TABLE `live_streams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `monthly_sales`
@@ -413,7 +406,10 @@ ALTER TABLE `yearly_sales`
 -- Constraints for table `appointments`
 --
 ALTER TABLE `appointments`
-  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`live_stream_id`) REFERENCES `live_streams` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_3` FOREIGN KEY (`live_stream_id`) REFERENCES `live_streams` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `appointments_ibfk_4` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `appointment_history`
@@ -426,7 +422,8 @@ ALTER TABLE `appointment_history`
 --
 ALTER TABLE `live_streams`
   ADD CONSTRAINT `live_streams_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `live_streams_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `live_streams_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `live_streams_ibfk_3` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `monthly_sales`

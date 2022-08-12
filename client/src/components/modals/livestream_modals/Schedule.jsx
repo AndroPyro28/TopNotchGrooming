@@ -1,14 +1,14 @@
 import React from 'react'
 import {ScheduleData} from "./components"
 import Get_Date_N_Time from '../../../helpers/Get_Date_N_Time';
-function Schedule({data, setAppointmentId, appointmentId}) {
+function Schedule({data, setScheduleInfo, scheduleInfo}) {
   
-  const {profile_image_url, firstname, id, lastname, email} = data.customer;
-  const {date_n_time, id:selectedId} = data.appointment;
+  const {profile_image_url, firstname, id:customerId, lastname, email} = data.customer;
+  const {date_n_time, id:appointmentId} = data.appointment;
   const {newTime} = Get_Date_N_Time(date_n_time);
-  const isSelected = selectedId == appointmentId;
+  const isSelected = scheduleInfo?.appointmentId == appointmentId;
   return (
-    <ScheduleData onClick={() => setAppointmentId(selectedId)} selected = {isSelected}>
+    <ScheduleData onClick={() => setScheduleInfo(prev => ({appointmentId, customerId}))} selected = {isSelected}>
         <img src={profile_image_url} />
 
         <div className='info'>

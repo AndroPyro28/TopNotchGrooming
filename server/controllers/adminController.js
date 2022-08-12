@@ -5,8 +5,9 @@ const { assignToken } = require("../helpers/AuthTokenHandler");
 const Order = require("../models/Order");
 const generateId = require('../helpers/GenerateId');
 const { sendTextMessageByStatus } = require("../helpers/TextMessage");
-
+const {getDateToday} = require("../helpers/DateFormatter")
 const LiveStreams = require("../models/LiveStreams");
+const getTime = require("../helpers/getTime");
 
 module.exports.login = async (req, res) => {
   try {
@@ -190,8 +191,6 @@ module.exports.approveAppointment = async (req, res) => {
     const appointmentModel = new Appointment(appointment);
     const result = await appointmentModel.approveAppointment(id);
 
-    console.log(result)
-
   } catch (error) {
     console.error(error.message)
     return res.status(400).json({
@@ -218,7 +217,7 @@ module.exports.generateVerifiedLink = async (req, res) => {
       success: true
     })
   } catch (error) {
-    console.log(error.message)
+    console.log('hotdog', error.message)
     return res.status(400).json({
       success:false,
       msg:error.message
@@ -245,6 +244,50 @@ module.exports.getScheduleToday = async (req, res) => {
     return res.status(400).json({
       success:false,
       msg:error.message
+    })
+  }
+}
+
+module.exports.startStreaming = async (req, res) => {
+  try {
+    const {linkId, scheduleInfo} = req.body;
+    const {customerId, appointmentId} = scheduleInfo;
+    const startTime = getTime()
+    const streamDate = getDateToday()
+    if(!linkId || !scheduleInfo) {
+      throw new Error("Invalid id")
+    }
+    
+    const liveStreamModel = new LiveStreams({
+      customer_id:customerId,
+      admin_id: req.currentUser.id,
+      reference_id: linkId,
+      start_time: startTime,
+      date:streamDate,
+      appointment_id: appointmentId
+    });
+
+    const liveStreamQueryResult = await liveStreamModel.insertOne();
+    const liveStreamId = liveStreamQueryResult.insertId;
+    
+    const appointmentModel = new Appointment({
+      live_stream_id: liveStreamId,
+      status:'onGoing',
+      admin_id: req.currentUser.id,
+    });
+
+    const appointmentQueryResult = appointmentModel.addLiveStreamId(appointmentId);
+
+    return res.status(200).json(
+      {
+        success:true
+      }
+    )
+  } catch (error) {
+    console.log(error.message);
+    return res.status(400).json({
+      msg:error.message,
+      success:false
     })
   }
 }

@@ -30,7 +30,6 @@ class SocketControllers {
     }
 
     getAllRooms = (callback) => {
-        console.log('getAllRooms')
         let allRooms = [];
         const rooms = this.#io.sockets.adapter.rooms
         for (const room of rooms) {
@@ -42,6 +41,10 @@ class SocketControllers {
             }
           }
          callback(allRooms);
+        }
+
+        liveStreamInterupted = ({currentRoom, socketId}) => {
+            console.log('currentRoom', currentRoom, socketId); // tobe continue
         }
 }
 

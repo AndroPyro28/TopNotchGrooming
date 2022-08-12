@@ -14,14 +14,15 @@ import Loader from "../../loader/Loader";
 import GetDateToday from "../../../helpers/DateToday";
 import Logic from "./Logic";
 import { useNavigate } from "react-router-dom";
+import {toast, ToastContainer} from "react-toastify";
 
 function LiveStreamModal({ setToggleModal }) {
   const [linkId, setLinkId] = useState("");
   const [loading, setLoading] = useState(true);
   const [scheduleList, setScheduleList] = useState([]);
-  const [appointmentId, setAppointmentId] = useState(null);
+  const [scheduleInfo, setScheduleInfo] = useState(null);
   const navigate = useNavigate()
-
+  
   useEffect(() => {
     (async () => {
       try {
@@ -73,12 +74,13 @@ function LiveStreamModal({ setToggleModal }) {
     })();
   }, []);
 
-  const { startStream } = Logic({linkId});
+  const { startStream } = Logic({linkId, scheduleInfo, toast});
 
   if (loading) return <Loader bg={`rgba(0, 0, 0, 0.548)`} />;
 
   return (
     <BackdropModal>
+      <ToastContainer autoClose={2000} />
       <LiveStreamModalContainer>
         <h1>Start live stream</h1>
 
@@ -94,8 +96,8 @@ function LiveStreamModal({ setToggleModal }) {
               <Schedule
                 key={schedule.appointment.id}
                 data={schedule}
-                appointmentId={appointmentId}
-                setAppointmentId={setAppointmentId}
+                scheduleInfo={scheduleInfo}
+                setScheduleInfo={setScheduleInfo}
               />
             ))
           )}

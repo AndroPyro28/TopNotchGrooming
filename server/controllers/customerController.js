@@ -321,15 +321,11 @@ module.exports.addAppointment = async (req, res) => {
       breed,
       gender,
       appointmentType,
-      liveStreamType = "",
       dateNtime,
       additional_details,
       image
     } = req.body;
 
-    if (appointmentType != "grooming") {
-      liveStreamType = null;
-    }
 
     const cloudinaryResponse = await uploadOne(image);
     image = cloudinaryResponse.url;
@@ -342,8 +338,6 @@ module.exports.addAppointment = async (req, res) => {
       appointment_type: appointmentType,
       date_n_time: dateNtime,
       additional_details: additional_details,
-      live_stream_type:
-      typeof liveStreamType != undefined ? liveStreamType : null,
       customer_id: req.currentUser.id,
       image
     });

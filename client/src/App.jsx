@@ -99,7 +99,8 @@ function App() {
         } catch (error) {
           console.error(error);
         } finally {
-          setLoading(false);
+      setLoading(false);
+
         }
       })();
     });
@@ -116,6 +117,7 @@ function App() {
 
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
+
   return (
     <AppRoot>
 

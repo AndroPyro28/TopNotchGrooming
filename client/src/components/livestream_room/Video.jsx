@@ -18,92 +18,124 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
   const isAdmin = pathname?.includes("admin");
   const currentRoom = pathname.split("/room=")[1];
   const url = pathname.split("/room=")[0];
+  const [liveStreamFinished, setLiveStreamFinished] = useState(false)
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        if (videoRef.current) {
-          setStream(stream);
-          videoRef.current.srcObject = stream;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    try {
-      if (!socket.emit) {
-        return window.location.assign(url);
-      }
+    (async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
-      const headers = {
-        userinfo: Cookies.get("userToken"),
-      };
-
-      if (!window.localStorage.getItem("enter_stream")) {
-        return;
-      }
-      window.localStorage.removeItem("enter_stream");
-
-      // for observer joining
-      socket?.emit("joinRoom", {
-        room: currentRoom,
-        headers,
-        userId: currentUser?.id,
-      });
-
-      socket?.on("youJoined", ({ userId, room }) => {
-        if (!isAdmin && userId == currentUser?.id && room == currentRoom) {
-
-          const peer = new Peer({
-            initiator: true,
-            trickle: false,
-            // stream: stream,
-          });
-          peer.on("signal", (data) => {
-            console.log("obser peer and signal", peer, data);
-            socket?.emit("sendObserverSignalToAdmin", { data, userId, room });
-          });
-
-          peer.on("stream", (stream) => {
-            videoRef.current.srcObject = stream;
-            console.log("admin stream", stream);
-          });
-          socket.on("sendStreamToObserver", ({ data, userId, room }) => {
-            if(!isAdmin && userId == currentUser?.id && room == currentRoom) {
-              console.log('admin signal', data);
-              peer.signal(data);
+          if (stream) {
+            setStream(stream);
+            if(videoRef.current && isAdmin) {
+              videoRef.current.srcObject = stream;
             }
-          });
+          }
+
+      try {
+        if (!socket.emit) {
+          return window.location.assign(url);
         }
-      });
+  
+        const headers = {
+          userinfo: Cookies.get("userToken"),
+        };
 
-      // for admin
-      socket?.on("sendStreamToAdmin", ({ data, userId, room }) => {
-        if (isAdmin) {
-          const peer = new Peer({
-            initiator: false,
-            trickle: false,
-            stream: stream,
-          });
-          peer.on("signal", (data) => {
-            console.log("admin peer and signal", peer, data);
-
-            socket?.emit("sendAdminSignalToObserver", { data, userId, room });
-          });
-
-          peer.on("stream", (stream) => {
-            console.log("observer stream", stream);
-          });
-
-          console.log("observer signal", data);
-          peer?.signal(data);
+        if(!window.localStorage.getItem("enter_stream")) {
+          return;
         }
-      });
-    } catch (error) {
-      console.error("error on peer", error.message);
-    }
+        window.localStorage.removeItem("enter_stream");
+  
+        // for observer joining
+        socket?.emit("joinRoom", {
+          room: currentRoom,
+          headers,
+          userId: currentUser?.id,
+        });
+  
+        socket?.on("youJoined", ({ userId, room }) => {
+          if (!isAdmin && userId == currentUser?.id && room == currentRoom) {
+  
+            const peer = new Peer({
+              initiator: true,
+              trickle: false,
+              stream: stream,
+            });
+            peer.on("signal", (data) => {
+              console.log("obser peer and signal", peer, data);
+              socket?.emit("sendObserverSignalToAdmin", { data, userId, room });
+            });
+  
+            peer.on("stream", (stream) => {
+              videoRef.current.srcObject = stream;
+              console.log("admin stream", stream);
+            });
+            
+            socket.on("sendStreamToObserver", ({ data, userId, room }) => {
+              if(!isAdmin && userId == currentUser?.id && room == currentRoom) {
+                console.log('admin signal', data);
+                peer.signal(data);
+                peer.signal(data);
+              }
+            });
+          }
+        });
+  
+        // for admin
+        socket?.on("sendStreamToAdmin", ({ data, userId, room }) => {
+          if (isAdmin) {
+            const peer = new Peer({
+              initiator: false,
+              trickle: false,
+              stream: stream,
+            });
+            peer.on("signal", (data) => {
+              console.log("admin peer and signal", peer, data);
+  
+              socket?.emit("sendAdminSignalToObserver", { data, userId, room });
+            });
+  
+            peer.on("stream", (stream) => {
+              console.log("observer stream", stream);
+            });
+  
+            console.log("observer signal", data);
+            peer.signal(data);
+          }
+        });
+
+        socket?.on('allLiveStreamShouldBeSaved', (socketId) => {
+            socket?.emit('liveStreamInterupted', {currentRoom, socketId}); // to be continue
+        })
+
+      } catch (error) {
+        console.error("error on peer", error.message);
+      } finally {
+        
+      }
+    })()
+
+    // return () => {
+    //   if(!window.localStorage.getItem('enter_stream')) {
+    //     socket.emit('liveStreamInterupted', currentRoom);
+    //   }
+    // }
   }, []);
+
+
+
+
+
+//  window.addEventListener('beforeunload', (e) => {
+//   e.returnValue = '';
+// });
+
+//   window.addEventListener('unload', (e) => {
+//     console.log(e)
+//     alert('hotdog')
+//   socket.emit('liveStreamInterupted', currentRoom);
+
+//   })
+
 
   const { configureScreen, displayBoard } = Logic({
     isFullScreen,

@@ -10,24 +10,39 @@ class Appointment {
   #additional_details;
   #gender;
   #date_n_time;
-  #live_stream_type;
-  #archived = false;
   #status;
   #customer_id;
+  #live_stream_id;
   #image;
-  constructor(params) {
-    this.#pet_name = params.pet_name;
-    this.#pet_type = params.pet_type;
-    this.#pet_breed = params.pet_breed;
-    this.#birthdate = params.birthdate;
-    this.#gender = params.gender;
-    this.#appointment_type = params.appointment_type;
-    this.#additional_details = params.additional_details;
-    this.#date_n_time = params.date_n_time;
-    this.#live_stream_type = params.live_stream_type;
-    this.#customer_id = params.customer_id;
-    this.#status = params.status;
-    this.#image = params.image;
+  #admin_id;
+  constructor({
+    pet_name = "",
+    pet_type = "",
+    pet_breed = "",
+    birthdate = "",
+    gender = "",
+    appointment_type = "",
+    additional_details = "",
+    date_n_time = "",
+    customer_id = "",
+    status = "",
+    image = "",
+    live_stream_id = "",
+    admin_id = "",
+  }) {
+    this.#pet_name = pet_name;
+    this.#pet_type = pet_type;
+    this.#pet_breed = pet_breed;
+    this.#birthdate = birthdate;
+    this.#gender = gender;
+    this.#appointment_type = appointment_type;
+    this.#additional_details = additional_details;
+    this.#date_n_time = date_n_time;
+    this.#customer_id = customer_id;
+    this.#status = status;
+    this.#image = image;
+    this.#live_stream_id = live_stream_id;
+    this.#admin_id = admin_id;
   }
 
   getSchedule = async (filter) => {
@@ -62,11 +77,10 @@ class Appointment {
         additional_details,
         gender,
         date_n_time, 
-        live_stream_type, 
         customer_id, 
         pet_image)
         VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `;
       const [result, _] = await poolConnection.execute(insertQuery, [
         this.#pet_name,
@@ -77,7 +91,6 @@ class Appointment {
         this.#additional_details,
         this.#gender,
         this.#date_n_time,
-        this.#live_stream_type,
         this.#customer_id,
         this.#image,
       ]);
@@ -103,7 +116,7 @@ class Appointment {
         'id', appointments.id, 'pet_name', appointments.pet_name, 'pet_type', appointments.pet_type,
         'pet_breed', appointments.pet_breed, 'birthdate', appointments.birthdate, 'gender', appointments.gender,
         'appointment_type', appointments.appointment_type, 'date_n_time', appointments.date_n_time, 
-        'live_stream_type', appointments.live_stream_type, 'status', appointments.status, 'additional_details', appointments.additional_details,
+        'status', appointments.status, 'additional_details', appointments.additional_details,
         'pet_image',  appointments.pet_image
       ) as appointment,
 
@@ -167,18 +180,34 @@ class Appointment {
 
       const [result, _] = await poolConnection.query(selectQuery, [
         `%${date}%`,
-        'approved'
+        "approved",
       ]);
 
-      const formattedData = result?.map(data => {
+      const formattedData = result?.map((data) => {
         data.customer = DataJsonParser(data.customer);
         data.appointment = DataJsonParser(data.appointment);
         return data;
-      })
+      });
 
       return formattedData;
     } catch (error) {
       console.error(error.message);
+    }
+  };
+
+  addLiveStreamId = async (id) => {
+    try {
+      const updateQuery = `UPDATE appointments SET live_stream_id = ?, status = ?, admin_id = ? WHERE id = ?`;
+      const [result, _] = await poolConnection.execute(updateQuery, [
+        this.#live_stream_id,
+        this.#status,
+        this.#admin_id,
+        id,
+      ]);
+
+      return result;
+    } catch (error) {
+      console.log(error.message);
     }
   };
 }

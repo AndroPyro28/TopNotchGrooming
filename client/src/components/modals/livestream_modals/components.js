@@ -24,6 +24,7 @@ export const LiveStreamModalContainer = styled.div`
   width: 45%;
   border-radius: 10px;
   overflow: auto;
+  
   & > h1 {
     text-align: start;
     font-size: 1.5em;

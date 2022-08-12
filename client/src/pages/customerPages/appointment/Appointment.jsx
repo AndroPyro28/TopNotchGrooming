@@ -147,18 +147,6 @@ function Appointment() {
                   control="dateTimeLocal"
                   className="input__container"
                 />
-
-                {appointmentType?.length > 0 &&
-                  appointmentType == "grooming" && (
-                    <FormikControl
-                      name="liveStreamType"
-                      label="Live stream publicity"
-                      control="select"
-                      options={liveStreamOptions}
-                      className="input__container"
-                      validate={() => validateLiveStream(liveStreamType)}
-                    />
-                  )}
               </FormInputsContainer>
 
               <FormInputsContainer>
