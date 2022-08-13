@@ -18,7 +18,9 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
   const isAdmin = pathname?.includes("admin");
   const currentRoom = pathname.split("/room=")[1];
   const url = pathname.split("/room=")[0];
-  const [liveStreamFinished, setLiveStreamFinished] = useState(false)
+  const [disabledButton, setDisbaledButton] = useState(false);
+  let parts = []
+  let mediaRecorder;
 
   useEffect(() => {
     (async () => {
@@ -28,6 +30,14 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
             setStream(stream);
             if(videoRef.current && isAdmin) {
               videoRef.current.srcObject = stream;
+              mediaRecorder = new MediaRecorder(stream);
+
+              mediaRecorder.start();
+        
+              mediaRecorder.ondataavailable = (e) => {
+              parts.push(e.data);
+              console.log(e.data)
+            }
             }
           }
 
@@ -89,7 +99,6 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
               stream: stream,
             });
             peer.on("signal", (data) => {
-              console.log("admin peer and signal", peer, data);
   
               socket?.emit("sendAdminSignalToObserver", { data, userId, room });
             });
@@ -103,44 +112,24 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
           }
         });
 
-        socket?.on('allLiveStreamShouldBeSaved', (socketId) => {
-            socket?.emit('liveStreamInterupted', {currentRoom, socketId}); // to be continue
-        })
-
       } catch (error) {
         console.error("error on peer", error.message);
       } finally {
         
       }
     })()
-
-    // return () => {
-    //   if(!window.localStorage.getItem('enter_stream')) {
-    //     socket.emit('liveStreamInterupted', currentRoom);
-    //   }
-    // }
   }, []);
 
 
-
-
-
-//  window.addEventListener('beforeunload', (e) => {
-//   e.returnValue = '';
-// });
-
-//   window.addEventListener('unload', (e) => {
-//     console.log(e)
-//     alert('hotdog')
-//   socket.emit('liveStreamInterupted', currentRoom);
-
-//   })
-
-
-  const { configureScreen, displayBoard } = Logic({
+  const { configureScreen, displayBoard, leaveLiveStream } = Logic({
     isFullScreen,
     setIsFullScreen,
     setDisplayBoard,
+    currentRoom,
+    isAdmin,
+    setDisbaledButton,
+    parts,
+    mediaRecorder
   });
 
   return (
@@ -163,9 +152,11 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
         )}
 
         {/* <i class="fa-solid fa-camera-rotate rotateCamera"></i> */}
+
         <i
           className="fa-solid fa-right-from-bracket leave"
-          onClick={() => window.location.assign(url)}
+          onClick={leaveLiveStream}
+          disabled={disabledButton}
         ></i>
 
         {isFullScreen ? (

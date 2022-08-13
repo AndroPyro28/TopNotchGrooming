@@ -25,7 +25,7 @@ function OtherLiveStreamComponent() {
     <OtherLiveStreamsWrapper>
       <h3>
         {" "}
-        <i class="fa-solid fa-video"></i> Other Streams
+        <i class="fa-solid fa-video"></i> Live Streams
       </h3>
 
       <OtherLiveStreamsContainer>

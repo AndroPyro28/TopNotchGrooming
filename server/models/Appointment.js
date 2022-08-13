@@ -210,6 +210,10 @@ class Appointment {
       console.log(error.message);
     }
   };
+
+  appointmentCompleted = () => {
+    
+  }
 }
 
 module.exports = Appointment;

@@ -31,8 +31,6 @@ function Channels() {
 
       <GlobalStyles />
 
-      <MyLiveStream />
-
       <OtherLiveStream />
     </ChannelsContainer>
   );

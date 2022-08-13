@@ -42,6 +42,10 @@ export const Options = styled.div`
     &:hover {
       background: maroon;
     }
+
+    &:disabled {
+      background: green !important;
+    }
   }
 
   & > :is(.fullscreen, .minimizescreen, .rotateCamera, .displayBoard) {

@@ -91,10 +91,12 @@ function App() {
           if (success) {
             const { currentUser } = res.data;
             dispatch(authenticationSuccess({ currentUser, isAuth: true }));
-            const headers = {
+
+            const auth = {
               userinfo: Cookies.get("userToken"),
             };
-            dispatch(connection(io("http://localhost:3001", headers)));
+
+            dispatch(connection(io("http://localhost:3001", {auth})));
           }
         } catch (error) {
           console.error(error);

@@ -14,5 +14,6 @@ router.patch('/approveAppointment/:id', verifyUser, adminController.approveAppoi
 router.get('/generateVerifiedLink/', verifyUser, adminController.generateVerifiedLink)
 router.get('/getScheduleToday/:date', verifyUser, adminController.getScheduleToday)
 router.post('/startStreaming', verifyUser, adminController.startStreaming)
+router.patch('/appointmentCompleted/:link', verifyUser, adminController.appointmentCompleted)
 
 module.exports = router;
