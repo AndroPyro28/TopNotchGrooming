@@ -3,11 +3,11 @@ import { useState } from "react";
 import Comments from "./Comments";
 import { BoardContainer, BoardHeader } from "./components";
 
-function Board() {
+function Board(displayBoard) {
   const [displayInfo, setDisplayInfo] = useState("comments");
 
   return (
-    <BoardContainer>
+    <BoardContainer style={{display:displayBoard ? 'flex' : 'none'}}>
       <BoardHeader displayInfo={displayInfo}>
         <div className="comments" onClick={() => setDisplayInfo('comments')}>
           <i class="fa-solid fa-comments"></i>

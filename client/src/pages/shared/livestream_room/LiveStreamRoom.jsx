@@ -19,9 +19,8 @@ function preventBack() { window.history.forward(); }
     <LiveStreamRoomContainer id="liveStreamRoomContainer" displayBoard={displayBoard}>
         
       <Video setDisplayBoard={setDisplayBoard} displayBoard={displayBoard} />
-        {
-          displayBoard && <Board />
-        }
+        
+         <Board displayBoard={displayBoard} />
       
     </LiveStreamRoomContainer>
   )

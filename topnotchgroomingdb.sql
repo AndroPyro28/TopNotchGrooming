@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2022 at 12:46 PM
+-- Generation Time: Aug 14, 2022 at 11:22 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -29,9 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
+  `user_type` varchar(20) NOT NULL DEFAULT 'admin',
   `firstname` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
+  `profile_image_url` varchar(500) NOT NULL DEFAULT 'https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png',
   `password` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,8 +41,8 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `firstname`, `lastname`, `email`, `password`) VALUES
-(1, 'admin', 'topnotch', 'topnotchgrooming@gmail.com', '123123');
+INSERT INTO `admin` (`id`, `user_type`, `firstname`, `lastname`, `email`, `profile_image_url`, `password`) VALUES
+(1, 'admin', 'admin', 'topnotch', 'topnotchgrooming@gmail.com', 'https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png', '123123');
 
 -- --------------------------------------------------------
 
@@ -59,7 +61,7 @@ CREATE TABLE `appointments` (
   `appointment_type` varchar(50) DEFAULT NULL,
   `additional_details` varchar(500) DEFAULT NULL,
   `date_n_time` datetime(3) NOT NULL,
-  `admin_id` int(11) DEFAULT 0,
+  `admin_id` int(11) DEFAULT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
   `customer_id` int(11) DEFAULT NULL,
   `live_stream_id` int(11) DEFAULT NULL
@@ -70,8 +72,9 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdate`, `gender`, `pet_image`, `appointment_type`, `additional_details`, `date_n_time`, `admin_id`, `status`, `customer_id`, `live_stream_id`) VALUES
-(46, 'Pinti', 'dog', 'Hotdog', '2022-07-12', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659603352/topnotch_petIImages/m4bu1riq7prewwh0gwfy.jpg', 'grooming', 'Paki trim at pakilinisang mabuti', '2022-08-12 00:00:00.000', 1, 'onGoing', 7, NULL),
-(53, 'Pondo', 'dog', 'aspinoy', '2022-08-02', 'male', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660293793/topnotch_petIImages/gl3ksth0io0gziyqko2w.png', 'walk-in-consulting', 'hotodg', '2022-08-12 17:00:00.000', 1, 'onGoing', 7, NULL);
+(56, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-14 17:00:00.000', 1, 'approved', 7, NULL),
+(57, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-14 10:00:00.000', 1, 'approved', 7, NULL),
+(58, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-16 07:00:00.000', 1, 'pending', 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -296,7 +299,8 @@ ALTER TABLE `live_streams`
   ADD PRIMARY KEY (`id`),
   ADD KEY `customer_id` (`customer_id`),
   ADD KEY `admin_id` (`admin_id`),
-  ADD KEY `live_stream_id` (`id`);
+  ADD KEY `live_stream_id` (`id`),
+  ADD KEY `live_streams_ibfk_3` (`appointment_id`);
 
 --
 -- Indexes for table `monthly_sales`
@@ -348,7 +352,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `appointment_history`
@@ -366,7 +370,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `live_streams`
 --
 ALTER TABLE `live_streams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `monthly_sales`

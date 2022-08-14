@@ -8,6 +8,7 @@ function Room({data}) {
   const navigate = useNavigate();
   const redirect = () => {
     window.localStorage.setItem('enter_stream', true)
+    window.localStorage.setItem("render_once", true)
     navigate(`${pathname}/room=${data.roomLink}`)
   }
   return (

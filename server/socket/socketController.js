@@ -27,6 +27,8 @@ class SocketControllers {
             room,
             userId
         });
+
+        this.#io.to(room).emit('someOneJoined', {user: this.#currentUser});
     }
 
     sendAdminSignalToObserver = ({data, userId, room}) => {
@@ -41,8 +43,8 @@ class SocketControllers {
          callback(this.returnAllRooms());
     }
 
-    liveStreamInterupted = ({currentRoom, socketId}) => {
-        console.log('currentRoom', currentRoom, socketId); // tobe continue
+    sendMessage = ({user,room,message}) => {
+        this.#io.to(room).emit('sendMessageToRoom', {user,room,message})
     }
 
     returnAllRooms = () => {
@@ -60,7 +62,7 @@ class SocketControllers {
     }
     
 
-        disconnect = async () => {
+    disconnect = async () => {
             try {
                 if (this.#currentUser?.user_type == 'admin' && myRoomLink != "") {
                     const updateQuery = `UPDATE appointments a
@@ -73,7 +75,7 @@ class SocketControllers {
             } catch (error) {
                 console.error(error.message)
             }
-        }
+    }
 }
 
 module.exports = SocketControllers;

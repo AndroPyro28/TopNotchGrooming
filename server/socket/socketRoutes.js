@@ -28,7 +28,8 @@ const socketRoutes = (io) => {
       controller.sendObserverSignalToAdmin
     );
     socket.on("getAllRooms", controller.getAllRooms);
-    socket.on("liveStreamInterupted", controller.liveStreamInterupted); // to be continue
+    
+    socket.on('sendMessage', controller.sendMessage)
 
     socket.on("disconnect", controller.disconnect);
   });

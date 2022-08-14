@@ -36,7 +36,6 @@ export const Options = styled.div`
     }
   }
   & > .leave {
-    /* transform: rotateZ(180deg); */
     color: white;
     background: red;
     &:hover {
@@ -91,14 +90,23 @@ export const CommentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 85%;
+  position: relative;
 `;
 
 export const CommentsList = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 91vh;
   overflow-y: auto;
   overflow-x: hidden;
+
+  & > label {
+    margin: 20px;
+    font-size: 0.9em;
+    color: gray;
+    font-weight: 500;
+    font-style: italic;
+  }
 `;
 
 export const CommentDataContainer = styled.div`
@@ -109,9 +117,10 @@ export const CommentDataContainer = styled.div`
   padding: 15px;
 
   & > img {
-    width: 100%;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   & > .commentData {
@@ -159,3 +168,7 @@ export const MessageBoxContainer = styled.div`
     }
   }
 `;
+
+export const NotificationContainer = styled.label`
+ 
+`

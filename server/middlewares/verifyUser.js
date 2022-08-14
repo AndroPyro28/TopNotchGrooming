@@ -6,6 +6,10 @@ module.exports.verifyUser = async (req, res, next) => {
         const {userinfo} = req.headers;
         const {userToken, userType} = JSON.parse(userinfo); 
         const decodedToken = verifyToken(userToken);
+
+        if(decodedToken.usertype != userType) {
+            throw new Error('invalid token');
+        }
         
         const selectQuery = `SELECT * FROM ${userType} WHERE id = ?;`;
 

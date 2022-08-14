@@ -3,7 +3,6 @@ const cloudinary = require("../config/cloudinary");
 
 module.exports.uploadOne = async (videoUrl) => {
   try {
-    console.log('video url', videoUrl)
     const cloudinaryUpload = await cloudinary.uploader.upload(
       videoUrl,
       {
@@ -15,7 +14,6 @@ module.exports.uploadOne = async (videoUrl) => {
   } catch (error) {
     console.error('upload record', error.message)
   }
-    
 }
 
 

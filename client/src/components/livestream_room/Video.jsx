@@ -19,7 +19,7 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
   const currentRoom = pathname.split("/room=")[1];
   const url = pathname.split("/room=")[0];
   const [disabledButton, setDisbaledButton] = useState(false);
-  let parts = []
+  const [parts, setParts] = useState([])
   let mediaRecorder;
 
   useEffect(() => {
@@ -32,11 +32,11 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
               videoRef.current.srcObject = stream;
               mediaRecorder = new MediaRecorder(stream);
 
-              mediaRecorder.start();
+              mediaRecorder.start(1000);
         
               mediaRecorder.ondataavailable = (e) => {
               parts.push(e.data);
-              console.log(e.data)
+              setParts(prev => [...prev, e.data])
             }
             }
           }

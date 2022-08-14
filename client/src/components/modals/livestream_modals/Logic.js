@@ -27,6 +27,7 @@ function Logic({ linkId, scheduleInfo, toast}) {
 
       console.log(res.data);
       window.localStorage.setItem("enter_stream", true);
+      window.localStorage.setItem("render_once", true)
       navigate(`/admin/liveStreamChannels/room=${linkId}`);
 
     } catch (error) {

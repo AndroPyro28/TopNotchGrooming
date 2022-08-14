@@ -23,11 +23,9 @@ function OtherLiveStreamComponent() {
 
   return (
     <OtherLiveStreamsWrapper>
-      <h3>
-        {" "}
-        <i class="fa-solid fa-video"></i> Live Streams
-      </h3>
-
+      {
+        rooms.length > 0 && <h3><i class="fa-solid fa-video"></i> Live Streams </h3>
+      }
       <OtherLiveStreamsContainer>
 
       {

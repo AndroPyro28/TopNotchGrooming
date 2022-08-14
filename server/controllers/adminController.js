@@ -10,6 +10,7 @@ const LiveStreams = require("../models/LiveStreams");
 const getTime = require("../helpers/getTime");
 const MultipleTable = require("../models/MultipleTable");
 const {uploadOne} = require('../helpers/CloudinaryLiveStream')
+
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -41,7 +42,7 @@ module.exports.login = async (req, res) => {
         success: false,
       });
     }
-    const token = assignToken(adminUser.id);
+    const token = assignToken(adminUser.id, 'admin');
 
     return res.status(200).json({
       token,
@@ -298,8 +299,9 @@ module.exports.appointmentCompleted = async (req, res) => {
     const {link:reference_id, } = req.params
     const {video_url} = req.body;
     const cloudinaryResult = await uploadOne(video_url);
+    
     const multipleTable = new MultipleTable();
-    const multipleQueryResult = await multipleTable.liveStreamCompleted({reference_id})
+    const multipleQueryResult = await multipleTable.liveStreamCompleted({reference_id, video_url: cloudinaryResult.url})
 
     if(multipleQueryResult?.affectedRows <= 0) {
       throw new Error('something went wrong...')

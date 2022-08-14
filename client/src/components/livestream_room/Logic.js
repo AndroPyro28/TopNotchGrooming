@@ -32,20 +32,6 @@ function Logic({
 
   const data = () => {
     try {
-      const blob = new Blob(parts, { // parts are from mediaRecorder
-        type:"video/webm"
-      });
-
-      const url = URL.createObjectURL(blob); //converting it to url
-
-      const reader = new FileReader(); // converting it to dataUrl 
-                                        //like data:video-base64-231-231asdasd203193asdasdasd9419239
-      reader.readAsDataURL(url);
-
-      reader.onloadend = () => {
-        return reader.result;
-      }
-
     } catch (error) {
       console.error("data", error.message);
     }
@@ -54,27 +40,35 @@ function Logic({
   const leaveLiveStream = async () => {
     try {
       if (isAdmin) {
-        setDisbaledButton(true);
-        // mediaRecorder?.stop()
-        const url = data();
-        console.log(url)
-        const res = await axios.patch(
-          `/api/admin/appointmentCompleted/${currentRoom}`,
-          { video_url: url },
-          {
-            headers: {
-              userinfo: Cookies.get("userToken"),
-            },
-          }
-        );
+        mediaRecorder?.stop();
+        const blob = new Blob(parts, {
+          // parts are from mediaRecorder
+          type: "video/webm",
+        });
+        const reader = new window.FileReader(); // converting it to dataUrl
 
-        const { success, msg } = res.data;
-        if (!success && msg?.includes("session expired")) {
-          return window.location.assign("/");
-        }
-        // window.location.assign("/admin");
+        reader.readAsDataURL(blob);
+
+        reader.onloadend = async () => {
+          setDisbaledButton(true);
+          const res = await axios.patch(
+            `/api/admin/appointmentCompleted/${currentRoom}`,
+            { video_url: reader.result },
+            {
+              headers: {
+                userinfo: Cookies.get("userToken"),
+              },
+            }
+          );
+
+          const { success, msg } = res.data;
+          if (!success && msg?.includes("session expired")) {
+            return window.location.assign("/");
+          }
+          window.location.assign("/admin");
+        };
       }
-      // window.location.assign("/customer");
+      window.location.assign("/customer");
     } catch (error) {
       console.error(error.message);
     }

@@ -9,7 +9,8 @@ class MultipleTable {
         try {
             const end_time = getTime() // video url later
             const updateQuery = `
-            UPDATE live_streams SET end_time = ? WHERE reference_id = ?; 
+            UPDATE live_streams SET end_time = ?, video_url = ? WHERE reference_id = ?; 
+
             UPDATE appointments a
             INNER JOIN live_streams ls
             ON a.live_stream_id = ls.id
@@ -19,7 +20,7 @@ class MultipleTable {
 
             const [result, _] = await poolConnection.query(updateQuery, 
                 [
-                end_time, reference_id, // first query
+                end_time, video_url, reference_id, // first query
                 'completed', reference_id
             ]);
 

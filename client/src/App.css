@@ -55,5 +55,5 @@
 }
 
 .tester {
-  background: rgb(1, 37, 73);
+  background: linear-gradient(to right, rgb(130, 168, 211) ,rgb(102, 230, 119));
 }

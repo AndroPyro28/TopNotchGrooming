@@ -65,7 +65,7 @@ module.exports.login = async (req, res) => {
         success: false,
       });
     }
-    const assignedToken = assignToken(User.id);
+    const assignedToken = assignToken(User.id, 'customer');
 
     return res.status(200).json({
       assignedToken,
