@@ -40,8 +40,8 @@ export const LiveStreamModalContainer = styled.div`
 export const ScheduleList = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 350px;
-  max-height: 350px;
+  min-height: 280px;
+  max-height: 280px;
   overflow: hidden;
 `;
 
@@ -115,7 +115,7 @@ export const ScheduleData = styled.div`
 `;
 
 export const PaginationContainer = styled.div`
-  margin: 10px;
+  margin: 30px;
 
   & > i {
     padding: 10px 15px;

@@ -114,6 +114,10 @@ export const OtherLiveStreamsWrapper = styled.div`
     text-align: center;
     
   }
+
+  & h1 {
+    margin-top: 90px;
+  }
 `;
 export const OtherLiveStreamsContainer = styled.div`
   display: grid;
@@ -132,6 +136,15 @@ export const OtherLiveStream = styled.div`
   position: relative;
   transition: all 0.3s ease-in-out;
 
+  @keyframes animateTag {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   &:hover {
     background: rgb(92, 69, 1);
   }
@@ -148,6 +161,7 @@ export const OtherLiveStream = styled.div`
     left: 10px;
     background: red;
     color: white;
+    animation: animateTag 1000ms infinite ease-in-out alternate;
   }
 
   & > .liveStream__viewers {
@@ -158,7 +172,9 @@ export const OtherLiveStream = styled.div`
 
   & > .other__liveStream__video {
     width: 100%;
+    max-height:250px;
     border-radius: 10px;
+    object-fit: cover;
   }
 `;
 export const OtherLiveStreamInfo = styled.div`
@@ -166,7 +182,10 @@ export const OtherLiveStreamInfo = styled.div`
 
   & > .ownerProfile {
     width: 50px;
+    height: 50px;
     border-radius: 50%;
+    object-fit: cover;
+
     float: left;
   }
 `;

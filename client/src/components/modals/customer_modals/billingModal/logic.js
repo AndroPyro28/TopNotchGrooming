@@ -73,6 +73,11 @@ function logic({
     return toast('Choose a courrier below!', {type:'warning'});
   };
 
+  // const validatePhone = (phone) => {
+  //   const phoneNo = phone.toString()
+  //   return !phoneNo.startsWith('63') ? "Phone number must start with 63xxxxxxxxxx" : null
+  // }
+
   const validateContact = (value) => {
     const phone = value + "";
 
@@ -80,11 +85,11 @@ function logic({
       return "Phone must be valid ph number";
     }
 
-    if (phone.startsWith("63") || phone.startsWith("09")) {
+    if (phone.startsWith("63")) {
       return null;
     }
 
-    return "Phone must be valid ph number";
+    return "Contact must start with 63xxxxxxxxxx";
   };
 
   const validateZipCode = (value) => {

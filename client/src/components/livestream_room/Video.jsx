@@ -19,52 +19,55 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
   const currentRoom = pathname.split("/room=")[1];
   const url = pathname.split("/room=")[0];
   const [disabledButton, setDisbaledButton] = useState(false);
-  const [parts, setParts] = useState([])
+  const [parts, setParts] = useState([]);
   let mediaRecorder;
 
   useEffect(() => {
     (async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
-          if (stream) {
-            setStream(stream);
-            if(videoRef.current && isAdmin) {
-              videoRef.current.srcObject = stream;
-              mediaRecorder = new MediaRecorder(stream);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
 
-              mediaRecorder.start(1000);
-        
-              mediaRecorder.ondataavailable = (e) => {
-              parts.push(e.data);
-              setParts(prev => [...prev, e.data])
-            }
-            }
-          }
+      if (stream) {
+        setStream(stream);
+        if (videoRef.current && isAdmin) {
+          videoRef.current.srcObject = stream;
+          mediaRecorder = new MediaRecorder(stream);
+
+          mediaRecorder.start(1000);
+
+          mediaRecorder.ondataavailable = (e) => {
+            parts.push(e.data);
+            setParts((prev) => [...prev, e.data]);
+          };
+        }
+      }
 
       try {
         if (!socket.emit) {
           return window.location.assign(url);
         }
-  
+
         const headers = {
           userinfo: Cookies.get("userToken"),
         };
 
-        if(!window.localStorage.getItem("enter_stream")) {
+        if (!window.localStorage.getItem("enter_stream")) {
           return;
         }
         window.localStorage.removeItem("enter_stream");
-  
+
         // for observer joining
         socket?.emit("joinRoom", {
           room: currentRoom,
           headers,
           userId: currentUser?.id,
         });
-  
+
         socket?.on("youJoined", ({ userId, room }) => {
           if (!isAdmin && userId == currentUser?.id && room == currentRoom) {
-  
             const peer = new Peer({
               initiator: true,
               trickle: false,
@@ -74,22 +77,26 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
               console.log("obser peer and signal", peer, data);
               socket?.emit("sendObserverSignalToAdmin", { data, userId, room });
             });
-  
+
             peer.on("stream", (stream) => {
               videoRef.current.srcObject = stream;
               console.log("admin stream", stream);
             });
-            
+
             socket.on("sendStreamToObserver", ({ data, userId, room }) => {
-              if(!isAdmin && userId == currentUser?.id && room == currentRoom) {
-                console.log('admin signal', data);
+              if (
+                !isAdmin &&
+                userId == currentUser?.id &&
+                room == currentRoom
+              ) {
+                console.log("admin signal", data);
                 peer.signal(data);
                 peer.signal(data);
               }
             });
           }
         });
-  
+
         // for admin
         socket?.on("sendStreamToAdmin", ({ data, userId, room }) => {
           if (isAdmin) {
@@ -99,27 +106,23 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
               stream: stream,
             });
             peer.on("signal", (data) => {
-  
               socket?.emit("sendAdminSignalToObserver", { data, userId, room });
             });
-  
+
             peer.on("stream", (stream) => {
               console.log("observer stream", stream);
             });
-  
+
             console.log("observer signal", data);
             peer.signal(data);
           }
         });
-
       } catch (error) {
         console.error("error on peer", error.message);
       } finally {
-        
       }
-    })()
+    })();
   }, []);
-
 
   const { configureScreen, displayBoard, leaveLiveStream } = Logic({
     isFullScreen,
@@ -129,7 +132,9 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
     isAdmin,
     setDisbaledButton,
     parts,
-    mediaRecorder
+    mediaRecorder,
+    socket,
+    currentUser
   });
 
   return (

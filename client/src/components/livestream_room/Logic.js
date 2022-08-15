@@ -10,6 +10,8 @@ function Logic({
   setDisbaledButton,
   parts,
   mediaRecorder,
+  socket,
+  currentUser
 }) {
   const configureScreen = () => {
     const liveStreamRoomContainer = document.querySelector(
@@ -65,9 +67,11 @@ function Logic({
           if (!success && msg?.includes("session expired")) {
             return window.location.assign("/");
           }
+          socket.emit('leaveRoom', {currentUser, currentRoom})
           window.location.assign("/admin");
         };
       }
+      socket.emit('leaveRoom', {currentUser, currentRoom})
       window.location.assign("/customer");
     } catch (error) {
       console.error(error.message);

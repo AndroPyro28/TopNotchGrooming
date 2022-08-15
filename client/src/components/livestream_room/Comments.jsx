@@ -16,9 +16,12 @@ function Comments() {
     if (!window.localStorage.getItem("render_once")) {
       return;
     }
+    
+
     window.localStorage.removeItem("render_once");
     socket.on("sendMessageToRoom", ({ room, user, message }) => {
       setComments((prev) => [...prev, { user, content: "message", message }]);
+
     });
 
     socket.on("someOneJoined", ({ user }) => {
@@ -30,13 +33,31 @@ function Comments() {
           message: `${user?.firstname} ${user?.lastname} has joined the event`,
         },
       ]);
+
+    });
+
+    socket.on("someOneLeaved", ({ user }) => {
+      setComments((prev) => [
+        ...prev,
+        {
+          user,
+          content: "notification",
+          message: `${user?.firstname} ${user?.lastname} has left the event`,
+        },
+      ]);
+      
     });
   }, [socket]);
+
+  useEffect(() => {
+    const commentList = document.querySelector('.commentList');
+    commentList.scrollTop = commentList.scrollHeight;
+  }, [comments])
 
   return (
     <CommentsContainer>
 
-      <CommentsList>
+      <CommentsList className="commentList">
         {comments.length === 0 ? (
           <label>You just joined say hi👋!</label>
         ) : (

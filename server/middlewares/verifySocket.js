@@ -21,6 +21,6 @@ module.exports.verifySocket = async (headers) => {
 
     return result[0];
   } catch (error) {
-    console.error(error.message)
+    return null;
   }
 };

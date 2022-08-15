@@ -11,6 +11,7 @@ import FormikControl from "../../../formik/FormikControl";
 import useLogic from "./useLogic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Children } from "react";
 
 function Signup() {
   const { onSubmitSignup, initialValuesSignup, validationSchemaSignup } =
@@ -20,6 +21,11 @@ function Signup() {
     password !== confirmPassword
       ? "Password & confirm password do not match!"
       : null;
+
+      const validatePhone = (phone) => {
+        const phoneNo = phone.toString()
+        return !phoneNo.startsWith('63') ? "Phone number must start with 63xxxxxxxxxx" : null
+      }
 
   const [inputPageNo, setInputPageNo] = useState(0);
 
@@ -42,9 +48,9 @@ function Signup() {
             onSubmit={onSubmitSignup}
           >
             {(formik) => {
-              const { password, confirmPassword } = formik.values;
+              const { password, confirmPassword, phoneNo } = formik.values;
               const allValues = Object.values(formik.values);
-              console.log(formik);
+
               return (
                 <Form autoComplete="off" className="form__inputs">
                   <div className="form__content">
@@ -100,6 +106,8 @@ function Signup() {
                       )
                     }
 
+                    
+
                     {
                       //second input content
                       inputPageNo === 2 && (
@@ -111,13 +119,15 @@ function Signup() {
                             control="input"
                             className="input__container"
                           />
-
                           <FormikControl
                             name="phoneNo"
                             label="Phone Number"
                             type="number"
                             control="input"
                             className="input__container"
+                            validate={(e) =>
+                              validatePhone(phoneNo)
+                            }
                           />
                         </>
                       )

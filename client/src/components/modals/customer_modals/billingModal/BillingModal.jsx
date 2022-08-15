@@ -38,7 +38,8 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
     return <Loader bg="rgba(0,0,0,0.5)" />;
   }
 
-  console.log(agree);
+  
+
   return (
     <ModalBackdrop>
       <Formik
@@ -47,6 +48,9 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
         onSubmit={onSubmit}
       >
         {(formik) => {
+
+          const { contactNo } = formik.values;
+
           return (
             <Form className="billing__form" autoComplete="off">
               <h1>Billing</h1>

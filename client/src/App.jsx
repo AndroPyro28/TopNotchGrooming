@@ -71,6 +71,15 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
+    // const auth = {
+    //   userinfo: Cookies.get("userToken"),
+    //   isAuth: false
+    // };
+
+    // dispatch(connection(io("http://localhost:3001", {auth})));
+  }, [])
+
+  useEffect(() => {
     startTransition(() => {
       (async function () {
         try {
@@ -94,6 +103,7 @@ function App() {
 
             const auth = {
               userinfo: Cookies.get("userToken"),
+              isAuth: true
             };
 
             dispatch(connection(io("http://localhost:3001", {auth})));
