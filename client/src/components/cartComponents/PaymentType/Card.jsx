@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  CardInput,
-  CartInputContainer,
-  CheckoutDetailsContainer,
-  CheckOutDetails,
   CheckOutButton,
 } from "../../../pages/customerPages/cart/cartComponents";
-import axios from "axios";
-import Cookies from "js-cookie";
+
 import shopingCartLogic from "../logic/shopingCartLogic";
 import productPriceFormatter from "../../../helpers/ProductPriceFormatter";
 function MasterCard({ items, totalAmount, toast, setOpenBilling}) {
-
-  const { } = shopingCartLogic();
 
   const checkout = async () => {
     try {

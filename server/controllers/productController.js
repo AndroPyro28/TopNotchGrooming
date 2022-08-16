@@ -3,22 +3,22 @@ const { uploadOne, deleteOne } = require("../helpers/CloudinaryProduct");
 module.exports.addItem = async (req, res) => {
   try {
     if (
-      req.body?.productImg?.length > 0 &&
-      req.body?.productImg?.includes("image")
+      req.body.values?.productImg?.length > 0 &&
+      req.body.values?.productImg?.includes("image")
     ) {
-      const cloudinary = await uploadOne(req.body.productImg);
-      req.body.productImg = cloudinary.url;
-      req.body.productImgId = cloudinary.public_id;
+      const cloudinary = await uploadOne(req.body.values.productImg);
+      req.body.values.productImg = cloudinary.url;
+      req.body.values.productImgId = cloudinary.public_id;
     }
-    const product = new Product(req.body);
+    const product = new Product(req.body.values);
 
     const result = await product.insertProduct();
 
     if (result.insertId) {
-      req.body.id = result.insertId;
+      req.body.values.id = result.insertId;
       return res.status(200).json({
         msg: "Product added",
-        newProduct: req.body,
+        newProduct: req.body.values,
         success: true,
       });
     }
@@ -79,12 +79,12 @@ module.exports.deleteProduct = async (req, res) => {
 
 module.exports.updateItem = async (req, res) => {
   try {
-    const { imageDisplay } = req.body;
+    const { imageDisplay } = req.body.values;
     if (imageDisplay?.length > 0 && imageDisplay?.includes("image")) {
-      deleteOne(req.body.item.product_image_id);
+      deleteOne(req.body.values.item.product_image_id);
       const cloudinary = await uploadOne(imageDisplay);
-      req.body.item.product_image_url = cloudinary.url;
-      req.body.item.product_image_id = cloudinary.public_id;
+      req.body.values.item.product_image_url = cloudinary.url;
+      req.body.values.item.product_image_id = cloudinary.public_id;
     }
     const {
       id,
@@ -97,7 +97,7 @@ module.exports.updateItem = async (req, res) => {
       product_image_url,
       product_image_id,
       pet_type,
-    } = req.body.item;
+    } = req.body.values.item;
     const product = new Product({
       id: id,
       productName: product_name,
@@ -115,7 +115,7 @@ module.exports.updateItem = async (req, res) => {
 
     if (result.affectedRows > 0) {
       return res.status(200).json({
-        product: req.body.item,
+        product: req.body.values.item,
         msg: "Product updated",
         success: true,
       });
@@ -130,7 +130,7 @@ module.exports.updateItem = async (req, res) => {
 };
 
 module.exports.searchItems = async (req, res) => {
-  const { petCategory, ageLimit, itemCategory, itemName } = req.body;
+  const { petCategory, ageLimit, itemCategory, itemName } = req.body.values;
   try {
     const product = new Product({});
 

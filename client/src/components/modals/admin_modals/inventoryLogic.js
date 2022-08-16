@@ -2,21 +2,22 @@ import React from "react";
 import * as yup from "yup";
 import axios from "axios";
 import Cookies from "js-cookie";
+import CustomAxios from "../../../customer hooks/CustomAxios";
+
 function inventoryLogic({ toast, img, imgError, setOpenItem, setImgError, setProducts, setDisabled }) {
   const onSubmit = async (values) => {
-    if (imgError.length > 0 || img == null || img == undefined ||!img?.includes("image") ) 
-    {
+
+    if (imgError.length > 0 || img == null || img == undefined ||!img?.includes("image")) {
       return setImgError("Please set an image to this product");
     }
+
     values.productImg = img;
     setDisabled(true)
-    const res = await axios.post("/api/products/addItem", values, {
-      headers: {
-        userinfo: Cookies.get("userToken"),
-      },
-    });
 
-    const { msg, success, newProduct } = res.data;
+    const response = await CustomAxios({METHOD:"POST", uri:`/api/products/addItem`, values})
+    
+
+    const { msg, success, newProduct } = response;
 
     if(msg?.includes('session expired') && !success) {
       toast(msg, { type: "error" });

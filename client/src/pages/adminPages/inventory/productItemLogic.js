@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 function productItemLogic({
   setProducts,
   item,
@@ -12,13 +13,9 @@ function productItemLogic({
 }) {
   const deleteProduct = async (id) => {
     try {
-      const res = await axios.delete(`/api/products/deleteProduct/${id}`, {
-        headers: {
-          userinfo: Cookies.get("userToken"),
-        },
-      });
-
-      const { success, msg } = res.data;
+      const response = await CustomAxios({METHOD:"DELETE", uri:`/api/products/deleteProduct/${id}`});
+      
+      const { success, msg } = response;
 
       if (msg?.includes("session expired") && !success) {
         toast(msg, { type: "error" });
@@ -41,16 +38,9 @@ function productItemLogic({
   const updateProduct = async () => {
     try {
       setDisableUpdate(true);
-      const res = await axios.post(
-        `/api/products/updateItem`,
-        { item, imageDisplay },
-        {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        }
-      );
-      const { success, msg, product } = res.data;
+      const response = await CustomAxios({METHOD:"POST", uri:`/api/products/updateItem`, values:{ item, imageDisplay }})
+      
+      const { success, msg, product } = response;
 
       if (msg?.includes("session expired") && !success) {
         toast(msg, { type: "error" });

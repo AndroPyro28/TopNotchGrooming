@@ -1,14 +1,13 @@
-import React, { useEffect, useState, startTransition } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { CustomerRoute , CustomerGlobalStyles} from "./routeComponent";
+
 function CustomerRoutes({ Component }) {
+  
   const {pathname} = useLocation();
     const navigate = useNavigate();
     let userToken = Cookies.get("userToken");
-
-    const routeType = Component.props;
-
 
     if (!userToken) {
       return navigate("/", { replace: true });
@@ -18,12 +17,10 @@ function CustomerRoutes({ Component }) {
 
     if (userToken === undefined || userToken == null) {
       navigate("/", { replace: true });
-      // return window.location.assign('/')
     }
 
     if (userToken?.userType?.length <= 0 && userToken?.userToken?.length <= 0) {
       navigate("/", { replace: true });
-      // return window.location.assign('/')
     }
 
   return JSON.parse(Cookies.get("userToken"))?.userType === "customer" ? (

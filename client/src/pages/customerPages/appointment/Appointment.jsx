@@ -30,7 +30,6 @@ function Appointment() {
         };
       }
     } catch (error) {
-      // setImgError(error.message);
       console.error(error.message);
     }
   }, [image]);
@@ -42,7 +41,6 @@ function Appointment() {
     genderOptions,
     petTypeOptions,
     requestTypeOptions,
-    liveStreamOptions,
     dateTodayFormatter,
   } = AppointmentLogic({ toast, image, setImgError });
 
@@ -52,12 +50,6 @@ function Appointment() {
     birthdate.max = dateTodayFormatter();
     scheduledDate.min = `${dateTodayFormatter()}T00:00:00`;
   }, []);
-
-  const validateLiveStream = (liveStreamType) => {
-    return liveStreamType == undefined || liveStreamType?.length <= 0
-      ? "Live stream audience is required"
-      : null;
-  };
 
   return (
     <Formik

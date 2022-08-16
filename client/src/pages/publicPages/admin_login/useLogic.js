@@ -2,19 +2,17 @@ import * as yup from "yup";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function useLogic({ toast }) {
   //login configuration of formik
 
-  const navigate = useNavigate();
-
   const onSubmitLogin = async (values) => {
     try {
       const { email, password } = values;
+      const response = await CustomAxios({METHOD:"POST", uri:'/api/admin/login', values})
 
-      const res = await axios.post("/api/admin/login", values);
-
-      const { success, msg } = res.data;
+      const { success, msg } = response;
 
       if (!success) {
         return toast(msg, { type: "error" });
@@ -24,7 +22,7 @@ function useLogic({ toast }) {
         "userToken",
         JSON.stringify({
           userType: "admin",
-          userToken: res.data.token,
+          userToken: response.token,
         }),
         {
           expires: 1,

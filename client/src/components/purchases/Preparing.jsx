@@ -4,6 +4,7 @@ import React, { startTransition } from "react";
 import { useTransition } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import CustomAxios from "../../customer hooks/CustomAxios";
 import {
   OrderContainer,
   GlobalStyles
@@ -16,12 +17,8 @@ function Preparing() {
     setOrders([]);
     startTransition(async () => {
       try {
-        const res = await axios.get("/api/customer/orders/pending", {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        });
-        setOrders(res.data.orders);
+        const response = await CustomAxios({METHOD:"GET", uri:`/api/customer/orders/pending`})
+        setOrders(response.orders);
       } catch (error) {}
     });
   }, []);

@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../components/loader/Loader";
 import { authenticationSuccess } from "../../../redux/userSlice";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function Profile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -36,17 +37,10 @@ function Profile() {
     try {
       setAllowChanges(false);
       setLoading(true);
-      const res = await axios.post(
-        `/api/customer/updateInfo`,
-        { user, profileImg },
-        {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        }
-      );
-
-      const { success, msg, user: newUser } = res.data;
+      
+      const response = await CustomAxios({METHOD:"POST", uri:`/api/customer/updateInfo`, values:{ user, profileImg }})
+      
+      const { success, msg, user: newUser } = response;
 
       if (msg?.includes("session expired") && !success) {
         toast(msg, { type: "error" });

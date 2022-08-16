@@ -112,7 +112,6 @@ export const OtherLiveStreamsWrapper = styled.div`
     margin-top: 90px;
     margin-bottom: 50px;
     text-align: center;
-    
   }
 
   & h1 {
@@ -125,6 +124,24 @@ export const OtherLiveStreamsContainer = styled.div`
   grid-auto-rows: auto;
   grid-gap: 20px;
   padding: 20px;
+
+  @media (max-width: 950px) {
+    & {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 650px) {
+    & {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 400px) {
+    & {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 `;
 export const OtherLiveStream = styled.div`
   width: 100%;
@@ -172,7 +189,7 @@ export const OtherLiveStream = styled.div`
 
   & > .other__liveStream__video {
     width: 100%;
-    max-height:250px;
+    max-height: 250px;
     border-radius: 10px;
     object-fit: cover;
   }

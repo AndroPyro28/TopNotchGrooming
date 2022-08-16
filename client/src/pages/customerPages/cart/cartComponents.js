@@ -26,6 +26,20 @@ export const PaymentSectionWrapper = styled.section`
   flex-direction: column;
   padding: 20px 20px 10px 40px;
 
+
+  @media (max-width:1200px) {
+    width: 90%;
+  }
+
+  @media (max-width:1000px) {
+    width: 100%;
+  }
+
+  @media (max-width:430px) {
+    padding: 0px;
+  }
+
+
   & > h3 {
     color: rgb(133, 133, 133);
     margin: 3px;
@@ -41,6 +55,10 @@ export const PaymentSectionWrapper = styled.section`
       color: white;
       background: rgb(153, 153, 153);
     }
+
+    @media (max-width: 430px) {
+      margin: 50px;
+    }
   }
 `;
 
@@ -48,6 +66,11 @@ export const PaymentSectionContainer = styled.div`
   display: flex;
   height: 100%;
   justify-content: space-between;
+
+  @media (max-width:970px) {
+    flex-direction: column;
+  }
+
 `;
 export const ShoppingCartContainer = styled.div`
   display: flex;
@@ -59,6 +82,11 @@ export const ShoppingCartContainer = styled.div`
   & > h2 {
     margin: 5px;
     color: rgb(92, 92, 92);
+    
+    @media (max-width:600px) {
+      margin: 15px;
+      font-size: 1.2em;
+    }
   }
 `;
 
@@ -68,6 +96,13 @@ export const ShoppingCartDetails = styled.p`
   justify-content: space-between;
   font-weight: 500;
   color: gray;
+  overflow-x: hidden;
+
+  @media (max-width:600px) {
+    & > small {
+      font-size: 0.7em;
+    }
+  }
 `;
 
 export const ProductListContainer = styled.div`
@@ -116,7 +151,12 @@ export const ProductItemContainer = styled.figure`
 
   & > .product__image {
     width: 80px;
-    height: 100%;
+    height: 100%; 
+    object-fit: cover;
+
+    @media (max-width:600px) {
+      width: 50px;
+    }
   }
 
   & > .product__name {
@@ -128,15 +168,20 @@ export const ProductItemContainer = styled.figure`
     & > h5 {
       font-size: 1em;
       color: rgb(59, 59, 59);
+      @media (max-width:500px) {
+        font-size: 0.8em;
+      }
+
     }
 
     & > h6 {
       margin: 5px;
       font-size: 0.7em;
       color: gray;
-      /* white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; */
+
+      @media (max-width:500px) {
+        font-size: 0.6em;
+      }
     }
   }
 
@@ -144,6 +189,9 @@ export const ProductItemContainer = styled.figure`
     display: flex;
     flex: 1;
     align-items: center;
+
+
+
     & > button {
       height: fit-content;
       margin: 5px;
@@ -155,6 +203,9 @@ export const ProductItemContainer = styled.figure`
       cursor: pointer;
       font-weight: 900;
       background: none;
+      @media (max-width:500px) {
+        font-size: 0.8em;
+      }
 
       &:hover {
         background: white;
@@ -167,6 +218,10 @@ export const ProductItemContainer = styled.figure`
 
     & > label {
       color: rgb(87, 86, 86);
+
+      @media (max-width:500px) {
+        font-size: 0.9em;
+      }
     }
   }
 
@@ -176,6 +231,15 @@ export const ProductItemContainer = styled.figure`
     align-items: center;
     font-size: 1em;
     font-family: "league spartan", sans-serif;
+    @media (max-width:500px) {
+        font-size: 0.8em;
+      }
+  }
+
+  & > .quantity__details {
+    @media (max-width:650px) {
+      display: none;
+    }
   }
 
   & > .addToShop {
@@ -196,6 +260,11 @@ export const ProductItemContainer = styled.figure`
     &:active {
       font-size: 3em;
     }
+
+    @media (max-width:600px) {
+    font-size: 1em;
+
+    }
   }
 
   & > .productShopAdded {
@@ -211,6 +280,10 @@ export const ProductItemContainer = styled.figure`
     height: fit-content;
     transition: all 0.3s ease-out;
     border-radius: 5px;
+    
+    @media (max-width:600px) {
+      font-size: 0.5em;
+    }
     &:hover {
       background: #f0af4c;
     }
@@ -233,6 +306,30 @@ export const CartDetailsContainer = styled.div`
   align-self: center;
   padding: 10px;
   overflow-y: auto;
+
+  @media (max-width:970px) {
+    margin: 0px;
+    width: 50%;
+  }
+
+  @media (max-width:700px) {
+    margin: 0px;
+    width: 60%;
+  }
+
+  @media (max-width:600px) {
+    margin: 0px;
+    width: 70%;
+  }
+
+  @media (max-width:450px) {
+    margin: 0px;
+    width: 80%;
+  }
+  @media (max-width:350px) {
+    margin: 0px;
+    width: 95%;
+  }
   & > h2 {
     color: white;
     align-self: flex-start;

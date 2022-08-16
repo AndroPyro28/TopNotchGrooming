@@ -8,13 +8,13 @@ import {
   ButtonContainer,
   Note,
 } from "./components";
-import { Checkbox, useCheckboxState } from "pretty-checkbox-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../../../loader/Loader";
 import logic from "./logic";
 import { useState } from "react";
 import { useEffect } from "react";
+
 function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
   const [courierType, setCourierType] = useState("");
   const [loading, setLoading] = useState(true);

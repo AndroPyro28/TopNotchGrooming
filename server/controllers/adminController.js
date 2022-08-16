@@ -13,7 +13,7 @@ const {uploadOne} = require('../helpers/CloudinaryLiveStream')
 
 module.exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body.values;
     if (!email || !password) {
       return res.status(200).json({
         msg: "Invalid Credentials",
@@ -21,7 +21,7 @@ module.exports.login = async (req, res) => {
       });
     }
 
-    const admin = new Admin(req.body);
+    const admin = new Admin(req.body.values);
 
     const adminUser = await admin.selectOneByEmail();
 
@@ -79,7 +79,7 @@ module.exports.getSchedule = async (req, res) => {
 };
 
 module.exports.getOrders = async (req, res) => {
-  const { status, textSearch } = req.body;
+  const { status, textSearch } = req.body.values;
   try {
     const orderModel = new Order({
       order_status: status,
@@ -127,7 +127,7 @@ module.exports.getOrderDetails = async (req, res) => {
 
 module.exports.orderNextStage = async (req, res) => {
   const { reference } = req.params;
-  const { deliveryStatus, data } = req.body;
+  const { deliveryStatus, data } = req.body.values;
 
   let orderStatus = "";
 
@@ -189,7 +189,7 @@ module.exports.getAppointment = async (req, res) => {
 module.exports.approveAppointment = async (req, res) => {
   try {
     const {id} = req.params;
-    const {appointment} = req.body;
+    const {appointment} = req.body.values;
     const appointmentModel = new Appointment(appointment);
     const result = await appointmentModel.approveAppointment(id);
 
@@ -252,7 +252,7 @@ module.exports.getScheduleToday = async (req, res) => {
 
 module.exports.startStreaming = async (req, res) => {
   try {
-    const {linkId, scheduleInfo} = req.body;
+    const {linkId, scheduleInfo} = req.body.values;
     const {customerId, appointmentId} = scheduleInfo;
     const startTime = getTime()
     const streamDate = getDateToday()
@@ -297,7 +297,7 @@ module.exports.startStreaming = async (req, res) => {
 module.exports.appointmentCompleted = async (req, res) => {
   try {
     const {link:reference_id, } = req.params
-    const {video_url} = req.body;
+    const {video_url} = req.body.values;
     const cloudinaryResult = await uploadOne(video_url);
     
     const multipleTable = new MultipleTable();

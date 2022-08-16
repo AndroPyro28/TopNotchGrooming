@@ -1,9 +1,5 @@
-import axios from "axios";
-import Cookies from "js-cookie"
-import {useSelector} from "react-redux";
 
 function Gcash({ items, totalAmount, toast,setOpenBilling }) {
-  const {currentUser} = useSelector(state => state?.user);
   
   const gcashPayment = async () => {
 

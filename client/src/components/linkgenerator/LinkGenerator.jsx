@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import { LinkInput, LinkGeneratorContainer, Notify} from "./components";
 function LinkGenerator({ linkId, setLinkId }) {
   

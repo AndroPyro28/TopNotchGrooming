@@ -65,9 +65,9 @@ class Customer {
       //   const { firstname, lastname, email, phoneNo, address, birthdate } = this;
 
       const insertOne = `INSERT INTO customer 
-            (firstname, lastname, email, phoneNo, address, birthdate, password, profile_image_url, profile_image_id)
+            (firstname, lastname, email, phoneNo, address, birthdate, password)
             VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            (?, ?, ?, ?, ?, ?, ?)`;
 
       const [result, _] = await poolConnection.execute(insertOne, [
         this.#firstname,
@@ -77,8 +77,6 @@ class Customer {
         this.#address,
         this.#birthdate,
         hashedPassword,
-        this.#profile_image_url,
-        this.#profile_image_id
       ]);
       return result;
     } catch (error) {

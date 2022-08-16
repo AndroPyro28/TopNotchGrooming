@@ -20,7 +20,7 @@ export const CustomerGlobalStyles = createGlobalStyle`
 `
 
 export const AdminRoute = styled.main`
-  margin-left: 80px;
+  margin-left: ${({removeMargin}) => removeMargin ? "-10px" : "80px"};
 `;
 
 export const AdminGlobalStyles = createGlobalStyle`

@@ -2,6 +2,7 @@ import * as yup from "yup";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 function useLogic({ toast }) {
   //login configuration of formik
 
@@ -9,8 +10,8 @@ function useLogic({ toast }) {
 
   const onSubmitLogin = async (values) => {
     try {
-      const res = await axios.post("/api/customer/login", values);
-      const { success, msg } = res.data;
+      const response = await CustomAxios({METHOD:"POST", uri:`/api/customer/login`, values})
+      const { success, msg } = response;
 
       if (!success) return toast(msg, { type: "error" });
 
@@ -18,7 +19,7 @@ function useLogic({ toast }) {
         "userToken",
         JSON.stringify({
           userType: "customer",
-          userToken: res.data.assignedToken,
+          userToken: response.assignedToken,
         }),
         {
           expires: 1,
@@ -29,6 +30,8 @@ function useLogic({ toast }) {
       toast(msg, { type: "success" });
 
       setTimeout((_) => window.location.assign("/customer/profile"), 2500);
+
+      
     } catch (error) {
       console.error(error.message);
     }
@@ -53,9 +56,9 @@ function useLogic({ toast }) {
 
   const onSubmitSignup = async (values) => {
     try {
-      const res = await axios.post(`/api/customer/signup`, values);
+      const response = await CustomAxios({METHOD:'POST', uri:'/api/customer/signup', values})
 
-      const { msg, success } = res.data;
+      const { msg, success } = response;
 
       if (!success) {
         return toast(msg, { type: "error" });
@@ -66,7 +69,9 @@ function useLogic({ toast }) {
       setTimeout(() => {
         return navigate("/customer/login", { replace: true });
       }, 2500);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error.message)
+    }
   };
 
   const initialValuesSignup = () => {

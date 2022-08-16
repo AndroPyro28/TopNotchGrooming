@@ -1,5 +1,4 @@
-import Cookies from "js-cookie";
-import axios from "axios";
+import CustomAxios from "../../customer hooks/CustomAxios";
 
 function Logic({
   isFullScreen,
@@ -11,7 +10,8 @@ function Logic({
   parts,
   mediaRecorder,
   socket,
-  currentUser
+  currentUser,
+  setDisplayBoardModal
 }) {
   const configureScreen = () => {
     const liveStreamRoomContainer = document.querySelector(
@@ -30,8 +30,8 @@ function Logic({
 
   const displayBoard = () => {
     setDisplayBoard((prev) => !prev);
+    setDisplayBoardModal((prev) => !prev)
   };
-
   const data = () => {
     try {
     } catch (error) {
@@ -52,18 +52,12 @@ function Logic({
         reader.readAsDataURL(blob);
 
         reader.onloadend = async () => {
+          
           setDisbaledButton(true);
-          const res = await axios.patch(
-            `/api/admin/appointmentCompleted/${currentRoom}`,
-            { video_url: reader.result },
-            {
-              headers: {
-                userinfo: Cookies.get("userToken"),
-              },
-            }
-          );
+          const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/appointmentCompleted/${currentRoom}`, values:{ video_url: reader.result }})
+          
+          const { success, msg } = response;
 
-          const { success, msg } = res.data;
           if (!success && msg?.includes("session expired")) {
             return window.location.assign("/");
           }

@@ -18,6 +18,7 @@ import {
   GlobalStyles,
 } from "./components";
 import Loader from "../../../components/loader/Loader"
+import CustomAxios from "../../../customer hooks/CustomAxios";
 function OrderDetails() {
 
   const {reference} = useParams();
@@ -27,19 +28,16 @@ function OrderDetails() {
   useEffect(() => {
     try {
       startTransition(async () => {
-        const res = await axios.get(`/api/admin/getOrderDetails/${reference}`, {
-          headers: {
-            userinfo: Cookies.get('userToken')
-          }
-        });
+        const reponse = await CustomAxios({METHOD:"GET", uri:`/api/admin/getOrderDetails/${reference}`})
+        
         // console.log(res.data);
-        const {msg, success} = res.data;
+        const {msg, success} = reponse;
 
         if(!success && msg?.include('session expired')) {
           return window.location.reload();
         }
 
-        const {order} = res.data;
+        const {order} = reponse;
         setOrderData(order)
         console.log(order);
 

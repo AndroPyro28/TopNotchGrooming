@@ -1,23 +1,17 @@
-import React from "react";
-import Cookies from "js-cookie";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
   removeTocartReducer,
   updateToCartReducer,
 } from "../../../redux/cartSlice";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 function ShopingCartLogic(props) {
   const dispatch = useDispatch();
 
   const fetcher = async () => {
     try {
-      const res = await axios.get("/api/customer/getItemsIncart", {
-        headers: {
-          userinfo: Cookies.get("userToken"),
-        },
-      });
+      const response = await CustomAxios({METHOD:"GET", uri:`/api/customer/getItemsIncart`})
 
-      const { items, notFound } = res.data;
+      const { items, notFound } = response;
 
       return notFound
         ? []
@@ -64,12 +58,10 @@ function ShopingCartLogic(props) {
   const removeToCart = async (product, setItems) => {
     const { id } = product;
     dispatch(removeTocartReducer(id));
-    const res = await axios.delete(`/api/customer/deleteItemInCart/${id}`, {
-      headers: {
-        userinfo: Cookies.get("userToken"),
-      },
-    });
-    const { success } = res.data;
+    const response = await CustomAxios({METHOD:"DELETE", uri:`/api/customer/deleteItemInCart/${id}`});
+
+    const { success } = response;
+
     if (!success) window.location.reload();
   };
 
@@ -77,19 +69,8 @@ function ShopingCartLogic(props) {
     try {
       const { id } = product;
       dispatch(updateToCartReducer({ id, updateAction: action }));
-      const res = await axios.patch(
-        `/api/customer/updateItemQuantity/${id}`,
-        {
-          action,
-          product,
-        },
-        {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        }
-      );
-      const { success, updateAction } = res.data;
+      const response = await CustomAxios({METHOD:`PATCH`, uri:`/api/customer/updateItemQuantity/${id}`, values: { action, product}})
+      const { success, updateAction } = response;
 
       if (updateAction === "delete" && success) {
         return dispatch(removeTocartReducer(id));

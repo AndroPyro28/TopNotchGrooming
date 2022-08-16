@@ -11,6 +11,7 @@ import {
 } from "./components";
 import AppointmentData from "../../../components/appointment/AppointmentData";
 import Logic from "../../../components/appointment/logic";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function AppointmentList() {
   const [appointments, setAppointments] = useState([]);
@@ -26,14 +27,10 @@ function AppointmentList() {
       setLoading(true);
       setAppointments([]);
       try {
-        const res = await axios.get(`/api/admin/appointments/${status}`, {
-          // might change later to post request
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        });
 
-        const { success, msg, results } = res.data;
+        const response = await CustomAxios({METHOD:"GET", uri:`/api/admin/appointments/${status}`});
+        
+        const { success, msg, results } = response;
 
         if (!success && msg.includes("session expired")) {
           return window.location.reload();

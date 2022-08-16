@@ -4,7 +4,8 @@ import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 import { useNavigate } from "react-router-dom";
 
 function ToReceiveOrder({ data }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  
   return (
     <Order key={data.id}>
       <img src={data.products[0].imageUrl} />

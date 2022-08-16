@@ -3,22 +3,22 @@ import { useState } from "react";
 import Comments from "./Comments";
 import { BoardContainer, BoardHeader } from "./components";
 
-function Board(displayBoard) {
+function Board({ displayBoard, setComments, comments }) {
   const [displayInfo, setDisplayInfo] = useState("comments");
 
   return (
-    <BoardContainer style={{display:displayBoard ? 'flex' : 'none'}}>
+    <BoardContainer style={{ display: displayBoard ? "flex" : "none" }}>
       <BoardHeader displayInfo={displayInfo}>
-        <div className="comments" onClick={() => setDisplayInfo('comments')}>
+        <div className="comments" onClick={() => setDisplayInfo("comments")}>
           <i class="fa-solid fa-comments"></i>
         </div>
 
-        <div className="observers" onClick={() => setDisplayInfo('observers')}>
+        <div className="observers" onClick={() => setDisplayInfo("observers")}>
           <i class="fa-solid fa-user"></i> <sup>5</sup>{" "}
         </div>
       </BoardHeader>
 
-      <Comments />
+      <Comments setComments={setComments} comments={comments} />
     </BoardContainer>
   );
 }

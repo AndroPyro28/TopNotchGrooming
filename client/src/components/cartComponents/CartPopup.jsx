@@ -18,7 +18,7 @@ function CartPopup({ nocartItems }) {
 
   const cart = useSelector((state) => state.cart);
   const [items, setItems] = useState([]);
-  const {calculateTotalAmount, calculateTotalAmountOnCart} = ShopingCartLogic()
+  const {calculateTotalAmountOnCart} = ShopingCartLogic()
   const [totalAmount, setTotalAmount] = useState(0)
   useEffect(() => {
     setItems([]);

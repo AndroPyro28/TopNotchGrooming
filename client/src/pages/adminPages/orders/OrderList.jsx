@@ -14,6 +14,7 @@ import {
   T_Head as Thead,
   GlobalStyles
 } from "./components";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function OrderList() {
     const [loading, setLoading] = useState(false);
@@ -26,18 +27,13 @@ function OrderList() {
             try {
           setLoading(true)
               setOrders([])
-                const res = await axios.post(`/api/admin/getOrders`,{
-                  status,textSearch
-                }, {
-                  headers: {
-                    userinfo: Cookies.get('userToken')
-                  }
-                });
-                const {msg, success} = res.data;
+              const response = await CustomAxios({METHOD:"POST", uri:`/api/admin/getOrders`, values: {status, textSearch}})
+                
+                const {msg, success} = response;
                 if(!success && msg?.includes('session expired')) {
                   return window.location.reload()
                 }
-                const {orders} = res.data;
+                const {orders} = response;
                 setOrders(orders);
 
             } catch (error) {

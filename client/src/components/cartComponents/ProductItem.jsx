@@ -3,6 +3,7 @@ import { ProductItemContainer } from "../../pages/customerPages/cart/cartCompone
 import shopingCartLogic from "./logic/shopingCartLogic";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 function ProductItem({ product, setItems }) {
+  
   const {
     product_image_url,
     product_name,
@@ -11,6 +12,7 @@ function ProductItem({ product, setItems }) {
     quantity,
     purchase,
   } = product;
+
   const {
     handleItem,
     removeToCart,
@@ -46,7 +48,7 @@ function ProductItem({ product, setItems }) {
         </button>
       </div>
 
-      <h5 className="product__price">@ {product_price} x {quantity} </h5>
+      <h5 className="product__price quantity__details">@ {product_price} x {quantity} </h5>
 
       <h5 className="product__price">
         {productPriceFormatter(product_price * quantity)}

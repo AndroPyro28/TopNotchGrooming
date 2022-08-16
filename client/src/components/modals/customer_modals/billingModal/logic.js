@@ -1,14 +1,8 @@
 import * as yup from "yup";
-import Cookies from "js-cookie";
-import axios from "axios";
+import CustomAxios from "../../../../customer hooks/CustomAxios";
 
-function logic({
-  items,
-  totalAmount,
-  paymentType,
-  toast,
-  courierType,
-}) {
+function logic({ items, totalAmount, paymentType, toast, courierType }) {
+  
   const initialValues = () => {
     return {
       billingAddress: "",
@@ -27,34 +21,29 @@ function logic({
   });
 
   const onSubmit = async (billingInfo) => {
-    console.log(billingInfo)
-    if(courierType == "lalamove" || courierType == 'toktok') {
+
+    if (courierType == "lalamove" || courierType == "toktok") {
+
       billingInfo.courierType = courierType;
+      
       const checkoutProducts = items.filter((item) => item.purchase);
-      const res = await axios.post(
-        `/api/customer/checkout/${paymentType}`,
-        {
-          checkoutProducts,
-          totalAmount,
-          billingInfo,
-        },
-        {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        }
-      );
-      const { success, msg, proceedPayment, method, checkoutUrl, orderId } =
-        res.data;
-  
+
+      const response = await CustomAxios({
+        METHOD: "POST",
+        values: { checkoutProducts, totalAmount, billingInfo },
+        uri:`/api/customer/checkout/${paymentType}`
+      });
+     
+      const { success, msg, proceedPayment, method, checkoutUrl, orderId } = response;
+
       if (!success && msg?.includes("session expired")) {
         return window.location.reload();
       }
-  
+
       if (!proceedPayment) {
         return toast(msg, { type: "warning" });
       }
-  
+
       localStorage.setItem(
         "onCheckoutProducts",
         JSON.stringify({
@@ -65,18 +54,12 @@ function logic({
           billingInfo,
         })
       );
-  
+
       return window.location.assign(checkoutUrl);
     }
-   
 
-    return toast('Choose a courrier below!', {type:'warning'});
+    return toast("Choose a courrier below!", { type: "warning" });
   };
-
-  // const validatePhone = (phone) => {
-  //   const phoneNo = phone.toString()
-  //   return !phoneNo.startsWith('63') ? "Phone number must start with 63xxxxxxxxxx" : null
-  // }
 
   const validateContact = (value) => {
     const phone = value + "";
@@ -97,15 +80,15 @@ function logic({
       return "Zip Code is not valid";
     }
 
-    return null
-  }
+    return null;
+  };
 
   return {
     initialValues,
     validationSchema,
     onSubmit,
     validateContact,
-    validateZipCode
+    validateZipCode,
   };
 }
 

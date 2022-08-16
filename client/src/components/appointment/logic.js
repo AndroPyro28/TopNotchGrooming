@@ -1,5 +1,4 @@
-import axios from "axios";
-import Cookies from "js-cookie";
+import CustomAxios from "../../customer hooks/CustomAxios";
 
 function Logic({ appointment, id, setData, toast, setAppointments}) {
   const dateNtimeFormatter = (dateLocal) => {
@@ -37,17 +36,8 @@ function Logic({ appointment, id, setData, toast, setAppointments}) {
         },
       }));
       toast("Appointment approved", { type: "success" });
-      const res = await axios.patch(
-        `/api/admin/approveAppointment/${id}`,
-        {
-          appointment,
-        },
-        {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        }
-      );
+      const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/approveAppointment/${id}`, values:{appointment}})
+      
     } catch (error) {
       console.error(error.message);
     }

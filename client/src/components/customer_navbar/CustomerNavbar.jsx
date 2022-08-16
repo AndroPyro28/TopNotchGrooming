@@ -7,7 +7,6 @@ import {
   InfoAndCart,
   BotNavbar,
   DropDown,
-  
 } from "./navbarComponents";
 
 import Cookies from "js-cookie";

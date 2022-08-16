@@ -15,6 +15,7 @@ import GetDateToday from "../../../helpers/DateToday";
 import Logic from "./Logic";
 import { useNavigate } from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function LiveStreamModal({ setToggleModal }) {
   const [linkId, setLinkId] = useState("");
@@ -26,13 +27,9 @@ function LiveStreamModal({ setToggleModal }) {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(`/api/admin/generateVerifiedLink`, {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        });
+        const response = await CustomAxios({METHOD:"GET", uri:`/api/admin/generateVerifiedLink`})
 
-        const { msg, success, linkId } = res.data;
+        const { msg, success, linkId } = response
 
         if ((!success, msg?.includes("session expired"))) {
           return window.location.reload();
@@ -50,16 +47,10 @@ function LiveStreamModal({ setToggleModal }) {
       try {
         setScheduleList([]);
         const dateToday = GetDateToday();
-        const res = await axios.get(
-          `/api/admin/getScheduleToday/${dateToday}`,
-          {
-            headers: {
-              userinfo: Cookies.get("userToken"),
-            },
-          }
-        );
+        const response = await CustomAxios({METHOD:"GET", uri:`/api/admin/getScheduleToday/${dateToday}`})
+        
 
-        const { msg, success, result } = res.data;
+        const { msg, success, result } = response
 
         if ((!success, msg?.includes("session expired"))) {
           return window.location.reload();

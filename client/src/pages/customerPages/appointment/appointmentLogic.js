@@ -1,13 +1,10 @@
-import React from "react";
 import * as yup from "yup";
-import Cookies from "js-cookie";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import { replace } from "formik";
+import CustomAxios from "../../../customer hooks/CustomAxios";
+
 function AppointmentLogic({toast, image, setImgError}) {
 
   const navigate = useNavigate();
-
 
   const onSubmit = async (values) => {
     try {
@@ -17,13 +14,9 @@ function AppointmentLogic({toast, image, setImgError}) {
         return setImgError("Please set an image to this product");
 
       }
-      const res = await axios.post("/api/customer/appointment", values, {
-        headers: {
-          userinfo: Cookies.get("userToken"),
-        },
-      });
 
-      const {success, msg} = res.data;
+      const reponse = await CustomAxios({METHOD:"POST", uri:`/api/customer/appointment`, values})
+      const {success, msg} = reponse;
 
       if(!success && msg.includes('session expired')) {
         return window.location.reload();
@@ -110,11 +103,7 @@ function AppointmentLogic({toast, image, setImgError}) {
     },
   ];
 
-  const liveStreamOptions = [
-    { key: "Select", value: "" },
-    { key: "Public Live Stream", value: "public" },
-    { key: "Private Live Stream", value: "private" },
-  ];
+ 
 
   const dateTodayFormatter = () => {
     const date = new Date();
@@ -131,7 +120,6 @@ function AppointmentLogic({toast, image, setImgError}) {
     genderOptions,
     petTypeOptions,
     requestTypeOptions,
-    liveStreamOptions,
     dateTodayFormatter
   };
 }

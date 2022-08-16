@@ -48,6 +48,8 @@ import io from "socket.io-client";
 import AppointmentDetails from "./pages/adminPages/AppointmentDetail/AppointmentDetails";
 import Channels from "./pages/shared/livestream_channels/Channels";
 import LiveStreamRoom from "./pages/shared/livestream_room/LiveStreamRoom";
+import CustomAxios from "./customer hooks/CustomAxios";
+
 function App() {
 
   const [loading, setLoading] = useState(false);
@@ -84,29 +86,49 @@ function App() {
       (async function () {
         try {
           setLoading(true);
-          const res = await axios.get(`/api/auth`, {
-            headers: {
-              userinfo: Cookies.get("userToken"),
-            },
-          });
-
-          const { success, msg } = res.data;
-
+          const data = await CustomAxios({METHOD:"GET", uri:`/api/auth`});
+          const { success, msg } = data;
           if (!success || msg?.includes("session expired")) {
-            Cookies.remove("userToken");
-            dispatch(authenticationFailed());
-          }
+               Cookies.remove("userToken");
+               dispatch(authenticationFailed());
+             }
 
-          if (success) {
-            const { currentUser } = res.data;
-            dispatch(authenticationSuccess({ currentUser, isAuth: true }));
+             if (success) {
+                const { currentUser } = data;
+                dispatch(authenticationSuccess({ currentUser, isAuth: true }));
+    
+                const auth = {
+                  userinfo: Cookies.get("userToken"),
+                  isAuth: true
+                };
+    
+                dispatch(connection(io("http://localhost:3001", {auth})));
+              }
+          {
+          // const res = await axios.get(`/api/auth`, {
+          //   headers: {
+          //     userinfo: Cookies.get("userToken"),
+          //   },
+          // });
 
-            const auth = {
-              userinfo: Cookies.get("userToken"),
-              isAuth: true
-            };
+          // const { success, msg } = res.data;
 
-            dispatch(connection(io("http://localhost:3001", {auth})));
+          // if (!success || msg?.includes("session expired")) {
+          //   Cookies.remove("userToken");
+          //   dispatch(authenticationFailed());
+          // }
+
+          // if (success) {
+          //   const { currentUser } = res.data;
+          //   dispatch(authenticationSuccess({ currentUser, isAuth: true }));
+
+          //   const auth = {
+          //     userinfo: Cookies.get("userToken"),
+          //     isAuth: true
+          //   };
+
+          //   dispatch(connection(io("http://localhost:3001", {auth})));
+          // }
           }
         } catch (error) {
           console.error(error);

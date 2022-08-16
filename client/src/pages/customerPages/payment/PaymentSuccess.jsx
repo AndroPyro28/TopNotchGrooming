@@ -8,6 +8,7 @@ import { useState } from "react";
 import {PaymentSuccessContainer, Title, Line, TransactionNumber, PaymentData, ProceedButton} from "./components";
 import productPriceFormatter from "../../../helpers/ProductPriceFormatter";
 import GetDateToday from "../../../helpers/DateToday";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function PaymentSuccess() {
 
@@ -39,20 +40,15 @@ function PaymentSuccess() {
          setTransactionId(orderId);
          setPaymentMethod(method);
          
-        const res = await axios.post(
-          `/api/customer/payment`,
-          onCheckoutProducts,
-          {
-            headers: {
-              userinfo: Cookies.get("userToken"),
-            },
-          }
-        );
-        const { msg, success } = res.data;
+         const response = CustomAxios({METHOD:"POST",uri:`/api/customer/payment`, values:onCheckoutProducts})
+       
+        const { msg, success } = response;
+
         if (!success && msg.includes("session expired")) {
           toast(msg, { type: "error" });
           return window.location.reload();
         }
+
         toast(msg, { type: "success" });
       } catch (error) {
         console.error(error.message);

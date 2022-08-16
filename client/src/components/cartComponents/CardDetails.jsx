@@ -85,7 +85,7 @@ function CardDetails({ items, setItems, toast,totalAmount, setTotalAmount, payme
 
       {paymentType === "paypal" && (
         <Paypal
-        setOpenBilling={setOpenBilling}
+          setOpenBilling={setOpenBilling}
           items={items}
           totalAmount={totalAmount * 0.01 + totalAmount}
           toast={toast}

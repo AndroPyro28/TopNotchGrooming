@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import Peer from "simple-peer";
 
-function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
+function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoardData }) {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [stream, setStream] = useState();
   const videoRef = useRef();
@@ -24,7 +24,6 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
 
   useEffect(() => {
     (async () => {
-
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
@@ -73,14 +72,13 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
               trickle: false,
               stream: stream,
             });
+
             peer.on("signal", (data) => {
-              console.log("obser peer and signal", peer, data);
               socket?.emit("sendObserverSignalToAdmin", { data, userId, room });
             });
 
             peer.on("stream", (stream) => {
               videoRef.current.srcObject = stream;
-              console.log("admin stream", stream);
             });
 
             socket.on("sendStreamToObserver", ({ data, userId, room }) => {
@@ -89,9 +87,9 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
                 userId == currentUser?.id &&
                 room == currentRoom
               ) {
-                console.log("admin signal", data);
+
                 peer.signal(data);
-                peer.signal(data);
+
               }
             });
           }
@@ -110,10 +108,9 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
             });
 
             peer.on("stream", (stream) => {
-              console.log("observer stream", stream);
+
             });
 
-            console.log("observer signal", data);
             peer.signal(data);
           }
         });
@@ -134,7 +131,8 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
     parts,
     mediaRecorder,
     socket,
-    currentUser
+    currentUser,
+    setDisplayBoardModal
   });
 
   return (
@@ -152,6 +150,18 @@ function Video({ setDisplayBoard, displayBoard: displayBoardData }) {
         ) : (
           <i
             class="fa-solid fa-comment displayBoard"
+            onClick={displayBoard}
+          ></i>
+        )}
+
+        {displayBoardData ? (
+          <i
+            class="fa-solid fa-comment-slash displayBoardModal"
+            onClick={displayBoard}
+          ></i>
+        ) : (
+          <i
+            class="fa-solid fa-comment displayBoardModal"
             onClick={displayBoard}
           ></i>
         )}

@@ -1,5 +1,4 @@
 import React from "react";
-import MyLiveStream from "../../../components/livestream_channels/MyLiveStream";
 import OtherLiveStream from "../../../components/livestream_channels/OtherLiveStream";
 import { ChannelsContainer, GlobalStyles, StreamButton } from "./components";
 import Cookies from "js-cookie";

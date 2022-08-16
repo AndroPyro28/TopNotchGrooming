@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 import ProductItem from "./ProductItem";
 import Sign_Products from "../../../components/sign/Sign_Products";
 import Loader from "../../../components/loader/Loader";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function InventoryRightPage({ searchItem, setSearchItem }) {
   const [openItem, setOpenItem] = useState(false);
@@ -34,13 +35,9 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
       
       if (!petCategory && !itemCategory && !ageLimit && !itemName) {
 
-        const res = await axios.get("/api/products/getAllItems", {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        });
+        const response = await CustomAxios({METHOD:"GET", uri:`/api/products/getAllItems`})
         
-        const { products, msg, success } = res.data;
+        const { products, msg, success } = response
 
         if(msg?.includes('session expired') && !success) {
           toast(msg, { type: "error" });
@@ -49,13 +46,10 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
         setProducts(products);
         setMaxPage(Math.ceil(products.length / 8))
       } else {
-        const res = await axios.post("/api/products/searchItems", searchItem, {
-          headers: {
-            userinfo: Cookies.get("userToken"),
-          },
-        });
 
-        const { success, products, msg } = res.data;
+        const response = await CustomAxios({METHOD:"POST", uri:`/api/products/searchItems`, values:searchItem})
+
+        const { success, products, msg } = response;
 
         if(msg?.includes('session expired') && !success) {
           toast(msg, { type: "error" });

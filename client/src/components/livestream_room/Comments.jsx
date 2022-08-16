@@ -5,19 +5,16 @@ import MessageBox from "./MessageBox";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import Notification from "./Notification";
-function Comments() {
+
+function Comments({comments, setComments}) {
   const state = useSelector((state) => state);
-  const { socket, user } = state;
-  const { currentUser } = user;
-  const [comments, setComments] = useState([]);
-  const [userWhoJoined, setUserWhoJoined] = useState(null);
+  const { socket } = state;
 
   useEffect(() => {
     if (!window.localStorage.getItem("render_once")) {
       return;
     }
     
-
     window.localStorage.removeItem("render_once");
     socket.on("sendMessageToRoom", ({ room, user, message }) => {
       setComments((prev) => [...prev, { user, content: "message", message }]);

@@ -7,9 +7,13 @@ import {
 } from "../customer_navbar/navbarComponents";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 import ShopingCartLogic from "./logic/shopingCartLogic";
+
 function CartItem({data}) {
+
   const {item, setItems} = data;
+
   const {removeToCart} = ShopingCartLogic()
+
   return (
     <ProductContainer>
       <img src={item.product_image_url} />

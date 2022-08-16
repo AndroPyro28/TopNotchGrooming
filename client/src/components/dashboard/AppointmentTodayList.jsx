@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import GetDateToday from "../../helpers/DateToday";
 import axios from "axios";
 import Cookies from "js-cookie";
+import CustomAxios from "../../customer hooks/CustomAxios";
 
 function AppointmentTodayList() {
   const [scheduleList, setScheduleList] = useState([]);
@@ -15,16 +16,10 @@ function AppointmentTodayList() {
       try {
         setScheduleList([]);
         const dateToday = GetDateToday();
-        const res = await axios.get(
-          `/api/admin/getScheduleToday/${dateToday}`,
-          {
-            headers: {
-              userinfo: Cookies.get("userToken"),
-            },
-          }
-        );
 
-        const { msg, success, result } = res.data;
+        const response = await CustomAxios({METHOD:"GET", uri:`/api/admin/getScheduleToday/${dateToday}`})
+
+        const { msg, success, result } = response;
 
         if ((!success, msg?.includes("session expired"))) {
           return window.location.reload();

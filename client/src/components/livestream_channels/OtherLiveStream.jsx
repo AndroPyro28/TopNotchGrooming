@@ -31,10 +31,13 @@ function OtherLiveStreamComponent() {
         <h1 style={{ color: "white", textAlign: "center" }}>No Events Yet</h1>
       )}
       <OtherLiveStreamsContainer>
-        {rooms.length > 0 &&
+        {
+        rooms.length > 0 &&
           rooms?.map((data) => {
             return <Room key={data.roomLink} data={data} />;
-          })}
+          })
+        }
+
       </OtherLiveStreamsContainer>
     </OtherLiveStreamsWrapper>
   );

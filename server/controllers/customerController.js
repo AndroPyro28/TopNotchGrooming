@@ -12,10 +12,7 @@ const { getDateToday } = require("../helpers/DateFormatter");
 
 module.exports.signup = async (req, res) => {
   try {
-    req.body.profile_image_url =
-      "https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png";
-    req.body.profile_image_id = "topnotch_profilepic/eadlgosq2pioplvi6lfs";
-    const customer = new Customer(req.body);
+    const customer = new Customer(req.body.values);
 
     const isExists = await customer.checkIfExistByPhoneEmail();
     if (isExists) {
@@ -45,7 +42,7 @@ module.exports.signup = async (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body.values;
   try {
     const customer = new Customer({ email, password });
 
@@ -85,32 +82,32 @@ module.exports.login = async (req, res) => {
 module.exports.updateInfo = async (req, res) => {
   try {
     if (
-      req.body?.profileImg?.length > 0 &&
-      req.body?.profileImg?.includes("image") &&
-      req.body.user.profile_image_url?.length > 0 &&
-      req.body?.user.profile_image_id !=
+      req.body.values?.profileImg?.length > 0 &&
+      req.body.values?.profileImg?.includes("image") &&
+      req.body.values.user.profile_image_url?.length > 0 &&
+      req.body.values?.user.profile_image_id !=
         "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
-      deleteOne(req.body.user.profile_image_id);
+      deleteOne(req.body.values.user.profile_image_id);
     }
 
     if (
-      req.body?.profileImg?.length > 0 &&
-      req.body?.profileImg?.includes("image")
+      req.body.values?.profileImg?.length > 0 &&
+      req.body.values?.profileImg?.includes("image")
     ) {
-      const cloudinaryResponse = await uploadOne(req.body?.profileImg);
-      req.body.user.profile_image_url = cloudinaryResponse.url;
-      req.body.user.profile_image_id = cloudinaryResponse.public_id;
+      const cloudinaryResponse = await uploadOne(req.body.values?.profileImg);
+      req.body.values.user.profile_image_url = cloudinaryResponse.url;
+      req.body.values.user.profile_image_id = cloudinaryResponse.public_id;
     }
 
-    const customer = new Customer(req.body.user);
+    const customer = new Customer(req.body.values.user);
 
     const updateResult = await customer.updateInfo();
     if (updateResult.affectedRows > 0) {
       return res.status(200).json({
         success: true,
         msg: "Profile update successful",
-        user: req.body.user,
+        user: req.body.values.user,
       });
     }
   } catch (error) {
@@ -124,7 +121,7 @@ module.exports.updateInfo = async (req, res) => {
 
 module.exports.addItemsToCart = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.body.values;
     const productDetails = new ProductDetails({
       product_id: id,
       customer_id: req.currentUser.id,
@@ -203,7 +200,7 @@ module.exports.updateItemQuantity = async (req, res) => {
       customer_id: req.currentUser.id,
       product_id: req.params.id,
     });
-    const { action, product } = req.body;
+    const { action, product } = req.body.values;
     const { result, action: updateAction } =
       await productDetails.updateQuantity(action, product);
 
@@ -232,7 +229,7 @@ module.exports.updateItemQuantity = async (req, res) => {
 
 module.exports.checkout = async (req, res) => {
   const { checkoutType } = req.params; // card
-  const { checkoutProducts, totalAmount } = req.body;
+  const { checkoutProducts, totalAmount } = req.body.values;
   try {
     if (checkoutType === "gcash") {
       var request = require("request");
@@ -324,7 +321,7 @@ module.exports.addAppointment = async (req, res) => {
       dateNtime,
       additional_details,
       image
-    } = req.body;
+    } = req.body.values;
 
 
     const cloudinaryResponse = await uploadOne(image);
@@ -356,7 +353,7 @@ module.exports.addAppointment = async (req, res) => {
 module.exports.payment = async (req, res) => {
   try {
     const { checkoutProducts, method, orderId, totalAmount, billingInfo } =
-      req.body;
+      req.body.values;
     const productModel = new Product({});
     const { billingAddress, contactNo, zipCode, courierType } = billingInfo;
 

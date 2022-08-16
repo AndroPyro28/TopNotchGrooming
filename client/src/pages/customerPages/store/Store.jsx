@@ -24,6 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import storeLogic from "./storeLogic";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function Store() {
   const [activeFilter, setActiveFilter] = useState({
@@ -33,9 +34,9 @@ function Store() {
     itemName: "",
   });
   const [refresher, setRefresher] = useState(false);
+
   const { setProps, shuffleArray, dropDownItemCategory, dropDownAgeGap } =
     storeLogic({ setActiveFilter });
-  // const [loading, setLoading] = useState(false);
   const [loading, startTransition] = useTransition();
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -47,12 +48,10 @@ function Store() {
       try {
         const { petCategory, ageLimit, itemCategory, itemName } = activeFilter;
         if (!petCategory && !ageLimit && !itemCategory && !itemName) {
-          const res = await axios.get("/api/products/getAllItems", {
-            headers: {
-              userinfo: Cookies.get("userToken"),
-            },
-          });
-          const { products, success, msg } = res.data;
+
+          const response = await CustomAxios({METHOD:"GET", uri:`/api/products/getAllItems`});
+
+          const { products, success, msg } = response;
 
           if (msg?.includes("session expired") && !success) {
             toast(msg, { type: "error" });
@@ -61,18 +60,12 @@ function Store() {
 
           setProducts(shuffleArray(products));
           setMaxPage(Math.ceil(products.length / 8));
+          
         } else {
-          const res = await axios.post(
-            "/api/products/searchItems",
-            activeFilter,
-            {
-              headers: {
-                userinfo: Cookies.get("userToken"),
-              },
-            }
-          );
 
-          const { success, products, msg } = res.data;
+          const response = await CustomAxios({METHOD:"POST", uri:`/api/products/searchItems`, values:activeFilter});
+
+          const { success, products, msg } = response;
 
           if (msg?.includes("session expired") && !success) {
             toast(msg, { type: "error" });

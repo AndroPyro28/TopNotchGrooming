@@ -151,12 +151,6 @@ function InventoryLeftPage({ setSearchItem, searchItem }) {
     setProductData({
       labels: mockData?.map((data) => data?.month),
       datasets: [
-        // {
-        //   label: "Total number of sales",
-        //   data: mockData?.map((data) => data?.numberOfSales),
-        //   backgroundColor: 'rgb(0,109,143)',
-        // },
-        
         {
           label: "Total revenue", // quantity * price
           data: mockData?.map((data) => data?.totalSales), 

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function Logic({ linkId, scheduleInfo, toast}) {
   const navigate = useNavigate();
@@ -11,27 +12,20 @@ function Logic({ linkId, scheduleInfo, toast}) {
         return toast('Select a schedule to start!', {type:"warning"})
       }
 
-      const res = await axios.post(`/api/admin/startStreaming`, {
-        linkId,
-        scheduleInfo
-      }, {
-        headers: {
-          userinfo:Cookies.get('userToken')
-        }
-      });
+      const response = await CustomAxios({METHOD:"POST", uri:`/api/admin/startStreaming`, values:{linkId, scheduleInfo}})
 
-      const {success, msg} = res.data;
+      const {success, msg} = response;
+      
       if(!success && msg?.includes("session expired")) {
         return toast('Something went wrong...', {type:"error"})
       }
 
-      console.log(res.data);
       window.localStorage.setItem("enter_stream", true);
       window.localStorage.setItem("render_once", true)
       navigate(`/admin/liveStreamChannels/room=${linkId}`);
 
     } catch (error) {
-
+      console.error(error.message)
     }
   };
 

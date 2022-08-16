@@ -1,8 +1,7 @@
-import React, { useEffect, useState, startTransition } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
 import Cookies from "js-cookie";
+
 function PublicRoutes({ Component }) {
-//   const navigate = useNavigate();
 
   useEffect(() => {
     let userToken = Cookies.get("userToken");

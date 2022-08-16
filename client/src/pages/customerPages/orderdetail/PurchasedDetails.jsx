@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import OrderDetails from "./OrderDetails";
 import axios from "axios";
 import Cookies from "js-cookie"
+import CustomAxios from "../../../customer hooks/CustomAxios";
 function PurchasedDetails() {
 
   const {reference} = useParams()
@@ -17,13 +18,9 @@ function PurchasedDetails() {
   useEffect(() => {
     startTransition(async() => {
       try {
-        const res = await axios.get(`/api/customer/getOrderByReference/${reference}`, {
-          headers: {
-            userinfo:Cookies.get('userToken')
-          }
-        });
+        const response = await CustomAxios({METHOD:"GET", uri:`/api/customer/getOrderByReference/${reference}`});
 
-        const {msg, success, order} = res.data;
+        const {msg, success, order} = response;
 
         if(!success && msg?.includes('session expired')) {
           return window.location.reload();

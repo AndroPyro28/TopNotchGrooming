@@ -37,20 +37,25 @@ function Cart() {
   return (
     <MainContainer>
       <ToastContainer autoClose={1500} />
-      {openBilling &&  <BillingModal 
-      items={items}
-      totalAmount={totalAmount}
-      paymentType={paymentType}
-      setOpenBilling={setOpenBilling}
+
+      {
+        openBilling &&  <BillingModal 
+          items={items}
+          totalAmount={totalAmount}
+          paymentType={paymentType}
+          setOpenBilling={setOpenBilling}
       />
-       }
+      }
+
       <GlobalStyles />
       <PaymentSectionWrapper>
         <h3>
           <i className="fa-solid fa-arrow-left backBtn"></i>
         </h3>
         <PaymentSectionContainer>
+          
           <ShoppingCart items={items} setItems={setItems} />
+
           <CardDetails
           setOpenBilling={setOpenBilling}
             items={items}

@@ -4,7 +4,9 @@ import productPriceFormatter from '../../helpers/ProductPriceFormatter'
 import {useNavigate} from 'react-router-dom';
 import DateFormatter from "../../helpers/DateFormatter"
 function OrderData({ data }) {
+  
   const navigate = useNavigate()
+
   const { firstname, lastname } = JSON.parse(data.customer);
   const {products, order_date, total_amount, reference, order_status, payment_type, delivery_status} = data;
   
