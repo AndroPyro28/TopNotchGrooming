@@ -112,7 +112,7 @@ function DashboardCharts() {
         <Chart
           data={data}
           options={salesChartOption}
-          style={{ position: "relative" }}
+          style={{ position: "relative", }}
         />
       </MonthlySalesChartsContainer>
 

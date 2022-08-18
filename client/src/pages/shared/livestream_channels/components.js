@@ -32,6 +32,7 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const StreamButton = styled.div`
+z-index: 1;
   @keyframes animationBtn {
     0% {
       transform: scale(0.9);

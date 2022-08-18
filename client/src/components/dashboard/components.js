@@ -26,6 +26,10 @@ export const DashboardChartsContainer = styled.section`
     grid-template-columns: 75% 25%;
     margin: 10px 0;
     grid-column-gap: 10px;
+
+    @media (max-width:1000px) {
+        grid-template-columns: 100%;
+    }
 `
 export const MonthlySalesChartsContainer = styled.div`
     height: 300px;
@@ -37,9 +41,18 @@ export const MonthlySalesChartsContainer = styled.div`
     background: white;
     display: block;
     position: relative;
+    z-index: -1;
+
+    @media (max-width:500px) {
+           width: 100%;
+           padding: 0;
+        }
 
     & > h1 {
         text-align: start;
+        @media (max-width:500px) {
+            font-size: 1em;
+        }
     }
 
     & > span {
@@ -61,6 +74,9 @@ export const NewClients = styled.div`
     justify-content: space-between;
     border-radius: 10px;
 
+    @media (max-width:1000px) {
+        display: none;
+    }
     & > h1 {
         font-size: 1.5em;
     }
@@ -104,6 +120,22 @@ export const TableHeader = styled.div`
 
 export const T_Head = styled.div`
     flex: 1;
+
+    &.appointment__type {
+        @media (max-width:950px) {
+            display: none;
+        }
+    }
+
+    &.date {
+        @media (max-width:950px) {
+            display: none;
+        }
+    }
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 `
 
 
@@ -126,12 +158,27 @@ export const T_Data = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &.appointment__type {
+        @media (max-width:950px) {
+            display: none;
+        }
+    }
+
+    &.date {
+        @media (max-width:950px) {
+            display: none;
+        }
+    }
 
     &.customer {
         justify-content: flex-start;
     }
     & > img {
-        width: 50px;
+        min-width: 50px;
         height: 50px;
         margin-right: 10px;
         border-radius: 50%;

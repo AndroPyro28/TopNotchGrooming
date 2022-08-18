@@ -4,14 +4,15 @@ import {
   DropdownBtn,
   Logo,
   PublicNavbarContainer,
-  DropDownContainer
+  DropDownContainer,
+  HamburgerMenu,
 } from "./navbarComponents";
 import { NavLink, useLocation } from "react-router-dom";
+import HamburgerNavBar from "../shared/HamburgerNavBar";
 
 function PublicNavbar() {
-
   const { pathname } = useLocation();
-
+  const [openMenu, setOpenMenu] = useState(true)
   useEffect(() => {
     if (
       pathname === "/customer/login" ||
@@ -22,27 +23,57 @@ function PublicNavbar() {
     }
 
     return setDropdownToggle(false);
-
   }, [pathname]);
 
   const navLinkStyles = ({ isActive }) => {
     return {
       textDecoration: isActive ? "none" : "",
       background: isActive ? "rgb(142,112,101)" : "",
-      color: isActive ? "white" : "",
+      color: isActive ? "white" : "rgb(142,112,101)",
     };
   };
 
   const [dropdownToggle, setDropdownToggle] = useState(false);
 
+  const routesArr = [
+    {
+      url:'/contact',
+      name:'Contact Us'
+    },
+    {
+      url:'/about',
+      name:'About Us'
+    },
+    {
+      url:'/public/liveStreamChannels',
+      name:'Watch Live'
+    },
+    {
+      url:'/customer/login',
+      name:'Login as customer'
+    },
+    {
+      url:'/admin/login',
+      name:'Login as admin'
+    },
+    ]
+
   return (
     <PublicNavbarContainer>
+
+        {
+          openMenu && <HamburgerNavBar routes={routesArr} setOpenMenu={setOpenMenu} navLinkStyles={navLinkStyles} />
+        }
+
+
       <NavLink to="/">
         <Logo src="/images/logo.png" />
       </NavLink>
 
       <ButtonContainer>
-        <i className="fa-solid fa-bars"></i>
+
+        <HamburgerMenu className="fa-solid fa-bars" onClick={() => setOpenMenu(true)} />
+
         <NavLink to={"/contact"} style={navLinkStyles}>
           Contact Us
         </NavLink>
@@ -52,7 +83,7 @@ function PublicNavbar() {
         <NavLink to={"/public/liveStreamChannels"} style={navLinkStyles}>
           Watch Live
         </NavLink>
-        <DropdownBtn >
+        <DropdownBtn>
           <center onClick={() => setDropdownToggle(!dropdownToggle)}>
             Login as &nbsp;{" "}
             <i
@@ -64,7 +95,7 @@ function PublicNavbar() {
             ></i>
           </center>
 
-          <DropDownContainer display={dropdownToggle} >
+          <DropDownContainer display={dropdownToggle}>
             <NavLink to={"/customer/login"} style={navLinkStyles}>
               Customer
             </NavLink>

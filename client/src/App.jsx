@@ -49,6 +49,7 @@ import AppointmentDetails from "./pages/adminPages/AppointmentDetail/Appointment
 import Channels from "./pages/shared/livestream_channels/Channels";
 import LiveStreamRoom from "./pages/shared/livestream_room/LiveStreamRoom";
 import CustomAxios from "./customer hooks/CustomAxios";
+import AdminNavbar from "./components/admin_navbar/AdminNavbar";
 
 function App() {
 
@@ -159,7 +160,9 @@ function App() {
 
       {navbarType === "customer" && !pathname?.includes('room=') && <CustomerNavbar />}
 
-      {navbarType === "admin" && !pathname?.includes('room=') && <AdminSidebar />}
+      {/* {navbarType === "admin" && !pathname?.includes('room=') && <AdminSidebar />} */}
+      {navbarType === "admin" && !pathname?.includes('room=') && <AdminNavbar />}
+
 
       <Routes>
         {/* public routes */}

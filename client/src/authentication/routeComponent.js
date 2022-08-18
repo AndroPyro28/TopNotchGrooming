@@ -5,6 +5,9 @@ export const CustomerRoute = styled.main`
 `;
 
 export const CustomerGlobalStyles = createGlobalStyle`
+body {
+  overflow:hidden;
+}
     &::-webkit-scrollbar {
     width: 5px;
   }
@@ -20,10 +23,13 @@ export const CustomerGlobalStyles = createGlobalStyle`
 `
 
 export const AdminRoute = styled.main`
-  margin-left: ${({removeMargin}) => removeMargin ? "-10px" : "80px"};
+  /* margin-top:  ${({giveMargin}) => giveMargin ? "135px" : "0px"}; */
 `;
 
 export const AdminGlobalStyles = createGlobalStyle`
+body {
+  /* overflow: hidden; */
+}
     &::-webkit-scrollbar {
     width: 5px;
   }

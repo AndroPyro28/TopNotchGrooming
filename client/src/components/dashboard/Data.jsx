@@ -12,9 +12,9 @@ function Data({ data }) {
         <img src={profile_image_url} />
         {`${firstname} ${lastname} `}{" "}
       </T_Data>
-      <T_Data>{appointment_type}</T_Data>
+      <T_Data className="appointment__type">{appointment_type}</T_Data>
       <T_Data>{pet_name}</T_Data>
-      <T_Data>{newDate}</T_Data>
+      <T_Data className="date">{newDate}</T_Data>
       <T_Data>{newTime}</T_Data>
     </TableData>
   );

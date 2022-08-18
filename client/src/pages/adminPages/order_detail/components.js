@@ -14,6 +14,9 @@ export const OrderNumber = styled.section`
   background: rgb(255, 255, 255) !important;
   border-right: none;
 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   & > h3 {
     color: rgb(50, 63, 75);
     font-family: "poppins", sans-serif;
@@ -33,6 +36,9 @@ export const OrderDetailsContainer = styled.section`
   display: flex;
   background: rgb(255, 255, 255) !important;
   color: rgb(50, 63, 75);
+  @media (max-width:950px) {
+    flex-direction: column;
+  }
 `;
 
 export const OrderedItemsContainer = styled.div`
@@ -44,6 +50,7 @@ export const OrderedItemsContainer = styled.div`
   position: relative;
   padding-bottom: 70px;
   overflow: auto;
+
 `;
 
 export const OrderedProducts = styled.div`
@@ -193,6 +200,11 @@ export const OrderStatusContainer = styled.section`
       background: rgb(163,191,255);
       cursor: default;
     }
+
+    @media (max-width:950px) {
+      position: relative;
+      margin: 50px 20px 20px 20px;
+    }
   }
 `;
 
@@ -270,6 +282,9 @@ export const CustomerDetailsContainer = styled.section`
   display: flex;
   margin-left: 20px;
   margin-bottom: 20px;
+  @media (max-width:950px) {
+    flex-direction: column;
+  }
 `;
 
 export const CustomerDetails = styled.div`
@@ -280,6 +295,8 @@ export const CustomerDetails = styled.div`
   border: solid 1px rgb(211, 211, 211);
   padding-bottom: 50px;
   color: rgb(81, 92, 102);
+
+  
 
   & > h3 {
     text-align: start;
@@ -295,9 +312,12 @@ export const CustomerInfoContainer = styled.div`
   justify-content: space-between;
   font-size: 0.9em;
   text-align: start;
-
+  @media (max-width:700px) { 
+    flex-direction :column ;
+  }
   & > .customer__info {
     flex: 1;
+    margin: 8px 10px;
   }
 `;
 

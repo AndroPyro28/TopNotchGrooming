@@ -16,12 +16,17 @@ export const AdminInventoryWrapper = styled.section`
 export const InventoryLeftContent = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width:1200px) {
+    display: none;
+  }
   & > :is(h1, small) {
-    margin-block: 30px 0;
+    margin-block: 10px 0;
   }
 
   & > h1 {
     font-weight: 500;
+    font-size: 1.2em;
   }
 
   & > small {
@@ -77,7 +82,11 @@ export const InventoryRightContent = styled.div`
   width: 80%;
   margin: 10px;
   border-radius: 10px;
-  height: 95%;
+  height: 85%;
+
+  @media (max-width:1200px) {
+    width: 100%;
+  }
 `;
 
 export const FilterItemsContainer = styled.div`
@@ -85,35 +94,55 @@ export const FilterItemsContainer = styled.div`
   margin: 20px 10px;
   align-items: center;
   justify-content: center;
-  & > button {
+
+  @media (max-width:800px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  & button {
     color: white;
     border: none;
     outline: none;
     border-radius: 10px;
-    padding: 10px 40px;
+    padding: 10px 20px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     background: rgb(0, 109, 143);
-
+    @media (max-width:1200px) {
+      padding: 10px 20px;
+      font-size: 0.6em;
+    }
     &:hover {
       background: rgb(1, 59, 77);
     }
   }
 
   & > .pagination {
+
+    @media (max-width:800px) {
+      align-self: flex-end;
+      }
     & > span {
       font-weight: 1000;
       font-size: 1.1em;
+      @media (max-width:1200px) {
+      font-size: 0.9em;
+      }
+
     }
 
     & > :is(.left, .right) {
       background: rgb(0, 109, 143);
-      padding: 10px;
+      padding: 5px;
       border-radius: 10px;
       color: white;
       margin-inline: 5px;
       cursor: pointer;
       transition: all 0.3s ease-in;
+      @media (max-width:1200px) {
+        font-size: 0.9em;
+        padding: 5px;
+      }
     }
 
     & > :is(.left, .right):hover {
@@ -125,13 +154,25 @@ export const FilterContainer = styled.div`
   display: flex;
   border-radius: 10px;
   border: solid 1px gray;
-  padding: 10px 20px;
+  padding: 10px 10px;
   align-items: center;
   margin-inline: 5px;
 
+  @media (max-width:1200px) {
+      padding: 10px 10px;
+    }
+
+    @media (max-width:800px) {
+      margin: 10px;
+    }
+
   & > span {
-    font-size: 0.8em;
+    font-size: 0.7em;
     color: gray;
+
+    @media (max-width:1200px) {
+      display: none;
+    }
 
     &::after {
       content: ": ";
@@ -143,6 +184,12 @@ export const FilterContainer = styled.div`
     outline: none;
     border-radius: 10px;
     text-align: center;
+    font-size: 0.8em;
+
+    @media (max-width:800px) {
+      font-size: 0.7em;
+    }
+
     
   }
 `;
@@ -166,6 +213,10 @@ export const TableRow = styled.div`
 
   & > .table__productName {
     flex: 2;
+
+    @media (max-width:850px) {
+      flex: 1;
+    }
   }
 
   & > .table__image {
@@ -180,6 +231,9 @@ export const TableRow = styled.div`
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 
+    @media (max-width:760px) {
+      padding: 5px;
+    }
     &:hover {
       background: aliceblue;
       color: black;
@@ -190,10 +244,19 @@ export const TableRow = styled.div`
 export const T_HEAD = styled.div`
   margin-top: 50px;
   color: gray;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const T_DATA = styled.div`
   margin-top: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  @media (max-width:760px) {
+      font-size: 0.8em;
+    }
   & > img {
     width: 50px;
     object-fit: contain;
@@ -201,6 +264,12 @@ export const T_DATA = styled.div`
     border-radius: 10px;
     border: solid 1px gray;
     height: 50px;
+
+    @media (max-width:760px) {
+      width: 40px;
+      height: 40px;
+
+    }
   }
 `;
 
@@ -219,6 +288,7 @@ export const ProductItem = styled.div`
   cursor: default;
   /* border-bottom: solid 1px gray; */
   justify-content: center;
+  font-size: 0.9em;
   &:nth-child(even) {
     background: rgb(240,248,255);
   }
@@ -242,10 +312,10 @@ export const ImageContainer = styled.div`
   & > .imgUploader {
     position: absolute;
     top: 50px;
-    left: 0;
-    width: 100%;
+    left: 20;
+    width: 80%;
     opacity: 0;
-    height: 37%;
+    height: 28%;
     background: black;
     cursor: pointer;
   }
@@ -260,15 +330,22 @@ export const ImageContainer = styled.div`
     transition: all 0.3s ease-in-out;
     margin: 10px;
     background: gray;
-  }
 
-  & > .deleteBtn {  
+    &.deleteBtn {  
     background-color: maroon !important;
+    }
+
+    &.updateBtn {
+      background: lightgreen !important;
+    }
+
+    @media (max-width:650px) {
+      padding: 10px 20px;
+      font-size: 0.9em;
+    }
   }
 
-  & > .updateBtn {
-    background: lightgreen !important;
-  }
+ 
 
   & > .item__image {
     width: 100px;
@@ -279,6 +356,11 @@ export const ImageContainer = styled.div`
     height: 100px;
     align-self: center;
     cursor: pointer;
+
+    @media (max-width:800px) {
+      width: 50px;
+      height: 50px;
+    }
   }
 `;
 export const ItemInfoContainer = styled.div`
@@ -286,12 +368,20 @@ export const ItemInfoContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 0 20px 0 10px;
+
+  @media (max-width:800px) {
+    flex-direction: row;
+  }
 `;
 
 export const InfoRow = styled.div`
   display: flex;
   width: 100%;
-  text-align: star;
+  text-align: start;
+
+  @media (max-width:800px) {
+    flex-direction: column;
+  }
   & > .info {
     flex: 1;
     display: flex;
@@ -303,6 +393,10 @@ export const InfoRow = styled.div`
       color: gray;
       margin: 5px;
       text-align: start;
+
+      @media (max-width:800px) {
+        text-align: center;
+       }
     }
 
     & > input {
@@ -313,6 +407,11 @@ export const InfoRow = styled.div`
       outline: none;
       background: none;
 
+      
+      @media (max-width:800px) {
+        width: 50%;
+        align-self: center;
+      }
       &:disabled {
         color: rgb(187, 187, 187) !important;
         /* background: rgb(187, 187, 187); */
@@ -328,6 +427,12 @@ export const InfoRow = styled.div`
       background: none;
       border-radius: 10px;
       resize: none;
+
+      @media (max-width:800px) {
+        width: 90%;
+        align-self: center;
+        height: 100%;
+       }
       &:disabled {
         color: rgb(177, 177, 177) !important;
         /* background: rgb(187, 187, 187); */

@@ -163,14 +163,15 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           </select>
         </FilterContainer>
 
+        <div className="pagination">
+          
         <button onClick={() => setOpenItem(true)}>
           Add Item <i className="fa-solid fa-plus"></i>
         </button>
 
-        <div className="pagination">
-          <i className="fa-solid fa-chevron-left left " onClick={() => setCurrentPage(prev => prev !== 0 ? prev -1 : prev)}></i>
+        <i className="fa-solid fa-chevron-left left " onClick={() => setCurrentPage(prev => prev !== 0 ? prev -1 : prev)}></i>
           <span>{`${currentPage + 1} / ${maxPage}`} </span>
-          <i className="fa-solid fa-chevron-right right " onClick={() => setCurrentPage(prev => prev + 1 < maxPage ? prev +1 : prev)}></i>
+        <i className="fa-solid fa-chevron-right right " onClick={() => setCurrentPage(prev => prev + 1 < maxPage ? prev +1 : prev)}></i>
         </div>
       </FilterItemsContainer>
 

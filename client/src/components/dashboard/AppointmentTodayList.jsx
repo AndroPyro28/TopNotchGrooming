@@ -40,9 +40,9 @@ function AppointmentTodayList() {
 
       <TableHeader>
         <T_Head>Customer name</T_Head>
-        <T_Head>Appointment type</T_Head>
+        <T_Head className="appointment__type">Appointment type</T_Head>
         <T_Head>Pet name</T_Head>
-        <T_Head>Date</T_Head>
+        <T_Head className="date">Date</T_Head>
         <T_Head>Time</T_Head>
       </TableHeader>
 

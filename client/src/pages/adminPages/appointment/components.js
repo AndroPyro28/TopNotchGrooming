@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 export const GlobalStyles = createGlobalStyle`
 body {
     background: rgb(235, 235, 235);
+    /* background: #EAEAEA; */
     font-family: "Open Sans", sans-serif !important;
 }
 `;
@@ -34,7 +35,7 @@ export const ListNavigationButton = styled.div`
 export const ShiftScheduleContainer = styled.div`
   display: flex;
   justify-content: space-between;
-
+  
   & > select {
     height: 40px;
     padding: 10px 20px;
@@ -44,12 +45,23 @@ export const ShiftScheduleContainer = styled.div`
     border: none;
     text-align: center;
     outline: none;
+    
+    @media (max-width:800px) {
+      padding: 10px 0px;
+      font-size: 0.7em;
+      margin-inline: 0px;
+
+    }
   }
   
 `;
 
 export const Shifts = styled.div`
     display: flex;
+
+    @media (max-width:520px) {
+      flex-wrap: wrap;
+    }
 
     & > div {
     padding: 10px 40px;
@@ -62,6 +74,20 @@ export const Shifts = styled.div`
     margin-left: 5px;
     margin-right: 5px;
     cursor: pointer;
+    /* @media (max-width:800px ) {
+    flex-wrap: wrap;
+    } */
+
+
+    @media (max-width:800px) {
+      padding: 10px 20px;
+      font-size: 0.8em;
+    }
+
+    @media (max-width:520px) {
+      border-radius: 10px;
+      margin: 10px;
+    }
     &.active {
       background: white;
       color: gray;
@@ -92,6 +118,9 @@ export const TableData = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   }
 
   & > div:nth-child(1) {
@@ -131,6 +160,9 @@ export const TableHeader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   }
 
    & > div:nth-child(1) {
@@ -154,6 +186,7 @@ export const TableHeader = styled.div`
 
 export const T_Data = styled.div`
 text-transform: capitalize;
+
   & > img {
     width: 35px;
     height: 35px;

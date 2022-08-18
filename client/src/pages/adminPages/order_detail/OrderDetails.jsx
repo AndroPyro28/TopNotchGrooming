@@ -61,10 +61,9 @@ function OrderDetails() {
 
             <OrderedItemsContainer>
 
-                <OrderedItemsHeader>
+              <OrderedItemsHeader>
                     <h3> Ordered Items <small>(All items were shipped)</small> </h3>
                 </OrderedItemsHeader>
-
 
                 <OrderedProducts> {/* product List component */}
                    {
@@ -73,8 +72,7 @@ function OrderDetails() {
                     }) 
                    }
                 </OrderedProducts>
-
-
+                
                 <Summary data={orderData}/> {/* summary component */}
 
             </OrderedItemsContainer>

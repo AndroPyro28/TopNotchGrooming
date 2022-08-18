@@ -17,6 +17,11 @@ export const InfoRow = styled.div`
   width: 100%;
   margin-block: 15px;
 
+  @media (max-width:615px) {
+    flex-direction: column;
+    margin-block: 0px;
+  }
+
   & > button {
     padding: 10px 20px;
     border-radius: 8px;
@@ -25,6 +30,10 @@ export const InfoRow = styled.div`
     margin-inline: 10px;
     color: white;
     cursor: pointer;
+
+    @media (max-width:930px) {
+        margin: 10px;
+    }
     &.reject {
       background: red;
 
@@ -50,6 +59,10 @@ export const Info = styled.div`
   text-align: start;
   flex: 1;
   margin-inline: 10px;
+
+  @media (max-width:615px) {
+    margin-block: 10px;
+  }
 
   & > h4 {
     color: dimgray;
@@ -92,8 +105,15 @@ export const Info = styled.div`
 export const PetInformation = styled.div`
   display: grid;
   grid-template-columns: 25% 70%;
+
+  @media (max-width:630px) {
+  grid-template-columns: 100%;
+
+  }
+
   & > img {
     width: 100%;
+    max-width: 200px;
     border-radius: 10px;
     object-fit: cover;
   }
@@ -110,8 +130,17 @@ export const AppointmentInfoContainer = styled.div`
   flex-direction: column;
   /* background: black; */
   position: relative;
+
+  @media (max-width:930px) {
+    margin:10px 40px ;
+    }
+
   & > h2 {
     margin: 50px 0px 20px 0px;
+    @media (max-width:930px) {
+      text-align: start;
+        
+    }
   }
 `;
 

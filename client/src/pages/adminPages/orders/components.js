@@ -160,6 +160,9 @@ export const TableRowData = styled.div`
 export const T_Head = styled.div`
   flex: 1;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
 `;
 export const T_Data = styled.div`
   flex: 1;

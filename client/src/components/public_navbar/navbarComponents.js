@@ -43,26 +43,28 @@ export const ButtonContainer = styled.div`
       }
   }
 
-  & > i {
-    color: rgb(142,112,101);
-    padding: 10px 15px;
-    font-size: 2em;
-    cursor: pointer;
-    display: none;
-  }
 
   @media(max-width: 800px) {
-    & > i {
-    display: block;
-
-    }
-
     & > a {
     display: none;
     }
   }
 `;
 
+export const HamburgerMenu = styled.i`
+   color: rgb(142,112,101);
+    padding: 10px 15px;
+    font-size: 2em;
+    cursor: pointer;
+    display: none;
+
+    @media(max-width: 800px) {
+    & {
+    display: block;
+    }
+    
+  }
+`
 export const DropdownBtn = styled.div`
       text-decoration: none;
       color: rgb(142,112,101);
