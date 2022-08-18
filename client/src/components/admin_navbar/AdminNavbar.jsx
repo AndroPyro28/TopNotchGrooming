@@ -28,22 +28,22 @@ function AdminNavbar() {
         {
           url:`/admin/#`,
           name:"Dashboard",
-          icon:'fa-solid fa-bars'
+          icon:'fa-solid fa-chart-line'
         },
         {
           url:`/admin/record/appointments`,
           name:"Appointments",
-          icon:'fa-solid fa-chart-line'
+          icon:'fa-solid fa-calendar-days'
         },
         {
           url:`/admin/record/sales`,
           name:"Sales",
-          icon:'fa-solid fa-calendar-days'
+          icon:'fa-solid fa-chart-pie'
         },
         {
           url:`/admin/orders`,
           name:"Orders",
-          icon:'fa-solid fa-chart-pie'
+          icon:'fa-solid fa-truck-fast'
         },
         {
           url:`/admin/liveStreamChannels`,
