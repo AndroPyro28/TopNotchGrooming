@@ -57,6 +57,8 @@ export const HamburgerMenu = styled.i`
     font-size: 1.5em;
     display: none;
     color: rgb(20,29,53);
+    padding: 5px;
+    cursor: pointer;
     @media (max-width:950px) {
         display: block;
     }
