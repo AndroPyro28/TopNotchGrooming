@@ -121,7 +121,7 @@ function App() {
     (async () => {
       if(pathname?.includes('customer')) {
         const cart = await fetcher();
-      dispatch(setToCartReducer(cart));
+        dispatch(setToCartReducer(cart));
       }
     })();
   }, []);
