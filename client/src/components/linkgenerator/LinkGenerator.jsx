@@ -3,7 +3,7 @@ import { LinkInput, LinkGeneratorContainer, Notify} from "./components";
 function LinkGenerator({ linkId, setLinkId }) {
   
   const [isClicked, setIsClicked] = useState(false);
-  const streamUrl = `${process.env.REACT_APP_SERVER_URI_PROD}/public/liveStreamChannels?redirect=${linkId}`;
+  const streamUrl = `https://topnotchgrooming-malolos.netlify.app/public/liveStreamChannels?redirect=${linkId}`;
 
   const clickCopyClip = () => {
     setIsClicked(true);

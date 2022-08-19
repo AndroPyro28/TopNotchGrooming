@@ -14,10 +14,9 @@ function Channels() {
   const {socket} = useSelector(state => state);
 
   if(roomLink) {
-    console.log(socket)
     window.localStorage.setItem('enter_stream', true)
     window.localStorage.setItem("render_once", true)
-     navigate(`/public/liveStreamChannels/${roomLink}`)
+    navigate(`/public/liveStreamChannels/${roomLink}`)
   }
 
   let userType = "";
