@@ -4,6 +4,10 @@ import { NotificationContainer } from "./components";
 function Notification({ data }) {
    const { message } = data;
 
+  //  if(message.includes('undefined')) {
+  //   message = message.replace('undefined undefined', 'Someone')
+  //  }
+
   return (
     <NotificationContainer >
       {

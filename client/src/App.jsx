@@ -74,12 +74,12 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    // const auth = {
-    //   userinfo: Cookies.get("userToken"),
-    //   isAuth: false
-    // };
+    const auth = {
+      userinfo: Cookies.get("userToken"),
+      isAuth: false
+    };
 
-    // dispatch(connection(io("http://localhost:3001", {auth})));
+    dispatch(connection(io("http://localhost:3001", {auth})));
   }, [])
 
   useEffect(() => {
@@ -89,6 +89,7 @@ function App() {
           setLoading(true);
           const data = await CustomAxios({METHOD:"GET", uri:`/api/auth`});
           const { success, msg } = data;
+
           if (!success || msg?.includes("session expired")) {
                Cookies.remove("userToken");
                dispatch(authenticationFailed());
@@ -105,37 +106,10 @@ function App() {
     
                 dispatch(connection(io("http://localhost:3001", {auth})));
               }
-          {
-          // const res = await axios.get(`/api/auth`, {
-          //   headers: {
-          //     userinfo: Cookies.get("userToken"),
-          //   },
-          // });
-
-          // const { success, msg } = res.data;
-
-          // if (!success || msg?.includes("session expired")) {
-          //   Cookies.remove("userToken");
-          //   dispatch(authenticationFailed());
-          // }
-
-          // if (success) {
-          //   const { currentUser } = res.data;
-          //   dispatch(authenticationSuccess({ currentUser, isAuth: true }));
-
-          //   const auth = {
-          //     userinfo: Cookies.get("userToken"),
-          //     isAuth: true
-          //   };
-
-          //   dispatch(connection(io("http://localhost:3001", {auth})));
-          // }
-          }
         } catch (error) {
           console.error(error);
         } finally {
-      setLoading(false);
-
+          setLoading(false);
         }
       })();
     });
@@ -145,8 +119,10 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const cart = await fetcher();
+      if(pathname?.includes('customer')) {
+        const cart = await fetcher();
       dispatch(setToCartReducer(cart));
+      }
     })();
   }, []);
 
@@ -156,11 +132,10 @@ function App() {
   return (
     <AppRoot>
 
-      {navbarType === "public" && <PublicNavbar />}
+      {navbarType === "public" && !pathname?.includes('room=') && <PublicNavbar />}
 
       {navbarType === "customer" && !pathname?.includes('room=') && <CustomerNavbar />}
 
-      {/* {navbarType === "admin" && !pathname?.includes('room=') && <AdminSidebar />} */}
       {navbarType === "admin" && !pathname?.includes('room=') && <AdminNavbar />}
 
 

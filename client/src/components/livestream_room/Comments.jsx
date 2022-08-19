@@ -18,7 +18,6 @@ function Comments({comments, setComments}) {
     window.localStorage.removeItem("render_once");
     socket.on("sendMessageToRoom", ({ room, user, message }) => {
       setComments((prev) => [...prev, { user, content: "message", message }]);
-
     });
 
     socket.on("someOneJoined", ({ user }) => {
@@ -30,7 +29,6 @@ function Comments({comments, setComments}) {
           message: `${user?.firstname} ${user?.lastname} has joined the event`,
         },
       ]);
-
     });
 
     socket.on("someOneLeaved", ({ user }) => {

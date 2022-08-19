@@ -10,9 +10,9 @@ const socketRoutes = (io) => {
 
       currentUser = await verifySocket(socket.handshake.auth);
       controller = new SocketControllers({ socket, io, currentUser });
-    if (!currentUser) {
-      return next(new Error("session expired"));
-    }
+    // if (!currentUser) {
+    //   return next(new Error("session expired"));
+    // }
     next();
   });
 

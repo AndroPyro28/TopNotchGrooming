@@ -241,11 +241,12 @@ module.exports.checkout = async (req, res) => {
           "x-public-key": process.env.GCASH_API_KEY,
           amount: `1`, // ${totalAmount}
           description: "Payment for services rendered",
-          redirectsuccessurl: `http://localhost:3000:3000/customer/payment=success`,
+          redirectsuccessurl: `${process.env.CLIENT_URL}customer/payment=success`,
           redirectfailurl: `${process.env.CLIENT_URL}/customer/cart`,
           customeremail: `${req.currentUser?.email}`,
           customermobile: `${req.currentUser?.phoneNo}`,
           customername: `${req.currentUser?.firstname} ${req.currentUser?.lastname}`,
+          webhooksuccessurl:`${process.env.CLIENT_URL}/customer/gcashTriggered`
         },
       };
       request(options, function (error, response) {
@@ -439,4 +440,8 @@ module.exports.getOrderByReference = async (req, res) => {
       success: false
     })
   }
+}
+
+module.exports.gcashTriggered = async (req, res) => {
+  console.log(':::::gcash triggered api::::', req.body)
 }

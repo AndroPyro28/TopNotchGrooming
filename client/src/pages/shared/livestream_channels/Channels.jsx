@@ -2,12 +2,24 @@ import React from "react";
 import OtherLiveStream from "../../../components/livestream_channels/OtherLiveStream";
 import { ChannelsContainer, GlobalStyles, StreamButton } from "./components";
 import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LiveStreamModal from "../../../components/modals/livestream_modals/LiveStreamModal";
+import {useSelector} from "react-redux";
 
 function Channels() {
-  const { pathname = "" } = useLocation();
+  const { pathname = "", search } = useLocation();
+  const roomLink = search.replace('?redirect', 'room');
+  const navigate = useNavigate();
+  const {socket} = useSelector(state => state);
+
+  if(roomLink) {
+    console.log(socket)
+    window.localStorage.setItem('enter_stream', true)
+    window.localStorage.setItem("render_once", true)
+     navigate(`/public/liveStreamChannels/${roomLink}`)
+  }
+
   let userType = "";
   
   if (Cookies?.get("userToken")?.length > 0 || Cookies?.get("userToken")) {

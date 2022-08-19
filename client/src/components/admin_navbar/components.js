@@ -52,7 +52,6 @@ align-items: center;
     }
 
 `
-
 export const HamburgerMenu = styled.i`
     font-size: 1.5em;
     display: none;

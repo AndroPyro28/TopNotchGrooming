@@ -15,6 +15,7 @@ class SocketControllers {
   }
 
   joinRoom = async ({ room, headers, userId }) => {
+    console.log(room);
     // this.#currentUser = await verifySocket(headers);
     // if (!this.#currentUser) return;
 

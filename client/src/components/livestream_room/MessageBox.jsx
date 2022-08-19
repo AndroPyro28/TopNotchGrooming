@@ -15,10 +15,10 @@ function MessageBox() {
   const room = pathname.split("/room=")[1];
   const {socket} = state;
   const { currentUser } = state.user;
-
+  const isAuth = !pathname?.includes('public');
   const sendMessage = (e) => {
     try {
-      if(!message) {
+      if(!message || !isAuth) {
         return;
       }
 
@@ -35,11 +35,12 @@ function MessageBox() {
       <input
         type={"text"}
         value={message}
+        disabled={!isAuth}
         onChange={(e) => setMessage((prev) => e.target.value)}
-        placeholder="Share your thoughts..."
+        placeholder={isAuth ? "Share your thoughts..." : "You are not allowed to comment"}
         onKeyDown={(e) => e.key === "Enter" && sendMessage(e)}
       />
-      <i class="fa-solid fa-paper-plane" onClick={sendMessage} ></i>
+      <i class="fa-solid fa-paper-plane" onClick={sendMessage}  ></i>
     </MessageBoxContainer>
   );
 }

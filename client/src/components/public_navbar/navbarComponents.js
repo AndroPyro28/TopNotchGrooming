@@ -44,7 +44,7 @@ export const ButtonContainer = styled.div`
   }
 
 
-  @media(max-width: 800px) {
+  @media(max-width: 949px) {
     & > a {
     display: none;
     }
@@ -58,9 +58,9 @@ export const HamburgerMenu = styled.i`
     cursor: pointer;
     display: none;
 
-    @media(max-width: 800px) {
+    @media(max-width: 949px) {
     & {
-    display: block;
+      display: block;
     }
     
   }
@@ -84,7 +84,7 @@ export const DropdownBtn = styled.div`
         color: white;
       }
 
-      @media(max-width: 800px) {
+      @media(max-width: 949px) {
         & { 
             display: none;
         }

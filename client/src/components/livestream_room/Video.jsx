@@ -62,17 +62,16 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
         socket?.emit("joinRoom", {
           room: currentRoom,
           headers,
-          userId: currentUser?.id,
+          userId: currentUser?.id ?? socket?.id,
         });
 
         socket?.on("youJoined", ({ userId, room }) => {
-          if (!isAdmin && userId == currentUser?.id && room == currentRoom) {
+          if (!isAdmin && userId == currentUser?.id && room == currentRoom || !isAdmin && userId == socket?.id && room == currentRoom) {
             const peer = new Peer({
               initiator: true,
               trickle: false,
               stream: stream,
             });
-
             peer.on("signal", (data) => {
               socket?.emit("sendObserverSignalToAdmin", { data, userId, room });
             });
@@ -86,10 +85,12 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
                 !isAdmin &&
                 userId == currentUser?.id &&
                 room == currentRoom
+                ||
+                !isAdmin &&
+                userId == socket?.id &&
+                room == currentRoom
               ) {
-
                 peer.signal(data);
-
               }
             });
           }

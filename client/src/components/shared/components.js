@@ -11,9 +11,14 @@ export const MenuBackDrop = styled.div`
   height: 100vh;
   z-index: 500;
 
-  @media (min-width:800px) {
+  @media (min-width:950px) {
     display: none;
   }
+
+  @media (max-width:949px) {
+    display: block;
+  }
+
   & > .closeBtn {
     position: fixed;
     top:20px;
