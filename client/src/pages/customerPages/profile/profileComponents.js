@@ -8,7 +8,7 @@ export const ProfilePageContainer = styled.section`
   overflow-x: hidden !important;
   position: relative;
   & > i {
-    position: absolute;
+    position: relative;
     right: 10px;
     top: 20px;
     font-size: 1.5em;
