@@ -24,6 +24,37 @@ export const LiveStreamModalContainer = styled.div`
   width: 45%;
   border-radius: 10px;
   overflow: auto;
+
+  @media (max-width:900px) {
+    width: 55%;
+
+  }
+
+  @media (max-width:800px) {
+    width: 60%;
+
+  }
+
+  @media (max-width:700px) {
+    width: 65%;
+
+  }
+
+  @media (max-width:600px) {
+    width: 70%;
+
+  }
+
+  @media (max-width:500px) {
+    width: 75%;
+
+  }
+
+  @media (max-width:400px) {
+    width: 95%;
+
+  }
+
   
   & > h1 {
     text-align: start;

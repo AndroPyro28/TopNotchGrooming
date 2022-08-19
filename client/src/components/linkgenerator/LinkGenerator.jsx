@@ -3,7 +3,7 @@ import { LinkInput, LinkGeneratorContainer, Notify} from "./components";
 function LinkGenerator({ linkId, setLinkId }) {
   
   const [isClicked, setIsClicked] = useState(false);
-  const streamUrl = `http://localhost:3000/public/liveStreamChannels?redirect=${linkId}`;
+  const streamUrl = `${process.env.REACT_APP_SERVER_URI_PROD}/public/liveStreamChannels?redirect=${linkId}`;
 
   const clickCopyClip = () => {
     setIsClicked(true);
