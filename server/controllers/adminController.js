@@ -230,7 +230,7 @@ module.exports.generateVerifiedLink = async (req, res) => {
 module.exports.getScheduleToday = async (req, res) => {
   try {
     const {date} = req.params;
-
+    
     if(!date) {
       throw new Error("Invalid date");
     }

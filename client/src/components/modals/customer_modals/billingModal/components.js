@@ -23,6 +23,36 @@ export const ModalBackdrop = styled.div`
     text-align: start;
     display: flex;
     flex-direction: column;
+
+    @media (max-width:900px) {
+      width: 60%;
+    }
+
+    @media (max-width:800px) {
+      width: 70%;
+    }
+
+    @media (max-width:700px) {
+      width: 80%;
+    }
+
+    @media (max-width:600px) {
+      width: 85%;
+    }
+
+    @media (max-width:500px) {
+      width: 90%;
+    }
+
+    @media (max-width:400px) {
+      width: 95%;
+    }
+
+    @media (max-width:300px) {
+      width: 100%;
+    }
+
+
     & > h1 {
       margin: 30px 70px;
       color: rgb(17, 17, 17);
