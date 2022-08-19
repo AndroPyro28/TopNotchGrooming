@@ -31,22 +31,22 @@ export const LiveStreamModalContainer = styled.div`
   }
 
   @media (max-width:800px) {
-    width: 60%;
-
-  }
-
-  @media (max-width:700px) {
     width: 65%;
 
   }
 
+  @media (max-width:700px) {
+    width: 75%;
+
+  }
+
   @media (max-width:600px) {
-    width: 70%;
+    width: 85%;
 
   }
 
   @media (max-width:500px) {
-    width: 75%;
+    width: 90%;
 
   }
 
