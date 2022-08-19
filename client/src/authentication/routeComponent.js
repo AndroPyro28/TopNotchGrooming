@@ -5,9 +5,9 @@ export const CustomerRoute = styled.main`
 `;
 
 export const CustomerGlobalStyles = createGlobalStyle`
-body {
+/* body {
   overflow:hidden;
-}
+} */
     &::-webkit-scrollbar {
     width: 5px;
   }
