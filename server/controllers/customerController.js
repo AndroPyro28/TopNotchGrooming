@@ -241,7 +241,7 @@ module.exports.checkout = async (req, res) => {
           "x-public-key": process.env.GCASH_API_KEY,
           amount: `1`, // ${totalAmount}
           description: "Payment for services rendered",
-          redirectsuccessurl: `${process.env.CLIENT_URL}customer/payment=success`,
+          redirectsuccessurl: `${process.env.CLIENT_URL}/customer/payment=success`,
           redirectfailurl: `${process.env.CLIENT_URL}/customer/cart`,
           customeremail: `${req.currentUser?.email}`,
           customermobile: `${req.currentUser?.phoneNo}`,
@@ -301,7 +301,7 @@ module.exports.checkout = async (req, res) => {
     }
     // return res.status(200).json({checkoutUrl:session.url})
   } catch (error) {
-    console.error(error.message);
+    console.error('hotdog', error.message);
     return res.status(200).json({
       success: false,
       msg: error.message,
