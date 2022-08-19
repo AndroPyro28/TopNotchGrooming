@@ -79,7 +79,7 @@ function App() {
       isAuth: false
     };
 
-    dispatch(connection(io("http://localhost:3001", {auth})));
+    dispatch(connection(io(process.env.REACT_APP_SERVER_URI_PROD, {auth})));
   }, [])
 
   useEffect(() => {
@@ -104,7 +104,7 @@ function App() {
                   isAuth: true
                 };
     
-                dispatch(connection(io("http://localhost:3001", {auth})));
+                dispatch(connection(io(process.env.REACT_APP_SERVER_URI_PROD, {auth})));
               }
         } catch (error) {
           console.error(error);
