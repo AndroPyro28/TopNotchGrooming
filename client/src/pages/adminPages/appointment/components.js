@@ -98,7 +98,7 @@ export const Shifts = styled.div`
 
 export const TableData = styled.div`
  @media (max-width:500px) {
-    & > .table__date {
+    & > .table__id {
       display: none;
     }
     
@@ -164,7 +164,7 @@ export const TableHeader = styled.div`
   background: white;
 
     @media (max-width:500px) {
-    & > .table__date {
+    & > .table__id {
       display: none;
     }
     
