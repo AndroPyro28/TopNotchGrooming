@@ -163,7 +163,6 @@ export const TableHeader = styled.div`
   padding: 55px 40px 25px 40px;
   background: white;
 
-  @media (max-width:500px) {
     @media (max-width:500px) {
     & > .table__date {
       display: none;
@@ -175,7 +174,6 @@ export const TableHeader = styled.div`
     & > .table__time {
       display: none;
     }
-  }
   }
 
 
