@@ -17,7 +17,6 @@ module.exports.orderProductParserList = async (orderJson) => {
         order.products = parsedJsonProducts;
         return order;
     })
-    console.log(orders)
     return orders
 }
 
