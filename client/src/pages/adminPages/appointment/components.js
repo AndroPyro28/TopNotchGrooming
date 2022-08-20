@@ -242,6 +242,9 @@ text-transform: capitalize;
     &.rejected {
       background: maroon;
     }
+    &.interrupted {
+      background: black;
+    }
    
   }
 `;
