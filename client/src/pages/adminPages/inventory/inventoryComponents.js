@@ -325,10 +325,16 @@ export const ImageContainer = styled.div`
     top: 50px;
     left: 20;
     width: 80%;
-    opacity: 0;
+    opacity: 1;
     height: 28%;
     background: black;
     cursor: pointer;
+
+    @media (max-width:800px) {
+      top: 0px;
+    height: 30%;
+
+    }
   }
 
   & > button {
@@ -424,7 +430,7 @@ export const InfoRow = styled.div`
 
       
       @media (max-width:800px) {
-        width: 50%;
+        width: 90%;
         /* align-self: center; */
       }
       &:disabled {
