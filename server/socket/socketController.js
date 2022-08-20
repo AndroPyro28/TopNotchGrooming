@@ -107,13 +107,13 @@ class SocketControllers {
         ]);
 
         const rooms = result.map(room => {
-          room.roomInfo = DataJsonParser(room.roomInfo);
+          // room.roomInfo = DataJsonParser(room.roomInfo);
           const index = allRooms.findIndex(
             (r) => r.roomLink == room.roomInfo.room_link
           );
           room.roomInfo.attendees = allRooms[index].users.length;
-          room.ownerInfo = DataJsonParser(room.ownerInfo);
-          room.groomerInfo = DataJsonParser(room.groomerInfo);
+          // room.ownerInfo = DataJsonParser(room.ownerInfo);
+          // room.groomerInfo = DataJsonParser(room.groomerInfo);
 
           return room;
         });
