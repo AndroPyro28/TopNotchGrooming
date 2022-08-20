@@ -63,7 +63,15 @@ function CustomerNavbar() {
 
         <InfoAndCart>
           <a>
-            <button onClick={() => setOpenCart(!openCart) }>
+            <button onClick={() =>() => {
+                const currentDevice = deviceType() 
+                if(currentDevice === "desktop") {
+                  setOpenCart(prev => !prev)
+                } else {
+                  navigate(`/customer/cart`)
+                }
+                
+              }}>
               <i class="fa-solid fa-cart-shopping"></i> &nbsp; Cart &nbsp;
               <span class={`cart__number__item ${nocartItems && "active"}`}>
                 {nocartItems}
@@ -82,16 +90,7 @@ function CustomerNavbar() {
           <DropDown>
             <i
               class="fa-solid fa-chevron-down dropDownBtn"
-              onClick={() => {
-                const currentDevice = deviceType() 
-                if(currentDevice === "desktop") {
-                  setOpenDropdown(!openDropdown)
-                } else {
-                  navigate(`/customer/cart`)
-                }
-                
-              }
-              }
+              onClick={() => setOpenDropdown(prev => !prev)}
             ></i>
             {openDropdown && (
               <div className="dropdown__content">
