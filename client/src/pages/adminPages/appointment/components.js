@@ -186,7 +186,7 @@ export const TableHeader = styled.div`
 
 export const T_Data = styled.div`
 text-transform: capitalize;
-  @media (max-width:700px) {
+  @media (max-width:500px) {
     &.table__customer {
       display: none;
     }
@@ -224,7 +224,7 @@ text-transform: capitalize;
 `;
 
 export const T_Head = styled.div`
-  @media (max-width:700px) {
+  @media (max-width:500px) {
     &.table__customer {
       display: none;
     }
