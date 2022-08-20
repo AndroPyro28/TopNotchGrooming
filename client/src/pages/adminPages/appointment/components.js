@@ -98,7 +98,14 @@ export const Shifts = styled.div`
 
 export const TableData = styled.div`
  @media (max-width:500px) {
-    & > .table__customer {
+    & > .table__date {
+      display: none;
+    }
+    
+    & > .table__petname {
+      display: none;
+    }
+    & > .table__time {
       display: none;
     }
   }
@@ -157,11 +164,20 @@ export const TableHeader = styled.div`
   background: white;
 
   @media (max-width:500px) {
-    & > .table__customer {
+    @media (max-width:500px) {
+    & > .table__date {
+      display: none;
+    }
+    
+    & > .table__petname {
+      display: none;
+    }
+    & > .table__time {
       display: none;
     }
   }
-  
+  }
+
 
   & > .header {
     font-family: "Open Sans", sans-serif;
@@ -232,11 +248,6 @@ text-transform: capitalize;
 `;
 
 export const T_Head = styled.div`
-  @media (max-width:500px) {
-    &.table__customer {
-      display: none;
-    }
-  }
 `;
 export const AdminListContainer = styled.div`
   display: flex;
