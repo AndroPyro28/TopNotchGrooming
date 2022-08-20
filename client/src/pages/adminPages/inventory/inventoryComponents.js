@@ -325,16 +325,16 @@ export const ImageContainer = styled.div`
     top: 50px;
     left: 20;
     width: 80%;
-    opacity: 1;
+    opacity: 0;
     height: 28%;
     background: black;
     cursor: pointer;
 
     @media (max-width:800px) {
-      top: 0px;
+      top: 20px;
       height: 30%;
-
     }
+
   }
 
   & > button {
