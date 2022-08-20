@@ -33,7 +33,7 @@ export const MenuList = styled.div`
   flex-direction: column;
   display: flex;
   background: white;
-  height: 100%;
+  height: 100vh;
   width: 70%;
   justify-content: space-evenly;
   & > a {
