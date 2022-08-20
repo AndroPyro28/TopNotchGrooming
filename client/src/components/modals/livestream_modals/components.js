@@ -81,6 +81,12 @@ export const ScheduleData = styled.div`
   align-items: center;
   padding: 0px 10px;
   transition: all 0.3s ease-in-out;
+
+  @media (max-width:800px) {
+    & > .select__tag {
+      display: none;
+    }
+  }
   &:hover {
     background: #eaeaea;
     cursor: pointer;
