@@ -222,6 +222,13 @@ export const TableRow = styled.div`
   & > .table__image {
     display: flex;
     justify-content: center;
+
+    @media (max-width:850px) {
+      & {
+        display: none;
+    }
+  }
+
   }
 
   & > .table__action > i {
