@@ -316,6 +316,10 @@ export const ImageContainer = styled.div`
   align-items: center;
   position: relative;
 
+  @media (max-width:800px) {
+    align-items: flex-start;
+  }
+
   & > .imgUploader {
     position: absolute;
     top: 50px;
@@ -405,9 +409,9 @@ export const InfoRow = styled.div`
       margin: 5px;
       text-align: start;
 
-      @media (max-width:800px) {
+      /* @media (max-width:800px) {
         text-align: center;
-       }
+       } */
     }
 
     & > input {
@@ -421,7 +425,7 @@ export const InfoRow = styled.div`
       
       @media (max-width:800px) {
         width: 50%;
-        align-self: center;
+        /* align-self: center; */
       }
       &:disabled {
         color: rgb(187, 187, 187) !important;
@@ -441,7 +445,7 @@ export const InfoRow = styled.div`
 
       @media (max-width:800px) {
         width: 90%;
-        align-self: center;
+        /* align-self: center; */
         height: 100%;
        }
       &:disabled {
