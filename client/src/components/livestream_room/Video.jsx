@@ -30,7 +30,7 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
       });
 
       if (stream) {
-        setStream(stream);
+        // setStream(stream);
         if (videoRef.current && isAdmin) {
           videoRef.current.srcObject = stream;
           mediaRecorder = new MediaRecorder(stream);
@@ -104,6 +104,7 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
               trickle: false,
               stream: stream,
             });
+            
             peer.on("signal", (data) => {
               socket?.emit("sendAdminSignalToObserver", { data, userId, room });
             });

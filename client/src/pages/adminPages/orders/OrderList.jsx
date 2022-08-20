@@ -25,7 +25,7 @@ function OrderList() {
       
         (async () => {
             try {
-          setLoading(true)
+              setLoading(true)
               setOrders([])
               const response = await CustomAxios({METHOD:"POST", uri:`/api/admin/getOrders`, values: {status, textSearch}})
                 
@@ -96,7 +96,7 @@ function OrderList() {
               <h2 style={{color:"gray", marginBlock:50}}>No Orders Yet</h2>
             )
             :
-            orders?.map(order => (
+            orders.length === 0 ? <h2 style={{color:"gray", marginBlock:50}}>No orders</h2> : orders?.map(order => (
               <OrderData key={order.id} data={order} />
             ))
           }
