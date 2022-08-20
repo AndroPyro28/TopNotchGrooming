@@ -30,7 +30,6 @@ function OrderDetails() {
       startTransition(async () => {
         const reponse = await CustomAxios({METHOD:"GET", uri:`/api/admin/getOrderDetails/${reference}`})
         
-        // console.log(res.data);
         const {msg, success} = reponse;
 
         if(!success && msg?.include('session expired')) {
@@ -39,7 +38,6 @@ function OrderDetails() {
 
         const {order} = reponse;
         setOrderData(order)
-        console.log(order);
 
       })
     } catch (error) {

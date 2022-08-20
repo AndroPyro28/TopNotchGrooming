@@ -119,10 +119,8 @@ class Order {
 
       if (result.length > 0) {
         // result[0].customer = DataJsonParser(result[0].customer);
-        // return orderProductParserOne(result[0]);
-        return result[0]
+         return orderProductParserOne(result[0]);
       }
-
       return false;
     } catch (error) {
       console.error(error.message);

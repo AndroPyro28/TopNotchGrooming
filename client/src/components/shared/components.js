@@ -37,9 +37,9 @@ export const MenuList = styled.div`
   width: 70%;
   justify-content: space-evenly;
   & > a {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 500;
-    height: 100%;
+    height: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
