@@ -377,7 +377,7 @@ export const ItemInfoContainer = styled.div`
   margin: 0 20px 0 10px;
 
   @media (max-width:800px) {
-    flex-direction: row;
+    /* flex-direction: row; */
   }
 
   @media (max-width:600px) {
