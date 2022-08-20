@@ -186,7 +186,11 @@ export const TableHeader = styled.div`
 
 export const T_Data = styled.div`
 text-transform: capitalize;
-
+  @media (max-width:700px) {
+    &.table__customer {
+      display: none;
+    }
+  }
   & > img {
     width: 35px;
     height: 35px;
@@ -219,7 +223,13 @@ text-transform: capitalize;
   }
 `;
 
-export const T_Head = styled.div``;
+export const T_Head = styled.div`
+  @media (max-width:700px) {
+    &.table__customer {
+      display: none;
+    }
+  }
+`;
 export const AdminListContainer = styled.div`
   display: flex;
   flex-direction: column;
