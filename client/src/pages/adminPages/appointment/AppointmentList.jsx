@@ -109,13 +109,13 @@ function AppointmentList() {
       </ShiftScheduleContainer>
 
       <TableHeader>
-        <T_Head class="table__id"># ID</T_Head>
-        <T_Head class="table__customer">Customer</T_Head>
-        <T_Head class="table__petname">Pet Name</T_Head>
-        <T_Head class="table__date">Date</T_Head>
-        <T_Head class="table__time">Time</T_Head>
-        <T_Head class="table__service">Service</T_Head>
-        <T_Head class="table__status">Status</T_Head>
+        <T_Head className="table__id"># ID</T_Head>
+        <T_Head className="table__customer">Customer</T_Head>
+        <T_Head className="table__petname">Pet Name</T_Head>
+        <T_Head className="table__date">Date</T_Head>
+        <T_Head className="table__time">Time</T_Head>
+        <T_Head className="table__service">Service</T_Head>
+        <T_Head className="table__status">Status</T_Head>
       </TableHeader>
 
       <AdminListContainer>
