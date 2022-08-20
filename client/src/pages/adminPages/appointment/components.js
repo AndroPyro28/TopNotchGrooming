@@ -216,7 +216,8 @@ export const T_Data = styled.div`
 text-transform: capitalize;
  
   & > img {
-    width: 35px;
+    min-width: 35px;
+    max-width: 35px;
     height: 35px;
     border-radius: 50%;
     margin: 10px;
