@@ -82,21 +82,23 @@ function OrderList() {
         <TableContainer>
             
           <TableRowHeader>
-            <Thead> Order ID </Thead>
-            <Thead> Customer </Thead>
-            <Thead> Products </Thead>
-            <Thead> Date </Thead>
-            <Thead> Price </Thead>
-            <Thead> Order Status </Thead>
-            <Thead> Payment Method</Thead>
+            <Thead className="id"> Order ID </Thead>
+            <Thead className="customer"> Customer </Thead>
+            <Thead className="products"> Products </Thead>
+            <Thead className="date"> Date </Thead>
+            <Thead className="price"> Price </Thead>
+            <Thead className="order__status"> Order Status </Thead>
+            <Thead className="payment__method"> Payment Method</Thead>
           </TableRowHeader>
 
           {
-            loading ? <h2 style={{color:"gray", marginBlock:50}}>Loading orders...</h2> : orders?.length <= 0 ? (
-              <h2 style={{color:"gray", marginBlock:50}}>No Orders Yet</h2>
+            loading ?
+            <h2 style={{color:"gray", marginBlock:50}}>Loading orders...</h2> 
+            : orders?.length === 0 ? (
+            <h2 style={{color:"gray", marginBlock:50}}>No Orders Yet</h2>
             )
             :
-            orders.length === 0 ? <h2 style={{color:"gray", marginBlock:50}}>No orders</h2> : orders?.map(order => (
+             orders?.map(order => (
               <OrderData key={order.id} data={order} />
             ))
           }

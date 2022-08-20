@@ -163,6 +163,15 @@ export const T_Head = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
+
+ @media (max-width:800px) {
+  & {
+    font-size: 0.9em;
+  }
+  &.date, &.payment__method {
+    display: none;
+  }
+ }
 `;
 export const T_Data = styled.div`
   flex: 1;
@@ -170,6 +179,12 @@ export const T_Data = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
+
+   @media (max-width:800px) {
+    &.date, &.payment__method {
+      display: none;
+    }
+   }
 
   & > .actionBtn {
     cursor: pointer;

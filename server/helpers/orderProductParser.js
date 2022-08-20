@@ -1,7 +1,7 @@
 
 module.exports.orderProductParserList = async (orderJson) => {
     const orders = orderJson?.map(order => {
-        const productArr = order.products.split('*DIVIDER*');
+        const productArr = order?.products.split('*DIVIDER*');
         
         const parsedJsonProducts = productArr.map(product => {
             if(product.startsWith(',') ) {
@@ -17,7 +17,7 @@ module.exports.orderProductParserList = async (orderJson) => {
         order.products = parsedJsonProducts;
         return order;
     })
-
+    console.log(orders)
     return orders
 }
 

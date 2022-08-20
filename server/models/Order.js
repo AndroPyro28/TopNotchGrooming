@@ -89,9 +89,7 @@ class Order {
         `%${this.#order_status == "all" ? "" : this.#order_status}%`,
         `%${search}%`,
       ]);
-
-      // return orderProductParserList(result);
-      return result
+       return orderProductParserList(result);
     } catch (error) {
       console.error(error.message);
     }
