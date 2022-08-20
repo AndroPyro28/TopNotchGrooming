@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 export const PageGlobal = createGlobalStyle`
     body {
         background: aliceblue;
-    overflow: hidden;
+    /* overflow: hidden; */
     }
 `;
 export const AdminInventoryWrapper = styled.section`
@@ -371,6 +371,10 @@ export const ItemInfoContainer = styled.div`
 
   @media (max-width:800px) {
     flex-direction: row;
+  }
+
+  @media (max-width:600px) {
+    margin:0;
   }
 `;
 

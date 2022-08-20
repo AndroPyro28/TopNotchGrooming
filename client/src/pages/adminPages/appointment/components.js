@@ -101,6 +101,10 @@ export const TableData = styled.div`
     & > .table__id {
       display: none;
     }
+
+    & > .table__service {
+      display: none;
+    }
     
     & > .table__petname {
       display: none;
@@ -165,6 +169,10 @@ export const TableHeader = styled.div`
 
     @media (max-width:500px) {
     & > .table__id {
+      display: none;
+    }
+
+    & > .table__service {
       display: none;
     }
     
