@@ -63,7 +63,7 @@ function CustomerNavbar() {
 
         <InfoAndCart>
           <a>
-            <button onClick={() =>() => {
+            <button onClick={() => {
                 const currentDevice = deviceType() 
                 if(currentDevice === "desktop") {
                   setOpenCart(prev => !prev)
