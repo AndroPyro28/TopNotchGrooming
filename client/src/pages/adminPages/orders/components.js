@@ -121,26 +121,6 @@ export const TableRowData = styled.div`
   cursor: pointer;
   align-items: center;
 
-  /* & > .status__complete {
-    background: rgb(235, 249, 244);
-    color: rgb(159, 220, 198);
-  }
-
-  & > .status__continue {
-    background: rgb(242, 244, 248);
-    color: rgb(64, 101, 149);
-  }
-
-  & > .status__pending {
-    background: rgb(255, 247, 230);
-    color: rgb(255, 205, 98);
-  }
-
-  & > .status__cancelled {
-    color: rgb(229, 111, 139);
-    background: rgb(253, 244, 246);
-  } */
-
   &:hover {
     color: rgb(38, 67, 110);
     background: #EAEAEA;
@@ -168,7 +148,7 @@ export const T_Head = styled.div`
   & {
     font-size: 0.9em;
   }
-  &.date, &.payment__method {
+  &.date, &.payment__method, &.payment__method {
     display: none;
   }
  }
@@ -181,7 +161,7 @@ export const T_Data = styled.div`
   text-align: center;
 
    @media (max-width:800px) {
-    &.date, &.payment__method {
+    &.date, &.payment__method, &.products {
       display: none;
     }
    }

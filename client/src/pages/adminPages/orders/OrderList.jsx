@@ -1,9 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { useEffect, useTransition } from "react";
+import { useEffect } from "react";
 import OrderData from "../../../components/order/OrderData";
-import axios from 'axios';
-import Cookies from 'js-cookie'
+
 import {
   OrderDetailsContainer,
   OrderDetailsList,
@@ -21,6 +20,7 @@ function OrderList() {
     const [status, setStatus] = useState('all');
     const [orders, setOrders] = useState([]);
     const [textSearch, setTextSearch] = useState('');
+
     useEffect(() => {
       
         (async () => {
