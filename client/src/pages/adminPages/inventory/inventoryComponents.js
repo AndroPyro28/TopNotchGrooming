@@ -317,7 +317,7 @@ export const ImageContainer = styled.div`
   position: relative;
 
   @media (max-width:800px) {
-    align-items: flex-start;
+    align-self: flex-start;
   }
 
   & > .imgUploader {
