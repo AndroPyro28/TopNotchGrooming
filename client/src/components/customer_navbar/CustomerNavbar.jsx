@@ -10,9 +10,10 @@ import {
 } from "./navbarComponents";
 
 import Cookies from "js-cookie";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CartPopup from "../cartComponents/CartPopup";
+import deviceType from "../../helpers/DeviceType";
 
 function CustomerNavbar() {
   const navLinkStyles = ({ isActive }) => {
@@ -24,7 +25,7 @@ function CustomerNavbar() {
     Cookies.remove("userToken");
     window.location.assign('/customer/login');
   };
-
+  const navigate = useNavigate()
   const { pathname } = useLocation();
   const { currentUser } = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
@@ -81,7 +82,16 @@ function CustomerNavbar() {
           <DropDown>
             <i
               class="fa-solid fa-chevron-down dropDownBtn"
-              onClick={() => setOpenDropdown(!openDropdown)}
+              onClick={() => {
+                const currentDevice = deviceType() 
+                if(currentDevice === "desktop") {
+                  setOpenDropdown(!openDropdown)
+                } else {
+                  navigate(`/customer/cart`)
+                }
+                
+              }
+              }
             ></i>
             {openDropdown && (
               <div className="dropdown__content">

@@ -78,6 +78,9 @@ export const PetFilterContainer = styled.div`
   justify-content: space-evenly;
   width: 100%;
 
+  @media (max-width:800px) {
+    justify-content: center;
+  }
 `;
 
 export const PetContainer = styled.div`
@@ -136,7 +139,12 @@ export const PetContainer = styled.div`
     color: gray;
     font-size: 100%;
     z-index: 2;
+    @media (max-width:800px) {
+      font-size: 0.8em;
+    }
+
   }
+  
 `;
 
 export const CircleBackground = styled.div`
@@ -226,6 +234,12 @@ export const ProductItem = styled.div`
 
   &:hover {
     box-shadow: 1px 3px 5px rgb(240, 175, 76);
+  }
+
+  @media (max-width:800px) {
+    &:hover {
+    box-shadow: none;
+    }
   }
 `;
 export const ProductItemImg = styled.img`
