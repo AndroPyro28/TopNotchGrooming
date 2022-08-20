@@ -132,8 +132,8 @@ class Appointment {
       WHERE appointments.id = ?`;
 
       const [result, _] = await poolConnection.execute(selectQuery, [id]);
-      result[0].customer = DataJsonParser(result[0].customer);
-      result[0].appointment = DataJsonParser(result[0].appointment);
+      // result[0].customer = DataJsonParser(result[0].customer);
+      // result[0].appointment = DataJsonParser(result[0].appointment);
       return result[0];
     } catch (error) {
       console.error(error.message);
@@ -183,14 +183,14 @@ class Appointment {
         "approved",
       ]);
 
-      const formattedData = result?.map((data) => {
-        // data.customer = JSON.parse(data.customer);
-        // data.appointment = JSON.parse(data.appointment);
-        return data;
-      });
+      // const formattedData = result?.map((data) => {
+      //    data.customer = JSON.parse(data.customer);
+      //    data.appointment = JSON.parse(data.appointment);
+      //   return data;
+      // });
 
       // console.log(formattedData)
-      return formattedData;
+      return result;
     } catch (error) {
       console.error(error.message);
     }

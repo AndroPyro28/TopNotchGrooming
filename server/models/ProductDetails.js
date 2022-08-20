@@ -60,6 +60,7 @@ class ProductDetails {
           product?.quantity + 1,
           product?.id,
         ]);
+        
         return {
           result,
           action: "update",

@@ -90,7 +90,8 @@ class Order {
         `%${search}%`,
       ]);
 
-      return orderProductParserList(result);
+      // return orderProductParserList(result);
+      return result
     } catch (error) {
       console.error(error.message);
     }
@@ -119,8 +120,9 @@ class Order {
       ]);
 
       if (result.length > 0) {
-        result[0].customer = DataJsonParser(result[0].customer);
-        return orderProductParserOne(result[0]);
+        // result[0].customer = DataJsonParser(result[0].customer);
+        // return orderProductParserOne(result[0]);
+        return result[0]
       }
 
       return false;
@@ -161,7 +163,8 @@ class Order {
       GROUP BY order_details.id`;
 
       const [result, _] = await poolConnection.execute(selectQuery);
-      return orderProductParserList(result);
+      // return orderProductParserList(result);
+      return result
     } catch (error) {
       
     }
