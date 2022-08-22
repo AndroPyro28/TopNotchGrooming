@@ -32,12 +32,6 @@ function Logic({
     setDisplayBoard((prev) => !prev);
     setDisplayBoardModal((prev) => !prev);
   };
-  const data = () => {
-    try {
-    } catch (error) {
-      console.error("data", error.message);
-    }
-  };
 
   const leaveLiveStream = async () => {
     try {
