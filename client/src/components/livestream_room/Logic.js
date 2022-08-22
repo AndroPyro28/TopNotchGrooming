@@ -41,7 +41,6 @@ function Logic({
 
   const leaveLiveStream = async () => {
     try {
-      socket.emit("leaveRoom", { currentUser, currentRoom });
 
       if (isAdmin) {
         mediaRecorder?.stop();
@@ -67,11 +66,13 @@ function Logic({
           if (!success && msg?.includes("session expired")) {
             return window.location.assign("/");
           }
-          window.location.assign("/admin");
+          socket.emit("leaveRoom", { currentUser, currentRoom });
+           setTimeout(() => window.location.assign("/admin") , 0)
         };
-
+      } else {
+        socket.emit("leaveRoom", { currentUser, currentRoom });
+        window.location.assign("/customer");
       }
-      window.location.assign("/customer");
     } catch (error) {
       console.error(error.message);
     }

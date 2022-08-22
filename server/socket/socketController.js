@@ -131,6 +131,7 @@ class SocketControllers {
           myRoomLink,
           "onGoing",
         ]);
+        console.log('disconnect',result)
       }
     } catch (error) {
       console.error(error.message);
