@@ -30,7 +30,7 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
       });
 
       if (stream) {
-        // setStream(stream);
+        //  setStream(stream);
         if (videoRef.current && isAdmin) {
           videoRef.current.srcObject = stream;
           mediaRecorder = new MediaRecorder(stream);
@@ -48,23 +48,23 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
         if (!socket.emit) {
           return window.location.assign(url);
         }
-
+  
         const headers = {
           userinfo: Cookies.get("userToken"),
         };
-
+  
         if (!window.localStorage.getItem("enter_stream")) {
           return;
         }
         window.localStorage.removeItem("enter_stream");
-
+  
         // for observer joining
         socket?.emit("joinRoom", {
           room: currentRoom,
           headers,
           userId: currentUser?.id ?? socket?.id,
         });
-
+  
         socket?.on("youJoined", ({ userId, room }) => {
           if (!isAdmin && userId == currentUser?.id && room == currentRoom || !isAdmin && userId == socket?.id && room == currentRoom) {
             const peer = new Peer({
@@ -75,11 +75,11 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
             peer.on("signal", (data) => {
               socket?.emit("sendObserverSignalToAdmin", { data, userId, room });
             });
-
+  
             peer.on("stream", (stream) => {
               videoRef.current.srcObject = stream;
             });
-
+  
             socket.on("sendStreamToObserver", ({ data, userId, room }) => {
               if (
                 !isAdmin &&
@@ -95,7 +95,7 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
             });
           }
         });
-
+  
         // for admin
         socket?.on("sendStreamToAdmin", ({ data, userId, room }) => {
           if (isAdmin) {
@@ -108,11 +108,11 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
             peer.on("signal", (data) => {
               socket?.emit("sendAdminSignalToObserver", { data, userId, room });
             });
-
+  
             peer.on("stream", (stream) => {
-
+  
             });
-
+  
             peer.signal(data);
           }
         });
