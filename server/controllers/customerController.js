@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const ProductDetails = require("../models/ProductDetails");
 const Product = require("../models/product");
 const { assignToken } = require("../helpers/AuthTokenHandler");
-const { deleteOne, uploadOne } = require("../helpers/CloudinaryPetImages");
+const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
 const Appointment = require("../models/Appointment");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Order = require("../models/Order");
@@ -230,6 +230,7 @@ module.exports.updateItemQuantity = async (req, res) => {
 module.exports.checkout = async (req, res) => {
   const { checkoutType } = req.params; // card
   const { checkoutProducts, totalAmount } = req.body.values;
+
   try {
     if (checkoutType === "gcash") {
       var request = require("request");
@@ -239,14 +240,14 @@ module.exports.checkout = async (req, res) => {
         url: "https://g.payx.ph/payment_request",
         formData: {
           "x-public-key": process.env.GCASH_API_KEY,
-          amount: `1`, // ${totalAmount}
+          amount: `1`,
           description: "Payment for services rendered",
-          redirectsuccessurl: `${process.env.CLIENT_URL_PROD}/customer/payment=success`,
+          redirectsuccessurl: `${process.env.CLIENT_URL_PROD}/customer/payment`,
           redirectfailurl: `${process.env.CLIENT_URL_PROD}/customer/cart`,
           customeremail: `${req.currentUser?.email}`,
           customermobile: `${req.currentUser?.phoneNo}`,
           customername: `${req.currentUser?.firstname} ${req.currentUser?.lastname}`,
-          webhooksuccessurl:`${process.env.CLIENT_URL_PROD}/customer/gcashTriggered`
+          webhooksuccessurl:`${process.env.SERVER_URI_PROD}/api/customer/paymentsuccess`
         },
       };
       request(options, function (error, response) {
@@ -255,6 +256,7 @@ module.exports.checkout = async (req, res) => {
         const { data } = JSON.parse(response.body);
 
         const { checkouturl, hash } = data;
+
         return res.status(200).json({
           proceedPayment: true,
           method: checkoutType,
@@ -265,9 +267,8 @@ module.exports.checkout = async (req, res) => {
         });
       });
     }
-    if (checkoutType === "card") {
-      const dollarRate = 56.39;
 
+    if (checkoutType === "card") {
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
@@ -285,7 +286,7 @@ module.exports.checkout = async (req, res) => {
             quantity: item.quantity,
           };
         }),
-        success_url: `${process.env.CLIENT_URL}/customer/payment=success`,
+        success_url: `${process.env.CLIENT_URL}/customer/payment`,
         cancel_url: `${process.env.CLIENT_URL}/customer/cart`,
       });
 
@@ -353,6 +354,7 @@ module.exports.addAppointment = async (req, res) => {
 
 module.exports.payment = async (req, res) => {
   try {
+    console.log('called:::::::::::::::::::')
     const { checkoutProducts, method, orderId, totalAmount, billingInfo } =
       req.body.values;
     const productModel = new Product({});
@@ -442,6 +444,6 @@ module.exports.getOrderByReference = async (req, res) => {
   }
 }
 
-module.exports.gcashTriggered = async (req, res) => {
-  console.log(':::::gcash triggered api::::', req.body)
+module.exports.paymentsuccess = async (req, res) => {
+  console.log(':::::GCASH API POST::::', req.body)
 }

@@ -15,13 +15,13 @@ class MultipleTable {
             INNER JOIN live_streams ls
             ON a.live_stream_id = ls.id
             SET a.status = ? 
-            WHERE ls.reference_id = ?
+            WHERE ls.reference_id = ? AND a.status = ?
             `;
 
             const [result, _] = await poolConnection.query(updateQuery, 
                 [
                 end_time, video_url, reference_id, // first query
-                'completed', reference_id
+                'completed', reference_id, 'onGoing'
             ]);
 
             return result

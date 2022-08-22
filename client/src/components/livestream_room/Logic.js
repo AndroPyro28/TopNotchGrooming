@@ -11,7 +11,7 @@ function Logic({
   mediaRecorder,
   socket,
   currentUser,
-  setDisplayBoardModal
+  setDisplayBoardModal,
 }) {
   const configureScreen = () => {
     const liveStreamRoomContainer = document.querySelector(
@@ -30,7 +30,7 @@ function Logic({
 
   const displayBoard = () => {
     setDisplayBoard((prev) => !prev);
-    setDisplayBoardModal((prev) => !prev)
+    setDisplayBoardModal((prev) => !prev);
   };
   const data = () => {
     try {
@@ -41,10 +41,12 @@ function Logic({
 
   const leaveLiveStream = async () => {
     try {
+      socket.emit("leaveRoom", { currentUser, currentRoom });
+
       if (isAdmin) {
         mediaRecorder?.stop();
+
         const blob = new Blob(parts, {
-          // parts are from mediaRecorder
           type: "video/webm",
         });
         const reader = new window.FileReader(); // converting it to dataUrl
@@ -54,18 +56,21 @@ function Logic({
         reader.onloadend = async () => {
           
           setDisbaledButton(true);
-          const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/appointmentCompleted/${currentRoom}`, values:{ video_url: reader.result }})
-          
+          const response = await CustomAxios({
+            METHOD: "PATCH",
+            uri: `/api/admin/appointmentCompleted/${currentRoom}`,
+            values: { video_url: reader.result },
+          });
+
           const { success, msg } = response;
 
           if (!success && msg?.includes("session expired")) {
             return window.location.assign("/");
           }
-          socket.emit('leaveRoom', {currentUser, currentRoom})
           window.location.assign("/admin");
         };
+
       }
-      socket.emit('leaveRoom', {currentUser, currentRoom})
       window.location.assign("/customer");
     } catch (error) {
       console.error(error.message);

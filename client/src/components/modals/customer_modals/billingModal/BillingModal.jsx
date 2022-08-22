@@ -38,8 +38,6 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
     return <Loader bg="rgba(0,0,0,0.5)" />;
   }
 
-  
-
   return (
     <ModalBackdrop>
       <Formik

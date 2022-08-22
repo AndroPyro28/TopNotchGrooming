@@ -7,7 +7,6 @@ require('dotenv').config({path: "./.env"})
 const {verifyUser} = require('./middlewares/verifyUser');
 const socketRoutes = require("./socket/socketRoutes");
 
-
 app.use(express.json({limit:"50mb"}));
 
 app.use(cors({

@@ -17,6 +17,7 @@ const socketRoutes = (io) => {
   });
 
   io.on("connection", (socket) => {
+    console.log('connected')
 
     socket.on("joinRoom", controller.joinRoom);
 

@@ -63,22 +63,22 @@ function CustomerNavbar() {
 
         <InfoAndCart>
           <a>
-            <button onClick={() => {
+            <button onClick={
+              () => {
                 const currentDevice = deviceType() 
                 if(currentDevice === "desktop") {
                   setOpenCart(prev => !prev)
                 } else {
                   navigate(`/customer/cart`)
                 }
-                
-              }}>
+              }
+              }>
               <i class="fa-solid fa-cart-shopping"></i> &nbsp; Cart &nbsp;
               <span class={`cart__number__item ${nocartItems && "active"}`}>
                 {nocartItems}
               </span>
             </button>
           </a>
-
           <Link to="/customer/profile">
             <img
               src={currentUser?.profile_image_url}

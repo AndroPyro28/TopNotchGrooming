@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 
 module.exports.validateProducts = async (req, res, next) => {
-  const { checkoutProducts } = req.body;
+  const { checkoutProducts } = req.body.values;
   try {
     const checkoutIds = checkoutProducts.map((item) => item.product_id);
 
@@ -25,6 +25,6 @@ module.exports.validateProducts = async (req, res, next) => {
     
       next();
   } catch (error) {
-    console.error(error.message);
+    console.error('validate', error.message);
   }
 }

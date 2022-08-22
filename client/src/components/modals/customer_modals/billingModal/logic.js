@@ -52,6 +52,7 @@ function logic({ items, totalAmount, paymentType, toast, courierType }) {
           orderId,
           totalAmount,
           billingInfo,
+          proceedPayment
         })
       );
 

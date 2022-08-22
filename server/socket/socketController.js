@@ -1,6 +1,4 @@
-const { verifySocket } = require("../middlewares/verifySocket");
 const poolConnection = require("../config/connectDB");
-const { DataJsonParser } = require("../helpers/DataJsonParser");
 let myRoomLink = "";
 
 class SocketControllers {
@@ -15,9 +13,6 @@ class SocketControllers {
   }
 
   joinRoom = async ({ room, headers, userId }) => {
-    console.log(room);
-    // this.#currentUser = await verifySocket(headers);
-    // if (!this.#currentUser) return;
 
     this.#socket.join(room);
 
@@ -107,13 +102,10 @@ class SocketControllers {
         ]);
 
         const rooms = result.map(room => {
-          // room.roomInfo = DataJsonParser(room.roomInfo);
           const index = allRooms.findIndex(
             (r) => r.roomLink == room.roomInfo.room_link
           );
           room.roomInfo.attendees = allRooms[index].users.length;
-          // room.ownerInfo = DataJsonParser(room.ownerInfo);
-          // room.groomerInfo = DataJsonParser(room.groomerInfo);
 
           return room;
         });

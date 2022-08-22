@@ -29,8 +29,7 @@ import CustomerRoutes from "./authentication/CustomerRoutes";
 import AdminRoutes from "./authentication/AdminRoutes";
 import Loader from "./components/loader/Loader";
 import Cart from "./pages/customerPages/cart/Cart";
-import PaymentSuccess from "./pages/customerPages/payment/PaymentSuccess";
-import PaymentFailed from "./pages/customerPages/payment/PaymentFailed";
+import PaymentInfo from "./pages/customerPages/payment/PaymentInfo";
 import shopingCartLogic from "./components/cartComponents/logic/shopingCartLogic";
 import { setToCartReducer } from "./redux/cartSlice";
 import Appointment from "./pages/customerPages/appointment/Appointment";
@@ -204,14 +203,10 @@ function App() {
         />
 
         <Route
-          path="/customer/payment=success"
-          element={<CustomerRoutes Component={<PaymentSuccess />} />}
+          path="/customer/payment"
+          element={<CustomerRoutes Component={<PaymentInfo />} />}
         />
-
-        <Route
-          path="/customer/payment=failed"
-          element={<CustomerRoutes Component={<PaymentFailed />} />}
-        />
+       
         <Route
           path="/customer/appointment"
           element={<CustomerRoutes Component={<Appointment />} />}
