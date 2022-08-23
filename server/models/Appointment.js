@@ -57,7 +57,7 @@ class Appointment {
       INNER JOIN customer
       ON customer.id = appointments.customer_id
       ${filter != "all" ? "WHERE appointments.status = ?" : ""}
-      ORDER BY appointments.id ASC`;
+      ORDER BY appointments.date_n_time ASC`;
 
       const [results, _] = await poolConnection.execute(selectQuery, [filter]);
       return results;
@@ -176,20 +176,14 @@ class Appointment {
       INNER JOIN customer
       ON customer.id = appointments.customer_id
       WHERE appointments.date_n_time LIKE ? AND
-      status = ?`;
+      status = ?
+      ORDER BY appointments.date_n_time ASC`;
 
       const [result, _] = await poolConnection.query(selectQuery, [
         `%${date}%`,
         "approved",
       ]);
 
-      // const formattedData = result?.map((data) => {
-      //    data.customer = JSON.parse(data.customer);
-      //    data.appointment = JSON.parse(data.appointment);
-      //   return data;
-      // });
-
-      // console.log(formattedData)
       return result;
     } catch (error) {
       console.error(error.message);

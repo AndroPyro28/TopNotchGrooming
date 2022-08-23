@@ -39,10 +39,8 @@ function AppointmentDetails() {
 
   return (
     <Container>
-
         <Details data={details}/>
         <AppointmentInfo data={details} setData={setDetails} />
-
     </Container>
   )
 }

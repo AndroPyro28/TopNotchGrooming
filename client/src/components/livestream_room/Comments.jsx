@@ -26,18 +26,19 @@ function Comments({comments, setComments}) {
         {
           user,
           content: "notification",
-          message: `${user?.firstname} ${user?.lastname} has joined the event`,
+          message: !user?.firstname ? 'A viewer has joined the event' : `${user?.firstname} ${user?.lastname} has joined the event`,
         },
       ]);
     });
 
     socket.on("someOneLeaved", ({ user }) => {
+      
       setComments((prev) => [
         ...prev,
         {
           user,
           content: "notification",
-          message: `${user?.firstname} ${user?.lastname} has left the event`,
+          message: !user?.firstname ? 'A viewer has left the event' : `${user?.firstname} ${user?.lastname} has left the event`,
         },
       ]);
       

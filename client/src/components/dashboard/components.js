@@ -41,7 +41,15 @@ export const MonthlySalesChartsContainer = styled.div`
     background: white;
     display: block;
     position: relative;
-    z-index: -1;
+    z-index: 1;
+
+    & > canvas {
+        align-self: center;
+
+        @media (max-width:500px) {
+            margin-top: -20px;
+        }
+    }
 
     @media (max-width:500px) {
            width: 100%;
@@ -52,7 +60,7 @@ export const MonthlySalesChartsContainer = styled.div`
         text-align: start;
         margin: 10px;
         @media (max-width:500px) {
-            font-size: 1em;
+            font-size: 1.2em;
         }
     }
 
@@ -105,7 +113,6 @@ background: white;
         text-align: start;
         margin: 20px;
         font-size: 1.5em;
-
     }
 `
 
@@ -122,18 +129,17 @@ export const TableHeader = styled.div`
 export const T_Head = styled.div`
     flex: 1;
 
-    &.appointment__type {
-        @media (max-width:950px) {
-            display: none;
-        }
+    @media (max-width:700px) {
+    &.appointment__type,
+    &.date,
+    &.pet__name {
+       display: none;
     }
 
-    &.date {
-        @media (max-width:950px) {
-            display: none;
-        }
+    &.time {
+        flex: 0.7;
     }
-
+ }
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -150,8 +156,8 @@ export const TableData = styled.div`
     cursor: pointer;
     transition: all .2s ease;
     &:hover {
-    background: rgb(234,234,234);
-    color: black;
+        background: rgb(234,234,234);
+        color: black;
     }
 `
 export const T_Data = styled.div`
@@ -163,26 +169,33 @@ export const T_Data = styled.div`
     white-space: nowrap;
     overflow: hidden;
 
-    &.appointment__type {
-        @media (max-width:950px) {
-            display: none;
-        }
+    @media (max-width:700px) {
+    &.appointment__type,
+    &.date,
+    &.pet__name {
+       display: none;
+       font-size: 0.8em;
     }
 
-    &.date {
-        @media (max-width:950px) {
-            display: none;
-        }
+    &.time {
+        flex: 0.7;
     }
+ }
 
     &.customer {
         justify-content: flex-start;
     }
+    
     & > img {
         min-width: 50px;
         height: 50px;
         margin-right: 10px;
         border-radius: 50%;
         object-fit: cover;
+
+        @media (max-width:650px) {
+        min-width: 40px;
+        height: 40px;
+        }
     }
 `

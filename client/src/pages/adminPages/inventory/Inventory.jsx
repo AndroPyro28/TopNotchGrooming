@@ -19,7 +19,6 @@ function Inventory() {
   return (
     <AdminInventoryWrapper>
         <PageGlobal />
-        
         <InventoryLeftPage searchItem={searchItem} setSearchItem={setSearchItem}/>
         <InventoryRightPage searchItem={searchItem} setSearchItem={setSearchItem}/>
     </AdminInventoryWrapper>

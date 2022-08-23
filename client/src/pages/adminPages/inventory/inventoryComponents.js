@@ -87,6 +87,12 @@ export const InventoryRightContent = styled.div`
   @media (max-width:1200px) {
     width: 100%;
   }
+
+  @media (max-width:800px) {
+    height: 100%;
+
+  }
+
 `;
 
 export const FilterItemsContainer = styled.div`

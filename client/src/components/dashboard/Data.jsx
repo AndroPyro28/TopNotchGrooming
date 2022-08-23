@@ -13,9 +13,9 @@ function Data({ data }) {
         {`${firstname} ${lastname} `}{" "}
       </T_Data>
       <T_Data className="appointment__type">{appointment_type}</T_Data>
-      <T_Data>{pet_name}</T_Data>
+      <T_Data className="pet__name">{pet_name}</T_Data>
       <T_Data className="date">{newDate}</T_Data>
-      <T_Data>{newTime}</T_Data>
+      <T_Data className="time">{newTime}</T_Data>
     </TableData>
   );
 }

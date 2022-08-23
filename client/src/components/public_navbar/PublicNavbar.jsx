@@ -12,7 +12,7 @@ import HamburgerNavBar from "../shared/HamburgerNavBar";
 
 function PublicNavbar() {
   const { pathname } = useLocation();
-  const [openMenu, setOpenMenu] = useState(true)
+  const [openMenu, setOpenMenu] = useState(false)
   useEffect(() => {
     if (
       pathname === "/customer/login" ||

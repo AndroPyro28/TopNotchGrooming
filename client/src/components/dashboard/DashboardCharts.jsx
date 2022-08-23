@@ -87,14 +87,14 @@ const data = {
   datasets: [
     {
       type: "line",
-      label: "Dataset 1",
+       label: "",
       borderColor: "gray",
       backgroundColor:"white",
       data: [112, 123, 532, 122, 222, 333, 666, 123, 321],
     },
     {
       type: "bar",
-      label: "Dataset 2",
+       label: "",
       backgroundColor: "#a6b7f1",
       data: [112, 123, 532, 122, 222, 333, 666, 123, 321],
       borderColor: "white",

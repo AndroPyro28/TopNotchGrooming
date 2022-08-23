@@ -96,7 +96,10 @@ export const Info = styled.div`
         ? "gray"
         : status == "onGoing"
         ? "blue"
-        : "green"};
+        : status == "interrupted"
+        ? "black" 
+        : "green"
+    };
 
     text-transform: capitalize;
   }
@@ -108,7 +111,6 @@ export const PetInformation = styled.div`
 
   @media (max-width:630px) {
   grid-template-columns: 100%;
-
   }
 
   & > img {
