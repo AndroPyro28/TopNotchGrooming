@@ -148,7 +148,7 @@ export const T_Head = styled.div`
   & {
     font-size: 0.9em;
   }
-  &.date, &.payment__method, &.payment__method, &.customer {
+  &.date, &.payment__method, &.payment__method, &.customer, &.products {
     display: none;
   }
  }
@@ -161,7 +161,7 @@ export const T_Data = styled.div`
   text-align: center;
 
    @media (max-width:800px) {
-    &.date, &.payment__method, &.payment__method, &.customer {
+    &.date, &.payment__method, &.payment__method, &.customer, &.products {
     display: none;
   }
    }
