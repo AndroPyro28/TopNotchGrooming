@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2022 at 11:22 AM
+-- Generation Time: Aug 27, 2022 at 10:04 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -72,9 +72,9 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdate`, `gender`, `pet_image`, `appointment_type`, `additional_details`, `date_n_time`, `admin_id`, `status`, `customer_id`, `live_stream_id`) VALUES
-(56, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-14 17:00:00.000', 1, 'approved', 7, NULL),
-(57, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-14 10:00:00.000', 1, 'approved', 7, NULL),
-(58, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-16 07:00:00.000', 1, 'pending', 7, NULL);
+(56, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-26 17:00:00.000', 1, 'completed', 7, 186),
+(57, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-26 10:00:00.000', 1, 'completed', 7, 185),
+(58, 'Pinti', 'dog', 'ASpin', '2022-07-14', 'female', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660459987/topnotch_petIImages/kjem4wpbxpurrapeasbc.jpg', 'grooming', '', '2022-08-26 07:00:00.000', 1, 'pending', 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -134,6 +134,14 @@ CREATE TABLE `live_streams` (
   `end_time` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `live_streams`
+--
+
+INSERT INTO `live_streams` (`id`, `reference_id`, `customer_id`, `appointment_id`, `admin_id`, `video_url`, `date`, `start_time`, `end_time`) VALUES
+(185, '9giEja4spN', 7, 57, 1, 'http://res.cloudinary.com/iamprogrammer/video/upload/v1661519471/topnotch_livestream_record/dab31htxvcozef52rsx6.mkv', '2022-08-26', '21:10 pm', '21:11 pm'),
+(186, '3tx91xl5mN', 7, 56, 1, 'http://res.cloudinary.com/iamprogrammer/video/upload/v1661521009/topnotch_livestream_record/thsnazgvkxqlnfjhntbc.mkv', '2022-08-26', '21:36 pm', '21:36 pm');
+
 -- --------------------------------------------------------
 
 --
@@ -178,7 +186,8 @@ INSERT INTO `order_details` (`id`, `reference`, `customer_id`, `order_date`, `de
 (51, 'pi_3LPMfaCPdX0vlIZo04yBPYII', 7, '2022-07-25 00:00:00.000000', 4, 'completed', 1200, 'card', NULL, 'San sebastian hagonoy bulacan', '09561289642', '3002', 'jnt'),
 (54, 'pi_3LQpOVCPdX0vlIZo0w221GAu', 7, '2022-07-29 00:00:00.000000', 4, 'completed', 500, 'card', NULL, '#109, San Sebastian Hagonoy Bulacan Del pilar st.', '09561289642', '3002', 'lalamove'),
 (55, '5a9901d49e1230689c06339d2e01c658', 7, '2022-07-29 00:00:00.000000', 4, 'completed', 400, 'gcash', NULL, '#301 Encanto Angat Bulacan California Street', '09051237552', '3001', 'toktok'),
-(56, 'pi_3LTjZJCPdX0vlIZo1y1rxRsg', 7, '2022-08-06 00:00:00.000000', 4, 'completed', 5000, 'card', NULL, 'some address 123 street del pilar', '09561289642', '3002', 'toktok');
+(56, 'pi_3LTjZJCPdX0vlIZo1y1rxRsg', 7, '2022-08-06 00:00:00.000000', 4, 'completed', 5000, 'card', NULL, 'some address 123 street del pilar', '09561289642', '3002', 'toktok'),
+(57, 'pi_3Lb2fyCPdX0vlIZo07ms2jzm', 7, '2022-08-26 00:00:00.000000', 0, 'pending', 2000, 'card', NULL, 'asdasdas das asdasdasdasd', '639561289642', '3002', 'toktok');
 
 -- --------------------------------------------------------
 
@@ -197,23 +206,24 @@ CREATE TABLE `products` (
   `product_age_limit` varchar(50) DEFAULT NULL,
   `product_category` varchar(50) DEFAULT NULL,
   `product_image_url` varchar(500) NOT NULL,
-  `product_image_id` varchar(100) NOT NULL
+  `product_image_id` varchar(100) NOT NULL,
+  `total_sales` bigint(20) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`) VALUES
-(43, 'food bowl', 200, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f\nLorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetu', 'Cat', '2022-07-24', 56, '2-4', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658646718/topnotch_productImg/qd0yfi8jldafh2b5pomb.png', 'topnotch_productImg/qd0yfi8jldafh2b5pomb'),
-(44, 'Multivitamins', 300, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 80, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657709691/topnotch_productImg/e9neie1peletkcw6go9u.png', 'topnotch_productImg/e9neie1peletkcw6go9u'),
-(45, 'Shampoo', 400, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 85, '7+', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260600/topnotch_productImg/qjkky0r5ws6uj0zoizsm.png', 'topnotch_productImg/qjkky0r5ws6uj0zoizsm'),
-(46, 'multivitamins A plus', 500, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Cat', '2022-07-24', 89, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260636/topnotch_productImg/gmzxy5gl2pmtsfam8vij.png', 'topnotch_productImg/gmzxy5gl2pmtsfam8vij'),
-(49, 'toy', 100, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '2022-07-24', 90, '1-2', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041142/topnotch_productImg/ycnevbj2mbl7dp77rrvd.jpg', 'topnotch_productImg/ycnevbj2mbl7dp77rrvd'),
-(50, 'pedigree update', 600, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Dog', '2022-07-24', 85, '7+', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262354/topnotch_productImg/ivfx6h0e4ekghpzni8cq.png', 'topnotch_productImg/ivfx6h0e4ekghpzni8cq'),
-(52, 'blue shampoo update', 800, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet coasd aansectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f adsd a da', 'Dog', '2022-07-24', 50, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041348/topnotch_productImg/dpnogefn44xf1w7cbhjc.png', 'topnotch_productImg/dpnogefn44xf1w7cbhjc'),
-(53, 'LEGO FOR PETS', 500, 'sadasdsda', 'Cat', '2022-07-24', 121, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659782108/topnotch_productImg/zzlo8xp4hezhsdswuurt.jpg', 'topnotch_productImg/zzlo8xp4hezhsdswuurt'),
-(54, 'some bag', 600, 'some item description', 'Dog', '2022-07-24', 32, '7+', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658660660/topnotch_productImg/nfibuzaftaakmqibq0g0.png', 'topnotch_productImg/nfibuzaftaakmqibq0g0');
+INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`, `total_sales`) VALUES
+(43, 'food bowl', 200, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f\nLorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetu', 'Cat', '2022-07-24', 46, '2-4', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658646718/topnotch_productImg/qd0yfi8jldafh2b5pomb.png', 'topnotch_productImg/qd0yfi8jldafh2b5pomb', 0),
+(44, 'Multivitamins', 300, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 80, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657709691/topnotch_productImg/e9neie1peletkcw6go9u.png', 'topnotch_productImg/e9neie1peletkcw6go9u', 0),
+(45, 'Shampoo', 400, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 85, '7+', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260600/topnotch_productImg/qjkky0r5ws6uj0zoizsm.png', 'topnotch_productImg/qjkky0r5ws6uj0zoizsm', 0),
+(46, 'multivitamins A plus', 500, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Cat', '2022-07-24', 89, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260636/topnotch_productImg/gmzxy5gl2pmtsfam8vij.png', 'topnotch_productImg/gmzxy5gl2pmtsfam8vij', 0),
+(49, 'toy', 100, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '2022-07-24', 90, '1-2', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041142/topnotch_productImg/ycnevbj2mbl7dp77rrvd.jpg', 'topnotch_productImg/ycnevbj2mbl7dp77rrvd', 0),
+(50, 'pedigree update', 600, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Dog', '2022-07-24', 85, '7+', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262354/topnotch_productImg/ivfx6h0e4ekghpzni8cq.png', 'topnotch_productImg/ivfx6h0e4ekghpzni8cq', 0),
+(52, 'blue shampoo update', 800, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet coasd aansectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f adsd a da', 'Dog', '2022-07-24', 50, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041348/topnotch_productImg/dpnogefn44xf1w7cbhjc.png', 'topnotch_productImg/dpnogefn44xf1w7cbhjc', 0),
+(53, 'LEGO FOR PETS', 500, 'sadasdsda', 'Cat', '2022-07-24', 121, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659782108/topnotch_productImg/zzlo8xp4hezhsdswuurt.jpg', 'topnotch_productImg/zzlo8xp4hezhsdswuurt', 0),
+(54, 'some bag', 600, 'some item description', 'Dog', '2022-07-24', 32, '7+', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658660660/topnotch_productImg/nfibuzaftaakmqibq0g0.png', 'topnotch_productImg/nfibuzaftaakmqibq0g0', 0);
 
 -- --------------------------------------------------------
 
@@ -240,7 +250,7 @@ INSERT INTO `product_details` (`id`, `product_id`, `order_id`, `customer_id`, `q
 (606, 46, 54, 7, 1, 1),
 (607, 45, 55, 7, 1, 1),
 (650, 54, 56, 7, 10, 1),
-(652, 43, NULL, 7, 10, 1),
+(652, 43, 57, 7, 10, 1),
 (653, 52, NULL, 7, 10, 1),
 (654, 44, NULL, 7, 1, 1),
 (655, 49, NULL, 7, 17, 1),
@@ -370,7 +380,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `live_streams`
 --
 ALTER TABLE `live_streams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT for table `monthly_sales`
@@ -382,7 +392,7 @@ ALTER TABLE `monthly_sales`
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `products`
