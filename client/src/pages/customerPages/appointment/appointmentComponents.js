@@ -19,6 +19,9 @@ body {
     box-shadow: -2px -1px 31px -8px rgba(66,66,66,0.75);
     -webkit-box-shadow: -2px -1px 31px -8px rgba(66,66,66,0.75);
     -moz-box-shadow: -2px -1px 31px -8px rgba(66,66,66,0.75);
+    @media (max-width:660px) {
+      width: 95%;
+    }
     }
 `;
 
@@ -28,6 +31,9 @@ export const AppointmentFormPhoto = styled.section`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  @media (max-width:1000px) {
+    display: none;
+  }
 `;
 export const AppointmentFormInputsContainer = styled.section`
   flex: 5;
@@ -36,6 +42,10 @@ export const AppointmentFormInputsContainer = styled.section`
   flex-direction: column;
   /* margin-top: 50px; */
   padding: 50px 20px;
+
+  @media (max-width:700px) {
+    padding: 50px 0px;
+  }
 
   & > :is(h2, p) {
     text-align: center;
@@ -46,10 +56,23 @@ export const AppointmentFormInputsContainer = styled.section`
   & > h2 {
     font-size: 25px;
     text-transform: uppercase;
+
+    @media (max-width:665px) {
+      font-size: 1.3em;
+    }
+
+    @media (max-width:561px) {
+      font-size: 1em;
+    }
   }
 
   & > p {
     margin-bottom: 50px;
+
+    @media (max-width:561px) {
+      font-size: 1em;
+    }
+
   }
 `;
 
@@ -57,6 +80,12 @@ export const FormInputsContainer = styled.div`
   width: 80%;
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width:660px) {
+    flex-direction: column;
+  width: 90%;
+
+  }
 
   & > .input__container {
     flex: 1;
