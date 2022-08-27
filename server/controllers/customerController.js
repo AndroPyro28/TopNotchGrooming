@@ -398,7 +398,7 @@ module.exports.payment = async (req, res) => {
 module.exports.orders = async (req, res) => {
   const { orderStatus } = req.params;
   try {
-    const orderModel = new Order({});
+    const orderModel = new Order({customer_id:req.currentUser.id});
 
     const result = await orderModel.getOrderByStatus(orderStatus)
 

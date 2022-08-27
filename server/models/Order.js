@@ -150,17 +150,16 @@ class Order {
       INNER JOIN product_details pd
       INNER JOIN products p
       ON order_details.id = pd.order_id AND p.id = pd.product_id
-      WHERE ${
+      WHERE order_details.customer_id = ? ${
         status === "pending"
-          ? "delivery_status = 0 OR delivery_status = 1"
-          : `delivery_status = ${status}`
+          ? "AND delivery_status = 0 OR delivery_status = 1"
+          : `AND delivery_status = ${status}`
       }
       
       GROUP BY order_details.id`;
 
-      const [result, _] = await poolConnection.execute(selectQuery);
-      // return orderProductParserList(result);
-      return result
+      const [result, _] = await poolConnection.execute(selectQuery, [this.#customer_id]);
+       return orderProductParserList(result);
     } catch (error) {
       
     }

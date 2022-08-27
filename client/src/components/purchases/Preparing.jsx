@@ -13,6 +13,7 @@ import PreparingOrder from "./PreparingOrder";
 function Preparing() {
   const [loading, startTransition] = useTransition();
   const [orders, setOrders] = useState([]);
+  
   useEffect(() => {
     setOrders([]);
     startTransition(async () => {
