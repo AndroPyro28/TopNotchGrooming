@@ -46,8 +46,7 @@ app.get('/api/auth', verifyUser, (req, res) => {
     }
 })
 
-server.listen(PORT, () => console.info(`server listening on port ${PORT}`)) // fuck this
-
+server.listen(PORT, () => console.info(`server listening on port ${PORT}`)) 
 const io = new Server(server, { // we will use this later
     cors: {
         origin: "*",
