@@ -110,8 +110,7 @@ export const ProductName = styled.div`
 export const ProductCalculation = styled.div`
   flex: 1;
   font-weight: 500;
-
-  @media (max-width:600px) {
+  @media (max-width:500px) {
     display: none;
   }
 `;

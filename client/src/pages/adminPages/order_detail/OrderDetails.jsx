@@ -1,5 +1,3 @@
-import axios from "axios";
-import Cookies from "js-cookie";
 import { useState } from "react";
 import { useEffect, useTransition} from "react";
 import { useParams } from "react-router-dom";
@@ -17,7 +15,6 @@ import {
   CustomerDetailsContainer,
   GlobalStyles,
 } from "./components";
-import Loader from "../../../components/loader/Loader"
 import CustomAxios from "../../../customer hooks/CustomAxios";
 function OrderDetails() {
 

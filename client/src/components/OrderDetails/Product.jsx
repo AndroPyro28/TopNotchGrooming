@@ -8,7 +8,7 @@ import {
 } from "../../pages/adminPages/order_detail/components"
 import productPriceFormatter from "../../helpers/ProductPriceFormatter"
 function Product({data}) {
-  const [product, setProduct] = useState(data)
+  const [product] = useState(data)
 
   return (
     <OrderedProduct>
