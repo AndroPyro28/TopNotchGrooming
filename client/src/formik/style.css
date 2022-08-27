@@ -1,9 +1,7 @@
-/* .input__field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+ .input__field > * {
+    width: 100%;
 }
-*/
+
 
 .error__message {
     color: maroon;

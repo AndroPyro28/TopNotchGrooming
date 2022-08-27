@@ -92,7 +92,7 @@ export const FormInputsContainer = styled.div`
     margin: 10px;
     display: flex;
     flex-direction: column;
-
+    
     & > label {
         text-align: start;
     }
@@ -102,7 +102,6 @@ export const FormInputsContainer = styled.div`
       border: solid 2px #eaeaea;
       border-radius: 5px;
       outline: none;
-      width: 90%;
       &:focus {
         border-color: gray;
       }
