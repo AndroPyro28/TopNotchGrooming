@@ -80,10 +80,9 @@ export const FormInputsContainer = styled.div`
   width: 80%;
   display: flex;
   justify-content: flex-end;
-
   @media (max-width:660px) {
-    flex-direction: column;
-    width: 95%;
+  flex-direction: column;
+  width: 90%;
   }
 
   & > .input__container {
