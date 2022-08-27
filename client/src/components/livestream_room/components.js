@@ -345,6 +345,7 @@ export const MessageBoxContainer = styled.div`
   padding: 10px;
   background: aliceblue;
   align-items: center;
+  overflow: hidden;
   & > input {
     width: 100%;
     outline: none;
