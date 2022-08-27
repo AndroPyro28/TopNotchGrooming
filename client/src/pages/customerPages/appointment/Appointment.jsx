@@ -100,7 +100,8 @@ function Appointment() {
                   name="birthdate"
                   label="Pet birthday"
                   id="birthdate"
-                  control="date"
+                  control="input"
+                  type="date"
                   className="input__container"
                 />
 
@@ -117,7 +118,7 @@ function Appointment() {
                 <FormikControl
                   name="breed"
                   label="Pet Breed"
-                  type="input"
+                  type="text"
                   control="input"
                   className="input__container"
                 />
@@ -136,7 +137,8 @@ function Appointment() {
                   name="dateNtime"
                   label="Prefered date & time"
                   id="scheduledDate"
-                  control="dateTimeLocal"
+                  control="input"
+                  type="datetime-local"
                   className="input__container"
                 />
               </FormInputsContainer>

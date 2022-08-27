@@ -97,12 +97,12 @@ export const FormInputsContainer = styled.div`
         text-align: start;
     }
 
-    & > .input {
+    & > .input, & > select {
       padding: 10px;
       border: solid 2px #eaeaea;
       border-radius: 5px;
       outline: none;
-
+      width: 90%;
       &:focus {
         border-color: gray;
       }
