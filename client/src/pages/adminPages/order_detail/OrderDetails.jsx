@@ -15,12 +15,13 @@ import {
   CustomerDetailsContainer,
   GlobalStyles,
 } from "./components";
+import Loader from "../../../components/loader/Loader"
 import CustomAxios from "../../../customer hooks/CustomAxios";
 function OrderDetails() {
 
   const {reference} = useParams();
 
-  const [startTransition] = useTransition();
+  const [loading, startTransition] = useTransition();
   const [orderData, setOrderData] = useState({})
   useEffect(() => {
     try {
