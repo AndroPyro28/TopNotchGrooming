@@ -20,7 +20,7 @@ function OrderDetails() {
 
   const {reference} = useParams();
 
-  const [loading, startTransition] = useTransition();
+  const [startTransition] = useTransition();
   const [orderData, setOrderData] = useState({})
   useEffect(() => {
     try {
