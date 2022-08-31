@@ -16,7 +16,7 @@ function PreparingOrder({data}) {
           </h1>
         </Row>
         <Row>
-          <h4>Total amount of {productPriceFormatter(data.total_amount)}</h4>
+          <h4>Total amount of {productPriceFormatter(data.total_amount + (data.total_amount * 0.01))}</h4>
         </Row>
         <Row>
           <h3>

@@ -10,7 +10,7 @@ function Summary({data}) {
     <OrderSummary>
       <OrderCalculation>
         <div>Subtotal:</div>
-        <div>{productPriceFormatter(data?.total_amount.toFixed(0))}</div>
+        <div>{productPriceFormatter(data?.total_amount)}</div>
       </OrderCalculation>
 
       <OrderCalculation>

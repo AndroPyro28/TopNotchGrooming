@@ -258,12 +258,11 @@ export const ProductItemContainer = styled.figure`
     }
 
     &:active {
-      font-size: 3em;
+      font-size: 2em;
     }
 
     @media (max-width:600px) {
     font-size: 1em;
-
     }
   }
 

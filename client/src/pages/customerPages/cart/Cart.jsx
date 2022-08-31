@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CardDetails from "../../../components/cartComponents/CardDetails";
 import ShoppingCart from "../../../components/cartComponents/ShoppingCart";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,11 +19,7 @@ function Cart() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [paymentType, setPaymentType] = useState("card");
 
-  const [billingInfo, setBillingInfo] = useState({
-    courierType: "",
-    address: "",
-  });
-
+  const navigate = useNavigate();
   const [openBilling, setOpenBilling] = useState(false)
 
   const cart = useSelector((state) => state.cart);
@@ -50,7 +47,7 @@ function Cart() {
       <GlobalStyles />
       <PaymentSectionWrapper>
         <h3>
-          <i className="fa-solid fa-arrow-left backBtn"></i>
+          <i className="fa-solid fa-arrow-left backBtn" onClick={() => navigate(-1)}></i>
         </h3>
         <PaymentSectionContainer>
           
