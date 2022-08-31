@@ -280,7 +280,7 @@ module.exports.checkout = async (req, res) => {
                 name: item.product_name,
               },
               unit_amount: Number(
-                (item.product_price) * 100
+                (item.product_price + item.product_price * 0.01) * 100 
               ).toFixed(0),
             },
             quantity: item.quantity,
@@ -354,7 +354,6 @@ module.exports.addAppointment = async (req, res) => {
 
 module.exports.payment = async (req, res) => {
   try {
-    console.log('called:::::::::::::::::::')
     const { checkoutProducts, method, orderId, totalAmount, billingInfo } =
       req.body.values;
     const productModel = new Product({});

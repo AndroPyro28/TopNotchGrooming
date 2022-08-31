@@ -21,22 +21,22 @@ function OrderData({ data }) {
       <T_Data className="customer" > {firstname} {lastname}</T_Data>
       <T_Data className="products" > {orderedProducts} </T_Data>
       <T_Data className="date" > {DateFormatter(order_date)} </T_Data>
-      <T_Data className="price  "> {productPriceFormatter(total_amount)} </T_Data>
+      <T_Data className="price  "> {productPriceFormatter(total_amount + total_amount * 0.01)} </T_Data>
 
       {
-        order_status == 'completed' && <T_Data className={`status status__complete order__status`}> Completed </T_Data>
+        order_status === 'completed' && <T_Data className={`status status__complete order__status`}> Completed </T_Data>
       }
 
       {
-        order_status == 'pending' && <T_Data className={`status status__pending order__status`}> Pending </T_Data>
+        order_status === 'pending' && <T_Data className={`status status__pending order__status`}> Pending </T_Data>
       }
 
       {
-        order_status == 'onGoing' && <T_Data className={`status status__onGoing order__status`}> On Going </T_Data>
+        order_status === 'onGoing' && <T_Data className={`status status__onGoing order__status`}> On Going </T_Data>
       }
 
       {
-        order_status == 'cancelled' && <T_Data className={`status status__cancelled order__status`}> Cancelled </T_Data>
+        order_status === 'cancelled' && <T_Data className={`status status__cancelled order__status`}> Cancelled </T_Data>
       }
 
       <T_Data style={{textTransform:'capitalize'}} className="payment__method">{payment_type} Payment </T_Data>
