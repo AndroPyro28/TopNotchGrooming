@@ -10,7 +10,7 @@ export const VideoContainer = styled.div`
     object-fit: cover;
     border-radius: 20px;
     align-self: center;
-    height: 75vh;
+    height: 85vh;
     width: ${({ isDisplayBoard }) => (isDisplayBoard ? "95%" : "70%")};
     box-shadow: 1px 3px 5px gray;
 
