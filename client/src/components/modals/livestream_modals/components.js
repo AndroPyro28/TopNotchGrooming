@@ -19,7 +19,7 @@ export const LiveStreamModalContainer = styled.div`
   left: 0;
   right: 0;
   margin: auto;
-  height: 90%;
+  height: 95%;
   background: white;
   width: 45%;
   border-radius: 10px;

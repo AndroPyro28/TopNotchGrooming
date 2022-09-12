@@ -4,6 +4,7 @@ export const VideoContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px;
+  justify-content: center;
   transition: all 0.3s ease-in-out;
   & > :is(img, video) {
     object-fit: cover;

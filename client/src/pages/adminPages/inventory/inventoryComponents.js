@@ -328,17 +328,24 @@ export const ImageContainer = styled.div`
 
   & > .imgUploader {
     position: absolute;
-    top: 50px;
+    top: 72px;
     left: 20;
-    width: 80%;
+    width: 84%;
     opacity: 0;
-    height: 28%;
+    height: 32%;
     background: black;
     cursor: pointer;
 
     @media (max-width:800px) {
-      top: 20px;
-      height: 30%;
+      top: 5px;
+      width: 63%;
+      height: 40%;
+    }
+
+    @media (max-width:650px) {
+      top: 5px;
+      width: 70%;
+      height: 40%;
     }
 
   }
