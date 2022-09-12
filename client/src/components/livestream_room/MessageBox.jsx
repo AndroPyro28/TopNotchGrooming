@@ -40,7 +40,9 @@ function MessageBox() {
         placeholder={isAuth ? "Share your thoughts..." : "You are not allowed to comment"}
         onKeyDown={(e) => e.key === "Enter" && sendMessage(e)}
       />
-      <i className="fa-solid fa-paper-plane" onClick={sendMessage}  ></i>
+      {
+       isAuth && <i className="fa-solid fa-paper-plane" onClick={sendMessage}  ></i>
+      }
     </MessageBoxContainer>
   );
 }
