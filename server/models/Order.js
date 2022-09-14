@@ -167,9 +167,9 @@ class Order {
 
   getAllOrders = async () => {
     try {
-      const selectQuery = `SELECT * FROM order_details;`;
+      const selectQuery = `SELECT * FROM order_details WHERE order_status = ?;`;
 
-      const [result, _] = await poolConnection.execute(selectQuery);
+      const [result, _] = await poolConnection.execute(selectQuery, ['completed']);
 
       return result
     } catch (error) {
