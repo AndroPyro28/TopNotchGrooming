@@ -324,8 +324,32 @@ module.exports.appointmentCompleted = async (req, res) => {
 module.exports.dashboardData = async (req, res) => {
     try {
       const orderModel = new Order({});
-      const data = orderModel.getAllOrders();
+
+      const data = await orderModel.getAllOrders();
       console.log(data);
+      const dataObj = {}
+
+      data.forEach(sale => {
+        const date = new Date(sale.order_date);
+
+        const totalAmount = sale.total_amount + (sale.total_amount * 0.01);
+
+        const currentMonth = date.getMonth();
+
+        let salesOfTheMonth = dataObj[currentMonth];
+
+        if(!salesOfTheMonth) {
+          salesOfTheMonth = 0;
+        }
+        salesOfTheMonth += Number(totalAmount);
+        dataObj[currentMonth] = salesOfTheMonth;
+      })
+
+      return res.status(200).json({
+        success: true,
+        data: dataObj
+      });
+
     } catch (error) {
       console.error(error.message)
     }
