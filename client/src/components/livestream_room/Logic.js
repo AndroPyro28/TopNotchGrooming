@@ -12,6 +12,7 @@ function Logic({
   socket,
   currentUser,
   setDisplayBoardModal,
+  setLoading
 }) {
   const configureScreen = () => {
     const liveStreamRoomContainer = document.querySelector(
@@ -37,6 +38,7 @@ function Logic({
     try {
 
       if (isAdmin) {
+        setLoading(true)
         mediaRecorder?.stop();
 
         const blob = new Blob(parts, {
@@ -63,11 +65,13 @@ function Logic({
           socket.emit("leaveRoom", { currentUser, currentRoom });
            setTimeout(() => window.location.assign("/admin") , 0)
         };
+        setLoading(false)
       } else {
         socket.emit("leaveRoom", { currentUser, currentRoom });
         window.location.assign("/customer");
       }
     } catch (error) {
+      setLoading(false)
       console.error(error.message);
     }
   };
