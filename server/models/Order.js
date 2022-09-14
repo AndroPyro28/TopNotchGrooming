@@ -161,9 +161,21 @@ class Order {
       const [result, _] = await poolConnection.execute(selectQuery, [this.#customer_id]);
        return orderProductParserList(result);
     } catch (error) {
-      
+      console.error(error.message)
     }
   };
+
+  getAllOrders = async () => {
+    try {
+      const selectQuery = `SELECT * FROM order_details;`;
+
+      const [result, _] = await poolConnection.execute(selectQuery);
+
+      return result
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
 }
 

@@ -2,19 +2,17 @@ import * as yup from "yup";
 import {useNavigate} from "react-router-dom";
 import CustomAxios from "../../../customer hooks/CustomAxios";
 
-function AppointmentLogic({toast, image, setImgError}) {
+function AppointmentLogic({toast, image, setImgError, setLoading}) {
 
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     try {
-
       values.image = image;
       if(image == null || !image) {
         return setImgError("Please set an image to this product");
-
       }
-
+      setLoading(true)
       const reponse = await CustomAxios({METHOD:"POST", uri:`/api/customer/appointment`, values})
       const {success, msg} = reponse;
 
@@ -25,11 +23,12 @@ function AppointmentLogic({toast, image, setImgError}) {
       if(!success) {
         return toast(msg, {type: 'error'});
       }
-
+      setLoading(false)
       toast(msg, {type: 'success'});
 
       setTimeout( _ => navigate('/customer/profile', {replace: true}), 2500)
     } catch (error) {
+      setLoading(false)
       console.error(error.message);
     }
   };

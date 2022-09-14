@@ -7,11 +7,17 @@ import {
   AppointmentFormInputsContainer,
   FormInputsContainer,
 } from "./appointmentComponents";
+
+
 import { toast, ToastContainer } from "react-toastify";
 import FormikControl from "../../../formik/FormikControl";
+import Loader from "../../../components/loader/Loader"
+
+
 function Appointment() {
   const [image, setImage] = useState(null);
   const [imgError, setImgError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -42,7 +48,7 @@ function Appointment() {
     petTypeOptions,
     requestTypeOptions,
     dateTodayFormatter,
-  } = AppointmentLogic({ toast, image, setImgError });
+  } = AppointmentLogic({ toast, image, setImgError, setLoading });
 
   useEffect(() => {
     const birthdate = document.querySelector("#birthdate");
@@ -58,12 +64,13 @@ function Appointment() {
       onSubmit={onSubmit}
     >
       {(formik) => {
-        const appointmentType = formik.values.appointmentType;
-        const liveStreamType = formik.values.liveStreamType;
         return (
           <Form class="appointment__form__container" autoComplete="off">
             <AppointmentFormPhoto></AppointmentFormPhoto>
             <GlobalStyles />
+            {
+              loading && <Loader bg={"rgba(0, 0, 0, 0.548)"} />
+            }
             <ToastContainer autoClose={1500} />
             <AppointmentFormInputsContainer>
               <h2>

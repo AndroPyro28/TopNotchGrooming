@@ -19,7 +19,7 @@ function OrderDetails({data}) {
             <i class="fa-solid fa-basket-shopping"></i> {data.products?.length} item(s)
           </small>
           <small>
-          <i class="fa-solid fa-receipt"></i> {productPriceFormatter(data.total_amount)} pesos only
+          <i class="fa-solid fa-receipt"></i> {productPriceFormatter(data.total_amount + (data.total_amount * 0.01))} pesos only
           </small>
           <small>
           <i class="fa-solid fa-credit-card"></i> {data.payment_type} Payment

@@ -21,6 +21,8 @@ import {
   LineController,
   BarController,
 } from "chart.js";
+import { useEffect } from "react";
+import CustomAxios from "../../customer hooks/CustomAxios";
 
 ChartJS.register(
   CategoryScale,
@@ -105,6 +107,13 @@ const data = {
 };
 
 function DashboardCharts() {
+
+  useEffect(() => {
+    (async() => {
+      const result = await CustomAxios({METHOD:"GET", uri:"/api/admin/dashboard"});
+      // console.log(result)
+    })()
+  }, [])
   return (
     <DashboardChartsContainer>
       <MonthlySalesChartsContainer>

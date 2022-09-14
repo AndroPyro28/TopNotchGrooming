@@ -307,7 +307,6 @@ module.exports.appointmentCompleted = async (req, res) => {
       throw new Error('something went wrong...')
     }
 
-    console.log('appointmentCompleted',multipleQueryResult)
     return res.status(200).json({
       msg: 'completed',
       success:true
@@ -320,4 +319,14 @@ module.exports.appointmentCompleted = async (req, res) => {
       success:false
     })
   }
+}
+
+module.exports.dashboardData = async (req, res) => {
+    try {
+      const orderModel = new Order({});
+      const data = orderModel.getAllOrders();
+      console.log(data);
+    } catch (error) {
+      console.error(error.message)
+    }
 }

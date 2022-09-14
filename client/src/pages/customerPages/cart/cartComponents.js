@@ -97,11 +97,11 @@ export const ShoppingCartDetails = styled.p`
   font-weight: 500;
   color: gray;
   overflow-x: hidden;
-
-  @media (max-width:600px) {
-    & > small {
+  & >  small {
+    overflow: hidden;
+    @media (max-width:600px) {
       font-size: 0.7em;
-    }
+  }
   }
 `;
 

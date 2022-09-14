@@ -13,7 +13,6 @@ export const VideoContainer = styled.div`
     height: 85vh;
     width: ${({ isDisplayBoard }) => (isDisplayBoard ? "95%" : "70%")};
     box-shadow: 1px 3px 5px gray;
-
     @media (max-width:1000px) {
       width: 100%;
     }
