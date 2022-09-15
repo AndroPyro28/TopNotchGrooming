@@ -62,11 +62,9 @@ function AdminNavbar() {
     <AdminNavbarContainer >
         
     <LeftNav>
-
       {
         openMenu && <HamburgerNavBar routes={routes} navLinkStyles={navLinkStyles} setOpenMenu={setOpenMenu} />
       }
-      
     <HamburgerMenu className='fa-solid fa-bars' onClick={() => setOpenMenu(true)}>
         {/* {content for mobile here} */}
     </HamburgerMenu>

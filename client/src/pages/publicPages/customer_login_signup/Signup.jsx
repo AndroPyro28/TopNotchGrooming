@@ -11,7 +11,6 @@ import FormikControl from "../../../formik/FormikControl";
 import useLogic from "./useLogic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Children } from "react";
 
 function Signup() {
   const { onSubmitSignup, initialValuesSignup, validationSchemaSignup } =
@@ -24,7 +23,7 @@ function Signup() {
 
       const validatePhone = (phone) => {
         const phoneNo = phone.toString()
-        return !phoneNo.startsWith('63') ? "Phone number must start with 63xxxxxxxxxx" : null
+        return !phoneNo.startsWith('639') ? "Phone number must start with (63) (e.g 639*********)" : null
       }
 
   const [inputPageNo, setInputPageNo] = useState(0);
@@ -119,6 +118,7 @@ function Signup() {
                             control="input"
                             className="input__container"
                           />
+                          
                           <FormikControl
                             name="phoneNo"
                             label="Phone Number"

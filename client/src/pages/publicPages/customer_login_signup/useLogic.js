@@ -96,8 +96,7 @@ function useLogic({ toast }) {
     phoneNo: yup.string().required().min(11),
     address: yup
       .string()
-      .required("This field is required")
-      .min(9, "must be minimum of 9 of characters"),
+      .required("This field is required"),
     birthdate: yup.string().required("This field is required"),
     password: yup.string().required("This field is required").min(6),
     confirmPassword: yup.string().required("This field is required"),

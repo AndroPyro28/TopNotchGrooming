@@ -39,7 +39,7 @@ export const ButtonContainer = styled.div`
 
       &:hover {
         background: rgb(142,112,101);
-        color: white;
+        color: white !important;
       }
   }
 
@@ -114,7 +114,7 @@ export const DropDownContainer = styled.div`
             margin: 10px;
             &:hover {
                 background: rgb(142,112,101);
-                color: white;
+                color: white !important;  
             }
           }
 `

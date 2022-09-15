@@ -137,7 +137,6 @@ function App() {
 
       {navbarType === "admin" && !pathname?.includes('room=') && <AdminNavbar />}
 
-
       <Routes>
         {/* public routes */}
         <Route path="/" element={<PublicRoutes Component={<Index />} />} />

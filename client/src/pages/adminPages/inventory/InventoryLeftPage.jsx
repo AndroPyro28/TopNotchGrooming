@@ -198,7 +198,6 @@ function InventoryLeftPage({ setSearchItem, searchItem }) {
 
         <ProductStatistic>
           {productData && <Line data={productData} options={salesChartOption} />}
-          
         </ProductStatistic>
       </ProductStatisticContainer>
     </InventoryLeftContent>

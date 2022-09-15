@@ -48,7 +48,6 @@ function Logic({ appointment, id, setData, toast, setAppointments}) {
       return appointmentData;
     }
     const shiftedData = appointmentData.filter(data => data.date_n_time.time.includes(shift))
-    console.log(shiftedData)
     return shiftedData
   }
 

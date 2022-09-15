@@ -11,6 +11,7 @@ export const AdminInventoryWrapper = styled.section`
   height: 100vh;
   padding: 10px;
   justify-content: space-evenly;
+  overflow:hidden;
   /* padding-top: 10px; */
 `;
 export const InventoryLeftContent = styled.div`
@@ -72,7 +73,7 @@ export const ProductStatisticContainer = styled.div`
 
 export const ProductStatistic = styled.div`
   width: 100%;
-  height: 500px;
+  height: 450px;
 `;
 
 export const InventoryRightContent = styled.div`
@@ -82,7 +83,6 @@ export const InventoryRightContent = styled.div`
   width: 80%;
   margin: 10px;
   border-radius: 10px;
-  height: 85%;
 
   @media (max-width:1200px) {
     width: 100%;
@@ -233,7 +233,7 @@ export const TableRow = styled.div`
   }
 
   &.table__header {
-    padding: 15px 0;
+    padding: 25px 0;
     color: rgb(99, 98, 98);
   }
 
@@ -315,8 +315,7 @@ export const T_DATA = styled.div`
 export const ProductListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: 100vh;
-  overflow: auto;
+  /* overflow: auto; */
   overflow-x: hidden;
 `;
 

@@ -32,7 +32,7 @@ function useLogic({ toast }) {
 
       toast(msg, { type: "success" });
 
-      setTimeout((_) => window.location.assign("/admin/inventory"), 2500);
+      setTimeout((_) => window.location.assign("/admin"), 2500);
     } catch (error) {
       console.error(error.message);
     }

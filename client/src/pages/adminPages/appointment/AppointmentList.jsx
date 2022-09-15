@@ -1,6 +1,4 @@
 import React, { useState, useEffect} from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
 import {
   ShiftScheduleContainer,
   T_Head,
@@ -127,7 +125,7 @@ function AppointmentList() {
           fetchAppointments
         ) : (
           <h1 style={{ color: "gray", textAlign: "center", marginBlock: 20 }}>
-            No appointments yet
+            No appointments found
           </h1>
         )}
       </AdminListContainer>
