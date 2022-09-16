@@ -26,7 +26,6 @@ function AppointmentDetails() {
         if(!success && msg?.includes('session expired')) {
           return window.location.reload();
         }
-
         const {result} = response
         setDetails(result);
       } catch (error) {

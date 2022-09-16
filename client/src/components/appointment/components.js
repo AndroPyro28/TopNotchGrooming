@@ -37,18 +37,13 @@ export const InfoRow = styled.div`
     &.reject {
       background: red;
 
-      &:hover {
-      background: pink;
-
-      }
     }
     &.approve {
+      background: lightblue;
+    }
+
+    &.complete {
       background: green;
-
-      &:hover {
-      background: lightgreen;
-
-      }
     }
   }
 `;
@@ -67,6 +62,14 @@ export const Info = styled.div`
   & > h4 {
     color: dimgray;
     font-size: 0.9em;
+  }
+
+  & > video {
+    object-fit: contain;
+    width: 100%;
+    height: 250px;
+    border-radius:10px;
+    margin-top: 20px;
   }
 
   & > span {

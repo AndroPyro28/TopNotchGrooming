@@ -124,11 +124,21 @@ class Appointment {
         'id', customer.id, 'firstname', customer.firstname, 'lastname', customer.lastname,
         'address', customer.address, 'contact', customer.phoneNo, 'email', customer.email,
         'birthdate', customer.birthdate
-      ) as customer
+      ) as customer,
+
+      JSON_OBJECT(
+        'id', live_streams.id, 
+        'video', live_streams.video_url,
+         'date', live_streams.date,
+         'start_time', live_streams.start_time,
+         'end_time', live_streams.end_time
+         ) as live_stream_data
       
       FROM appointments 
       INNER JOIN customer
       ON customer.id = appointments.customer_id
+      LEFT JOIN live_streams
+      ON appointments.id = live_streams.appointment_id
       WHERE appointments.id = ?`;
 
       const [result, _] = await poolConnection.execute(selectQuery, [id]);

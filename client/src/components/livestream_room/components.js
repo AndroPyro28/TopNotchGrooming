@@ -47,7 +47,7 @@ export const Options = styled.div`
     }
 
     &:disabled {
-      background: green !important;
+      background: gray !important;
     }
   }
 

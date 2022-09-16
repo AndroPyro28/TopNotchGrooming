@@ -5,23 +5,24 @@ import {
   InfoRow,
   UpdateBtn,
 } from "./components";
+
 import FormateDateLocal from "../../helpers/FormateDateLocal";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Logic from "./logic";
-import {ToastContainer, toast} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 
 function AppointmentInfo({ data, setData, }) {
-  
-  const { appointment } = data;
+
+  const { appointment, live_stream_data } = data;
   const { id } = useParams();
 
   const { approve } = Logic({ appointment, id, setData, toast });
 
   let [formattedDateNTime, setFormattedDateNTime] = useState(null);
-  
+
   const [toggleChange, setToggleChange] = useState(false);
 
   useEffect(() => {
@@ -35,13 +36,12 @@ function AppointmentInfo({ data, setData, }) {
   return (
     <AppointmentInfoContainer>
       <h2>Appointment Information</h2>
-    <ToastContainer autoClose={1500} />
+      <ToastContainer autoClose={1500} />
       {appointment?.status === "pending" && (
         <UpdateBtn>
           <i
-            className={`editBtn ${
-              toggleChange ? "fa-solid fa-floppy-disk" : "fa-solid fa-pencil"
-            }`}
+            className={`editBtn ${toggleChange ? "fa-solid fa-floppy-disk" : "fa-solid fa-pencil"
+              }`}
             onClick={() => setToggleChange((prev) => !prev)}
           ></i>
         </UpdateBtn>
@@ -96,6 +96,34 @@ function AppointmentInfo({ data, setData, }) {
         </Info>
       </InfoRow>
 
+      {
+        appointment?.status === "completed" && appointment?.appointment_type === "grooming" && <>
+        <InfoRow>
+          <Info>
+            <h2>Appointment summary</h2>
+          </Info>
+        </InfoRow>
+
+        <InfoRow>
+          <Info>
+            <h4>Time of the event</h4>
+            <label>
+            {live_stream_data?.start_time} - {live_stream_data?.end_time}</label>
+          </Info>
+        </InfoRow>
+
+        <InfoRow>
+          <Info>
+            <h4>Record of the stream</h4>
+            <video src={live_stream_data?.video} controls></video>
+          </Info>
+        </InfoRow>
+        </>
+      }
+
+
+
+
       {appointment?.status === "pending" && (
         <InfoRow style={{ justifyContent: "center" }}>
           <button className="reject">Reject</button>
@@ -104,6 +132,20 @@ function AppointmentInfo({ data, setData, }) {
           </button>
         </InfoRow>
       )}
+
+      {
+        appointment?.status &&
+        appointment?.status !== "pending" &&
+        appointment?.status !== "rejected" &&
+        appointment?.status !== "completed" &&
+        (
+          <InfoRow style={{ justifyContent: "center" }}>
+            <button className="complete">
+              Mark as completed
+            </button>
+          </InfoRow>
+        )}
+
     </AppointmentInfoContainer>
   );
 }
