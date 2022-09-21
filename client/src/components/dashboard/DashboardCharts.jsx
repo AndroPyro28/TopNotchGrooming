@@ -86,7 +86,9 @@ function DashboardCharts() {
     "November",
     "December",
   ];
+
   const [salesData, setSalesData] = useState([]);
+
   useEffect(() => {
     (async() => {
       const result = await CustomAxios({METHOD:"GET", uri:"/api/admin/dashboard"});
@@ -98,7 +100,6 @@ function DashboardCharts() {
       }
 
       for (const sale in data) {
-        // console.log(`${sale} : ${data[sale]}`)
         salesArr[sale] = data[sale];
       }
 
@@ -106,8 +107,6 @@ function DashboardCharts() {
     })()
   }, [])
 
-
-  
   const data = {
     labels,
     datasets: [

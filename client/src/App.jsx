@@ -49,6 +49,7 @@ import Channels from "./pages/shared/livestream_channels/Channels";
 import LiveStreamRoom from "./pages/shared/livestream_room/LiveStreamRoom";
 import CustomAxios from "./customer hooks/CustomAxios";
 import AdminNavbar from "./components/admin_navbar/AdminNavbar";
+import Sales from "./pages/adminPages/sales/Sales";
 
 function App() {
 
@@ -253,6 +254,7 @@ function App() {
         >
           <Route index element={<AppointmentList />} />
           <Route path="appointments" element={<AppointmentList />} />
+          <Route path="sales" element={<Sales />} />
         </Route>
 
         <Route
