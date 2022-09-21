@@ -101,6 +101,8 @@ export const Info = styled.div`
         ? "blue"
         : status == "interrupted"
         ? "black" 
+        : status == "approved"
+        ? "lightblue" 
         : "green"
     };
 

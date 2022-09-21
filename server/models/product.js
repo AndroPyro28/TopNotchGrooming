@@ -178,19 +178,45 @@ class Product {
 
   updatePaidItems = async (checkoutProducts) => {
     try {
-      let updateQuery = `UPDATE products SET product_stocks = ( 
+      let updateQuery = `UPDATE products SET product_stocks = (
           case`;
+
       for (let i = 0; i < checkoutProducts.length; i++) {
         updateQuery += `
           WHEN id = ${checkoutProducts[i].product_id} THEN product_stocks - ${checkoutProducts[i].quantity}`;
       }
+
       updateQuery += `
+        END),
+        total_sales = (
+          case 
+        `;
+
+      for (let i = 0; i < checkoutProducts.length; i++) {
+        updateQuery += `
+            WHEN id = ${checkoutProducts[i].product_id} THEN total_sales + ${checkoutProducts[i].quantity * checkoutProducts[i].product_price}`;
+      }
+
+      updateQuery += `
+        END),
+        unit_sales = (
+          case
+        `
+        
+        for (let i = 0; i < checkoutProducts.length; i++) {
+          updateQuery += `
+              WHEN id = ${checkoutProducts[i].product_id} THEN unit_sales + ${checkoutProducts[i].quantity}`;
+        }
+
+        updateQuery += `
         END)
-        WHERE id IN (?)`;
+        WHERE id IN (?)`
 
       const productIds = checkoutProducts.map((product) => product.product_id);
 
       const [result, _] = await poolConnection.query(updateQuery, [productIds]);
+      console.log(updateQuery);
+      console.log(result)
     } catch (error) {
       console.error(error.message);
     }

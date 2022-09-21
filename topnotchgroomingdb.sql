@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2022 at 10:04 AM
+-- Generation Time: Sep 21, 2022 at 05:19 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -207,23 +207,24 @@ CREATE TABLE `products` (
   `product_category` varchar(50) DEFAULT NULL,
   `product_image_url` varchar(500) NOT NULL,
   `product_image_id` varchar(100) NOT NULL,
-  `total_sales` bigint(20) NOT NULL DEFAULT 0
+  `total_sales` bigint(20) NOT NULL DEFAULT 0,
+  `unit_sales` bigint(20) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`, `total_sales`) VALUES
-(43, 'food bowl', 200, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f\nLorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetu', 'Cat', '2022-07-24', 46, '2-4', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658646718/topnotch_productImg/qd0yfi8jldafh2b5pomb.png', 'topnotch_productImg/qd0yfi8jldafh2b5pomb', 0),
-(44, 'Multivitamins', 300, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 80, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657709691/topnotch_productImg/e9neie1peletkcw6go9u.png', 'topnotch_productImg/e9neie1peletkcw6go9u', 0),
-(45, 'Shampoo', 400, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 85, '7+', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260600/topnotch_productImg/qjkky0r5ws6uj0zoizsm.png', 'topnotch_productImg/qjkky0r5ws6uj0zoizsm', 0),
-(46, 'multivitamins A plus', 500, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Cat', '2022-07-24', 89, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260636/topnotch_productImg/gmzxy5gl2pmtsfam8vij.png', 'topnotch_productImg/gmzxy5gl2pmtsfam8vij', 0),
-(49, 'toy', 100, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '2022-07-24', 90, '1-2', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041142/topnotch_productImg/ycnevbj2mbl7dp77rrvd.jpg', 'topnotch_productImg/ycnevbj2mbl7dp77rrvd', 0),
-(50, 'pedigree update', 600, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Dog', '2022-07-24', 85, '7+', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262354/topnotch_productImg/ivfx6h0e4ekghpzni8cq.png', 'topnotch_productImg/ivfx6h0e4ekghpzni8cq', 0),
-(52, 'blue shampoo update', 800, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet coasd aansectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f adsd a da', 'Dog', '2022-07-24', 50, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041348/topnotch_productImg/dpnogefn44xf1w7cbhjc.png', 'topnotch_productImg/dpnogefn44xf1w7cbhjc', 0),
-(53, 'LEGO FOR PETS', 500, 'sadasdsda', 'Cat', '2022-07-24', 121, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659782108/topnotch_productImg/zzlo8xp4hezhsdswuurt.jpg', 'topnotch_productImg/zzlo8xp4hezhsdswuurt', 0),
-(54, 'some bag', 600, 'some item description', 'Dog', '2022-07-24', 32, '7+', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658660660/topnotch_productImg/nfibuzaftaakmqibq0g0.png', 'topnotch_productImg/nfibuzaftaakmqibq0g0', 0);
+INSERT INTO `products` (`id`, `product_name`, `product_price`, `product_description`, `pet_type`, `product_date_added`, `product_stocks`, `product_age_limit`, `product_category`, `product_image_url`, `product_image_id`, `total_sales`, `unit_sales`) VALUES
+(43, 'food bowl', 200, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f\nLorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetu', 'Cat', '2022-07-24', 46, '2-4', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658646718/topnotch_productImg/qd0yfi8jldafh2b5pomb.png', 'topnotch_productImg/qd0yfi8jldafh2b5pomb', 0, 0),
+(44, 'Multivitamins', 300, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 80, '5-7', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657709691/topnotch_productImg/e9neie1peletkcw6go9u.png', 'topnotch_productImg/e9neie1peletkcw6go9u', 0, 0),
+(45, 'Shampoo', 400, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Dog', '2022-07-24', 85, '7+', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260600/topnotch_productImg/qjkky0r5ws6uj0zoizsm.png', 'topnotch_productImg/qjkky0r5ws6uj0zoizsm', 0, 0),
+(46, 'multivitamins A plus', 500, 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fugit maiores voluptatem inve', 'Cat', '2022-07-24', 89, '1-2', 'Utility', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657260636/topnotch_productImg/gmzxy5gl2pmtsfam8vij.png', 'topnotch_productImg/gmzxy5gl2pmtsfam8vij', 0, 0),
+(49, 'toy', 100, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Cat', '2022-07-24', 90, '1-2', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041142/topnotch_productImg/ycnevbj2mbl7dp77rrvd.jpg', 'topnotch_productImg/ycnevbj2mbl7dp77rrvd', 0, 0),
+(50, 'pedigree update', 600, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum perferendis rem architecto optio quis', 'Dog', '2022-07-24', 85, '7+', 'Food', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657262354/topnotch_productImg/ivfx6h0e4ekghpzni8cq.png', 'topnotch_productImg/ivfx6h0e4ekghpzni8cq', 0, 0),
+(52, 'blue shampoo update', 800, 'Lorem ipsum dolor, sit amet LoremLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem fLorem ipsum dolor, sit amet Lorem ipsum dolor, sit amet coasd aansectetur adipisicing elit. Dicta quidem f ipsum dolor, sit amet consectetur adipisicing elit. Dicta quidem f adsd a da', 'Dog', '2022-07-24', 50, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1660041348/topnotch_productImg/dpnogefn44xf1w7cbhjc.png', 'topnotch_productImg/dpnogefn44xf1w7cbhjc', 0, 0),
+(53, 'LEGO FOR PETS', 500, 'sadasdsda', 'Cat', '2022-07-24', 121, '5-7', 'Hygiene kit', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1659782108/topnotch_productImg/zzlo8xp4hezhsdswuurt.jpg', 'topnotch_productImg/zzlo8xp4hezhsdswuurt', 0, 0),
+(54, 'some bag', 600, 'some item description', 'Dog', '2022-07-24', 32, '7+', 'Toy', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658660660/topnotch_productImg/nfibuzaftaakmqibq0g0.png', 'topnotch_productImg/nfibuzaftaakmqibq0g0', 0, 0);
 
 -- --------------------------------------------------------
 

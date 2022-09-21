@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   CheckOutButton,
 } from "../../../pages/customerPages/cart/cartComponents";
 
-import shopingCartLogic from "../logic/shopingCartLogic";
 import productPriceFormatter from "../../../helpers/ProductPriceFormatter";
 function MasterCard({ items, totalAmount, toast, setOpenBilling}) {
 
