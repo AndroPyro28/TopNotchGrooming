@@ -34,8 +34,7 @@ export const DashboardChartsContainer = styled.section`
 export const MonthlySalesChartsContainer = styled.div`
     height: 300px;
     display: flex;
-    padding: 10px;
-    padding: 30px;
+    padding: 10px 30px 50px 30px;
     border-radius: 10px;
     justify-content: center;
     display: block;
@@ -160,18 +159,19 @@ border-radius: 10px;
 & > div:nth-child(1) {
     flex: 2;
     font-size: 1.3em;
-    background: #A6B7F1;
+    background: black;
 
     & > * {
         color: white;
     }
     & > i {
-        color: lightgreen;
+        color: #a6b7f1;
         font-size: 0.9em !important;
     }
 
     & > span {
         font-size: 1.1em !important;
+        color: #a6b7f1;
     }
 
     & > p {

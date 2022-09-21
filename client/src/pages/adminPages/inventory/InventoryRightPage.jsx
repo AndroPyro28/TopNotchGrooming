@@ -11,8 +11,6 @@ import {
 import InventoryModal from "../../../components/modals/admin_modals/InventoryModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import Cookies from "js-cookie";
 import ProductItem from "./ProductItem";
 import Sign_Products from "../../../components/sign/Sign_Products";
 import Loader from "../../../components/loader/Loader";
@@ -23,7 +21,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [maxPage, setMaxPage] = useState()
+  const [maxPage, setMaxPage] = useState(1)
   
   useEffect(() => {
     (async () => {
