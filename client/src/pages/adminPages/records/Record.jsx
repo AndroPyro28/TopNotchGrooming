@@ -17,12 +17,21 @@ function Record() {
     
   return (
     <AdminListWrapper>
-      <GlobalStyles />
-      <h1>APPOINTMENT RECORDS</h1>
+    <GlobalStyles />
+    <h1>RECORDS</h1>
 
-      <Outlet />
+    <ListNavigationButton>
+      <NavLink to={'appointments'} style={navLinkStyles} >
+        Appointments
+      </NavLink>
+      <NavLink to={'sales'} style={navLinkStyles} >
+        Sales
+      </NavLink>
+    </ListNavigationButton>
 
-    </AdminListWrapper>
+    <Outlet />
+
+  </AdminListWrapper>
   )
 }
 

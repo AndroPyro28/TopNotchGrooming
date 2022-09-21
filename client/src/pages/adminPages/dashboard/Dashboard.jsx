@@ -7,7 +7,7 @@ function Dashboard() {
   return (
     <DashboardContainer>
       <GlobalStyles />
-      <Welcome />
+      {/* <Welcome /> */}
 
       <DashboardCharts />
 

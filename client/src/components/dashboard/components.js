@@ -35,14 +35,13 @@ export const MonthlySalesChartsContainer = styled.div`
     height: 300px;
     display: flex;
     padding: 10px;
-    padding: 50px;
+    padding: 30px;
     border-radius: 10px;
     justify-content: center;
-    background: white;
     display: block;
     position: relative;
     z-index: 1;
-
+    background: white;
     & > canvas {
         align-self: center;
 
@@ -75,19 +74,24 @@ export const MonthlySalesChartsContainer = styled.div`
     }
 
 `
-export const NewClients = styled.div`
-    padding: 50px;
+export const FeedbackList = styled.div`
+    padding: 50px 10px 20px 10px;
     display: flex;
     flex-direction: column;
     background:white;
-    justify-content: space-between;
     border-radius: 10px;
-
+    max-height: 490px;
+    overflow: auto;
+    position: relative;
     @media (max-width:1000px) {
         display: none;
     }
     & > h1 {
         font-size: 1.5em;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
     }
 
 
@@ -107,6 +111,73 @@ export const NewClients = styled.div`
 
 `
 
+export const DataInformationContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: fit-content;
+    align-items: center;
+    padding: 10px 5px;
+    border-radius: 10px;
+    margin: 10px 30px;
+    height: fit-content;
+    flex: 1.3;
+    & > i {
+        padding: 10px;
+        background: #F1F5FB;
+        border-radius: 5px;
+        width: fit-content;
+        margin: 5px;
+    }
+
+    & > span {
+        color: rgb(25,19,2);
+        margin: 5;
+    }
+
+    & > p {
+        color: dimgray;
+        margin: 5px;
+        font-size: 0.9em;
+    }
+`
+
+export const SalesAndProductsData = styled.div`
+    display: flex;
+    flex-direction: column;
+    /* background: white; */
+
+`
+export const DataContainer = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+background: white;
+border-radius: 10px;
+/* background: black; */
+& > div:nth-child(1) {
+    flex: 2;
+    font-size: 1.3em;
+    background: #A6B7F1;
+
+    & > * {
+        color: white;
+    }
+    & > i {
+        color: lightgreen;
+        font-size: 0.9em !important;
+    }
+
+    & > span {
+        font-size: 1.1em !important;
+    }
+
+    & > p {
+        font-size: 0.9em !important;
+    }
+}
+`
 export const AppointmentListContainer = styled.div`
 background: white;
     & > h1 {
@@ -187,8 +258,10 @@ export const T_Data = styled.div`
     }
     
     & > img {
-        min-width: 50px;
+        /* min-width: 50px; */
+        /* max-height: 50px; */
         height: 50px;
+        width: 50px;
         margin-right: 10px;
         border-radius: 50%;
         object-fit: cover;
@@ -197,5 +270,36 @@ export const T_Data = styled.div`
         min-width: 40px;
         height: 40px;
         }
+    }
+`
+
+export const FeedbackdataContainer = styled.div`
+    display: flex;
+    min-height: 100px;
+    overflow: hidden;
+    margin: 10px;
+    & > img {
+        max-width: 40px !important;
+        max-height: 40px !important;
+        border-radius: 50%;
+        flex: 0.8;
+        margin: 10px;
+    }
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        text-align: start;
+
+        & > span {
+            font-size: 1em;
+            margin: 10px;
+        }
+        & > p {
+            font-size: 0.7em;
+            color: gray;
+        }
+        
     }
 `

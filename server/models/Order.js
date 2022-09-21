@@ -165,11 +165,13 @@ class Order {
     }
   };
 
-  getAllOrders = async () => {
+  dashboardData = async () => {
     try {
-      const selectQuery = `SELECT * FROM order_details WHERE order_status = ?;`;
+      const selectQuery = `
+      SELECT * FROM order_details;
+      `;
 
-      const [result, _] = await poolConnection.execute(selectQuery, ['completed']);
+      const [result, _] = await poolConnection.execute(selectQuery);
 
       return result
     } catch (error) {
