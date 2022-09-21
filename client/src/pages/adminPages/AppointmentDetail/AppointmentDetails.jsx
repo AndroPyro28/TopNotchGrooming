@@ -1,5 +1,3 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import React from 'react'
 import { useState } from 'react';
 import { useEffect, useTransition } from 'react';
@@ -8,7 +6,7 @@ import AppointmentInfo from '../../../components/appointment/AppointmentInfo';
 import Details from '../../../components/appointment/Details';
 import CustomAxios from '../../../customer hooks/CustomAxios';
 import {Container} from "./components";
-
+import Loader from "../../../components/loader/Loader";
 function AppointmentDetails() {
 
   const [loading, setLoading] = useState(false);
@@ -38,8 +36,11 @@ function AppointmentDetails() {
 
   return (
     <Container>
+      {
+        loading && <Loader bg={"rgba(0, 0, 0, 0.548)"} />
+      }
         <Details data={details}/>
-        <AppointmentInfo data={details} setData={setDetails} />
+        <AppointmentInfo data={details} setData={setDetails} setLoading={setLoading} />
     </Container>
   )
 }

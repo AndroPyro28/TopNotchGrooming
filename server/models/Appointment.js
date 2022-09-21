@@ -216,8 +216,17 @@ class Appointment {
     }
   };
 
-  appointmentCompleted = () => {
-    
+  markScheduleAsComplete = async (id) => {
+    try {
+      const updateQuery = `UPDATE appointments SET status = ? WHERE id = ?`
+
+      const [result, _] = await poolConnection.execute(updateQuery, ['completed', id]);
+
+      return result;
+      
+    } catch (error) {
+      console.error(error.message)
+    }
   }
 }
 

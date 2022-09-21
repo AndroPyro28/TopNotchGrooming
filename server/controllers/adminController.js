@@ -368,3 +368,29 @@ module.exports.dashboardData = async (req, res) => {
       console.error(error.message)
     }
 }
+
+module.exports.markComplete = async (req, res) => {
+ const {id} = req.params;
+ try {
+    const appointmentModel = new Appointment({});
+
+    const response = await appointmentModel.markScheduleAsComplete(id);
+
+    if(!response) {
+      throw new Error("Something went wrong...");
+    }
+
+    return res.status(200).json({
+      success: true,
+      msg: "Schedule completed"
+    })
+    
+ } catch (error) {
+    console.error(error.message);
+
+    return res.status(400).json({
+      success: false,
+      msg:error.message
+    })
+ }
+}

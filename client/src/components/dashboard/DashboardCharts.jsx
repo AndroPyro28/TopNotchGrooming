@@ -95,18 +95,22 @@ function DashboardCharts() {
   const [overAllSales, setOverAllSales] = useState(0);
   const [totalSalesToday, setTotalSalesToday] = useState(0);
   const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] = useState(0)
+
   useEffect(() => {
     (async () => {
       const result = await CustomAxios({ METHOD: "GET", uri: "/api/admin/dashboard" });
       const salesArr = new Array(12);
       const { data, success, msg } = result;
       const { monthlySales, overAllSales, totalSalesToday, totalNumberOfAllTransactions } = data;
+
       if (!success && msg?.includes("session expired")) {
         return window.location.reload();
       }
+
       setOverAllSales(overAllSales);
       setTotalSalesToday(totalSalesToday);
       setTotalNumberOfAllTransactions(totalNumberOfAllTransactions);
+
       for (const sale in monthlySales) {
         salesArr[sale] = monthlySales[sale];
       }
@@ -121,7 +125,7 @@ function DashboardCharts() {
       {
         type: "line",
         label: "",
-        borderColor: "gray",
+        borderColor: "black",
         backgroundColor: "white",
         data: salesData,
       },

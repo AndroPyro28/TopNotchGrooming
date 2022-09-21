@@ -1,6 +1,6 @@
 import CustomAxios from "../../customer hooks/CustomAxios";
 
-function Logic({ appointment, id, setData, toast, setAppointments}) {
+function Logic({ appointment, id, setData, toast, setAppointments, setLoading}) {
   const dateNtimeFormatter = (dateLocal) => {
     const date = new Date(dateLocal);
 
@@ -37,9 +37,10 @@ function Logic({ appointment, id, setData, toast, setAppointments}) {
       }));
       toast("Appointment approved", { type: "success" });
       const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/approveAppointment/${id}`, values:{appointment}})
-      
     } catch (error) {
       console.error(error.message);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -51,10 +52,40 @@ function Logic({ appointment, id, setData, toast, setAppointments}) {
     return shiftedData
   }
 
+  const completeSchedule = async () => {
+    try {
+      setLoading(true)
+      const result = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/markComplete/${id}`});
+
+      const {msg, success} = result;
+
+      if(msg?.includes("session expired") && !success) {
+        return window.location.reload();
+      }
+
+      setData((prev) => ({
+        ...prev,
+        appointment: {
+          ...prev.appointment,
+          status: 'completed',
+        },
+      }));
+
+      return toast(msg, {type:"success"});
+    } catch (error) {
+      console.error(error.message)
+      return toast(error.message, {type:"error"});
+
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return {
     dateNtimeFormatter,
     approve,
-    sortDataByShift
+    sortDataByShift,
+    completeSchedule
   };
 }
 
