@@ -80,7 +80,8 @@ export const FeedbackList = styled.div`
     flex-direction: column;
     background:white;
     border-radius: 10px;
-    max-height: 490px;
+    max-height: 460px;
+    height: 460px;
     overflow: auto;
     position: relative;
     @media (max-width:1000px) {

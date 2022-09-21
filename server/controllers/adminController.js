@@ -331,6 +331,8 @@ module.exports.dashboardData = async (req, res) => {
       let totalSalesToday = 0;
       const dateToday = getDateToday()
 
+      console.log(data);
+      
       data.forEach(sale => {
         const date = new Date(sale.order_date);
         
@@ -340,7 +342,7 @@ module.exports.dashboardData = async (req, res) => {
 
         let salesOfTheMonth = dataObj[currentMonth];
 
-        if(!salesOfTheMonth) {
+        if(salesOfTheMonth == null || salesOfTheMonth == undefined) {
           salesOfTheMonth = 0;
         }
 
@@ -348,11 +350,10 @@ module.exports.dashboardData = async (req, res) => {
           totalSalesToday += totalAmount;
         }
 
-        salesOfTheMonth += Number(totalAmount);
-        overAllSales += Number(totalAmount);
+        salesOfTheMonth += totalAmount;
+        overAllSales += totalAmount;
         dataObj[currentMonth] = salesOfTheMonth;
       })
-
       return res.status(200).json({
         success: true,
         data: {

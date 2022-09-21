@@ -34,6 +34,7 @@ function OrderList() {
                   return window.location.reload()
                 }
                 const {orders} = response;
+                console.log(orders);
                 setOrders(orders);
 
             } catch (error) {
