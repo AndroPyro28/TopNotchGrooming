@@ -31,12 +31,12 @@ function AdminNavbar() {
           icon:'fa-solid fa-chart-line'
         },
         {
-          url:`/admin/record/appointments`,
+          url:`/admin/appointments`,
           name:"Appointments",
           icon:'fa-solid fa-calendar-days'
         },
         {
-          url:`/admin/record/sales`,
+          url:`/admin/sales`,
           name:"Sales",
           icon:'fa-solid fa-chart-pie'
         },
@@ -74,11 +74,11 @@ function AdminNavbar() {
           <i className="fa-solid fa-chart-line"></i> Dashboard
         </NavLink>
 
-        <NavLink to="/admin/record/appointments">
+        <NavLink to="/admin/appointments">
           <i className="fa-solid fa-calendar-days"></i> Appointment
         </NavLink>
 
-        <NavLink to="/admin/record/sales">
+        <NavLink to="/admin/sales">
           <i className="fa-solid fa-chart-pie"></i> sales
         </NavLink>
 

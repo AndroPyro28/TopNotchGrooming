@@ -14,19 +14,11 @@ function Record() {
             borderBottom: isActive ? 'solid 2px rgb(99, 98, 98)' : ''
         }
     }
+    
   return (
     <AdminListWrapper>
       <GlobalStyles />
-      <h1>RECORDS</h1>
-
-      <ListNavigationButton>
-        <NavLink to={'appointments'} style={navLinkStyles} >
-          Appointments
-        </NavLink>
-        <NavLink to={'sales'} style={navLinkStyles} >
-          Sales
-        </NavLink>
-      </ListNavigationButton>
+      <h1>APPOINTMENT RECORDS</h1>
 
       <Outlet />
 

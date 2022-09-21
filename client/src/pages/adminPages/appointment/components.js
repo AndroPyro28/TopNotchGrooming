@@ -13,7 +13,7 @@ export const AdminListWrapper = styled.section`
   flex-direction: column;
   text-align: start;
   & > h1 {
-    margin: 40px 50px 30px 50px;
+    margin: 50px 60px 50px 60px;
   }
 `;
 export const ListNavigationButton = styled.div`

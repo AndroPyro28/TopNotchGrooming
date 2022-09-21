@@ -2,10 +2,15 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AdminRoute, AdminGlobalStyles} from "./routeComponent";
+
 function AdminRoutes({ Component }) {
+
   const navigate = useNavigate();
+
   const {pathname} = useLocation();
+  
     let userToken = Cookies.get("userToken");
+
     const removeMargin = pathname?.includes('liveStreamChannels/room=')
 
     if (!userToken) return navigate("/", { replace: true });
