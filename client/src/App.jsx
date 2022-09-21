@@ -257,6 +257,11 @@ function App() {
         </Route>
 
         <Route
+          path="/admin/sales"
+          element={<AdminRoutes Component={<Sales />} />}
+        />
+
+        <Route
           path="/admin/orders"
           element={<AdminRoutes Component={<OrderList />} />}
         />
