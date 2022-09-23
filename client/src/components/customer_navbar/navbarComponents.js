@@ -405,7 +405,7 @@ export const CartSummary = styled.div`
     padding: 10px;
     border-radius: 10px;
     border: none;
-    background: orangered;
+    background: rgb(248,181,81);
     color: white;
     font-size: 1em;
     margin: 5px;
