@@ -36,7 +36,7 @@ function CartPopup({ nocartItems }) {
         <ProductListContainer>
 
         {
-            items.length == 0 ? <h3 style={{color:'gray'}}>No items in cart</h3> 
+            items.length == 0 ? <h3 style={{color:'gray'}}>No items found</h3> 
             : items.map(item => (
                 <CartItem key={item.id} data={{setItems, item}} />
             ))

@@ -402,12 +402,12 @@ export const CartSummary = styled.div`
   }
 
   & > button {
-    padding: 10px;
+    padding: 5px;
     border-radius: 10px;
     border: none;
     background: rgb(248,181,81);
     color: white;
-    font-size: 1em;
+    font-size: 0.9em;
     margin: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
