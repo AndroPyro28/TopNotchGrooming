@@ -23,7 +23,7 @@ export const ModalBackdrop = styled.div`
     text-align: start;
     display: flex;
     flex-direction: column;
-
+    /* height: ; */
     @media (max-width:900px) {
       width: 60%;
     }
@@ -54,22 +54,23 @@ export const ModalBackdrop = styled.div`
 
 
     & > h1 {
-      margin: 30px 70px;
+      margin: 10px 70px;
       color: rgb(17, 17, 17);
     }
 
     & > h3 {
       margin-inline: 70px;
       color: #181818;
+      font-size: 1em;
     }
 
     & > h4 {
-      margin-top: 50px;
+      margin-top: 20px;
       margin-bottom: 20px;
       margin-inline: 70px;
       color: #181818;
       font-weight: normal;
-
+      font-size: 1em;
       & > i {
         padding: 5px 10px;
         border: solid 2px blue;
@@ -93,6 +94,7 @@ export const InputWrapper = styled.div`
 
   & > .error__message {
     text-align: center;
+    font-size: 0.9em !important;
   }
 `;
 
@@ -106,19 +108,20 @@ export const InputContainer = styled.div`
   padding: 5px;
   input {
     width: 95%;
-    padding: 8px;
+    padding: 0px 8px;
     font-size: 15px;
     background-color: #ffffff;
     border: none;
     color: #2a2828;
     text-shadow: -50px 0px 0px rgba(255, 255, 255, 0.75);
+    /* height: ; */
     &:focus {
       outline: none;
     }
   }
 
   & > i {
-    font-size: 2em;
+    font-size: 1em;
     margin: 5px;
     color: gray;
   }
@@ -148,8 +151,8 @@ export const CourierType = styled.div`
   & > img {
     width: 70%;
     border-radius: 10px;
-
-    height: 80%;
+    height: 110px !important;
+    object-fit: contain;
   }
 `;
 
@@ -215,8 +218,7 @@ export const ButtonContainer = styled.div`
 
 export const Note = styled.div`
   width: 80%;
-  margin: 10px 80px;
+  margin: 10px auto;
   display: flex;
   align-items: center;
-  
 `
