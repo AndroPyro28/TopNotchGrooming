@@ -37,9 +37,13 @@ function Profile() {
     try {
       setAllowChanges(false);
       setLoading(true);
-      
-      const response = await CustomAxios({METHOD:"POST", uri:`/api/customer/updateInfo`, values:{ user, profileImg }})
-      
+
+      const response = await CustomAxios({
+        METHOD: "POST",
+        uri: `/api/customer/updateInfo`,
+        values: { user, profileImg },
+      });
+
       const { success, msg, user: newUser } = response;
 
       if (msg?.includes("session expired") && !success) {
@@ -48,7 +52,7 @@ function Profile() {
       }
 
       dispatch(authenticationSuccess({ currentUser: newUser, isAuth: true }));
-      setProfileImg(null)
+      setProfileImg(null);
       if (!success) return toast(msg, { type: "error" });
 
       return toast(msg, { type: "success" });
@@ -79,7 +83,7 @@ function Profile() {
   }, [profileImg]);
   return (
     <ProfilePageContainer>
-      { loading && <Loader bg="rgba(0,0,0,0.5)" />}
+      {loading && <Loader bg="rgba(0,0,0,0.5)" />}
 
       <ToastContainer autoClose={1500} />
       {allowChanges && (

@@ -98,3 +98,9 @@ export const ListNavigationButton = styled.div`
     }
   }
 `;
+
+export const ActivitiesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+

@@ -24,34 +24,33 @@ export const ModalBackdrop = styled.div`
     display: flex;
     flex-direction: column;
     /* height: ; */
-    @media (max-width:900px) {
+    @media (max-width: 900px) {
       width: 60%;
     }
 
-    @media (max-width:800px) {
+    @media (max-width: 800px) {
       width: 70%;
     }
 
-    @media (max-width:700px) {
+    @media (max-width: 700px) {
       width: 80%;
     }
 
-    @media (max-width:600px) {
+    @media (max-width: 600px) {
       width: 85%;
     }
 
-    @media (max-width:500px) {
+    @media (max-width: 500px) {
       width: 90%;
     }
 
-    @media (max-width:400px) {
+    @media (max-width: 400px) {
       width: 95%;
     }
 
-    @media (max-width:300px) {
+    @media (max-width: 300px) {
       width: 100%;
     }
-
 
     & > h1 {
       margin: 10px 70px;
@@ -114,7 +113,6 @@ export const InputContainer = styled.div`
     border: none;
     color: #2a2828;
     text-shadow: -50px 0px 0px rgba(255, 255, 255, 0.75);
-    /* height: ; */
     &:focus {
       outline: none;
     }
@@ -134,7 +132,6 @@ export const CourierTypeContainer = styled.section`
   align-items: center;
   align-self: center;
   cursor: pointer;
-  
 `;
 
 export const CourierType = styled.div`
@@ -143,8 +140,8 @@ export const CourierType = styled.div`
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  border:solid 2px transparent;
-  transition:  all .3s ease-in-out;
+  border: solid 2px transparent;
+  transition: all 0.3s ease-in-out;
   &:hover {
     border-color: gray;
   }
@@ -167,11 +164,10 @@ export const ButtonContainer = styled.div`
     border: none;
     margin: 10px;
     font-size: 15px;
-      font-weight: bold;
-      padding: 6px 24px;
-      text-decoration: none;
-      font-size: 15px;
-
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    font-size: 15px;
 
     &.proceed {
       box-shadow: 0px 1px 0px 0px #f0f7fa;
@@ -221,4 +217,4 @@ export const Note = styled.div`
   margin: 10px auto;
   display: flex;
   align-items: center;
-`
+`;
