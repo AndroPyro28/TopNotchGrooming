@@ -7,31 +7,27 @@ import {
   InfoAndCart,
   BotNavbar,
   DropDown,
+  FeedBackButtton
 } from "./navbarComponents";
-
-import Cookies from "js-cookie";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CartPopup from "../cartComponents/CartPopup";
-import deviceType from "../../helpers/DeviceType";
-
+import Feedback from "../feedback/Feedback";
+import Logic from "./logic";
 function CustomerNavbar() {
-  const navLinkStyles = ({ isActive }) => {
-    return {
-      borderBottom: isActive ? "solid 2px gray" : "",
-    };
-  };
-  const handleLogout = () => {
-    Cookies.remove("userToken");
-    window.location.assign('/customer/login');
-  };
-  const navigate = useNavigate()
-  const { pathname } = useLocation();
-  const { currentUser } = useSelector((state) => state.user);
-  const cart = useSelector((state) => state.cart);
+
   const [openDropdown, setOpenDropdown] = useState(false);
   const [nocartItems, setNoCartItems] = useState(0);
   const [openCart, setOpenCart] = useState(false);
+
+  const { pathname } = useLocation();
+  const { currentUser } = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
+  const { feedback } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const {navLinkStyles, InfoAndCartClick, handleLogout, openFeedback} 
+  = Logic({setOpenCart});
 
   useEffect(() => {
     (async () => {
@@ -47,6 +43,10 @@ function CustomerNavbar() {
 
   return (
     <CustomerNavbarContainer>
+      {
+        feedback && <Feedback />
+      }
+      
       <TopNavbar>
         <BrandLogoContainer>
           <Link to="/customer">
@@ -63,16 +63,7 @@ function CustomerNavbar() {
 
         <InfoAndCart>
           <a>
-            <button onClick={
-              () => {
-                const currentDevice = deviceType() 
-                if(currentDevice === "desktop") {
-                  setOpenCart(prev => !prev)
-                } else {
-                  navigate(`/customer/cart`)
-                }
-              }
-              }>
+            <button onClick={InfoAndCartClick}>
               <i class="fa-solid fa-cart-shopping"></i> &nbsp; Cart &nbsp;
               <span class={`cart__number__item ${nocartItems && "active"}`}>
                 {nocartItems}
@@ -125,6 +116,7 @@ function CustomerNavbar() {
         <i className="fa-solid fa-bag-shopping"></i> <span>My purchases</span>
         </NavLink>
       </BotNavbar>
+      <FeedBackButtton className="fa-solid fa-envelope-open-text feedbackBtn" onClick={openFeedback}></FeedBackButtton>
     </CustomerNavbarContainer>
   );
 }

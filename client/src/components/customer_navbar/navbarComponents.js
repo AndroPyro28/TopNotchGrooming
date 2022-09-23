@@ -377,18 +377,18 @@ export const ProductPrice = styled.div`
 `;
 
 export const CartPopupBoxContainer = styled.div`
-  position: relative;
-  height: 100%;
-  z-index: 10000;
+ position: relative;
+   height: 100%;
+   z-index: 10000;
 
-  & > h1 {
-    margin: 20px;
-    text-align: start;
-    color: #181818;
-    @media (max-width:550px) {
-    font-size: 1em;
-  
-  }
+   & > h1 {
+     margin: 20px;
+     text-align: start;
+     color: #181818;
+     @media (max-width:550px) {
+      font-size: 1em;
+     }
+    }
 `;
 
 export const CartSummary = styled.div`
@@ -443,3 +443,34 @@ export const SummaryRow = styled.div`
     }
   }
 `;
+
+export const FeedBackButtton = styled.i`
+
+@keyframes animateFeedBackBtn {
+  0% {
+  transform: scale(1);
+  }
+  100% {
+  transform: scale(1.2);
+  }
+}
+
+  background: white;
+  color: rgb(248, 195, 116);
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 1px 3px 5px rgb(46, 46, 46);
+  z-index: 5;
+  font-size: 2em;
+  position: fixed;
+  right: 20px;
+  top: 150px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  animation: animateFeedBackBtn 1s infinite alternate-reverse;
+
+  &:hover {
+    color: rgb(248, 167, 46);
+  transform: scale(1.1);
+  }
+`
