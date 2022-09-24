@@ -6,7 +6,7 @@ export const SwitchButton = styled.div`
   position: relative;
   align-self: flex-end;
   box-shadow: 1px 3px 5px gray;
-  top: 70px;
+  top: 50px;
   right: 50px;
   border-radius: 10px;
   overflow: hidden;
@@ -15,6 +15,9 @@ export const SwitchButton = styled.div`
   cursor: pointer;
     transition: all .3s ease-in-out;
     position: relative;
+    @media (max-width:600px) {
+      width: 170px;
+    }
 `
 
 export const Switch1 = styled.div`
@@ -29,6 +32,7 @@ export const Switch1 = styled.div`
   transition: all .3s ease-in-out;
   z-index: 1;
   /* font-weight: 400; */
+  
 `
 export const Switch2 = styled.div`
   width:50%;
@@ -41,6 +45,7 @@ export const Switch2 = styled.div`
   transition: all .3s ease-in-out;
   z-index: 1;
   /* font-weight:400; */
+  
 `
 
 export const Slider = styled.div`
@@ -50,4 +55,8 @@ export const Slider = styled.div`
   transition: all .3s ease-in-out;
   position: absolute;
   left: ${({toggleSwitch}) => toggleSwitch ? "0px" : "100px"};
+
+  @media (max-width:600px) {
+  left: ${({toggleSwitch}) => toggleSwitch ? "0px" : "85px"};
+  }
 `

@@ -20,4 +20,7 @@ router.post('/appointment', verifyUser, customerController.addAppointment);
 router.post('/payment', verifyUser, customerController.payment)
 router.get('/orders/:orderStatus', verifyUser, customerController.orders)
 router.get('/getOrderByReference/:reference', verifyUser, customerController.getOrderByReference)
+router.get('/getAllAppointmentActivities', verifyUser, customerController.getAllAppointmentActivities);
+router.get('/getAllOrderActivities', verifyUser, customerController.getAllOrderActivities);
+
 module.exports = router;

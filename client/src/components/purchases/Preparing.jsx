@@ -11,23 +11,33 @@ import {
 } from "./components";
 import PreparingOrder from "./PreparingOrder";
 function Preparing() {
-  const [loading, startTransition] = useTransition();
+  const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
   
   useEffect(() => {
     setOrders([]);
-    startTransition(async () => {
+    (async () => {
       try {
+        setLoading(true)
         const response = await CustomAxios({METHOD:"GET", uri:`/api/customer/orders/pending`})
+        const {success, msg} = response;
+
+        if(msg?.includes('session expired') && !success) {
+          return window.location.reload();
+        }
         setOrders(response.orders);
-      } catch (error) {}
-    });
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setLoading(false)
+      }
+    })();
   }, []);
 
   return (
     <OrderContainer>
       <GlobalStyles />
-      {orders.length === 0 ? (
+      {loading ? <h1>loading...</h1> : orders.length === 0 ? (
         <h1>No Orders Yet</h1>
       ) : (
         orders.slice(0).reverse().map((order) => {

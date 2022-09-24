@@ -6,17 +6,44 @@ export const UserActivities = styled.div`
   width: 100vw;
   background: white;
   padding: 40px 50px;
-
+  @media (max-width:600px) {
+    padding: 40px 0px;
+  }
   & > h2 {
     margin: 20px 90px;
     text-transform: uppercase;
     text-align: start;
+    @media (max-width:600px) {
+    font-size: 1.3em;
+    text-align: center;
+    }
+  }
+
+  & > h4 {
+    text-align: center;
+    font-size: 1.5em;
+    color: gray;
+    margin: 20px;
+    @media (max-width:600px) {
+    font-size: 1em;
+    }
   }
 `;
+
 export const RowInfo = styled.div`
   display: flex;
   width: 90%;
   margin: 15px 90px;
+
+  @media (max-width:700px) {
+    width: 100%;
+    margin: 15px 0px;
+  }
+
+  @media (max-width:600px) {
+    font-size: 0.9em;
+    margin-inline: auto;
+  }
 `;
 export const Activity = styled.div`
   @keyframes onGoingAnimation {
@@ -32,7 +59,7 @@ export const Activity = styled.div`
   flex: 1;
   font-size: 0.9em;
   align-items: center;
-
+  font-weight: 500;
   & > .status {
     padding: 5px 20px;
     border-radius: 10px;
@@ -47,9 +74,14 @@ export const Activity = styled.div`
         ? "rgb(66,133,244)"
         : "rgba(7, 207, 90, 0.822)";
     }};
+
+    @media (max-width:500px) {
+    padding: 5px 10px;
+    }
   }
 
   & > span {
+    text-transform: capitalize;
     color: ${({ status }) => (status == "cancelled" ? "gray" : "black")};
     text-decoration: ${({ status }) =>
       status == "cancelled" ? "line-through" : "none"};
@@ -58,4 +90,23 @@ export const Activity = styled.div`
         ? "onGoingAnimation 800ms alternate Infinite ease-in-out"
         : "none"};
   }
+
 `;
+
+export const Pagination = styled.div`
+  display: flex;
+  align-self: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0px;
+  & > i {
+    padding: 10px;
+    color: black;
+    cursor: pointer;
+  }
+
+  & > span {
+    font-size: 1em;
+    font-weight: 500;
+  }
+`

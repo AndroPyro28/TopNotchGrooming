@@ -13,7 +13,6 @@ function Purchases() {
         <LinksContainer>
         <NavLink style={navLinkStyles} to={'preparing'}>Preparing</NavLink>
         <NavLink style={navLinkStyles} to={'to-receive'}>To Receive</NavLink>
-        <NavLink style={navLinkStyles} to={'completed'}>Completed</NavLink>
         </LinksContainer>
         <Outlet />
     </PurchasesContainer>

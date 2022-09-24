@@ -443,6 +443,37 @@ module.exports.getOrderByReference = async (req, res) => {
   }
 }
 
+module.exports.getAllAppointmentActivities = async (req, res) => {
+  try {
+    const appointmentModel = new Appointment({});
+    const appointmentResultQuery = await appointmentModel.getAllAppointmentByUserId(req.currentUser.id);
+
+    return res.status(200).json({
+      data: appointmentResultQuery,
+      success:true
+    });
+
+  } catch (error) {
+    console.error(error.message)
+  }
+}
+
+module.exports.getAllOrderActivities = async (req, res) => {
+  try {
+    const orderModel = new Order({});
+    const OrderResultQuery = await orderModel.getAllOrderByUserId(req.currentUser.id);
+
+    return res.status(200).json({
+      data: OrderResultQuery,
+      success:true
+    });
+    
+  } catch (error) {
+    console.error(error.message)
+  }
+}
+
+
 module.exports.paymentsuccess = async (req, res) => {
   console.log(':::::GCASH API POST::::', req.body)
 }

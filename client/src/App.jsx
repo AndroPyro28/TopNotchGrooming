@@ -50,6 +50,7 @@ import LiveStreamRoom from "./pages/shared/livestream_room/LiveStreamRoom";
 import CustomAxios from "./customer hooks/CustomAxios";
 import AdminNavbar from "./components/admin_navbar/AdminNavbar";
 import Sales from "./pages/adminPages/sales/Sales";
+import PageNotFound from "./pages/shared/page-not-found/PageNotFound";
 
 function App() {
 
@@ -285,8 +286,7 @@ function App() {
           path="/admin/liveStreamChannels/room=:link"
           element={<AdminRoutes Component={<LiveStreamRoom />} />}
         />
-
-        <Route path="*" element={<h1>Page Not Found</h1>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
 
       {/* <Footer /> */}

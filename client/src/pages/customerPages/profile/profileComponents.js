@@ -10,8 +10,7 @@ export const ProfilePageContainer = styled.section`
   & > i {
     position: relative;
     /* right: 50px; */
-    top: 20px;
-    margin-inline: 30px;
+    margin: 10px;
     font-size: 1.5em;
     padding: 15px;
     border-radius: 50%;
@@ -19,7 +18,7 @@ export const ProfilePageContainer = styled.section`
     cursor: pointer;
     width: fit-content;
     &:hover {
-      background: gray;
+      background: lightgray;
     }
 
     @media (max-width: 400px) {
@@ -102,5 +101,6 @@ export const ListNavigationButton = styled.div`
 export const ActivitiesContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `
 

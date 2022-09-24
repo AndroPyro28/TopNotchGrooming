@@ -91,11 +91,10 @@ function Profile() {
       )}
       {!allowChanges && (
         <i
-          className="fa-solid fa-pencil allowChangesBtn"
+          className="fa-solid fa-user-pen allowChangesBtn"
           onClick={() => setAllowChanges(true)}
         ></i>
       )}
-
       <ProfileAvatar>
         <div>
           {profileImg ? (

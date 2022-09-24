@@ -179,6 +179,16 @@ class Order {
     }
   }
 
+  getAllOrderByUserId = async (id) => {
+    try {
+      const selectQuery = `SELECT * FROM order_details WHERE customer_id = ? ORDER BY order_date DESC;`;
+      const [result, _ ] = await poolConnection.execute(selectQuery, [id]);
+      return result;
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
 }
 
 module.exports = Order;
