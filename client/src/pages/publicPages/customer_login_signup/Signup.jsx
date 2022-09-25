@@ -61,8 +61,6 @@ function Signup() {
           >
             {(formik) => {
               const { password, confirmPassword, phoneNo } = formik.values;
-              const allValues = Object.values(formik.values);
-
               return (
                 <Form autoComplete="off" className="form__inputs">
                   <div className="form__content">
@@ -202,11 +200,6 @@ function Signup() {
                         <button
                           type="submit"
                           className="loginBtn"
-                          disabled={
-                            allValues.some((val) => val == "") ||
-                            allValues.length < 8 ||
-                            !formik.isValid
-                          }
                         >
                           Signup
                         </button>
