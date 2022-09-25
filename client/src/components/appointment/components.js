@@ -123,6 +123,7 @@ export const PetInformation = styled.div`
     max-width: 200px;
     border-radius: 10px;
     object-fit: cover;
+    max-height: 250px;
   }
 `;
 
