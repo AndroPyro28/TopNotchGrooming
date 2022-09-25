@@ -104,14 +104,13 @@ export const CarouselContainer = styled.div`
     align-self: center;
     margin-top: 50px;
 
-        
-
     & > h1 {
       color: rgb(65, 47, 16);
       font-weight: 700;
       font-size: 50px;
       margin: 0;
       cursor: grab;
+      
     }
 
     & > p {
@@ -146,7 +145,7 @@ export const CarouselContainer = styled.div`
 
     @media(max-width: 600px) {
             & > h1 {
-            font-size: 25px;
+            font-size: 2em;
         }
 
         & > p {
@@ -156,11 +155,11 @@ export const CarouselContainer = styled.div`
 
     @media(max-width: 450px) {
         & > h1 {
-            font-size: 20px;
+          font-size: 2.5em;
         }
 
         & > p {
-            font-size: 13px;
+            font-size: 0.9em;
         }
 
         & > button {
@@ -168,6 +167,20 @@ export const CarouselContainer = styled.div`
         }
     }
   }
+
+  @media(max-width: 400px) {
+        & > h1 {
+          font-size: 2em;
+        }
+
+        & > p {
+            font-size: 0.9em;
+        }
+
+        & > button {
+            padding: 5px 10px;
+        }
+    }
 `;
 
 export const ServicesSection = styled.div`

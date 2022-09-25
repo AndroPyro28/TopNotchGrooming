@@ -28,7 +28,7 @@ function OtherLiveStreamComponent() {
           <i class="fa-solid fa-video"></i> Live Streams{" "}
         </h3>
       ) : (
-        <h1 style={{ color: "white", textAlign: "center" }}>No Events Yet</h1>
+        <h1 style={{ color: "white", textAlign: "center" }}>No Events found</h1>
       )}
       <OtherLiveStreamsContainer>
         {

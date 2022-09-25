@@ -19,11 +19,11 @@ function Index() {
 
   const slidePage = (direction) => {
     setPageContent((prev) => {
-      if (direction === "left" && prev > 0) return prev - 1;
-
-      if (direction === "right" && prev < 2) return prev + 1;
-
-      return prev;
+      if (direction === "left") {
+        return prev > 0 ? prev - 1 : 2;
+      } else {
+        return prev < 2 ? prev + 1 : 0; 
+      }
     });
   };
 
@@ -87,7 +87,7 @@ function Index() {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 <br></br> Cumque, laborum.
               </p>
-              <button>See Here</button>
+              {/* <button>See Here</button> */}
             </div>
           </CarouselContainer>
 
@@ -108,7 +108,7 @@ function Index() {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 <br></br> Cumque, laborum.
               </p>
-              <button>See Here</button>
+              {/* <button>See Here</button> */}
             </div>
           </CarouselContainer>
 
@@ -128,7 +128,7 @@ function Index() {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 <br></br> Cumque, laborum.
               </p>
-              <button>See Here</button>
+              {/* <button>See Here</button> */}
             </div>
             <img src="/images/petpic1.png" />
           </CarouselContainer>
