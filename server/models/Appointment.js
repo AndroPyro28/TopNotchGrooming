@@ -57,7 +57,7 @@ class Appointment {
       INNER JOIN customer
       ON customer.id = appointments.customer_id
       ${filter != "all" ? "WHERE appointments.status = ?" : ""}
-      ORDER BY appointments.date_n_time ASC`;
+      ORDER BY appointments.date_n_time DESC`;
 
       const [results, _] = await poolConnection.execute(selectQuery, [filter]);
       return results;
