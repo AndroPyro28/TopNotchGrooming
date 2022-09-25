@@ -336,7 +336,7 @@ module.exports.dashboardData = async (req, res) => {
       data.forEach(sale => {
         const date = new Date(sale.order_date);
         
-        const totalAmount = sale.total_amount + (sale.total_amount * 0.01);
+        const totalAmount = sale.total_amount;
 
         const currentMonth = date.getMonth();
 

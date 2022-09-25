@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const poolConnection = require('../config/connectDB');
-const {verifyToken} = require('../helpers/AuthTokenHandler')
+const {verifyToken} = require('../helpers/AuthTokenHandler');
+
 module.exports.verifyUser = async (req, res, next) => {
     try {
         const {userinfo} = req.headers;

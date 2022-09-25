@@ -14,19 +14,17 @@ import {
 import productPriceFormatter from "../../../helpers/ProductPriceFormatter";
 import GetDateToday from "../../../helpers/DateToday";
 import CustomAxios from "../../../customer hooks/CustomAxios";
-
+import Cookies from "js-cookie";
+import Loader from "../../../components/loader/Loader"
 function PaymentInfo() {
-  const { search } = useLocation();
-
   const navigate = useNavigate();
 
-  const [transactionId, setTransactionId] = useState(null);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true)
         if (
           localStorage.getItem("onCheckoutProducts") == undefined ||
           !localStorage.getItem("onCheckoutProducts")
@@ -38,20 +36,19 @@ function PaymentInfo() {
           localStorage.getItem("onCheckoutProducts")
         );
 
+        if(checkoutInfo instanceof SyntaxError) {
+          return window.location.assign('/customer/payment');
+        }
+
+        if(checkoutInfo) {
+          const { method, orderId, totalAmount } = checkoutInfo
+          const inFiveMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+          Cookies.set('onCheckoutProducts', JSON.stringify({ method, orderId, totalAmount }), {
+            expires:inFiveMinutes
+          })
+        }
+
         localStorage.removeItem("onCheckoutProducts");
-
-        const {
-          method,
-          orderId,
-          totalAmount,
-          // checkoutProducts,
-          // billingInfo,
-          // proceedPayment,
-        } = checkoutInfo;
-
-          setTotalAmount(totalAmount);
-          setTransactionId(orderId);
-          setPaymentMethod(method);
 
           const response = CustomAxios({
             METHOD: "POST",
@@ -64,17 +61,30 @@ function PaymentInfo() {
             toast(msg, { type: "error" });
             return window.location.reload();
           }
-
           toast(msg, { type: "success" });
       } catch (error) {
         console.error(error.message);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
 
-  if (totalAmount == 0 || transactionId == null || paymentMethod == null) {
+  if(loading) return <Loader bg="rgba(0,0,0,0.5)" />
+
+  try {
+    const checkoutSummary = JSON.parse(Cookies.get('onCheckoutProducts'))
+  } catch (error) {
+    console.log('error json parse here')
+
     return navigate("/customer/cart");
   }
+
+  const {
+    method,
+    orderId,
+    totalAmount,
+  } = JSON.parse(Cookies.get('onCheckoutProducts'));
 
   return (
     <PaymentSuccessContainer>
@@ -90,7 +100,7 @@ function PaymentInfo() {
 
       <Line />
 
-      <TransactionNumber>Transaction ID: {transactionId}</TransactionNumber>
+      <TransactionNumber>Transaction ID: {orderId}</TransactionNumber>
 
       <PaymentData>
         <span>TOTAL AMOUNT PAID</span>
@@ -101,15 +111,10 @@ function PaymentInfo() {
 
       <PaymentData>
         <span>payed by</span>
-        <strong>{paymentMethod}</strong>
+        <strong>{method}</strong>
       </PaymentData>
 
       <Line />
-
-      <PaymentData>
-        <span>transaction date</span>
-        <strong>{GetDateToday()}</strong>
-      </PaymentData>
 
       <ProceedButton onClick={() => navigate("/customer/cart")}>
         Proceed

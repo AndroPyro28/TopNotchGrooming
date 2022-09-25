@@ -147,8 +147,8 @@ function DashboardCharts() {
       <SalesAndProductsData>
 
         <DataContainer>
-          <DataInformation icon={'fa-solid fa-ranking-star'} data={totalSalesToday} title="Total Sales Today" />
-          <DataInformation icon={'fa-solid fa-bag-shopping'} data={overAllSales} title={`Overall sales for ${new Date().getFullYear()}`} />
+          <DataInformation icon={'fa-solid fa-ranking-star'} data={totalSalesToday} title="Total sales today" />
+          <DataInformation icon={'fa-solid fa-bag-shopping'} data={overAllSales} title={`Total sales for ${new Date().getFullYear()}`} />
           <DataInformation icon={'fa-solid fa-cash-register'} data={totalNumberOfAllTransactions} title="Total number of all transactions" />
         </DataContainer>
 
@@ -165,16 +165,16 @@ function DashboardCharts() {
 
       <FeedbackList>
         <h1>Feedback</h1>
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
-      <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
+        <Feedbackdata />  
       
       </FeedbackList>
     </DashboardChartsContainer>

@@ -119,26 +119,42 @@ export const DataInformationContainer = styled.div`
     align-items: center;
     padding: 10px 5px;
     border-radius: 10px;
-    margin: 10px 30px;
+    margin: 10px 10px;
     height: fit-content;
-    flex: 1.3;
+    /* flex: 1.3; */
+    flex: 1;
+    background: white;
+    color: #a6b7f1;
+    font-weight: 500;
+
+    
     & > i {
         padding: 10px;
         background: #F1F5FB;
         border-radius: 5px;
         width: fit-content;
         margin: 5px;
+        font-size: 1.5em;
     }
 
     & > span {
         color: rgb(25,19,2);
         margin: 5;
+        text-transform: capitalize;
+        font-size: 1.5em;
+        @media (max-width:500px) {
+            font-size: 1em;
+        }
     }
 
     & > p {
-        color: dimgray;
+        color: black;
         margin: 5px;
-        font-size: 0.9em;
+        font-size: 1em;
+        @media (max-width:500px) {
+            font-size: 0.8em;
+        }
+        /* font-style: italic; */
     }
 `
 
@@ -153,29 +169,11 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 margin-bottom: 10px;
-background: white;
 border-radius: 10px;
-/* background: black; */
-& > div:nth-child(1) {
-    flex: 2;
-    font-size: 1.3em;
-    background: black;
 
-    & > * {
-        color: white;
-    }
-    & > i {
-        color: #a6b7f1;
-        font-size: 0.9em !important;
-    }
-
-    & > span {
-        font-size: 1.1em !important;
-        color: #a6b7f1;
-    }
-
-    & > p {
-        font-size: 0.9em !important;
+@media (max-width:700px) {
+    & > div:nth-child(3) {
+        display: none;
     }
 }
 `

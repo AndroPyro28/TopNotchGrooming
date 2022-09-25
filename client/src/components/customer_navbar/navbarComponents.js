@@ -315,7 +315,7 @@ export const ProductContainer = styled.div`
   }
   & > img {
     width: 100px;
-    max-height: 100px;
+    max-height: 80px;
     max-width: 100px;
     margin: 0;
     object-fit: contain;

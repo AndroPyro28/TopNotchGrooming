@@ -104,11 +104,12 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
 
  
 
-  const dateTodayFormatter = () => {
-    const date = new Date();
-    const dd = String(date.getDate()).padStart(2, '0');
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const yyyy = date.getFullYear();
+  const dateTodayFormatter = ({year=0, month=0, date=0}) => {
+    console.log(year)
+    const dateObj = new Date();
+    const dd = String(dateObj.getDate() - date).padStart(2, '0');
+    const mm = String(dateObj.getMonth() + 1 - month).padStart(2, '0');
+    const yyyy = dateObj.getFullYear() - year;
     const today = `${yyyy}-${mm}-${dd}`;
     return today
   }

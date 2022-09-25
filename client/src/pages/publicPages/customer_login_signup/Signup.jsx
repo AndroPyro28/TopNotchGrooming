@@ -11,6 +11,8 @@ import FormikControl from "../../../formik/FormikControl";
 import useLogic from "./useLogic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import AppointmentLogic from "../../customerPages/appointment/appointmentLogic";
 
 function Signup() {
   const { onSubmitSignup, initialValuesSignup, validationSchemaSignup } =
@@ -35,6 +37,17 @@ function Signup() {
       return prev;
     });
   };
+
+  const {dateTodayFormatter} = AppointmentLogic({})
+  useEffect(() => {
+    const birthdate = document.querySelector('#birthdate');
+    
+    if(birthdate) {
+      const today = dateTodayFormatter({year:18})
+      birthdate.max = today
+    }
+    
+  }, [inputPageNo])
 
   return (
     <LoginSignupPageContainer>
@@ -89,6 +102,7 @@ function Signup() {
                           <FormikControl
                             name="birthdate"
                             label="Birthdate"
+                            id="birthdate"
                             type="date"
                             control="input"
                             className="input__container"

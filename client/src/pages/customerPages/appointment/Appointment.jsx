@@ -7,8 +7,6 @@ import {
   AppointmentFormInputsContainer,
   FormInputsContainer,
 } from "./appointmentComponents";
-
-
 import { toast, ToastContainer } from "react-toastify";
 import FormikControl from "../../../formik/FormikControl";
 import Loader from "../../../components/loader/Loader"
@@ -53,8 +51,8 @@ function Appointment() {
   useEffect(() => {
     const birthdate = document.querySelector("#birthdate");
     const scheduledDate = document.querySelector("#scheduledDate");
-    birthdate.max = dateTodayFormatter();
-    scheduledDate.min = `${dateTodayFormatter()}T00:00:00`;
+      birthdate.max = dateTodayFormatter({year:1, month: 4});
+      scheduledDate.min = `${dateTodayFormatter({date:1})}T00:00:00`;
   }, []);
 
   return (

@@ -94,6 +94,7 @@ function App() {
           if (!success || msg?.includes("session expired")) {
                Cookies.remove("userToken");
                dispatch(authenticationFailed());
+               return window.location.reload();
              }
 
              if (success) {
@@ -126,7 +127,6 @@ function App() {
       }
     })();
   }, []);
-
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
 
