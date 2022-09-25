@@ -1,0 +1,21 @@
+{
+  "name": "topnotchgrooming",
+  "version": "1.0.0",
+  "description": "pet shop and live streaming app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update:dev-branch": "git add . && git commit -m 'updatingBranch' && git push origin dev",
+    "update:test-branch": "git add . && git commit -m 'updatingBranch' && git push origin test_production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndroPyro28/topNotchGrooming.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndroPyro28/topNotchGrooming/issues"
+  },
+  "homepage": "https://github.com/AndroPyro28/topNotchGrooming#readme"
+}

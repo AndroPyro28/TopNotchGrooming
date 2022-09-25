@@ -87,6 +87,7 @@ function App() {
     startTransition(() => {
       (async function () {
         try {
+          console.log("welcome to my app!")
           setLoading(true);
           const data = await CustomAxios({METHOD:"GET", uri:`/api/auth`});
           const { success, msg } = data;
