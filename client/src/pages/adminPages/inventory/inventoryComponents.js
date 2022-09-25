@@ -100,7 +100,7 @@ export const FilterItemsContainer = styled.div`
   margin: 20px 10px;
   align-items: center;
   justify-content: center;
-
+  
   @media (max-width:800px) {
       flex-direction: column;
       align-items: flex-start;
@@ -114,9 +114,9 @@ export const FilterItemsContainer = styled.div`
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     background: rgb(0, 109, 143);
-    @media (max-width:1200px) {
+    @media (max-width:800px) {
       padding: 10px 20px;
-      font-size: 0.6em;
+      font-size: 0.7em;
     }
     &:hover {
       background: rgb(1, 59, 77);
@@ -145,9 +145,10 @@ export const FilterItemsContainer = styled.div`
       margin-inline: 5px;
       cursor: pointer;
       transition: all 0.3s ease-in;
+      padding: 8px;
       @media (max-width:1200px) {
-        font-size: 0.9em;
-        padding: 5px;
+        font-size: 1em;
+        padding: 6px;
       }
     }
 

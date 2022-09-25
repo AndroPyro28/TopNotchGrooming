@@ -56,11 +56,21 @@ export const ModalBackdrop = styled.section`
       0.5s;
     max-height: 90vh;
     z-index: 10;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 10px;
     @media (max-width: 860px) {
       & {
         align-items: center;
         width: 70%;
+      }
+    }
+
+    @media (max-width: 650px) {
+      & {
+        align-items: center;
+        width: 90%;
+        padding: 10px;
       }
     }
     & > h1 {
@@ -80,6 +90,9 @@ export const ModalBackdrop = styled.section`
       background: #1363df;
       color: white;
       cursor: pointer;
+      @media (max-width:500px) {
+      padding: 10px 30px;
+      }
       &:disabled {
         background: gray;
         cursor: wait;

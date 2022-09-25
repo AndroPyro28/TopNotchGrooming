@@ -16,7 +16,6 @@ function inventoryLogic({ toast, img, imgError, setOpenItem, setImgError, setPro
 
     const response = await CustomAxios({METHOD:"POST", uri:`/api/products/addItem`, values})
     
-
     const { msg, success, newProduct } = response;
 
     if(msg?.includes('session expired') && !success) {

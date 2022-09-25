@@ -14,12 +14,13 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts }) {
 
   useEffect(() => {
     try {
-      if (img != null) {
+      if (img != null && typeof img !== "string") {
         setImgError("");
         const fileReader = new FileReader();
         fileReader.readAsDataURL(img);
         fileReader.onloadend = async () => {
           if (!fileReader.result.includes("image")) {
+            setImgError('Please set an image to this product');
             throw new Error("Please set an image to this product");
           }
           if (fileReader.result.includes("image")) {
@@ -29,7 +30,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts }) {
         };
       }
     } catch (error) {
-      setImgError(error.message);
+      // setImgError(error.message);
       console.error(error.message);
     }
   }, [img]);
@@ -117,7 +118,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts }) {
                 onClick={() => setOpenItem(false)}
               ></i>
               <h1>
-                Add Item <i className="fa-solid fa-warehouse"></i>
+                Add Item
               </h1>
 
               <FormInputsContainer>
@@ -127,7 +128,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts }) {
                     type="text"
                     name={"productName"}
                     id={"productName"}
-                    placeholder="Name"
+                    placeholder="Product Name"
                   />
                   <ErrorMessage
                     component={"div"}
@@ -145,7 +146,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts }) {
                     name={"productPrice"}
                     min="0"
                     id={"productPrice"}
-                    placeholder="00.00"
+                    placeholder="₱ 00.00"
                   />
                   <ErrorMessage
                     component={"div"}
@@ -163,7 +164,7 @@ function InventoryModal({ openItem, setOpenItem, toast, setProducts }) {
                     name={"productStocks"}
                     min="0"
                     id={"productStocks"}
-                    placeholder="-"
+                    placeholder="Current stock"
                   />
                   <ErrorMessage
                     component={"div"}
