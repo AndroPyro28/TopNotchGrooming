@@ -286,8 +286,8 @@ module.exports.checkout = async (req, res) => {
             quantity: item.quantity,
           };
         }),
-        success_url: `${process.env.CLIENT_URL}/customer/payment`,
-        cancel_url: `${process.env.CLIENT_URL}/customer/cart`,
+        success_url: `${process.env.CLIENT_URL_PROD}/customer/payment`,
+        cancel_url: `${process.env.CLIENT_URL_PROD}/customer/cart`,
       });
 
       return res.status(200).json({
