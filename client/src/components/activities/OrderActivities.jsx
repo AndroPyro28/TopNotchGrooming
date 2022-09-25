@@ -40,7 +40,7 @@ function OrderActivities() {
       return (
         <RowInfo key={index}>
           <Activity status={order.order_status}>
-            <span class="date cancelled">
+            <span class="date">
               {DateFormmater(order.order_date)}
             </span>
           </Activity>

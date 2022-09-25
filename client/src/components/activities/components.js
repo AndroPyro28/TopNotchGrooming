@@ -70,6 +70,8 @@ export const Activity = styled.div`
     background: ${({ status }) => {
       return status == "cancelled"
         ? "rgb(234,67,53)"
+        : status == "pending" ? 
+        "rgb(255, 207, 67)"
         : status == "onGoing"
         ? "rgb(66,133,244)"
         : "rgba(7, 207, 90, 0.822)";

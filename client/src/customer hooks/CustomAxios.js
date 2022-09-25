@@ -2,7 +2,6 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 
     const CustomAxios = async ({METHOD=null, values=null, uri=null}) => {
-        console.log("...")
         try {
             if(!METHOD || !uri) {
                 throw new Error('Pass the right arguments')
