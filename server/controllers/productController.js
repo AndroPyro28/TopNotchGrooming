@@ -1,12 +1,12 @@
 const Product = require("../models/product");
-const { uploadOne, deleteOne } = require("../helpers/CloudinaryProduct");
+const { uploadOneProduct, deleteOneProduct } = require("../helpers/CloudinaryProduct");
 module.exports.addItem = async (req, res) => {
   try {
     if (
       req.body.values?.productImg?.length > 0 &&
       req.body.values?.productImg?.includes("image")
     ) {
-      const cloudinary = await uploadOne(req.body.values.productImg);
+      const cloudinary = await uploadOneProduct(req.body.values.productImg);
       req.body.values.productImg = cloudinary.url;
       req.body.values.productImgId = cloudinary.public_id;
     }
@@ -58,7 +58,7 @@ module.exports.deleteProduct = async (req, res) => {
 
     const product = new Product({});
     const item = await product.selectItemById(id);
-    deleteOne(item.product_image_id);
+    deleteOneProduct(item.product_image_id);
     const deleteResponse = await product.deleteItemById(id);
 
     if (deleteResponse.affectedRows) {
@@ -81,8 +81,8 @@ module.exports.updateItem = async (req, res) => {
   try {
     const { imageDisplay } = req.body.values;
     if (imageDisplay?.length > 0 && imageDisplay?.includes("image")) {
-      deleteOne(req.body.values.item.product_image_id);
-      const cloudinary = await uploadOne(imageDisplay);
+      deleteOneProduct(req.body.values.item.product_image_id);
+      const cloudinary = await uploadOneProduct(imageDisplay);
       req.body.values.item.product_image_url = cloudinary.url;
       req.body.values.item.product_image_id = cloudinary.public_id;
     }
