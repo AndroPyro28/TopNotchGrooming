@@ -28,6 +28,7 @@ import CustomAxios from "../../customer hooks/CustomAxios";
 import { useState } from "react";
 import DataInformation from "./DataInformation";
 import Feedbackdata from "./Feedbackdata";
+import Feedback from "./Feedback";
 
 ChartJS.register(
   CategoryScale,
@@ -163,20 +164,7 @@ function DashboardCharts() {
 
       </SalesAndProductsData>
 
-      <FeedbackList>
-        <h1>Feedback</h1>
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-        <Feedbackdata />  
-      
-      </FeedbackList>
+     <Feedback />
     </DashboardChartsContainer>
   );
 }

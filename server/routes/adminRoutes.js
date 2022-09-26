@@ -17,5 +17,6 @@ router.post('/startStreaming', verifyUser, adminController.startStreaming)
 router.patch('/appointmentCompleted/:link', verifyUser, adminController.appointmentCompleted)
 router.patch('/markComplete/:id', verifyUser, adminController.markComplete)
 router.get('/dashboard', verifyUser, adminController.dashboardData)
+router.get('/getAllFeedback', verifyUser, adminController.getAllFeedback)
 
 module.exports = router;

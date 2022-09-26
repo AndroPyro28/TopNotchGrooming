@@ -1,12 +1,12 @@
 import React from 'react'
 import { FeedbackdataContainer } from "./components"
-function Feedbackdata() {
+function Feedbackdata({data}) {
     return (
         <FeedbackdataContainer>
-            <img src="/images/nicePicture.jpg" alt="" />
+            <img src={data?.profile_image_url} alt="" />
             <div>
-                <span> 5 <i class="fa-solid fa-star" style={{color:"orangered"}}></i></span> 
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolorem, consequuntur iure quae nesciunt veniam exercitationem quis a quasi doloremque repudiandae necessitatibus explicabo placeat totam dicta ipsam! Molestiae, maiores obcaecati.</p>
+                <span> {data?.ratings} <i class="fa-solid fa-star" style={{color:"rgb(248,173,62)"}}></i></span> 
+                <p>{data?.comments}</p>
             </div>
 
         </FeedbackdataContainer>

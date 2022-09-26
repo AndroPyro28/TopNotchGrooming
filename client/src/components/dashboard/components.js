@@ -96,6 +96,9 @@ export const FeedbackList = styled.div`
 
 
     & > h2 {
+        margin: 50px;
+        color: gray;
+        font-size: 1em;
         & > span {
         font-size: 3em;
         font-weight: 1000;
@@ -275,12 +278,15 @@ export const T_Data = styled.div`
 export const FeedbackdataContainer = styled.div`
     display: flex;
     min-height: 100px;
+    max-height: 100px;
     overflow: hidden;
     margin: 10px;
     & > img {
-        max-width: 40px !important;
-        max-height: 40px !important;
+        max-width: 50px !important;
+        max-height: 50px !important;
         border-radius: 50%;
+        object-fit: cover;
+        object-position: 50% 50%;
         flex: 0.8;
         margin: 10px;
     }

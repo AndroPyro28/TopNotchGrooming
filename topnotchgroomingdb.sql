@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2022 at 05:35 PM
+-- Generation Time: Sep 26, 2022 at 06:03 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -114,16 +114,17 @@ CREATE TABLE `feedback` (
   `comments` varchar(1000) DEFAULT NULL,
   `ratings` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
-  `createdAt` datetime DEFAULT current_timestamp()
+  `createdAt` datetime DEFAULT current_timestamp(),
+  `pin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `feedback`
 --
 
-INSERT INTO `feedback` (`id`, `comments`, `ratings`, `customer_id`, `createdAt`) VALUES
-(1, 'napaka lupet naman ng grooming ng aso ko, bbalik ako ulet dito.', 5, 6, '2022-09-26 23:32:58'),
-(2, 'wow napaka lupet naman ng grooming ng aso ko, bbalik ako ulet dito.', 4, 7, '2022-09-26 23:34:44');
+INSERT INTO `feedback` (`id`, `comments`, `ratings`, `customer_id`, `createdAt`, `pin`) VALUES
+(1, 'napaka lupet naman ng grooming ng aso ko, bbalik ako ulet dito.', 5, 6, '2022-09-26 23:32:58', 0),
+(2, 'wow napaka lupet naman ng grooming ng aso ko, bbalik ako ulet dito.', 4, 7, '2022-09-26 23:34:44', 0);
 
 -- --------------------------------------------------------
 
