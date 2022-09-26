@@ -1,7 +1,7 @@
 const cloudinary = require("../config/cloudinary");
 
 
-module.exports.uploadOne = async (imageUrl) => {
+module.exports.uploadOneProduct = async (imageUrl) => {
     const cloudinaryUpload = await cloudinary.uploader.upload(
       imageUrl,
         {
@@ -11,7 +11,7 @@ module.exports.uploadOne = async (imageUrl) => {
     return cloudinaryUpload;
 }
 
-module.exports.deleteOne = async (imageId) => {
+module.exports.deleteOneProduct = async (imageId) => {
   const cloudinaryDelete = await cloudinary.uploader.destroy(
     imageId,
     {

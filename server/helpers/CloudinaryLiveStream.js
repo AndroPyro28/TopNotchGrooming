@@ -1,7 +1,7 @@
 const cloudinary = require("../config/cloudinary");
 
 
-module.exports.uploadOne = async (videoUrl) => {
+module.exports.uploadOneLiveStream = async (videoUrl) => {
   try {
     const cloudinaryUpload = await cloudinary.uploader.upload(
       videoUrl,
@@ -17,7 +17,7 @@ module.exports.uploadOne = async (videoUrl) => {
 }
 
 
-module.exports.deleteOne = async (videoUrl) => {
+module.exports.deleteOneLiveStream = async (videoUrl) => {
     const cloudinaryDelete = await cloudinary.uploader.destroy(
         videoUrl,
         {

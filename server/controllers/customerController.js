@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 const ProductDetails = require("../models/ProductDetails");
 const Product = require("../models/product");
 const { assignToken } = require("../helpers/AuthTokenHandler");
-const { deleteOne, uploadOne } = require("../helpers/CloudinaryUser");
+const { deleteOneUser, uploadOneUser } = require("../helpers/CloudinaryUser");
+const { uploadOnePetImage } = require("../helpers/CloudinaryPetImages");
 const Appointment = require("../models/Appointment");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Order = require("../models/Order");
@@ -88,14 +89,14 @@ module.exports.updateInfo = async (req, res) => {
       req.body.values?.user.profile_image_id !=
         "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
-      deleteOne(req.body.values.user.profile_image_id);
+      deleteOneUser(req.body.values.user.profile_image_id);
     }
 
     if (
       req.body.values?.profileImg?.length > 0 &&
       req.body.values?.profileImg?.includes("image")
     ) {
-      const cloudinaryResponse = await uploadOne(req.body.values?.profileImg);
+      const cloudinaryResponse = await uploadOneUser(req.body.values?.profileImg);
       req.body.values.user.profile_image_url = cloudinaryResponse.url;
       req.body.values.user.profile_image_id = cloudinaryResponse.public_id;
     }
@@ -326,7 +327,7 @@ module.exports.addAppointment = async (req, res) => {
     } = req.body.values;
 
 
-    const cloudinaryResponse = await uploadOne(image);
+    const cloudinaryResponse = await uploadOnePetImage(image);
     image = cloudinaryResponse.url;
     const appointment = new Appointment({
       pet_name: petName,

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2022 at 05:19 AM
+-- Generation Time: Sep 26, 2022 at 05:35 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -79,19 +79,6 @@ INSERT INTO `appointments` (`id`, `pet_name`, `pet_type`, `pet_breed`, `birthdat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appointment_history`
---
-
-CREATE TABLE `appointment_history` (
-  `historyID` int(11) NOT NULL,
-  `appointmentID` int(11) DEFAULT NULL,
-  `timeStarts` varchar(50) DEFAULT NULL,
-  `timeEnds` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `customer`
 --
 
@@ -115,6 +102,28 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`id`, `profile_image_id`, `profile_image_url`, `firstname`, `lastname`, `birthdate`, `email`, `password`, `phoneNo`, `address`) VALUES
 (6, 'topnotch_profilepic/am0o9xj6sjv0lnojqxam', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1657882458/topnotch_profilepic/am0o9xj6sjv0lnojqxam.jpg', 'Jean', 'Correa', '2000-02-11', 'jeanmargarette11@gmail.com', '$2a$06$0QeR0p9vev9aGIC7kUM/geyd2V1oVnS0E/DHfCAYTgw5jjKMlwP92', '09060376440', 'Encanto Angat Bulacan'),
 (7, 'topnotch_profilepic/kltlzmhtwfwz78sm1npt', 'http://res.cloudinary.com/iamprogrammer/image/upload/v1658645777/topnotch_profilepic/kltlzmhtwfwz78sm1npt.jpg', 'Menandro', 'Eugenio', '2000-10-28', 'Menandroeugenio1028@gmail.com', '$2a$06$gx3EWCE15zpiVQQkhFQC/OhG3AcTbDLo1Jiznc.COBsZSWIFaBQsi', '639561289642', 'San Sebastian Hagonoy Bulacan');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL,
+  `comments` varchar(1000) DEFAULT NULL,
+  `ratings` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `createdAt` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `comments`, `ratings`, `customer_id`, `createdAt`) VALUES
+(1, 'napaka lupet naman ng grooming ng aso ko, bbalik ako ulet dito.', 5, 6, '2022-09-26 23:32:58'),
+(2, 'wow napaka lupet naman ng grooming ng aso ko, bbalik ako ulet dito.', 4, 7, '2022-09-26 23:34:44');
 
 -- --------------------------------------------------------
 
@@ -291,17 +300,17 @@ ALTER TABLE `appointments`
   ADD KEY `admin_id` (`admin_id`);
 
 --
--- Indexes for table `appointment_history`
---
-ALTER TABLE `appointment_history`
-  ADD PRIMARY KEY (`historyID`),
-  ADD KEY `appointmentID` (`appointmentID`);
-
---
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `live_streams`
@@ -366,16 +375,16 @@ ALTER TABLE `appointments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
--- AUTO_INCREMENT for table `appointment_history`
---
-ALTER TABLE `appointment_history`
-  MODIFY `historyID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `live_streams`
@@ -427,10 +436,10 @@ ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_4` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `appointment_history`
+-- Constraints for table `feedback`
 --
-ALTER TABLE `appointment_history`
-  ADD CONSTRAINT `appointment_history_ibfk_1` FOREIGN KEY (`appointmentID`) REFERENCES `appointments` (`id`) ON DELETE CASCADE;
+ALTER TABLE `feedback`
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `live_streams`
