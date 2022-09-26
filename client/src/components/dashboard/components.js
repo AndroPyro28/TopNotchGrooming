@@ -74,7 +74,7 @@ export const MonthlySalesChartsContainer = styled.div`
 
 `
 export const FeedbackList = styled.div`
-    padding: 50px 10px 20px 10px;
+    padding: 70px 10px 20px 10px;
     display: flex;
     flex-direction: column;
     background:white;
