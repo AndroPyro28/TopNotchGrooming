@@ -116,7 +116,7 @@ function PaymentInfo() {
 
       <Line />
 
-      <ProceedButton onClick={() => navigate("/customer/cart")}>
+      <ProceedButton onClick={() => window.location.assign('/customer/purchases')}>
         Proceed
       </ProceedButton>
     </PaymentSuccessContainer>
