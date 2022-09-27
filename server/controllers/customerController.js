@@ -127,15 +127,15 @@ module.exports.addItemsToCart = async (req, res) => {
       product_id: id,
       customer_id: req.currentUser.id,
     });
-
+    console.log(req.body.values);
     const { action, result } = await productDetails.addItem();
+    console.log({action, result});
     return res.status(200).json({
       action,
       id: result.insertId,
     });
   } catch (error) {
     console.error(error.message);
-
     return res.status(200).json({
       msg: error.message,
       success: false,

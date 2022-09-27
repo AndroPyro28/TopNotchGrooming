@@ -209,6 +209,7 @@ export const ProductItem = styled.div`
   margin-bottom: 30px;
   padding: 20px;
   transition: all 0.3s ease-in-out;
+  max-height: 400px;
   cursor: pointer;
 
   & > .add__to__cart {

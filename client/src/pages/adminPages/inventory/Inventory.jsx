@@ -4,7 +4,7 @@ import {
   AdminInventoryWrapper,
   PageGlobal
 } from "./inventoryComponents";
-import InventoryModal from "../../../components/modals/admin_modals/InventoryModal";
+import InventoryModal from "../../../components/modals/admin_modals/add-products/InventoryModal";
 import InventoryLeftPage from "./InventoryLeftPage";
 import InventoryRightPage from "./InventoryRightPage";
 function Inventory() {

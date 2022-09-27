@@ -41,6 +41,43 @@ function Store() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [maxPage, setMaxPage] = useState();
+  const [productCategories, setProductCategories] = useState([]);
+  const [productAgeLimit, setProductAgeLimit] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await CustomAxios({METHOD: "GET", uri:'/api/products/getAllCategory'});
+
+        const {success, data, msg} = result;
+        if(!success && msg?.includes("session expired")) {
+          return window.location.reload();
+        }
+        setProductCategories(data);
+        
+      } catch (error) {
+        console.error(error.message);
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await CustomAxios({METHOD: "GET", uri:'/api/products/getAllProductAgeLimit'});
+
+        const {success, data, msg} = result;
+        if(!success && msg?.includes("session expired")) {
+          return window.location.reload();
+        }
+        setProductAgeLimit(data);
+        
+      } catch (error) {
+        console.error(error.message);
+      }
+    })()
+  }, [])
+
 
   useEffect(() => {
     (async () => {
@@ -85,7 +122,7 @@ function Store() {
     activeFilter.itemCategory,
     refresher,
   ]);
-
+console.log(products);
   const fetchProducts = products
     ?.slice(8 * currentPage, 8 * currentPage + 8)
     .map((product, index) => {
@@ -173,10 +210,11 @@ function Store() {
                 value={activeFilter.itemCategory}
                 onChange={setProps}
               >
-                {dropDownItemCategory.map((option) => {
+                <option value="">Select Category</option>
+                {productCategories.map((option) => {
                   return (
-                    <option key={option.key} value={option.value}>
-                      {option.key}
+                    <option key={option.id} value={option.id}>
+                      {option.category}
                     </option>
                   );
                 })}
@@ -191,10 +229,11 @@ function Store() {
                 value={activeFilter.ageLimit}
                 onChange={setProps}
               >
-                {dropDownAgeGap.map((option) => {
+                <option value="">Select age limit</option>
+                {productAgeLimit.map((option) => {
                   return (
-                    <option key={option.key} value={option.value}>
-                      {option.key}
+                    <option key={option.id} value={option.id}>
+                      {option.age_limit}
                     </option>
                   );
                 })}

@@ -58,18 +58,17 @@ class Product {
     try {
       const insertQuery = `
                 INSERT INTO products 
-                (product_name, product_price, product_description, 	product_date_added, product_stocks, product_age_limit, product_category, product_image_url, product_image_id, pet_type)
+                (product_name, product_price, product_description, 	product_date_added, product_stocks, age_limit_id, product_category, product_image_url, product_image_id, pet_type)
                 VALUES
                 (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             `;
-
       const [result, _] = await poolConnection.execute(insertQuery, [
         this.#productName,
         this.#productPrice,
         this.#productDescription,
         getDateToday(),
         this.#productStocks,
-        this.#productAgeGap,
+        1,
         this.#productCategory,
         this.#productImgUrl,
         this.#productImgId,
@@ -83,8 +82,26 @@ class Product {
 
   getAllItems = async () => {
     try {
-      this.selectItemById();
-      const selectQuery = `SELECT * FROM products ORDER BY id DESC`;
+      const selectQuery = `SELECT 
+        p.id,
+        p.product_name,
+        p.product_price,
+        p.product_description,
+        p.pet_type,
+        p.product_date_added,
+        p.product_stocks,
+        p.product_image_url,
+        p.product_image_id,
+        p.total_sales,
+        p.unit_sales,
+        pc.category,
+        pal.age_limit
+       FROM products p
+       LEFT JOIN product_category pc
+       ON p.category_id = pc.id
+       LEFT JOIN product_age_limit pal
+       ON p.age_limit_id = pal.id
+       ORDER BY p.id DESC`;
       const [result, _] = await poolConnection.execute(selectQuery);
 
       return result;
@@ -104,16 +121,41 @@ class Product {
     }
   };
 
-  updateItem = async () => {
+  getCategoryIdByCategoryName = async () => {
     try {
+      const selectQuery = `SELECT id as category_id FROM product_category WHERE category = ?;`
+      const [result, _ ] = await  poolConnection.execute(selectQuery, [this.#productCategory])
+      return result;
+    } catch (error) {
+      console.error('here error', error.message)
+    }
+  }
+
+  getProductAgeLimitIdByAgeLimit = async () => {
+    try {
+      const selectQuery = `SELECT id as age_limit_id FROM product_age_limit WHERE age_limit = ?;`
+      const [result, _ ] = await  poolConnection.execute(selectQuery, [this.#productAgeGap])
+      return result;
+    } catch (error) {
+      console.error('here error', error.message)
+    }
+  }
+
+  updateItem = async () => {
+
+    try {
+      const queryResult1 = await this.getCategoryIdByCategoryName();
+      const {category_id} = queryResult1[0]
+      const queryResult2 = await this.getProductAgeLimitIdByAgeLimit();
+      const {age_limit_id} = queryResult2[0]
       const updateQuery = `UPDATE products 
     SET product_name = ?,  
     product_price = ?, 
     product_description = ?,
     pet_type = ?,
     product_stocks = ?,
-    product_age_limit = ?,
-    product_category = ?,
+    age_limit_id = ?,
+    category_id = ?,
     product_image_url = ?,
     product_image_id = ?
     WHERE id = ?`;
@@ -123,8 +165,8 @@ class Product {
         this.#productDescription,
         this.#petType,
         this.#productStocks,
-        this.#productAgeGap,
-        this.#productCategory,
+        age_limit_id,
+        category_id,
         this.#productImgUrl,
         this.#productImgId,
         this.#id,
@@ -143,13 +185,31 @@ class Product {
     ageLimit = ""
   ) => {
     try {
-      const selectQuery = `SELECT * FROM products 
-      WHERE 
-      product_name LIKE ? AND
-      pet_type LIKE ? AND
-      product_age_limit LIKE ? AND
-      product_category LIKE ?
-      ORDER BY id DESC`;
+      const selectQuery = `SELECT 
+        p.id,
+        p.product_name,
+        p.product_price,
+        p.product_description,
+        p.pet_type,
+        p.product_date_added,
+        p.product_stocks,
+        p.product_image_url,
+        p.product_image_id,
+        p.total_sales,
+        p.unit_sales,
+        pc.category,
+        pal.age_limit
+        FROM products p
+        LEFT JOIN product_category pc
+        ON p.category_id = pc.id
+        LEFT JOIN product_age_limit pal
+        ON p.age_limit_id = pal.id
+        WHERE 
+        p.product_name LIKE ? AND
+        p.pet_type LIKE ? AND
+        p.age_limit_id LIKE ? AND
+        p.category_id LIKE ?
+        ORDER BY id DESC`;
 
       const [result, _] = await poolConnection.execute(selectQuery, [
         `%${itemName}%`,

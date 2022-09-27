@@ -12,7 +12,7 @@ function ShopingCartLogic(props) {
       const response = await CustomAxios({METHOD:"GET", uri:`/api/customer/getItemsIncart`})
 
       const { items, notFound } = response;
-
+      console.log(response);
       return notFound
         ? []
         : items.map((item) => ({ ...item, purchase: false }));

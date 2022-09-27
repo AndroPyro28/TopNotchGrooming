@@ -81,14 +81,18 @@ class ProductDetails {
           p.product_description,
           p.pet_type, 
           p.product_date_added,
-          p.product_age_limit,
-          p.product_category,
+          pal.age_limit as product_age_limit,
+          pc.category as product_category,
           p.product_image_url,
           p.product_image_id,
           pd.quantity
         FROM product_details pd
         INNER JOIN products p
         ON p.id = pd.product_id
+        INNER JOIN product_age_limit pal
+        ON p.age_limit_id = pal.id
+        INNER JOIN product_category pc
+        ON p.category_id = pc.id
         WHERE order_id IS NULL AND
         pd.customer_id = ? AND 
         pd.is_active = ?`;

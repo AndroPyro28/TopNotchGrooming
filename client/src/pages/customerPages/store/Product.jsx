@@ -16,7 +16,7 @@ function Product({ product }) {
       <ProductItemImg src={product?.product_image_url} />
       <ProductItemName>{product?.product_name}</ProductItemName>
       <small>
-      For {product?.pet_type}s {product.product_age_limit} yrs old
+      For {product?.pet_type}s {product.age_limit} old
       </small>
       <ProductItemDescription>
          {product?.product_description}

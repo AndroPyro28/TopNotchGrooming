@@ -1,5 +1,10 @@
 const Product = require("../models/product");
-const { uploadOneProduct, deleteOneProduct } = require("../helpers/CloudinaryProduct");
+const {
+  uploadOneProduct,
+  deleteOneProduct,
+} = require("../helpers/CloudinaryProduct");
+const Category = require("../models/Category");
+const ProductAgeLimit = require("../models/ProductAgeLimit");
 module.exports.addItem = async (req, res) => {
   try {
     if (
@@ -10,15 +15,23 @@ module.exports.addItem = async (req, res) => {
       req.body.values.productImg = cloudinary.url;
       req.body.values.productImgId = cloudinary.public_id;
     }
-    const product = new Product(req.body.values);
 
+    const newProduct = req.body.values
+    let category_id = newProduct.productDescription.split('-')[0];
+    let categoryname = newProduct.productDescription.split('-')[1];
+
+    newProduct.productCategory = category_id;
+
+    const product = new Product(newProduct);
     const result = await product.insertProduct();
+
+    newProduct.productCategory = categoryname;
 
     if (result.insertId) {
       req.body.values.id = result.insertId;
       return res.status(200).json({
         msg: "Product added",
-        newProduct: req.body.values,
+        newProduct,
         success: true,
       });
     }
@@ -91,9 +104,9 @@ module.exports.updateItem = async (req, res) => {
       product_name,
       product_stocks,
       product_price,
-      product_category,
+      age_limit,
+      category,
       product_description,
-      product_age_limit,
       product_image_url,
       product_image_id,
       pet_type,
@@ -103,9 +116,9 @@ module.exports.updateItem = async (req, res) => {
       productName: product_name,
       productStocks: product_stocks,
       productPrice: product_price,
-      productCategory: product_category,
+      productCategory: category,
       productDescription: product_description,
-      productAgeGap: product_age_limit,
+      productAgeGap: age_limit,
       productImg: product_image_url,
       productImgId: product_image_id,
       petType: pet_type,
@@ -131,9 +144,9 @@ module.exports.updateItem = async (req, res) => {
 
 module.exports.searchItems = async (req, res) => {
   const { petCategory, ageLimit, itemCategory, itemName } = req.body.values;
+  console.log(req.body.values)
   try {
     const product = new Product({});
-
     const products = await product.searchItems(
       itemName,
       petCategory,
@@ -153,3 +166,88 @@ module.exports.searchItems = async (req, res) => {
     });
   }
 };
+
+module.exports.getAllCategory = async (req, res) => {
+  try {
+    const categoryModel = new Category({});
+
+    const result = await categoryModel.getAllCategory();
+
+    return res.status(200).json({
+      data: result,
+      success: true
+    })
+
+  } catch (error) {
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
+  }
+};
+
+module.exports.addCategory = async (req, res) => {
+  try {
+    const { category } = req.body.values;
+    const categoryModel = new Category({
+      category,
+    });
+
+    const result = await categoryModel.addCategory();
+    console.log('result', result);
+    if(!result) throw new Error('Category already exist');
+    
+    return res.status(200).json({
+      msg: 'Category added!',
+      success: true
+    })
+  } catch (error) {
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
+  }
+};
+
+module.exports.getAllProductAgeLimit = async (req, res) => {
+  try {
+    const productAgeLimitModel = new ProductAgeLimit({
+});
+    const result = await productAgeLimitModel.getAllProductAgeLimit();
+
+    return res.status(200).json({
+      data: result,
+      success: true
+    })
+
+  } catch (error) {
+    return res.status(200).json({
+      msg: error.message,
+      success: false,
+    });
+  }
+};
+
+module.exports.addProductAgeLimit = async (req, res) => {
+  try {
+    const { age_limit } = req.body.values;
+    const productAgeLimitModel = new ProductAgeLimit({
+      age_limit,
+    });
+
+    const result = await productAgeLimitModel.addProductAgeLimit();
+    console.log('result', result);
+
+    if(!result) throw new Error('Product Age Limit already exist');
+
+    return res.status(200).json({
+      msg:'product age limit added!',
+      success: true
+    })
+  } catch (error) {
+    return res.status(200).json({
+      msg:error.message,
+      success: false
+    })
+  }
+}

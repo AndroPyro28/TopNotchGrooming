@@ -9,7 +9,7 @@ function productItemLogic({
   toast,
   setDisableUpdate,
   setOpenItem,
-  setImageDisplay
+  setImageDisplay,
 }) {
   const deleteProduct = async (id) => {
     try {
@@ -32,14 +32,14 @@ function productItemLogic({
     }
   };
 
-  const setProps = (e) => setItem((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  
+  const setProps = (e) => {
+      setItem((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+}
 
   const updateProduct = async () => {
     try {
       setDisableUpdate(true);
       const response = await CustomAxios({METHOD:"POST", uri:`/api/products/updateItem`, values:{ item, imageDisplay }})
-      
       const { success, msg, product } = response;
 
       if (msg?.includes("session expired") && !success) {
@@ -47,7 +47,6 @@ function productItemLogic({
         return window.location.reload();
       }
       if (success) {
-        setItem(product)
         return toast(msg, { type: "success" });
       }
       setDisableUpdate(false);
@@ -55,8 +54,7 @@ function productItemLogic({
     } catch (error) {
       console.error(error.message);
     } finally {
-      setImageDisplay(null);
-      
+      // setImageDisplay(null);
     }
   };
 

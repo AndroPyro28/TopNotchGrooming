@@ -515,3 +515,24 @@ export const InfoRow = styled.div`
   }
 `;
 
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+
+  & > button {
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 5px;
+    transition: all 0.3s ease-in-out;
+    background: rgb(0, 109, 143);
+    @media (max-width:800px) {
+      padding: 10px 20px;
+      font-size: 0.7em;
+    }
+  }
+`

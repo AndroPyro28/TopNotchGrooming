@@ -12,15 +12,16 @@ import ProductPriceFormatter from "../../../helpers/ProductPriceFormatter"
 
 import productItemLogic from "./productItemLogic";
 
-function Product({ product, setProducts, toast }) {
+function Product({ product, setProducts, toast, categories, listProductAgeLimit }) {
   const [openItem, setOpenItem] = useState(false);
-  const [item, setItem] = useState();
+  const [item, setItem] = useState({});
   const [imageDisplay, setImageDisplay] = useState(null);
   const [disableUpdate, setDisableUpdate] = useState(true);
+
   useEffect(() => {
     setItem(product);
+    console.log(product)
   }, []);
-
   const { deleteProduct, updateProduct, setProps } = productItemLogic({
     item,
     setItem,
@@ -29,7 +30,7 @@ function Product({ product, setProducts, toast }) {
     toast,
     setDisableUpdate,
     setImageDisplay,
-    setOpenItem
+    setOpenItem,
   });
 
   useEffect(() => {
@@ -48,29 +49,8 @@ function Product({ product, setProducts, toast }) {
     }
   }, [imageDisplay]);
 
-  const dropDownAgeGap = [
-    {
-      key: "Select age limit",
-      value: "",
-    },
-    {
-      key: "1-2 (yrs old)",
-      value: "1-2",
-    },
-    {
-      key: "2-4 (yrs old)",
-      value: "2-4",
-    },
-    {
-      key: "5-7 (yrs old)",
-      value: "5-7",
-    },
-    {
-      key: "Above 7+ (yrs old)",
-      value: "7+",
-    },
-  ];
 
+  if(!product) return <></>
   return (
     <ProductItem>
       <TableRow className="table__data">
@@ -84,10 +64,10 @@ function Product({ product, setProducts, toast }) {
         <T_DATA className="table__productName"> {item?.product_name} </T_DATA>
         <T_DATA className="table__petType">{item?.pet_type}</T_DATA>
         <T_DATA className="table__productCategory">
-          {item?.product_category}
+          {item?.category}
         </T_DATA>
         <T_DATA className="table__productAge">
-          {item?.product_age_limit} (yrs old)
+          {item?.age_limit} old
         </T_DATA>
         <T_DATA className="table__productPrice">{ProductPriceFormatter(item?.product_price)}</T_DATA>
         <T_DATA className="table__productStock"> Qty: {item?.product_stocks}</T_DATA>
@@ -122,7 +102,6 @@ function Product({ product, setProducts, toast }) {
             !disableUpdate ? (
               imageDisplay ? <img src={imageDisplay} alt="" class="item__image" /> :
               <img src='/images/upload.png' alt="" class="item__image" />
-
             ) : (
               imageDisplay ? <img src={imageDisplay} alt="" class="item__image" /> :
               <img src={item?.product_image_url} alt="" class="item__image" />
@@ -191,15 +170,15 @@ function Product({ product, setProducts, toast }) {
               </label>
               <select
                 type="text"
-                value={item?.product_age_limit}
-                name="product_age_limit"
+                value={item?.age_limit}
+                name="age_limit"
                 onChange={setProps}
                 disabled={disableUpdate}
               >
-                {dropDownAgeGap.map((option) => {
+                {listProductAgeLimit.map((option) => {
                   return (
-                    <option key={option.key} value={option.value}>
-                      {option.key}
+                    <option key={option.id} value={option.age_limit}>
+                      {option.age_limit}
                     </option>
                   );
                 })}
@@ -235,17 +214,21 @@ function Product({ product, setProducts, toast }) {
                 ></i>{" "}
                 &nbsp; Product Category
               </label>
+             
               <select
                 id=""
-                value={item?.product_category}
-                name="product_category"
+                value={item?.category}
+                name="category"
                 onChange={setProps}
                 disabled={disableUpdate}
               >
-                <option value="Food">Food</option>
-                <option value="Toy">Toy</option>
-                <option value="Hygiene Kit">Hygiene Kit</option>
-                <option value="Utility">Utility</option>
+                {categories?.map((option) => {
+                  return (
+                    <option key={option.id} value={`${option.category}`}>
+                      {option.category}
+                    </option>
+                  );
+                })}
               </select>
             </div>
 
