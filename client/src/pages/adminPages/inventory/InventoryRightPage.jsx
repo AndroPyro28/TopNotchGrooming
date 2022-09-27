@@ -113,7 +113,6 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
   const fetchProducts = products?.slice(8 * currentPage, 8 * currentPage + 8).map(product => {
     return (
       <ProductItem
-      
         product={product}
         key={product.id}
         setProducts={setProducts}

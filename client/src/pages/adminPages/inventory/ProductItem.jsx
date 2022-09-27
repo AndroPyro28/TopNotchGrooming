@@ -250,6 +250,7 @@ function Product({ product, setProducts, toast, categories, listProductAgeLimit 
               >
                 <option value="Dog">Dog</option>
                 <option value="Cat">Cat</option>
+                <option value="Both">Both</option>
               </select>
             </div>
           </InfoRow>
