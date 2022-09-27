@@ -9,12 +9,12 @@ export const FeedbackBackdrop = styled.section`
 `;
 
 export const FeedbackContainer = styled.div`
-  height: 80%;
   width: 30%;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  height: fit-content;
   bottom: 0;
   margin: auto;
   background: white;
@@ -25,6 +25,22 @@ export const FeedbackContainer = styled.div`
   padding-inline: 50px;
   padding-block: 20px;
 
+  @media (max-width: 850px) {
+    width: 40%;
+  }
+
+  @media (max-width: 650px) {
+    width: 50%;
+  }
+
+  @media (max-width: 500px) {
+    width: 60%;
+  }
+
+  @media (max-width: 350px) {
+    width: 80%;
+    padding-inline: 20px;
+  }
   & > h1 {
     margin-block: 15px;
     font-size: 2em;
@@ -71,6 +87,9 @@ export const FeedbackContainer = styled.div`
     color: rgb(75, 75, 75);
     padding: 10px;
 
+    @media (max-width:650px) {
+      max-height: 100px !important;
+    }
     &::placeholder {
       color: rgb(161, 161, 161);
     }
@@ -80,10 +99,11 @@ export const FeedbackContainer = styled.div`
     background: rgb(248, 195, 116);
     color: white;
     border: none;
-    margin-block: auto;
     border-radius: 5px;
+    margin: 20px 0px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+
   }
 `;
 

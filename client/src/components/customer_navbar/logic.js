@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 import deviceType from "../../helpers/DeviceType";
 import { useDispatch } from "react-redux";
 import { open, close } from "../../redux/feedbackSlice";
-
-function Logic({ setOpenCart, paws, setPaws }) {
+import CustomAxios from "../../customer hooks/CustomAxios"
+function Logic({ setOpenCart, paws, setPaws, comments, toast }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -39,10 +39,22 @@ function Logic({ setOpenCart, paws, setPaws }) {
     <i className={`fa-solid fa-paw ${paws >= star ? "rated" : ""}`} onClick={() => setPaws(star)}></i>
   ));
 
-  const submitFeedback = () => {
+  const submitFeedback = async () => {
     try {
-        
-    } catch (error) {
+      if(paws == 0 || !comments) {
+        return toast('fil up the ratings and suggestion to submit your feedback.', {type: 'warning'})
+      } 
+        const result = await CustomAxios({METHOD:"POST", values: {paws, comments}, uri:'/api/customer/submitFeedback'})
+        const {msg, success} = result; 
+        if(!success && msg?.includes('session expired')) {
+          return window.location.reload();
+        }
+
+        toast('Thank you for your feedback!', {type: 'success'})
+
+        setTimeout(() => dispatch(close()), 2500)
+
+      } catch (error) {
         console.error(error.message);
     }
   }

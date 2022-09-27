@@ -10,7 +10,7 @@ const Appointment = require("../models/Appointment");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Order = require("../models/Order");
 const { getDateToday } = require("../helpers/DateFormatter");
-
+const Feedback = require('../models/Feedback')
 module.exports.signup = async (req, res) => {
   try {
     const customer = new Customer(req.body.values);
@@ -455,7 +455,10 @@ module.exports.getAllAppointmentActivities = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error.message)
+    return res.status(200).json({
+      msg: error.message,
+      success:false
+    });
   }
 }
 
@@ -470,10 +473,36 @@ module.exports.getAllOrderActivities = async (req, res) => {
     });
     
   } catch (error) {
-    console.error(error.message)
+    return res.status(200).json({
+      msg: error.message,
+      success:false
+    });
   }
 }
 
+module.exports.submitFeedback = async (req, res) => {
+  try {
+    const {id} = req.currentUser;
+    const {paws, comments} = req.body.values;
+    const feedbackModel = new Feedback({
+      customer_id: id,
+      ratings: paws,
+      comments
+    })
+    const result = await feedbackModel.submitFeedback();
+
+    return res.status(200).json({
+      result,
+      success: true
+    })
+  } catch (error) {
+    console.error(error.message);
+    return res.status(200).json({
+      msg: error.message,
+      success:false
+    });
+  }
+}
 
 module.exports.paymentsuccess = async (req, res) => {
   console.log(':::::GCASH API POST::::', req.body)

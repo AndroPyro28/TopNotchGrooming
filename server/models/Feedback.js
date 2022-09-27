@@ -30,6 +30,17 @@ class Feedback {
       console.log(error.message);
     }
   };
+
+  submitFeedback = async () => {
+    try {
+      const insertQuery = `INSERT INTO feedback (ratings, comments, customer_id) VALUES (?, ?, ?);`
+      const [result, _ ] = poolConnection.execute(insertQuery, [this.#ratings, this.#comments, this.#customer_id]);
+
+      return result;
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 }
 
 module.exports = Feedback;

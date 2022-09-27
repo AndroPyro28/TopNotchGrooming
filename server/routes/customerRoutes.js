@@ -22,5 +22,5 @@ router.get('/orders/:orderStatus', verifyUser, customerController.orders)
 router.get('/getOrderByReference/:reference', verifyUser, customerController.getOrderByReference)
 router.get('/getAllAppointmentActivities', verifyUser, customerController.getAllAppointmentActivities);
 router.get('/getAllOrderActivities', verifyUser, customerController.getAllOrderActivities);
-
+router.post('/submitFeedback', verifyUser, customerController.submitFeedback)
 module.exports = router;
