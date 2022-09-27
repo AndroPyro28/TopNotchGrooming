@@ -58,7 +58,7 @@ class Product {
     try {
       const insertQuery = `
                 INSERT INTO products 
-                (product_name, product_price, product_description, 	product_date_added, product_stocks, age_limit_id, product_category, product_image_url, product_image_id, pet_type)
+                (product_name, product_price, product_description, 	product_date_added, product_stocks, age_limit_id, category_id, product_image_url, product_image_id, pet_type)
                 VALUES
                 (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             `;
@@ -68,7 +68,7 @@ class Product {
         this.#productDescription,
         getDateToday(),
         this.#productStocks,
-        1,
+        this.#productAgeGap,
         this.#productCategory,
         this.#productImgUrl,
         this.#productImgId,

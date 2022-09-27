@@ -31,7 +31,6 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
   
   useEffect(() => {
     (async () => {
-
       try {
       setProducts([])
       setLoading(true)
@@ -137,7 +136,8 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           setOpenItem={setOpenAddItemModal}
           openItem={openAddItemModal}
           toast={toast}
-          
+          categories={categories}
+          productAgeLimit={productAgeLimit}
           setProducts={setProducts}
         />
       )}
