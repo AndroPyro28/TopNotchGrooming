@@ -130,13 +130,13 @@ function App() {
   }, []);
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
-
+  const excludeRoutes = ['room=', 'payment=success']
   return (
     <AppRoot>
 
       {navbarType === "public" && !pathname?.includes('room=') && <PublicNavbar />}
 
-      {navbarType === "customer" && !pathname?.includes('room=') && <CustomerNavbar />}
+      {navbarType === "customer" && !excludeRoutes?.includes(pathname) && <CustomerNavbar />}
 
       {navbarType === "admin" && !pathname?.includes('room=') && <AdminNavbar />}
 

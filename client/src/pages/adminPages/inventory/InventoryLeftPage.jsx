@@ -6,8 +6,8 @@ import {
   ProductStatisticContainer,
   ProductStatistic,
 } from "./inventoryComponents";
-
-import { Line, Bar } from "react-chartjs-2";
+import CustomAxios from "../../../customer hooks/CustomAxios";
+import { Line, Bar, Pie, Doughnut, Chart } from "react-chartjs-2";
 
 import {
   Chart as ChartJS,
@@ -19,6 +19,9 @@ import {
   Legend,
   PointElement,
   LineElement,
+  ArcElement,
+  LineController,
+  BarController,
 } from "chart.js";
 
 ChartJS.register(
@@ -36,130 +39,107 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: "top",
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: "Chart.js Line Chart",
     },
   },
-
 };
 
 const salesChartOption = {
-  responsive:true,
+  responsive: true,
   plugins: {
-      title: {
-          display: true,
-          text: 'Overall sales chart of this product 2022',
-          align: "center",
-          fontSize: 10,
-          color: "black",
-      }
+    title: {
+      display: true,
+      text: `Total sales for ${new Date().getFullYear()}`,
+      align: "center",
+      fontSize: 10,
+      color: "black",
     },
-  animations: {
-      tension: {
-        duration: 1000,
-        easing: 'linear',
-        from: 1,
-        to: 0,
-        loop: true
-      }
-    },
-    scales: {
-      y: { // defining min and max so hiding the dataset does not change scale range
-        min: 0,
-      }
-    
   },
-  maintainAspectRatio:false
-    
-}
+  animations: {
+    tension: {
+      duration: 1000,
+      easing: "linear",
+      from: 1,
+      to: 0,
+      loop: true,
+    },
+  },
+  scales: {
+    y: {
+      // defining min and max so hiding the dataset does not change scale range
+      min: 0,
+    },
+  },
+  maintainAspectRatio: false,
+};
+
+const labels = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 function InventoryLeftPage({ setSearchItem, searchItem }) {
-  const [productData, setProductData] = useState(null);
-
+  const [salesData, setSalesData] = useState([]);
+  const [overAllSales, setOverAllSales] = useState(0);
+  const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] = useState(0)
   useEffect(() => {
-    const mockData = [
-      {
-        id: 1,
-        month: "January",
-        numberOfSales: 10,
-        totalSales: 1200,
-      },
-      {
-        id: 2,
-        month: "Febuary",
-        numberOfSales: 20,
-        totalSales: 5000,
-      },
-      {
-        id: 3,
-        month: "March",
-        numberOfSales: 30,
-        totalSales: 12100,
-      },
-      {
-        id: 4,
-        month: "April",
-        numberOfSales: 40,
-        totalSales: 3250,
-      },
-      
-      {
-        id: 4,
-        month: "May",
-        numberOfSales: 50,
-        totalSales: 4250,
-      },
+    (async () => {
+      try {
+        const result = await CustomAxios({
+          METHOD: "GET",
+          uri: "/api/admin/dashboard",
+        });
+        const salesArr = new Array(12);
+        const { data, success, msg } = result;
+        const {
+          monthlySales,
+          overAllSales,
+          totalNumberOfAllTransactions,
+        } = data;
 
-      {
-        id: 4,
-        month: "June",
-        numberOfSales: 60,
-        totalSales: 3250,
-      },
-      {
-        id: 4,
-        month: "July",
-        numberOfSales: 70,
-        totalSales: 6250,
-      },
+        if (!success && msg?.includes("session expired")) {
+          return window.location.reload();
+        }
 
-      {
-        id: 4,
-        month: "August",
-        numberOfSales: 90,
-        totalSales: 5350,
-      },
+        setOverAllSales(overAllSales);
+        setTotalNumberOfAllTransactions(totalNumberOfAllTransactions);
+        for (const sale in monthlySales) {
+          salesArr[sale] = monthlySales[sale];
+        }
 
-      {
-        id: 4,
-        month: "September",
-        numberOfSales: 100,
-        totalSales: 2250,
-      },
-
-      {
-        id: 4,
-        month: "October",
-        numberOfSales: 300,
-        totalSales: 1250,
-      },
-    ];
-
-    setProductData({
-      labels: mockData?.map((data) => data?.month),
-      datasets: [
-        {
-          label: "Total revenue", // quantity * price
-          data: mockData?.map((data) => data?.totalSales), 
-          backgroundColor: 'white',
-          borderColor: 'black',
-        },
-      ],
-    });
+        setSalesData(salesArr);
+      } catch (error) {
+        console.error(error.message);
+      }
+    })();
   }, []);
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        type: "line",
+        label: "",
+        borderColor: "black",
+        backgroundColor: "white",
+        data: salesData,
+      },
+    ],
+  };
 
   return (
     <InventoryLeftContent>
@@ -183,21 +163,21 @@ function InventoryLeftPage({ setSearchItem, searchItem }) {
         <div className="product__info">
           <div className="product__label">
             <center>
-              <label htmlFor="">Purchased</label>
-              <h3>1339</h3>
+              <label htmlFor=""> {`Total sales for ${new Date().getFullYear()}`} </label>
+              <h3>{overAllSales}</h3>
             </center>
           </div>
 
           <div className="product__label">
             <center>
-              <label htmlFor="">Available Stock</label>
-              <h3>1028</h3>
+              <label htmlFor=""> Total transactions </label>
+              <h3>{totalNumberOfAllTransactions}</h3>
             </center>
           </div>
         </div>
 
         <ProductStatistic>
-          {productData && <Line data={productData} options={salesChartOption} />}
+          {data && <Line data={data} options={salesChartOption} />}
         </ProductStatistic>
       </ProductStatisticContainer>
     </InventoryLeftContent>

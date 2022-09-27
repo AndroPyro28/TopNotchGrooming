@@ -7,13 +7,14 @@ import {
 import { Form, Formik, ErrorMessage, Field } from "formik";
 import ProductAgeLimitLogic from "./ProductAgeLimitLogic";
 
-function ProductAgeLimitModal({ openItem, setOpenItem, toast }) {
+function ProductAgeLimitModal({ openItem, setOpenItem, toast, setProductAgeLimit }) {
   const [disabled, setDisabled] = useState(false);
 
   const { onSubmit, initialValues, validationSchema } = ProductAgeLimitLogic({
     setOpenItem,
     toast,
     setDisabled,
+    setProductAgeLimit
   });
 
   return (

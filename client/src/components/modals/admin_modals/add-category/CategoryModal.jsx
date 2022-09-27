@@ -7,13 +7,14 @@ import {
 import { Form, Formik, ErrorMessage, Field } from "formik";
 import CategoryLogic from "./categoryLogic";
 
-function CategoryModal({ openItem, setOpenItem, toast }) {
+function CategoryModal({ openItem, setOpenItem, toast, setCategories }) {
   const [disabled, setDisabled] = useState(false);
 
   const { onSubmit, initialValues, validationSchema } = CategoryLogic({
     setOpenItem,
     toast,
     setDisabled,
+    setCategories
   });
 
   return (

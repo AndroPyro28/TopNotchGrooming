@@ -199,6 +199,7 @@ module.exports.addCategory = async (req, res) => {
     
     return res.status(200).json({
       msg: 'Category added!',
+      insertId: result.insertId,
       success: true
     })
   } catch (error) {
@@ -242,6 +243,7 @@ module.exports.addProductAgeLimit = async (req, res) => {
 
     return res.status(200).json({
       msg:'product age limit added!',
+      insertId: result.insertId,
       success: true
     })
   } catch (error) {

@@ -114,6 +114,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
   const fetchProducts = products?.slice(8 * currentPage, 8 * currentPage + 8).map(product => {
     return (
       <ProductItem
+      
         product={product}
         key={product.id}
         setProducts={setProducts}
@@ -146,14 +147,15 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           setOpenItem={setOpenAddCategoryModal}
           openItem={openAddCategoryModal}
           toast={toast}
+          setCategories={setCategories}
         />
       )}
-
         {openAddAgeLimitModal && (
         <ProductAgeLimitModal
           setOpenItem={setOpenAddAgeLimitModal}
           openItem={openAddAgeLimitModal}
           toast={toast}
+          setProductAgeLimit={setProductAgeLimit}
         />
       )}
       <ToastContainer autoClose={1500} />
@@ -189,7 +191,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
 
         <FilterContainer>
           <span>Category: </span>
-          <select name="ItemCategory" id="" onChange={setProps}>
+          <select name="itemCategory" id="" onChange={setProps}>
           <option value="">Select Category</option>
             {categories.map((option) => {
               return (

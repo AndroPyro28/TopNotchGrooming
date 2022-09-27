@@ -37,7 +37,7 @@ function Store() {
 
   const { setProps, shuffleArray, dropDownItemCategory, dropDownAgeGap } =
     storeLogic({ setActiveFilter });
-  const [loading, startTransition] = useTransition();
+  const [loading, setLoading] = useState();
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [maxPage, setMaxPage] = useState();
@@ -82,6 +82,7 @@ function Store() {
   useEffect(() => {
     (async () => {
       setProducts([]);
+      setLoading(true)
       try {
         const { petCategory, ageLimit, itemCategory, itemName } = activeFilter;
         if (!petCategory && !ageLimit && !itemCategory && !itemName) {
@@ -113,6 +114,8 @@ function Store() {
         }
       } catch (error) {
         console.error(error.message);
+      } finally {
+        setLoading(false)
       }
     })();
   }, [
@@ -122,7 +125,6 @@ function Store() {
     activeFilter.itemCategory,
     refresher,
   ]);
-console.log(products);
   const fetchProducts = products
     ?.slice(8 * currentPage, 8 * currentPage + 8)
     .map((product, index) => {

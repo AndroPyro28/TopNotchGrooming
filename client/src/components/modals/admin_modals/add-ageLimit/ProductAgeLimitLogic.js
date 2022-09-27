@@ -1,15 +1,16 @@
 import * as yup from "yup";
 import CustomAxios from "../../../../customer hooks/CustomAxios";
 
-function ProductAgeLimitLogic({setOpenItem, toast, setDisabled,}) {
+function ProductAgeLimitLogic({setOpenItem, toast, setDisabled, setProductAgeLimit}) {
     const onSubmit = async (values) => {
         try {
             const {age_limit} = values;
             if(!age_limit) {
                 return toast('Product age limit is required', {type:'warning'})
             }
+            setDisabled(true)
             const result = await CustomAxios({METHOD:'POST', uri:'/api/products/addProductAgeLimit', values})
-            const {success, msg} = result
+            const {success, msg, insertId} = result
             if(!success && msg?.includes('session expired')) {
                 return window.location.reload();
             }
@@ -17,9 +18,21 @@ function ProductAgeLimitLogic({setOpenItem, toast, setDisabled,}) {
             if(!success) {
                 return toast(msg, {type:'warning'})
             }
-            return toast(msg, {type:'success'})
+
+            setProductAgeLimit(prev => [...prev, {
+                id: insertId,
+                age_limit,
+                createAt:'',
+            }])
+
+             toast(msg, {type:'success'})
+             setTimeout(() => {
+                setOpenItem(false)
+            }, 2500)
+
         } catch (error) {
             console.error(error.message)
+        } finally {
         }
     }
     const initialValues = () => {

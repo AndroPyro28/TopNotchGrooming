@@ -20,7 +20,7 @@ function Inventory() {
     <AdminInventoryWrapper>
         <PageGlobal />
         <InventoryLeftPage searchItem={searchItem} setSearchItem={setSearchItem}/>
-        <InventoryRightPage searchItem={searchItem} setSearchItem={setSearchItem}/>
+        <InventoryRightPage  searchItem={searchItem} setSearchItem={setSearchItem}/>
     </AdminInventoryWrapper>
   );
 }
