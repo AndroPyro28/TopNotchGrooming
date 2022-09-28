@@ -29,7 +29,7 @@ function LiveStreamModal({ setToggleModal }) {
       try {
         const response = await CustomAxios({METHOD:"GET", uri:`/api/admin/generateVerifiedLink`})
 
-        const { msg, success, linkId } = response
+        const { msg, success, linkId } = response;
 
         if ((!success, msg?.includes("session expired"))) {
           return window.location.reload();
