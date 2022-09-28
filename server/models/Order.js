@@ -60,6 +60,7 @@ class Order {
         this.#zip_code,
         this.#courrier_type,
       ]);
+
       return result;
     } catch (error) {
       console.error(error.message);
@@ -73,7 +74,7 @@ class Order {
 
         JSON_OBJECT('userId', c.id, 'firstname', c.firstname, 'lastname', c.lastname) as customer,
         
-       GROUP_CONCAT(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name),'*DIVIDER*') as products
+        JSON_ARRAYAGG(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name)) as products
 
        FROM order_details od
        INNER JOIN product_details pd
@@ -94,8 +95,9 @@ class Order {
           ? [`%${"pending"}%`, `%${search}%`, `%${"onGoing"}%`, `%${search}%`]
           : [`%${this.#order_status}%`, `%${search}%`]
       );
-      console.log(selectQuery);
-      return orderProductParserList(result);
+
+      console.log(result)
+      return result
     } catch (error) {
       console.error(error.message);
     }
@@ -108,7 +110,7 @@ class Order {
 
     JSON_OBJECT('userId', c.id, 'firstname', c.firstname, 'lastname', c.lastname, 'email', c.email, 'phone', c.phoneNo, 'address', c.address) as customer,
       
-     GROUP_CONCAT(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name, 'imageUrl', p.product_image_url, 'product_description', p.product_description, 'product_price', p.product_price, 'quantity', pd.quantity),'*DIVIDER*') as products
+    JSON_ARRAYAGG(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name, 'imageUrl', p.product_image_url, 'product_description', p.product_description, 'product_price', p.product_price, 'quantity', pd.quantity)) as products
 
      FROM order_details od
      INNER JOIN product_details pd
@@ -122,10 +124,10 @@ class Order {
       const [result, _] = await poolConnection.execute(selectQuery, [
         this.#reference,
       ]);
-
+      console.log('order details', result);
       if (result.length > 0) {
         // result[0].customer = DataJsonParser(result[0].customer);
-        return orderProductParserOne(result[0]);
+        return result[0];
       }
       return false;
     } catch (error) {
@@ -151,7 +153,7 @@ class Order {
   getOrderByStatus = async (status) => {
     try {
       const selectQuery = `SELECT order_details.*,
-      GROUP_CONCAT(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name, 'imageUrl', p.product_image_url, 'product_description', p.product_description, 'product_price', p.product_price, 'quantity', pd.quantity),'*DIVIDER*') as products
+      JSON_ARRAYAGG(JSON_OBJECT('product_id', p.id, 'product_name', p.product_name, 'imageUrl', p.product_image_url, 'product_description', p.product_description, 'product_price', p.product_price, 'quantity', pd.quantity)) as products
       FROM order_details
       INNER JOIN product_details pd
       INNER JOIN products p
@@ -166,7 +168,7 @@ class Order {
       const [result, _] = await poolConnection.execute(selectQuery, [
         this.#customer_id,
       ]);
-      return orderProductParserList(result);
+      return result
     } catch (error) {
       console.error(error.message);
     }

@@ -31,7 +31,7 @@ function OrderList() {
           uri: `/api/admin/getToShipOrders`,
           values: { status, textSearch },
         });
-
+        console.log(response)
         const { msg, success } = response;
         if (!success && msg?.includes("session expired")) {
           return window.location.reload();

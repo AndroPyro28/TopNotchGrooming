@@ -36,7 +36,6 @@ class ProductAgeLimit {
   addProductAgeLimit = async () => {
     try {
       const queryResult = await this.getProductAgeLimitByAgeLimit();
-      console.log('age limit', queryResult);
       if(queryResult == null || queryResult == undefined || queryResult?.length <= 0) {
         const insertQuery = `INSERT INTO product_age_limit (age_limit) VALUES (?);`
         const [result, _ ] = await poolConnection.execute(insertQuery, [this.#age_limit]);

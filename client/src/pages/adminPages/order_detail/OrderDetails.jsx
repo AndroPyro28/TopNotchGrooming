@@ -29,10 +29,10 @@ function OrderDetails() {
         const reponse = await CustomAxios({METHOD:"GET", uri:`/api/admin/getOrderDetails/${reference}`})
         
         const {msg, success} = reponse;
-
-        if(!success && msg?.include('session expired')) {
-          return window.location.reload();
-        }
+        console.log(reponse);
+        // if(!success && msg?.include('session expired')) {
+        //   return window.location.reload();
+        // }
 
         const {order} = reponse;
         setOrderData(order)
