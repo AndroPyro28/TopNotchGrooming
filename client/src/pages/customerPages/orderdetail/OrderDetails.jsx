@@ -12,6 +12,7 @@ function OrderDetails({data}) {
     <DeliveryInfoContainer>
         <Header>
           <h1>Order # {data?.reference}</h1>
+          
         </Header>
 
         <DeliveryInfo>

@@ -6,7 +6,7 @@ const adminController = require('../controllers/adminController');
 
 router.post('/login', adminController.login)
 router.get('/appointments/:status', verifyUser, adminController.getSchedule)
-router.post('/getOrders/', verifyUser, adminController.getOrders)
+router.post('/getToShipOrders/', verifyUser, adminController.getToShipOrders)
 router.get('/getOrderDetails/:reference', verifyUser, adminController.getOrderDetails);
 router.patch('/orderNextStage/:reference',verifyUser, adminController.orderNextStage);
 router.get('/getAppointment/:id', verifyUser, adminController.getAppointment);
@@ -18,5 +18,6 @@ router.patch('/appointmentCompleted/:link', verifyUser, adminController.appointm
 router.patch('/markComplete/:id', verifyUser, adminController.markComplete)
 router.get('/dashboard', verifyUser, adminController.dashboardData)
 router.get('/getAllFeedback', verifyUser, adminController.getAllFeedback)
+router.post('/saleReport', verifyUser, adminController.saleReport)
 
 module.exports = router;

@@ -28,7 +28,7 @@ function OrderList() {
         setOrders([]);
         const response = await CustomAxios({
           METHOD: "POST",
-          uri: `/api/admin/getOrders`,
+          uri: `/api/admin/getToShipOrders`,
           values: { status, textSearch },
         });
 
@@ -37,7 +37,6 @@ function OrderList() {
           return window.location.reload();
         }
         const { orders } = response;
-        console.log(orders);
         setOrders(orders);
       } catch (error) {
         console.error(error.message);
@@ -80,10 +79,8 @@ function OrderList() {
             onChange={(e) => setStatus(e.target.value)}
           >
             <option value="all">All Orders</option>
-            <option value="completed">Completed</option>
             <option value="pending">Pending</option>
             <option value="onGoing">On Going</option>
-            <option value="cancelled">Cancelled</option>
           </select>
         </SearchBarWrapper>
 

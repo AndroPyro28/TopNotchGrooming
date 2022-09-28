@@ -93,6 +93,8 @@ function DashboardCharts() {
   ];
 
   const [salesData, setSalesData] = useState([]);
+  const [transactionsData, setTransactionsData] = useState([]);
+
   const [overAllSales, setOverAllSales] = useState(0);
   const [totalSalesToday, setTotalSalesToday] = useState(0);
   const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] = useState(0)
@@ -101,9 +103,9 @@ function DashboardCharts() {
     (async () => {
       const result = await CustomAxios({ METHOD: "GET", uri: "/api/admin/dashboard" });
       const salesArr = new Array(12);
+      const monthlyTransactions = new Array(12);
       const { data, success, msg } = result;
-      const { monthlySales, overAllSales, totalSalesToday, totalNumberOfAllTransactions } = data;
-
+      const { monthlySales, overAllSales, totalSalesToday, totalNumberOfAllTransactions, totalTransactionsPerMonth } = data;
       if (!success && msg?.includes("session expired")) {
         return window.location.reload();
       }
@@ -115,8 +117,12 @@ function DashboardCharts() {
       for (const sale in monthlySales) {
         salesArr[sale] = monthlySales[sale];
       }
+      for (const transaction in totalTransactionsPerMonth) {
+        monthlyTransactions[transaction] = totalTransactionsPerMonth[transaction];
+      }
 
       setSalesData(salesArr)
+      setTransactionsData(monthlyTransactions);
     })()
   }, [])
 
@@ -125,20 +131,20 @@ function DashboardCharts() {
     datasets: [
       {
         type: "line",
-        label: "",
+        label: "Monthly sales",
         borderColor: "black",
         backgroundColor: "white",
         data: salesData,
       },
-      // {
-      //   type: "bar",
-      //   label: "",
-      //   backgroundColor: "#a6b7f1",
-      //   data: salesData,
-      //   borderColor: "white",
-      //   borderWidth: 2,
-      //   borderRadius: 100
-      // },
+      {
+        type: "bar",
+        label: "Monthly Transactions",
+        backgroundColor: "#a6b7f1",
+        data: transactionsData,
+        borderColor: "white",
+        borderWidth: 2,
+        borderRadius: 100
+      },
     ],
   };
 
@@ -154,7 +160,7 @@ function DashboardCharts() {
         </DataContainer>
 
         <MonthlySalesChartsContainer>
-           <h1>Monthly sales for year {new Date().getFullYear()}</h1> 
+           <h1>Monthly sales & transactions for year {new Date().getFullYear()}</h1> 
           <Chart
             data={data}
             options={salesChartOption}

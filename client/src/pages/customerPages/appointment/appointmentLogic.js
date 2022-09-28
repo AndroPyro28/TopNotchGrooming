@@ -105,7 +105,6 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
  
 
   const dateTodayFormatter = ({year=0, month=0, date=0}) => {
-    console.log(year)
     const dateObj = new Date();
     const dd = String(dateObj.getDate() - date).padStart(2, '0');
     const mm = String(dateObj.getMonth() + 1 - month).padStart(2, '0');

@@ -13,7 +13,7 @@ export const OrderNumber = styled.section`
   border-left: none;
   background: rgb(255, 255, 255) !important;
   border-right: none;
-
+    position: relative;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -29,6 +29,20 @@ export const OrderNumber = styled.section`
   & > small {
     color: gray;
     font-size: 0.7em;
+  }
+
+  & > i {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: maroon;
+    font-size: 1.5em;
+    padding: 10px;
+    cursor: pointer;
+    &:hover {
+      background: #EAEAEA;
+      border-radius: 50%;
+    }
   }
 `;
 

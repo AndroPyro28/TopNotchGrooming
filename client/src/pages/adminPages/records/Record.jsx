@@ -18,14 +18,11 @@ function Record() {
   return (
     <AdminListWrapper>
     <GlobalStyles />
-    <h1>RECORDS</h1>
+    <h1>APPOINTMENT RECORDS</h1>
 
     <ListNavigationButton>
       <NavLink to={'appointments'} style={navLinkStyles} >
         Appointments
-      </NavLink>
-      <NavLink to={'sales'} style={navLinkStyles} >
-        Sales
       </NavLink>
     </ListNavigationButton>
 

@@ -1,5 +1,5 @@
 const poolConnection = require("../config/connectDB");
-
+const {getDateToday} = require('../helpers/DateFormatter')
 const getTime = require("../helpers/getTime");
 
 class MultipleTable {
@@ -27,6 +27,36 @@ class MultipleTable {
             return result
         } catch (error) {
             console.log(error.message);
+        }
+    }
+
+    getSalesReport = async (from=getDateToday(), to=getDateToday()) => {
+        try {
+
+            if(!from) {
+                from = getDateToday();
+            }
+            if(!to) {
+                to = getDateToday()
+            }
+            const selectQuery = `
+                SELECT 
+                od.*,
+                c.firstname,
+                c.lastname,
+                c.profile_image_url
+                FROM order_details od
+                INNER JOIN customer c  
+                ON c.id = od.customer_id
+                WHERE od.order_date between ? and ? and od.order_status = ?
+                ORDER BY od.order_date DESC
+            `
+            const [result, _] = await poolConnection.execute(selectQuery, 
+                [from, to, 'completed']
+            );
+            return result;
+        } catch (error) {
+            console.error(error.message)
         }
     }
 }

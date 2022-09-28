@@ -79,7 +79,7 @@ module.exports.getSchedule = async (req, res) => {
   }
 };
 
-module.exports.getOrders = async (req, res) => {
+module.exports.getToShipOrders = async (req, res) => {
   const { status, textSearch } = req.body.values;
   try {
     const orderModel = new Order({
@@ -331,7 +331,7 @@ module.exports.dashboardData = async (req, res) => {
     let overAllSales = 0;
     let totalSalesToday = 0;
     const dateToday = getDateToday();
-
+    const totalTransactionsPerMonth = {};
     data.forEach((sale) => {
       const date = new Date(sale.order_date);
 
@@ -340,7 +340,11 @@ module.exports.dashboardData = async (req, res) => {
       const currentMonth = date.getMonth();
 
       let salesOfTheMonth = dataObj[currentMonth];
-
+      if (!totalTransactionsPerMonth[currentMonth]) {
+        totalTransactionsPerMonth[currentMonth] = 1;
+      } else {
+        totalTransactionsPerMonth[currentMonth] += 1;
+      }
       if (salesOfTheMonth == null || salesOfTheMonth == undefined) {
         salesOfTheMonth = 0;
       }
@@ -360,6 +364,7 @@ module.exports.dashboardData = async (req, res) => {
         overAllSales,
         totalSalesToday,
         totalNumberOfAllTransactions: data.length,
+        totalTransactionsPerMonth,
       },
     });
   } catch (error) {
@@ -405,6 +410,23 @@ module.exports.getAllFeedback = async (req, res) => {
     return res.status(400).json({
       success: false,
       msg: error.message,
+    });
+  }
+};
+
+module.exports.saleReport = async (req, res) => {
+  try {
+    const multipleTable = new MultipleTable({});
+    const {filterDateFrom, filterDateTo} = req.body.values
+    const queryResult = await multipleTable.getSalesReport(filterDateFrom, filterDateTo);
+    return res.status(200).json({
+      data: queryResult,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(200).json({
+      msg: "something went wrong",
+      success: false,
     });
   }
 };

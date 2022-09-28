@@ -184,7 +184,8 @@ CREATE TABLE `order_details` (
   `billing_address` varchar(100) NOT NULL,
   `contact` varchar(20) NOT NULL,
   `zip_code` varchar(20) NOT NULL,
-  `courrier_type` varchar(50) NOT NULL
+  `courrier_type` varchar(50) NOT NULL,
+  `isArchived` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
