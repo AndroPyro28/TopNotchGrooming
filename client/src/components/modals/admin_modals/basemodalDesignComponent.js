@@ -202,3 +202,35 @@ export const InputContainer = styled.div`
     }
   }
 `;
+export const Container = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`
+export const Data = styled.div`
+flex: 1;
+margin: 10px;
+& > input {
+  padding: 5px;
+  outline: gray;
+  border-radius: 5px;
+  border: solid 1px gray;
+}
+
+& > i {
+  font-size: 1.5em;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background: #EAEAEA;
+  }
+}
+
+& >i:nth-child(1) {
+  color: #1363df;
+}
+& >i:nth-child(2) {
+  color: maroon;
+}
+`

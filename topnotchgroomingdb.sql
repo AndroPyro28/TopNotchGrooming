@@ -545,8 +545,8 @@ ALTER TABLE `order_details`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `fk_age_limit_id` FOREIGN KEY (`age_limit_id`) REFERENCES `product_age_limit` (`id`),
-  ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`);
+  ADD CONSTRAINT `fk_age_limit_id` FOREIGN KEY (`age_limit_id`) REFERENCES `product_age_limit` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `product_details`

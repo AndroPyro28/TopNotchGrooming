@@ -252,7 +252,6 @@ module.exports.getScheduleToday = async (req, res) => {
 
 module.exports.startStreaming = async (req, res) => {
   try {
-    console.log('start streaming')
     const { linkId, scheduleInfo } = req.body.values;
     const { customerId, appointmentId } = scheduleInfo;
     const startTime = getTime();

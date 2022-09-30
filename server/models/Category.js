@@ -44,6 +44,29 @@ class Category {
       console.error(error.message)
     }
   }
+
+  updateCategory = async (id) => {
+    try {
+      const queryResult = await this.getCategoryByCategoryName();
+      if(queryResult == null || queryResult == undefined || queryResult?.length <= 0) {
+      const updateQuery = `UPDATE product_category SET category = ? WHERE id = ?`;
+        const [result, _ ] = await poolConnection.execute(updateQuery, [this.#category, id]);
+        return result;
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+  deleteCategory = async (id) => {
+    try {
+      const deleteQuery = `
+      DELETE FROM product_category WHERE id = ?`;
+        const [result, _ ] = await poolConnection.execute(deleteQuery, [id]);
+        return result;
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 }
 
 module.exports = Category;

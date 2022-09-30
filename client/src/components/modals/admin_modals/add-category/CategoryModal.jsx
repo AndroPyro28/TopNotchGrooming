@@ -6,15 +6,16 @@ import {
 } from "../basemodalDesignComponent";
 import { Form, Formik, ErrorMessage, Field } from "formik";
 import CategoryLogic from "./categoryLogic";
+import Category from "../Category_AgeLimit";
 
-function CategoryModal({ openItem, setOpenItem, toast, setCategories }) {
+function CategoryModal({ openItem, setOpenItem, toast, setCategories, categories }) {
   const [disabled, setDisabled] = useState(false);
 
-  const { onSubmit, initialValues, validationSchema } = CategoryLogic({
+  const { onSubmit, initialValues, validationSchema, updateCategory, deleteCategory } = CategoryLogic({
     setOpenItem,
     toast,
     setDisabled,
-    setCategories
+    setCategories,
   });
 
   return (
@@ -55,6 +56,18 @@ function CategoryModal({ openItem, setOpenItem, toast, setCategories }) {
               <button disabled={disabled} type="submit">
                 Add Category
               </button>
+              
+              {
+                categories?.map((data) => <Category 
+                  setData={setCategories}
+                  data={data}
+                  context="category"
+                  updateItem={updateCategory}
+                  deleteItem={deleteCategory}
+                  />)
+              }
+              
+              
             </Form>
           );
         }}

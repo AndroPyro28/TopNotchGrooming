@@ -6,15 +6,16 @@ import {
 } from "../basemodalDesignComponent";
 import { Form, Formik, ErrorMessage, Field } from "formik";
 import ProductAgeLimitLogic from "./ProductAgeLimitLogic";
+import AgeLimit from "../Category_AgeLimit"
 
-function ProductAgeLimitModal({ openItem, setOpenItem, toast, setProductAgeLimit }) {
+function ProductAgeLimitModal({ openItem, setOpenItem, toast, setProductAgeLimit, productAgeLimit }) {
   const [disabled, setDisabled] = useState(false);
 
-  const { onSubmit, initialValues, validationSchema } = ProductAgeLimitLogic({
+  const { onSubmit, initialValues, validationSchema, updateAgeLimit, deleteAgeLimit } = ProductAgeLimitLogic({
     setOpenItem,
     toast,
     setDisabled,
-    setProductAgeLimit
+    setProductAgeLimit,
   });
 
   return (
@@ -55,6 +56,19 @@ function ProductAgeLimitModal({ openItem, setOpenItem, toast, setProductAgeLimit
               <button disabled={disabled} type="submit">
                 Add new age limit
               </button>
+
+              {
+                productAgeLimit?.map((data) => <AgeLimit 
+                key={data.id}
+                setData={setProductAgeLimit}
+                data={data}
+                context="age_limit"
+                updateItem={updateAgeLimit}
+                deleteItem={deleteAgeLimit}
+              />)
+              }
+              
+
             </Form>
           );
         }}

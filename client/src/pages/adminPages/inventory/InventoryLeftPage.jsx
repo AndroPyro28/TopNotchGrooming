@@ -95,7 +95,8 @@ const labels = [
 function InventoryLeftPage({ setSearchItem, searchItem }) {
   const [salesData, setSalesData] = useState([]);
   const [overAllSales, setOverAllSales] = useState(0);
-  const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] = useState(0)
+  const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] = useState(0);
+  
   useEffect(() => {
     (async () => {
       try {

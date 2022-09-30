@@ -184,6 +184,7 @@ class Product {
     itemCategory = "",
     ageLimit = ""
   ) => {
+
     try {
       const selectQuery = `SELECT 
         p.id,
@@ -275,7 +276,6 @@ class Product {
       const productIds = checkoutProducts.map((product) => product.product_id);
 
       const [result, _] = await poolConnection.query(updateQuery, [productIds]);
-      console.log(result)
     } catch (error) {
       console.error(error.message);
     }

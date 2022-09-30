@@ -17,7 +17,6 @@ module.exports.addItem = async (req, res) => {
     }
 
     const newProduct = req.body.values
-    console.log(newProduct);
     let category_id = newProduct.productCategory.split('-|-')[0];
     let categoryname = newProduct.productCategory.split('-|-')[1];
 
@@ -31,9 +30,9 @@ module.exports.addItem = async (req, res) => {
     const result = await product.insertProduct();
     newProduct.productAgeGap = age_limit;
     newProduct.productCategory = categoryname;
+
     if (result.insertId) {
       newProduct.id = result.insertId;
-      console.log(newProduct);
       return res.status(200).json({
         msg: "Product added",
         newProduct,
@@ -149,7 +148,6 @@ module.exports.updateItem = async (req, res) => {
 
 module.exports.searchItems = async (req, res) => {
   const { petCategory, ageLimit, itemCategory, itemName } = req.body.values;
-  console.log(req.body.values)
   try {
     const product = new Product({});
     const products = await product.searchItems(
@@ -199,7 +197,6 @@ module.exports.addCategory = async (req, res) => {
     });
 
     const result = await categoryModel.addCategory();
-    console.log('result', result);
     if(!result) throw new Error('Category already exist');
     
     return res.status(200).json({
@@ -214,6 +211,18 @@ module.exports.addCategory = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports.getAllProductAgeLimit = async (req, res) => {
   try {
@@ -242,7 +251,6 @@ module.exports.addProductAgeLimit = async (req, res) => {
     });
 
     const result = await productAgeLimitModel.addProductAgeLimit();
-    console.log('result', result);
 
     if(!result) throw new Error('Product Age Limit already exist');
 
@@ -253,6 +261,104 @@ module.exports.addProductAgeLimit = async (req, res) => {
     })
   } catch (error) {
     return res.status(200).json({
+      msg:error.message,
+      success: false
+    })
+  }
+}
+
+module.exports.updateAgeLimit = async (req, res) => {
+
+  try {
+    const {id} = req.params;
+    const {age_limit} = req.body.values.ageLimitData;
+
+    const productAgeLimitModel = new ProductAgeLimit({
+      age_limit,
+    })
+
+    const result = await productAgeLimitModel.updateAgeLimit(id);
+
+    if(!result) {
+      throw new Error('age limit did not update, age limit cannot be duplicated!')
+    }
+      return res.status(200).json({
+          result, 
+          success: true
+        })
+
+  } catch (error) {
+    console.error(error.message)
+    return res.status(400).json({
+      msg:error.message,
+      success: false
+    })
+  }
+
+}
+
+module.exports.updateCategory = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {category} = req.body.values.categoryData;
+
+    const productCategoryModel = new Category({
+      category
+    });
+
+    const result = await productCategoryModel.updateCategory(id)
+    if(!result) {
+      throw new Error('category did not update, category cannot be duplicated!');
+    }
+    return res.status(200).json({
+      result, 
+      success: true
+    })
+  } catch (error) {
+    console.error(error.message)
+    return res.status(400).json({
+      msg:error.message,
+      success: false
+    })
+  }
+}
+
+module.exports.deleteCategory = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const productCategoryModel = new Category({});
+    const result = await productCategoryModel.deleteCategory(id)
+    if(!result) {
+      throw new Error('category did not delete, something went wrong');
+    }
+    return res.status(200).json({
+      result, 
+      success: true
+    })
+  } catch (error) {
+    console.error(error.message)
+    return res.status(400).json({
+      msg:error.message,
+      success: false
+    })
+  }
+}
+
+module.exports.deleteAgeLimit = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const productAgeLimit = new ProductAgeLimit({});
+    const result = await productAgeLimit.deleteAgeLimit(id)
+    if(!result) {
+      throw new Error('age limit did not delete, something went wrong');
+    }
+    return res.status(200).json({
+      result,
+      success: true
+    })
+  } catch (error) {
+    console.error(error.message)
+    return res.status(400).json({
       msg:error.message,
       success: false
     })

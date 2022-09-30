@@ -29,6 +29,43 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
   const [categories, setCategories] = useState([])
   const [productAgeLimit,setProductAgeLimit] = useState([])
   
+  
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await CustomAxios({METHOD: "GET", uri:'/api/products/getAllCategory'});
+
+        const {success, data, msg} = result;
+        if(!success && msg?.includes("session expired")) {
+          return window.location.reload();
+        }
+        setCategories(data);
+        
+      } catch (error) {
+        console.error(error.message);
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await CustomAxios({METHOD: "GET", uri:'/api/products/getAllProductAgeLimit'});
+
+        const {success, data, msg} = result;
+        if(!success && msg?.includes("session expired")) {
+          return window.location.reload();
+        }
+        setProductAgeLimit(data);
+        
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+      }
+    })()
+  }, [])
+
   useEffect(() => {
     (async () => {
       try {
@@ -66,50 +103,20 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
 
       finally {
         setLoading(false)
+
       }
       
     })();
   }, [
-    searchItem.petCategory,
-    searchItem.itemCategory,
-    searchItem.ageLimit,
-    searchItem.itemName,
+    searchItem.petCategory, 
+    searchItem.itemCategory, 
+    searchItem.ageLimit, 
+    searchItem.itemName, 
   ]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const result = await CustomAxios({METHOD: "GET", uri:'/api/products/getAllCategory'});
-
-        const {success, data, msg} = result;
-        if(!success && msg?.includes("session expired")) {
-          return window.location.reload();
-        }
-        setCategories(data);
-        
-      } catch (error) {
-        console.error(error.message);
-      }
-    })()
-  }, [])
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await CustomAxios({METHOD: "GET", uri:'/api/products/getAllProductAgeLimit'});
-
-        const {success, data, msg} = result;
-        if(!success && msg?.includes("session expired")) {
-          return window.location.reload();
-        }
-        setProductAgeLimit(data);
-        
-      } catch (error) {
-        console.error(error.message);
-      }
-    })()
-  }, [])
-
+    console.log({categories, productAgeLimit});
+  }, [categories, productAgeLimit])
   const fetchProducts = products?.slice(8 * currentPage, 8 * currentPage + 8).map(product => {
     return (
       <ProductItem
@@ -146,6 +153,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           setOpenItem={setOpenAddCategoryModal}
           openItem={openAddCategoryModal}
           toast={toast}
+          categories={categories}
           setCategories={setCategories}
         />
       )}
@@ -154,6 +162,7 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
           setOpenItem={setOpenAddAgeLimitModal}
           openItem={openAddAgeLimitModal}
           toast={toast}
+          productAgeLimit={productAgeLimit}
           setProductAgeLimit={setProductAgeLimit}
         />
       )}
@@ -215,10 +224,10 @@ function InventoryRightPage({ searchItem, setSearchItem }) {
       </FilterItemsContainer>
 
         <ButtonContainer>
-          <button onClick={() => setOpenAddCategoryModal(true)} >
+          <button onClick={() => setOpenAddCategoryModal(true)} disabled={loading}>
             Add category for products
           </button>
-          <button onClick={() => setOpenAddAgeLimitModal(true)}>
+          <button onClick={() => setOpenAddAgeLimitModal(true)} disabled={loading}>
             Add age limit for products
           </button>
         </ButtonContainer>
