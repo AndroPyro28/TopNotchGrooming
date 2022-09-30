@@ -23,19 +23,26 @@ export const OrderContainer = styled.section`
 
 export const Order = styled.div`
     background: white;
-    width: 80%;
+    width:80%;
     display: grid;
     grid-template-columns: 150px 100%;
     padding: 10px 20px;
     border-radius: 10px;
     margin: 10px;
-
+    @media (max-width:750px) {
+        width:100%;
+        padding: 10px;
+        margin: 10px 0px;
+        }
     & > img {
         align-self:center;
         width: 100%;
         height: 190px;
         border-radius: 10px;
-        object-fit: cover;
+        object-fit: contain;
+        @media (max-width:650px) {
+            width: 70%;
+        }
     }
 
 `
@@ -43,19 +50,32 @@ export const Order = styled.div`
 export const Info = styled.div`
     display: flex;
     flex-direction: column;
+    @media (max-width:650px) {
+        font-size: 0.9em;
+    }
 `
 
 export const Row = styled.div`
     display: flex;
     padding-inline: 10px;
     margin: 5px;
+    @media (max-width:650px) {
+        /* font-size: 0.9em; */
+        padding-inline: 5px;
+        margin: 5px 0px;
+        flex-direction: column;
+        width: fit-content;
+    }
     & > h1 {
         color: rgb(101, 104, 87);
-
+        @media (max-width:650px) {
+        font-size: 0.9em;
+    }
         & > span {
         font-weight: normal;
 
             color: rgb(141, 124, 87);
+            
         }
     }
 
@@ -63,21 +83,26 @@ export const Row = styled.div`
         color: #181818;
         font-size:1em;
         font-weight: normal;
+        
     }
 
     & > h4 {
         color: #181818;
         font-size:0.9em;
         font-weight: normal;
+        
     }
 
     & > button {
         cursor: pointer;
-        margin: 10px;
+        margin: 5px;
         color: white;
         padding: 10px 20px;
         border-radius: 10px;
         border: none;
+        @media (max-width:650px) {
+        padding: 5px 5px;
+    }
     }
 `
 

@@ -11,6 +11,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Order = require("../models/Order");
 const { getDateToday } = require("../helpers/DateFormatter");
 const Feedback = require('../models/Feedback')
+const {v4: uudi} = require('uuid')
 module.exports.signup = async (req, res) => {
   try {
     const customer = new Customer(req.body.values);
@@ -299,6 +300,18 @@ module.exports.checkout = async (req, res) => {
         totalAmount,
       });
     }
+
+    if(checkoutType === "cod") {
+      return res.status(200).json({
+        proceedPayment: true,
+        method: checkoutType,
+        checkoutProducts,
+        checkoutUrl: `${process.env.CLIENT_URL_PROD}/customer/payment`,
+        sessionId:  uudi(),
+        orderId: uudi(),
+        totalAmount,
+      });
+    }
     // return res.status(200).json({checkoutUrl:session.url})
   } catch (error) {
     console.error('hotdog', error.message);
@@ -343,7 +356,7 @@ module.exports.addAppointment = async (req, res) => {
     const { result, success } = await appointment.addAppointment();
 
     return res.status(201).json({
-      msg: success ? "Appointment added" : "something went wrong...",
+      msg: success ? "thank you for submitting appointment please wait for text approvement schedule" : "something went wrong...",
       success,
     });
   } catch (error) {

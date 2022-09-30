@@ -451,3 +451,23 @@ export const CheckOutButton = styled.button`
     color: white;
   }
 `;
+
+export const CodCardButton = styled.button`
+width: 90%;
+  padding: 13px;
+  border-radius: 10px;
+  background: rgb(0,62,204);
+  border: none;
+  color: white;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
+  margin-block: 20px !important;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background: black;
+    color: white;
+  }
+`

@@ -3,12 +3,20 @@ import styled from "styled-components";
 export const PurchasedItemContainer = styled.div`
   display: grid;
   grid-template-columns: 75% 25%;
+
+  @media (max-width:950px) {
+    grid-template-columns: 100%;
+  }
 `;
 
 export const DeliveryInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   text-align: start;
+  @media (max-width:950px) {
+  text-align: center;
+
+  }
 `;
 
 export const Header = styled.header`
@@ -48,6 +56,10 @@ export const DeliveryInfo = styled.div`
     color: gray;
     margin: 30px 20px;
     animation: animateStatus infinite 700ms alternate ease-out;
+
+    @media (max-width:600px) {
+      font-size:5.5em;
+    }
   }
   & > small {
     font-size: 1em;

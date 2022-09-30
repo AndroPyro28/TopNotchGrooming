@@ -26,7 +26,7 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
       setLoading(false)
       toast(msg, {type: 'success'});
 
-      setTimeout( _ => navigate('/customer/profile', {replace: true}), 2500)
+      setTimeout( _ => navigate('/customer/profile', {replace: true}), 5000)
     } catch (error) {
       setLoading(false)
       console.error(error.message);

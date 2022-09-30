@@ -335,6 +335,7 @@ export const CustomerInfoContainer = styled.div`
   & > .customer__info {
     flex: 1;
     margin: 8px 10px;
+    text-transform: capitalize;
   }
 `;
 

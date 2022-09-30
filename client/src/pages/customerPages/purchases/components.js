@@ -18,6 +18,10 @@ export const LinksContainer = styled.div`
   justify-content: space-evenly;
   margin: 20px;
 
+  @media (max-width:650px) {
+  width: 80%;
+
+    }
   & > a {
     text-align: center;
     font-weight: 500;
@@ -26,6 +30,11 @@ export const LinksContainer = styled.div`
     margin: 10px 0px;
     &:hover {
       border-bottom: solid 2px rgb(141, 124, 87);
+    }
+
+    @media (max-width:650px) {
+      margin: 10px;
+      font-size: 1em;
     }
   }
 `;

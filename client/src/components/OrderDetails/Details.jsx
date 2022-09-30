@@ -36,7 +36,7 @@ function Details({data}) {
               <i class="fa-solid fa-phone"></i> {data?.contact}
             </div>
             <div class="customer__info">
-              <i class="fa-solid fa-credit-card"></i> {data?.payment_type}
+              <i class="fa-solid fa-credit-card"></i> {data?.payment_type} Payment
             </div>
             
           </CustomerInfoContainer>

@@ -69,7 +69,7 @@ function Appointment() {
             {
               loading && <Loader bg={"rgba(0, 0, 0, 0.548)"} />
             }
-            <ToastContainer autoClose={1500} />
+            <ToastContainer autoClose={4000} />
             <AppointmentFormInputsContainer>
               <h2>
                 B o o k &nbsp; A n &nbsp; A p p o i n t m e n t &nbsp; O n l i n

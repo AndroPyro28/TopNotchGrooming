@@ -1,5 +1,5 @@
 
-function Gcash({ items, totalAmount, toast,setOpenBilling }) {
+function Gcash({ items, totalAmount, toast, setOpenBilling }) {
   
   const gcashPayment = async () => {
 

@@ -9,7 +9,7 @@ import {
 } from "../../pages/customerPages/cart/cartComponents";
 import Gcash from "./PaymentType/Gcash";
 import Card from "./PaymentType/Card";
-import Paypal from "./PaymentType/Paypal";
+import Cod from "./PaymentType/Cod";
 import shopingCartLogic from "./logic/shopingCartLogic";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 
@@ -51,11 +51,11 @@ function CardDetails({ items, setItems, toast,totalAmount, setTotalAmount, payme
 
           <div
             className={
-              paymentType === "paypal" ? `card activeCardPayment` : "card"
+              paymentType === "cod" ? `card activeCardPayment` : "card"
             }
-            onClick={() => pickPaymentType("paypal")}
+            onClick={() => pickPaymentType("cod")}
           >
-            <img src="/images/imgbin_paypal-png.png" />
+            <img src="/images/cod.jpg" />
           </div>
         </div>
       </CartTypeContainer>
@@ -83,8 +83,8 @@ function CardDetails({ items, setItems, toast,totalAmount, setTotalAmount, payme
         </CheckOutDetails>
       </CheckoutDetailsContainer>
 
-      {paymentType === "paypal" && (
-        <Paypal
+      {paymentType === "cod" && (
+        <Cod
           setOpenBilling={setOpenBilling}
           items={items}
           totalAmount={totalAmount * 0.01 + totalAmount}
