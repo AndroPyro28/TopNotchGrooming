@@ -40,6 +40,7 @@ export const Order = styled.div`
         height: 190px;
         border-radius: 10px;
         object-fit: contain;
+        max-height: 200px;
         @media (max-width:650px) {
             width: 70%;
         }
