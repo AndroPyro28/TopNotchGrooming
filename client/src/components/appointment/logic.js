@@ -1,6 +1,6 @@
 import CustomAxios from "../../customer hooks/CustomAxios";
 
-function Logic({ appointment, id, setData, toast, setAppointments, setLoading}) {
+function Logic({ appointment, id, setData, toast, setAppointments, setLoading, customer}) {
   const dateNtimeFormatter = (dateLocal) => {
     const date = new Date(dateLocal);
 
@@ -36,7 +36,7 @@ function Logic({ appointment, id, setData, toast, setAppointments, setLoading}) 
         },
       }));
       toast("Appointment approved", { type: "success" });
-      const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/approveAppointment/${id}`, values:{appointment}})
+      const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/approveAppointment/${id}`, values:{appointment, customer}})
     } catch (error) {
       console.error(error.message);
     } finally {

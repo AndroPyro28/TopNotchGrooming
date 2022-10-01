@@ -4,7 +4,7 @@ const Appointment = require("../models/Appointment");
 const { assignToken } = require("../helpers/AuthTokenHandler");
 const Order = require("../models/Order");
 const generateId = require("../helpers/GenerateId");
-const { sendTextMessageByStatus } = require("../helpers/TextMessage");
+const { sendTextMessageByStatus, sendTextMessageByAppointment } = require("../helpers/TextMessage");
 const { getDateToday } = require("../helpers/DateFormatter");
 const LiveStreams = require("../models/LiveStreams");
 const getTime = require("../helpers/getTime");
@@ -190,9 +190,11 @@ module.exports.getAppointment = async (req, res) => {
 module.exports.approveAppointment = async (req, res) => {
   try {
     const { id } = req.params;
-    const { appointment } = req.body.values;
+    const { appointment, customer } = req.body.values;
+    // console.log(customer);
     const appointmentModel = new Appointment(appointment);
     const result = await appointmentModel.approveAppointment(id);
+    sendTextMessageByAppointment(appointment, customer)
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({

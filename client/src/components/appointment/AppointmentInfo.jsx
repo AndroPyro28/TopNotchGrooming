@@ -15,10 +15,10 @@ import { ToastContainer, toast } from "react-toastify";
 
 function AppointmentInfo({ data, setData, setLoading }) {
 
-  const { appointment, live_stream_data } = data;
+  const { appointment, live_stream_data, customer } = data;
   const { id } = useParams();
 
-  const { approve, completeSchedule } = Logic({ appointment, id, setData, toast, setLoading});
+  const { approve, completeSchedule } = Logic({ appointment, id, setData, toast, setLoading, customer});
 
   let [formattedDateNTime, setFormattedDateNTime] = useState(null);
 

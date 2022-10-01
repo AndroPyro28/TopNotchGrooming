@@ -1,4 +1,5 @@
 const Vonage = require("@vonage/server-sdk");
+const { dateTimeFormatByText } = require("./dateTimeFormatByText");
 
 module.exports.sendTextMessageByStatus = (status, data, reference) => {
   let textMsg = "";
@@ -6,7 +7,7 @@ module.exports.sendTextMessageByStatus = (status, data, reference) => {
   let {contact} = data;
 
   if (contact.startsWith("09")) {
-    contact = contact.replace("09", "63");
+    contact = contact.replace("09", "639");
   }
   const vonage = new Vonage({
     apiKey: process.env.VONAGE_API_KEY,
@@ -56,6 +57,49 @@ Your order is completed, thank you for ordering our product enjoy!
   const from = "Vonage APIs";
   const to = contact;
 
+  return vonage.message.sendSms(from, to, textMsg, (err, responseData) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (responseData.messages[0]["status"] === "0") {
+        console.log(`Message sent to ${to} successfully.`);
+      } else {
+        console.log(
+          `Message failed with error: ${responseData.messages[0]["error-text"]}`
+        );
+      }
+    }
+  });
+};
+
+
+module.exports.sendTextMessageByAppointment = (appointment, customer) => {
+  let {firstname, lastname, contact} = customer;
+  const {date_n_time, appointment_type} = appointment;
+  const { date, time } = dateTimeFormatByText(date_n_time);
+ 
+  let textMsg = `Good Day ${firstname} ${lastname}! 
+
+  This is a text confirmation that your appointment of ${appointment_type} you issued has been approved, 
+  please come to our store with your pet at ${date} ${time}.
+  
+  Thank you for your patience!
+
+  -TopNotchGrooming-Malolos
+  `;
+  
+  if (contact.startsWith("09")) {
+    contact = contact.replace("09", "639");
+  }
+  const vonage = new Vonage({
+    apiKey: process.env.VONAGE_API_KEY,
+    apiSecret: process.env.VONAGE_API_SECRET,
+  });
+
+
+  const from = "Vonage APIs";
+  const to = contact;
+// console.log(textMsg);
   return vonage.message.sendSms(from, to, textMsg, (err, responseData) => {
     if (err) {
       console.log(err);
