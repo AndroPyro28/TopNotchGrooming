@@ -4,7 +4,8 @@ const {
   orderProductParserList,
   orderProductParserOne,
 } = require("../helpers/orderProductParser");
-
+const moment = require('moment');
+const FormateDateLocal = require('../helpers/FormatDatelocal')
 class Order {
   #reference;
   #customer_id;
@@ -45,14 +46,16 @@ class Order {
 
   addNewOrder = async () => {
     try {
+
       const insertQuery = `INSERT INTO order_details 
       (reference, customer_id, order_date, total_amount, payment_type, billing_address, contact, zip_code, courrier_type)
       VALUES (?,?,?,?,?,?,?,?,?);`;
-
+      const timeStamp = FormateDateLocal(`${moment().format()}`);
+      console.log('after formatting', timeStamp);
       const [result, _] = await poolConnection.execute(insertQuery, [
         this.#reference,
         this.#customer_id,
-        new Date(),
+        timeStamp,
         this.#total_amount,
         this.#payment_type,
         this.#billing_address,

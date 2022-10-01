@@ -375,7 +375,6 @@ module.exports.payment = async (req, res) => {
     const OrderModel = new Order({
       reference: orderId,
       customer_id: req.currentUser.id,
-      order_date: getDateToday(),
       total_amount: totalAmount,
       payment_type: method,
       billing_address: billingAddress,
