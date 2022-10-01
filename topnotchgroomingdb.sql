@@ -175,7 +175,7 @@ CREATE TABLE `order_details` (
   `id` int(11) NOT NULL,
   `reference` varchar(500) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `order_date` datetime(6) NOT NULL,
+  `order_date` varchar(200) NOT NULL,
   `delivery_status` int(11) NOT NULL DEFAULT 0,
   `order_status` varchar(20) NOT NULL DEFAULT 'pending',
   `total_amount` bigint(20) NOT NULL,

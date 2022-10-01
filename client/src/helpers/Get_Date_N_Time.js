@@ -1,7 +1,8 @@
 const Get_Date_N_Time = (dateLocal) => {
     const date = new Date(dateLocal);
+
     let month = date.getMonth() + 1;
-    let day = date.getDate() + 1;
+    let day = date.getDate();
     let year = date.getFullYear();
 
     if (month < 10) {

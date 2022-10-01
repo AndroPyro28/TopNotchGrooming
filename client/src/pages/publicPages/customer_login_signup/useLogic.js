@@ -93,7 +93,7 @@ function useLogic({ toast }) {
       .string()
       .email("This is invalid email")
       .required("This field is required"),
-    phoneNo: yup.string().required().min(11),
+    phoneNo: yup.string().required(),
     address: yup
       .string()
       .required("This field is required"),
