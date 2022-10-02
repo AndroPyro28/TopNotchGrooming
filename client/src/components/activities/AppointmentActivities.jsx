@@ -51,7 +51,7 @@ function AppointmentActivities() {
   const fetchPagination = !loading && <Pagination>
   <i class="fa-solid fa-chevron-left" onClick={() => setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))}></i>{" "}
   <span>{`${currentPage + 1} / ${maxPage}`}</span>
-  <i class="fa-solid fa-chevron-right" onClick={() =>setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))}
+  <i class="fa-solid fa-chevron-right" onClick={() => setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))}
   ></i>
     </Pagination>
 
@@ -62,7 +62,7 @@ function AppointmentActivities() {
 
      {fetchAppointments}
 
-     {fetchPagination}
+     { maxPage > 0 && fetchPagination}
     </UserActivities>
   );
 }

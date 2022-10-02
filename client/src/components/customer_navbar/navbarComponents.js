@@ -101,7 +101,7 @@ export const SearchBarContainer = styled.div`
 
 export const InfoAndCart = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   color: black;
   text-overflow: 1px 3px 5px black;
@@ -210,7 +210,7 @@ export const BotNavbar = styled.section`
 
 export const DropDown = styled.div`
   position: relative;
-
+  margin-right: 20px;
   & > .dropDownBtn {
     padding: 5px;
     cursor: pointer;

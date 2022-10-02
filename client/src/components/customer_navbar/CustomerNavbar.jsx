@@ -54,12 +54,12 @@ function CustomerNavbar() {
           </Link>
         </BrandLogoContainer>
 
-        <SearchBarContainer>
+        {/* <SearchBarContainer>
           <input type="text" placeholder="search..." class="search" />
           <button>
             <i className="fa-solid fa-magnifying-glass"></i> &nbsp; Search
           </button>
-        </SearchBarContainer>
+        </SearchBarContainer> */}
 
         <InfoAndCart>
           <a>

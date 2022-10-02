@@ -252,22 +252,25 @@ function Store() {
           </ProductsContainer>
         )}
 
-        <PaginationNumber>
-          <i
-            class="fa-solid fa-chevron-left left"
-            onClick={() =>
-              setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
-            }
-          ></i>{" "}
-          <span class="activePage">{currentPage + 1}</span> /{" "}
-          <span class="maxPage">{maxPage} </span>{" "}
-          <i
-            class="fa-solid fa-chevron-right right"
-            onClick={() =>
-              setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
-            }
-          ></i>
-        </PaginationNumber>
+    {
+      maxPage > 0 && <PaginationNumber>
+      <i
+        class="fa-solid fa-chevron-left left"
+        onClick={() =>
+          setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
+        }
+      ></i>{" "}
+      <span class="activePage">{currentPage + 1}</span> /{" "}
+      <span class="maxPage">{maxPage} </span>{" "}
+      <i
+        class="fa-solid fa-chevron-right right"
+        onClick={() =>
+          setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
+        }
+      ></i>
+    </PaginationNumber>
+    }
+        
       </ProductsWrapper>
     </StorePageContainer>
   );

@@ -78,7 +78,8 @@ function OrderActivities() {
       
       <h2>Orders</h2>
       {fetchOrders}
-      {fetchPagination}
+     { maxPage > 0 && fetchPagination}
+
     </UserActivities>
   );
 }
