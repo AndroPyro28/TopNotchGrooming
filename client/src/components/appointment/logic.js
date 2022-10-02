@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 function Logic({ appointment, setData, toast, setAppointments, setLoading, customer, live_stream_data}) {
   const navigate = useNavigate()
   const { id } = useParams();
+  
   const dateNtimeFormatter = (dateLocal) => {
     const date = new Date(dateLocal);
     let month = date.getMonth() + 1;

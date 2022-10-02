@@ -114,12 +114,13 @@ export const FeedbackList = styled.div`
 
     & > span {
         position: absolute;
-        bottom: 20px;
+        bottom: 10px;
         left: 0;
         right: 0;
         width: fit-content;
         margin: auto;
         padding: 10px 20px;
+        font-size:1em;
         cursor: pointer;
     }
 
