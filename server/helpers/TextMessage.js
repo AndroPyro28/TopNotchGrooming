@@ -73,20 +73,34 @@ Your order is completed, thank you for ordering our product enjoy!
 };
 
 
-module.exports.sendTextMessageByAppointment = (appointment, customer) => {
+module.exports.sendTextMessageByAppointment = (appointment, customer, status) => {
   let {firstname, lastname, contact} = customer;
   const {date_n_time, appointment_type} = appointment;
   const { date, time } = dateTimeFormatByText(date_n_time);
- 
-  let textMsg = `Good Day ${firstname} ${lastname}! 
+  let textMsg = ''
+  if(status === 'rejected') {
+    textMsg = `Good Day ${firstname} ${lastname}!
+    
+    We announce that your appointment of ${appointment_type} is being rejected, 
+    we apologize for the inconvenience and hoping for your understanding, please issue another appointment with different date and time.
 
-  This is a text confirmation that your appointment of ${appointment_type} you issued has been approved, 
-  please come to our store with your pet at ${date} ${time}.
+    Thank you for your patience!
+
+    -TopNotchGrooming-Malolos
+    `
+  } 
+  if(status === 'approved') {
+    textMsg = `Good Day ${firstname} ${lastname}! 
+
+    This is a text confirmation that your appointment of ${appointment_type} you issued has been approved, 
+    please come to our store with your pet at ${date} ${time}.
+    
+    Thank you for your patience!
   
-  Thank you for your patience!
-
-  -TopNotchGrooming-Malolos
-  `;
+    -TopNotchGrooming-Malolos
+    `;
+  }
+  
   
   if (contact.startsWith("09")) {
     contact = contact.replace("09", "639");
@@ -99,7 +113,7 @@ module.exports.sendTextMessageByAppointment = (appointment, customer) => {
 
   const from = "Vonage APIs";
   const to = contact;
-// console.log(textMsg);
+console.log(textMsg);
   return vonage.message.sendSms(from, to, textMsg, (err, responseData) => {
     if (err) {
       console.log(err);

@@ -75,7 +75,7 @@ const salesChartOption = {
 
 
 
-function DashboardCharts() {
+function DashboardCharts({setOpenFeedbackModal}) {
 
   const labels = [
     "January",
@@ -170,7 +170,7 @@ function DashboardCharts() {
 
       </SalesAndProductsData>
 
-     <Feedback />
+     <Feedback setOpenFeedbackModal={setOpenFeedbackModal}/>
     </DashboardChartsContainer>
   );
 }

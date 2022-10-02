@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import CustomAxios from "../../customer hooks/CustomAxios";
+import { useParams } from "react-router-dom";
 
-function Logic({ appointment, id, setData, toast, setAppointments, setLoading, customer}) {
+function Logic({ appointment, setData, toast, setAppointments, setLoading, customer, live_stream_data}) {
+  const navigate = useNavigate()
+  const { id } = useParams();
   const dateNtimeFormatter = (dateLocal) => {
     const date = new Date(dateLocal);
-
     let month = date.getMonth() + 1;
     let day = date.getDate();
     let year = date.getFullYear();
@@ -26,17 +29,18 @@ function Logic({ appointment, id, setData, toast, setAppointments, setLoading, c
     return { newDate, newTime };
   };
 
-  const approve = async () => {
+  const updateAppointment = async (status) => {
     try {
       setData((prev) => ({
         ...prev,
         appointment: {
           ...prev.appointment,
-          status: "approved",
+          status: status,
         },
       }));
-      toast("Appointment approved", { type: "success" });
-      const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/approveAppointment/${id}`, values:{appointment, customer}})
+        toast(`Appointment ${status}`, { type: "info" });
+      
+      const response = await CustomAxios({METHOD:"PATCH", uri:`/api/admin/updateAppointment/${id}`, values:{appointment, customer, status }})
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -81,11 +85,21 @@ function Logic({ appointment, id, setData, toast, setAppointments, setLoading, c
     }
   }
 
+  const deleteAppointment = async () => {
+    try {
+      const result = await CustomAxios({METHOD: "DELETE", uri:`/api/admin/deleteAppointment/${id}=${live_stream_data.id}`,});
+      navigate(-1)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   return {
     dateNtimeFormatter,
-    approve,
+    updateAppointment,
     sortDataByShift,
-    completeSchedule
+    completeSchedule,
+    deleteAppointment
   };
 }
 

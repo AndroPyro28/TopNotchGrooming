@@ -307,3 +307,98 @@ export const TeamContent = styled.div`
     -moz-box-shadow: -5px -2px 8px -1px rgba(135, 135, 135, 0.75);
   }
 `;
+
+export const FeedbackSection = styled.div`
+  display: flex;
+  flex-direction: column;
+    font-size: 1.5em;
+    color: rgb(255, 219, 168);
+    margin: 30px;
+
+    display: flex;
+  flex-direction: column;
+
+  @media (max-width: 700px) {
+    & {
+      margin: 0px;
+    }
+  }
+
+
+  & > .ServiceContentContainer {
+    display: flex;
+  justify-content: space-evenly;
+  @media (max-width: 900px) {
+    & {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  }
+  `
+
+export const FeedbackContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: gray;
+  max-width: 280px;
+  padding: 20px;
+  background: rgb(255, 247, 236);
+  border-radius: 20px;
+  margin: 50px;
+  max-height: 350px;
+  min-height: 350px;
+  @media (max-width: 900px) {
+    & {
+      max-width: 50%;
+    }
+  }
+
+  @media (max-width: 700px) {
+    & {
+      max-width: 80%;
+      padding: 5px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    & {
+      max-width: 100%;
+    }
+  }
+`
+
+export const User = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin: 10px;
+  align-items: center;
+  & > img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  & > span {
+    font-size: 0.6em;
+    margin-inline: 10px;
+    align-self: flex-start;
+  }
+
+  & > i {
+    font-size: 0.6em;
+    color: rgb(248,173,62);
+    align-self: flex-start;
+    margin-inline: 2px;
+  }
+`
+
+export const Comments = styled.p`
+  text-overflow: ellipsis;
+  white-space: pre-wrap ;
+  overflow: hidden;
+  font-size: 0.6em;
+  text-align: start;
+  margin: 10px;
+`

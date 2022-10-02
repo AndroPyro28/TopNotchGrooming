@@ -21,6 +21,7 @@ const PORT = process.env.PORT || 3001;
 app.use('/api/customer', require('./routes/customerRoutes'))
 app.use('/api/admin', require('./routes/adminRoutes'))
 app.use('/api/products', require('./routes/productRoutes'));
+app.use('/api/public', require('./routes/publicRoutes'));
 
 const server = require('http').createServer(app);
 

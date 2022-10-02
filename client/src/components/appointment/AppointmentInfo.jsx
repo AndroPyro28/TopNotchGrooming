@@ -18,7 +18,7 @@ function AppointmentInfo({ data, setData, setLoading }) {
   const { appointment, live_stream_data, customer } = data;
   const { id } = useParams();
 
-  const { approve, completeSchedule } = Logic({ appointment, id, setData, toast, setLoading, customer});
+  const { updateAppointment, completeSchedule, deleteAppointment } = Logic({ appointment, id, setData, toast, setLoading, customer, live_stream_data});
 
   let [formattedDateNTime, setFormattedDateNTime] = useState(null);
 
@@ -124,8 +124,8 @@ function AppointmentInfo({ data, setData, setLoading }) {
 
       {appointment?.status === "pending" && (
         <InfoRow style={{ justifyContent: "center" }}>
-          <button className="reject">Reject</button>
-          <button className="approve" onClick={approve}>
+          <button className="reject" onClick={() => updateAppointment('rejected')}>Reject</button>
+          <button className="approve" onClick={() => updateAppointment('approved')}>
             Approve
           </button>
         </InfoRow>
@@ -143,6 +143,20 @@ function AppointmentInfo({ data, setData, setLoading }) {
             </button>
           </InfoRow>
         )}
+
+        {
+            appointment?.status === 'completed' &&
+            (<InfoRow style={{ justifyContent: "center" }}>
+            <button className="reject" onClick={deleteAppointment}>delete</button>
+          </InfoRow>)
+        }
+
+{
+            appointment?.status === 'rejected' &&
+            (<InfoRow style={{ justifyContent: "center" }}>
+            <button className="reject" onClick={deleteAppointment}>delete</button>
+          </InfoRow>)
+        }
 
     </AppointmentInfoContainer>
   );

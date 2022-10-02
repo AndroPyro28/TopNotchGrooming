@@ -150,14 +150,13 @@ class Appointment {
     }
   };
 
-  approveAppointment = async (id) => {
+  updateAppointment = async (id, status) => {
     try {
-      this.#status = "approved";
       const updateQuery = `UPDATE appointments SET date_n_time = ?, status = ? WHERE id = ?;`;
 
       const [result, _] = await poolConnection.execute(updateQuery, [
         this.#date_n_time,
-        this.#status,
+        status,
         id,
       ]);
 
@@ -234,6 +233,26 @@ class Appointment {
       return result;
     } catch (error) {
       console.error(error.message)
+    }
+  }
+
+  deleteAppointment = async (appointmentId, liveStreamId) => {
+    try {
+      const multipleQuery = `
+      ${
+        !liveStreamId || liveStreamId == 'null' ? '' : `UPDATE appointments SET live_stream_id = NULL WHERE id =  ?;
+        DELETE FROM live_streams WHERE id =  ?;`
+      }
+      DELETE FROM appointments WHERE id = ?;`;
+      const [result, _ ] = await poolConnection.query(multipleQuery, 
+        !liveStreamId || liveStreamId == 'null'?
+        [appointmentId] :
+        [appointmentId, liveStreamId, appointmentId ]
+        );
+      return result
+    } catch (error) {
+      console.error('sql error', error.message)
+      
     }
   }
 }

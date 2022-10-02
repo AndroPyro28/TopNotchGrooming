@@ -2,10 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import CustomAxios from "../../customer hooks/CustomAxios";
+import { FeedbackListContainer } from "../modals/admin_modals/feeback/components";
 import { FeedbackList } from "./components";
 import Feedbackdata from "./Feedbackdata";
 
-function Feedback() {
+function Feedback({setOpenFeedbackModal}) {
 
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true)
@@ -38,12 +39,12 @@ function Feedback() {
   <h2>loading feedbacks...</h2> : 
   feedbacks.length === 0 ? 
   <h2>No feedbacks found!</h2> : feedbacks.map(data => <Feedbackdata key={data.id} data={data} />)
-
   return (
     <FeedbackList>
-        <h1>Feedbacks</h1>
-
-        {fetchFeedbacks}
+        <FeedbackListContainer>
+          {fetchFeedbacks}
+        </FeedbackListContainer>
+        <span onClick={() => setOpenFeedbackModal(true)}>View feedbacks</span>
     </FeedbackList>
   );
 }

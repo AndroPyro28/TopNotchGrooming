@@ -1,56 +1,87 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   IndexPageContainer,
   CarouselWrapper,
   CarouselContainer,
   CarouselSlider,
   ServicesSection,
-  ServiceContentContainer,
   ServiceContent,
   OurTeamSection,
-  TeamSectionContainer,
-  TeamContent
+  TeamContent,
+  FeedbackSection,
 } from "./indexComponents";
-
-import {motion} from "framer-motion";
+import CustomAxios from "../../../customer hooks/CustomAxios";
+import { motion } from "framer-motion";
+import FeedbackContent from "./FeedbackContent";
 
 function Index() {
   const [pageContent, setPageContent] = useState(0);
-
+  const [feedbacks, setFeedbacks] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await CustomAxios({
+          METHOD: "GET",
+          uri: "/api/public/getFirstThreeFeedback",
+        });
+        console.log(res);
+        setFeedbacks(res);
+      } catch (error) {
+        console.error("error here", error.message);
+      }
+    })();
+  }, []);
   const slidePage = (direction) => {
     setPageContent((prev) => {
       if (direction === "left") {
         return prev > 0 ? prev - 1 : 2;
       } else {
-        return prev < 2 ? prev + 1 : 0; 
+        return prev < 2 ? prev + 1 : 0;
       }
     });
   };
 
   const childVariants = {
     initial: {
-      x:"-100vw"
+      x: "-100vw",
     },
     animate: {
-      x:0,
+      x: 0,
       transition: {
-        delay:0.2,
-      }
-    }
-  }
+        delay: 0.2,
+      },
+    },
+  };
 
   const cardVariants = {
     initial: {
-      opacity:0,
+      opacity: 0,
     },
     animate: {
       opacity: 1,
       transition: {
-        delay:0.5
-      }
-    }
-  }
+        delay: 0.5,
+      },
+    },
+  };
 
+  const fetchFeedbacks = <FeedbackSection>
+  <motion.h1 variants={childVariants} animate="animate" initial="initial">
+    Our Feedbacks
+  </motion.h1>
+
+  <motion.div
+    className="ServiceContentContainer"
+    variants={cardVariants}
+    animate="animate"
+    initial="initial"
+  >
+    {
+      feedbacks.map((data) => <FeedbackContent data={data} />)
+    }
+
+  </motion.div>
+</FeedbackSection>
   return (
     <IndexPageContainer>
       <CarouselSlider>
@@ -69,14 +100,12 @@ function Index() {
           }}
         >
           <CarouselContainer>
-            <motion.img src="/images/lurkingDog.png"
-            
-            />
+            <motion.img src="/images/lurkingDog.png" />
             <div className="carousel__content">
               <motion.h1
                 whileDrag={{
-                  scale:1,
-                  cursor:"grabbing"
+                  scale: 1,
+                  cursor: "grabbing",
                 }}
                 drag
                 dragConstraints={{ left: 5, top: 5, right: 5, bottom: 5 }}
@@ -96,8 +125,8 @@ function Index() {
             <div className="carousel__content">
               <motion.h1
                 whileDrag={{
-                  scale:1,
-                  cursor:"grabbing"
+                  scale: 1,
+                  cursor: "grabbing",
                 }}
                 drag
                 dragConstraints={{ left: 5, top: 5, right: 5, bottom: 5 }}
@@ -116,8 +145,8 @@ function Index() {
             <div className="carousel__content">
               <motion.h1
                 whileDrag={{
-                  scale:1,
-                  cursor:"grabbing"
+                  scale: 1,
+                  cursor: "grabbing",
                 }}
                 drag
                 dragConstraints={{ left: 5, top: 5, right: 5, bottom: 5 }}
@@ -134,103 +163,103 @@ function Index() {
           </CarouselContainer>
         </CarouselWrapper>
       </CarouselSlider>
-
-      <ServicesSection>
       
-          <motion.h1
-            variants={childVariants}
-            animate="animate"
-            initial="initial"
-          >
-            OUR SERVICES
-          </motion.h1>
+      <ServicesSection>
+        <motion.h1 variants={childVariants} animate="animate" initial="initial">
+          OUR SERVICES
+        </motion.h1>
 
-          <motion.div className="ServiceContentContainer"
+        <motion.div
+          className="ServiceContentContainer"
           variants={cardVariants}
           animate="animate"
           initial="initial"
-          >
-
-            <ServiceContent>
+        >
+          <ServiceContent>
             <i className="fa-solid fa-paw"></i>
             <h1>Pet Grooming</h1>
 
-            <p>We do pet grooming, making your pet good looking and unlock it's best appearance</p>
-            </ServiceContent>
+            <p>
+              We do pet grooming, making your pet good looking and unlock it's
+              best appearance
+            </p>
+          </ServiceContent>
 
-            <ServiceContent>
+          <ServiceContent>
             <i class="fa-solid fa-truck-fast"></i>
             <h1>Shipping</h1>
 
             <p>We ship products fast and secured for affordable price</p>
-            </ServiceContent>
+          </ServiceContent>
 
-            <ServiceContent>
-            <i class="fa-solid fa-bone" style={{
-              transform:"rotate(-50deg)"
-            }}></i>
+          <ServiceContent>
+            <i
+              class="fa-solid fa-bone"
+              style={{
+                transform: "rotate(-50deg)",
+              }}
+            ></i>
             <h1>Online Pet Store</h1>
 
-            <p>We sell pet foods, needs, utility and health care for their needs.</p>
-            </ServiceContent>
-
-          </motion.div>
-          
+            <p>
+              We sell pet foods, needs, utility and health care for their needs.
+            </p>
+          </ServiceContent>
+        </motion.div>
       </ServicesSection>
 
+      {
+        feedbacks?.length > 0 && fetchFeedbacks
+      }
+
       <OurTeamSection>
-            <motion.h1
-             variants={childVariants}
-             animate="animate"
-             initial="initial"
-            >Meet Our Team</motion.h1>
+        <motion.h1 variants={childVariants} animate="animate" initial="initial">
+          Meet Our Team
+        </motion.h1>
 
-            <motion.div className="TeamSectionContainer"
-              variants={cardVariants}
-              animate="animate"
-             initial="initial"
-            >
+        <motion.div
+          className="TeamSectionContainer"
+          variants={cardVariants}
+          animate="animate"
+          initial="initial"
+        >
+          <TeamContent>
+            <img src="/images/doc1.jpg" />
+            <h1>Dr.Jean</h1>
+            <label>Veterenary</label>
+          </TeamContent>
 
-              <TeamContent>
-                <img src='/images/doc1.jpg' />
-                <h1>Dr.Jean</h1>
-                <label>Veterenary</label>
-              </TeamContent>
+          <TeamContent>
+            <img src="/images/doc2.jpg" />
+            <h1>Dr.Jean</h1>
+            <label>Veterenary</label>
+          </TeamContent>
 
-              <TeamContent>
-                <img src='/images/doc2.jpg' />
-                <h1>Dr.Jean</h1>
-                <label>Veterenary</label>
-              </TeamContent>
+          <TeamContent>
+            <img src="/images/doc3.jpg" />
+            <h1>Dr.Jean</h1>
+            <label>Veterenary</label>
+          </TeamContent>
 
-              <TeamContent>
-                <img src='/images/doc3.jpg' />
-                <h1>Dr.Jean</h1>
-                <label>Veterenary</label>
-              </TeamContent>
+          <TeamContent>
+            <img src="/images/doc4.jpg" />
+            <h1>Dr.Jean</h1>
+            <label>Veterenary</label>
+          </TeamContent>
 
-              <TeamContent>
-                <img src='/images/doc4.jpg' />
-                <h1>Dr.Jean</h1>
-                <label>Veterenary</label>
-              </TeamContent>
+          <TeamContent>
+            <img src="/images/doc5.jpg" />
+            <h1>Dr.Jean</h1>
+            <label>Veterenary</label>
+          </TeamContent>
 
-              <TeamContent>
-                <img src='/images/doc5.jpg' />
-                <h1>Dr.Jean</h1>
-                <label>Veterenary</label>
-              </TeamContent>
-
-              <TeamContent>
-                <img src='/images/doc6.jpg' />
-                <h1>Dr.Jean</h1>
-                <label>Veterenary</label>
-              </TeamContent>
-
-            </motion.div>
+          <TeamContent>
+            <img src="/images/doc6.jpg" />
+            <h1>Dr.Jean</h1>
+            <label>Veterenary</label>
+          </TeamContent>
+        </motion.div>
       </OurTeamSection>
-
-
     </IndexPageContainer>
   );
 }

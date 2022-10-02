@@ -74,13 +74,13 @@ export const MonthlySalesChartsContainer = styled.div`
 
 `
 export const FeedbackList = styled.div`
-    padding: 70px 10px 20px 10px;
+    padding: 20px 10px 70px 10px;
     display: flex;
     flex-direction: column;
     background:white;
     border-radius: 10px;
-    max-height: 460px;
-    height: 460px;
+    max-height: 445px;
+    height: 445px;
     overflow: auto;
     position: relative;
     @media (max-width:1000px) {
@@ -110,6 +110,17 @@ export const FeedbackList = styled.div`
     & > p {
         color: black;
         font-weight: 500;
+    }
+
+    & > span {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        width: fit-content;
+        margin: auto;
+        padding: 10px 20px;
+        cursor: pointer;
     }
 
 `
@@ -300,6 +311,10 @@ export const FeedbackdataContainer = styled.div`
         & > span {
             font-size: 1em;
             margin: 10px;
+
+            & > i {
+                margin-inline:5px;
+            }
         }
         & > p {
             font-size: 0.7em;

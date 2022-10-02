@@ -187,14 +187,13 @@ module.exports.getAppointment = async (req, res) => {
   }
 };
 
-module.exports.approveAppointment = async (req, res) => {
+module.exports.updateAppointment = async (req, res) => {
   try {
     const { id } = req.params;
-    const { appointment, customer } = req.body.values;
-    // console.log(customer);
+    const { appointment, customer, status } = req.body.values;
     const appointmentModel = new Appointment(appointment);
-    const result = await appointmentModel.approveAppointment(id);
-    sendTextMessageByAppointment(appointment, customer)
+    const result = await appointmentModel.updateAppointment(id, status);
+    sendTextMessageByAppointment(appointment, customer, status)
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({
@@ -432,3 +431,52 @@ module.exports.saleReport = async (req, res) => {
     });
   }
 };
+
+module.exports.pinFeedback = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {pin} = req.body.values
+    const feedbackModel = new Feedback({});
+    const result = await feedbackModel.pinFeedback(id, pin)
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error.message)
+    return res.status(400).json({
+      msg: "something went wrong",
+      success: false,
+    });
+  }
+}
+
+module.exports.deleteFeedback = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const feedbackModel = new Feedback({});
+    const result = await feedbackModel.deleteFeedback(id)
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error.message)
+    return res.status(400).json({
+      msg: "something went wrong",
+      success: false,
+    });
+  }
+}
+
+module.exports.deleteAppointment = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const appointmentId = id.split('=')[0];
+    const liveStreamId = id.split('=')[1];
+    const appointmentModel = new Appointment({});
+    const result = await appointmentModel.deleteAppointment(appointmentId, liveStreamId);
+    console.log(result)
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error('controller error', error.message)
+    return res.status(400).json({
+      msg: "something went wrong",
+      success: false,
+    });
+  }
+}
