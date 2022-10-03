@@ -33,10 +33,15 @@ function OrderActivities() {
     })();
   }, []);
 
+  // const fetchAppointments = appointments
+  // ?.slice(10 * currentPage, 10 * currentPage + 10)
+  // ?.map((data) => <AppointmentData key={data.id} data={data} />);
+
+
   const fetchOrders = loading ? (
     <h4>Loading activities...</h4>
   ) : orders?.length > 0 ? (
-    orders.map((order, index) => {
+    orders?.slice(6 * currentPage, 6 * currentPage + 6)?.map((order, index) => {
       return (
         <RowInfo key={index}>
           <Activity status={order.order_status}>

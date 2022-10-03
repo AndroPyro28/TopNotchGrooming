@@ -22,6 +22,9 @@ function LiveStreamModal({ setToggleModal }) {
   const [loading, setLoading] = useState(true);
   const [scheduleList, setScheduleList] = useState([]);
   const [scheduleInfo, setScheduleInfo] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [maxPage, setMaxPage] = useState(0);
+
   const navigate = useNavigate()
   
   useEffect(() => {
@@ -57,6 +60,7 @@ function LiveStreamModal({ setToggleModal }) {
         }
 
         setScheduleList(result);
+        setMaxPage(Math.ceil(result.length / 10));
       } catch (error) {
         console.log(error.message);
       } finally {
@@ -68,6 +72,13 @@ function LiveStreamModal({ setToggleModal }) {
   const { startStream } = Logic({linkId, scheduleInfo, toast});
 
   if (loading) return <Loader bg={`rgba(0, 0, 0, 0.548)`} />;
+
+  const fetchSchedule = scheduleList?.slice(4 * currentPage, 4 * currentPage + 4)?.map((schedule) => <Schedule
+    key={schedule.appointment.id}
+    data={schedule}
+    scheduleInfo={scheduleInfo}
+    setScheduleInfo={setScheduleInfo}
+  />)
 
   return (
     <BackdropModal>
@@ -82,23 +93,17 @@ function LiveStreamModal({ setToggleModal }) {
         <ScheduleList>
           {scheduleList.length === 0 ? (
             <h2 style={{ color: "gray" }}>No Schedule today...</h2>
-          ) : (
-            scheduleList.map((schedule) => (
-              <Schedule
-                key={schedule.appointment.id}
-                data={schedule}
-                scheduleInfo={scheduleInfo}
-                setScheduleInfo={setScheduleInfo}
-              />
-            ))
-          )}
+          ) : fetchSchedule }
         </ScheduleList>
 
-        <PaginationContainer>
-          <i class="fa-solid fa-chevron-left left"></i> 1 / 2{" "}
-          <i class="fa-solid fa-chevron-right right"></i>
-        </PaginationContainer>
+        
 
+            {
+              maxPage > 0 && <PaginationContainer>
+              <i class="fa-solid fa-chevron-left left"></i> 1 / 2{" "}
+              <i class="fa-solid fa-chevron-right right"></i>
+            </PaginationContainer>
+            }
         <ButtonContainer>
           <button className="cancelBtn" onClick={() => setToggleModal(false)}>
             Cancel

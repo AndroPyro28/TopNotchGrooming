@@ -224,38 +224,38 @@ function Index() {
           initial="initial"
         >
           <TeamContent>
-            <img src="/images/doc1.jpg" />
-            <h1>Dr.Jean</h1>
+            <img src="/images/defaultImage.png" />
+            <h1> Veterenary 1 </h1>
             <label>Veterenary</label>
           </TeamContent>
 
           <TeamContent>
-            <img src="/images/doc2.jpg" />
-            <h1>Dr.Jean</h1>
+          <img src="/images/defaultImage.png" />
+            <h1> Veterenary 2 </h1>
             <label>Veterenary</label>
           </TeamContent>
 
           <TeamContent>
-            <img src="/images/doc3.jpg" />
-            <h1>Dr.Jean</h1>
+          <img src="/images/defaultImage.png" />
+            <h1> Veterenary 3 </h1>
             <label>Veterenary</label>
           </TeamContent>
 
           <TeamContent>
-            <img src="/images/doc4.jpg" />
-            <h1>Dr.Jean</h1>
+          <img src="/images/defaultImage.png" />
+            <h1> Veterenary 4 </h1>
             <label>Veterenary</label>
           </TeamContent>
 
           <TeamContent>
-            <img src="/images/doc5.jpg" />
-            <h1>Dr.Jean</h1>
+          <img src="/images/defaultImage.png" />
+            <h1> Veterenary 5 </h1>
             <label>Veterenary</label>
           </TeamContent>
 
           <TeamContent>
-            <img src="/images/doc6.jpg" />
-            <h1>Dr.Jean</h1>
+          <img src="/images/defaultImage.png" />
+            <h1> Veterenary 6 </h1>
             <label>Veterenary</label>
           </TeamContent>
         </motion.div>

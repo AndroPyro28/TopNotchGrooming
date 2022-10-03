@@ -129,22 +129,24 @@ function AppointmentList() {
           </h1>
         )}
       </AdminListContainer>
-
-      <Pagination>
-        <i
-          class="fa-solid fa-chevron-left"
-          onClick={() =>
-            setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
+          {
+            maxPage > 0 && <Pagination>
+            <i
+              class="fa-solid fa-chevron-left"
+              onClick={() =>
+                setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
+              }
+            ></i>{" "}
+            <span>{`${currentPage + 1} / ${maxPage}`}</span>
+            <i
+              class="fa-solid fa-chevron-right"
+              onClick={() =>
+                setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
+              }
+            ></i>
+          </Pagination>
           }
-        ></i>{" "}
-        <span>{`${currentPage + 1} / ${maxPage}`}</span>
-        <i
-          class="fa-solid fa-chevron-right"
-          onClick={() =>
-            setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
-          }
-        ></i>
-      </Pagination>
+      
     </>
   );
 }
