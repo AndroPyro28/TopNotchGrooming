@@ -198,6 +198,31 @@ class Order {
       console.error(error.message);
     }
   };
+
+  findOrderById = async (id) => {
+    try {
+      const selectQuery = `SELECT * FROM order_details WHERE id = ?`;
+      const [result, _] = await poolConnection.execute(selectQuery, [id]);
+      return result;
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  cancelOrder = async (id) => {
+    try {
+      const order = await this.findOrderById(id);
+      if(order.length > 0 && order[0].delivery_status <= 2) {
+        const updateQuery = `UPDATE order_details SET order_status = ?, delivery_status = ? WHERE id = ?;`;
+        const [result, _] = await poolConnection.execute(updateQuery, ['cancelled', -1, id]);
+        return result;
+      } else {
+        throw new Error('cannot cancel order')
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 }
 
 module.exports = Order;

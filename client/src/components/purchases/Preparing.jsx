@@ -42,7 +42,7 @@ function Preparing() {
       ) : (
         orders.slice(0).reverse().map((order) => {
           return (
-            <PreparingOrder key={order.id} data={order} />
+            <PreparingOrder key={order.id} data={order} setOrders={setOrders} />
           );
         })
       )}

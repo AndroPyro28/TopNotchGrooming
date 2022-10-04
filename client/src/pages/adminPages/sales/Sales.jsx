@@ -29,7 +29,7 @@ function Sales() {
         if(msg?.includes('session expired') && !success) {
           return window.location.reload();
         }
-         const totalSales = data?.reduce((total, currentIteration)=> total + currentIteration.total_amount, 0);
+         const totalSales = data?.reduce((total, currentIteration)=> currentIteration.order_status !== 'cancelled' ? total + currentIteration.total_amount : total, 0);
          setOrders(data);
          setTotalSalesByDateBetween(prev => totalSales)
       } catch (error) {
@@ -42,7 +42,6 @@ function Sales() {
     <SaleContainerPage>
       <GlobalStyles />
       <SalesData />
-
       <FilterDataContainer>
         <Title>Total sales: {productPriceFormatter(totalSalesByDateBetween)}</Title>
         <FilterData dateSetter={{ setFilterDateFrom, setFilterDateTo }} />

@@ -92,24 +92,43 @@ function DashboardCharts({setOpenFeedbackModal}) {
     "December",
   ];
 
+  // const [salesData, setSalesData] = useState([]);
+  // const [transactionsData, setTransactionsData] = useState([]);
+
+  // const [overAllSales, setOverAllSales] = useState(0);
+  // const [totalSalesToday, setTotalSalesToday] = useState(0);
+  // const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] = useState(0)
+
   const [salesData, setSalesData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
-
+  const [cancelledTransactionsData, setCancelledTransactionsData] = useState([]);
   const [overAllSales, setOverAllSales] = useState(0);
   const [totalSalesToday, setTotalSalesToday] = useState(0);
-  const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] = useState(0)
-
+  const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] =
+    useState(0);
+    const [totalNumberOfAllCancelledTransactions, setTotalNumberOfAllCancelledTransactions] =
+    useState(0);
   useEffect(() => {
     (async () => {
       const result = await CustomAxios({ METHOD: "GET", uri: "/api/admin/dashboard" });
       const salesArr = new Array(12);
       const monthlyTransactions = new Array(12);
+      const monthlyCancelledTransactions = new Array(12);
       const { data, success, msg } = result;
-      const { monthlySales, overAllSales, totalSalesToday, totalNumberOfAllTransactions, totalTransactionsPerMonth } = data;
+      const 
+      { monthlySales, 
+        overAllSales, 
+        totalSalesToday, 
+        totalNumberOfAllTransactions, 
+        totalTransactionsPerMonth,
+        totalCancelledTransactionsPerMonth,
+        totalCancelledTransactions,
+       } = data;
       if (!success && msg?.includes("session expired")) {
         return window.location.reload();
       }
 
+      setTotalNumberOfAllCancelledTransactions(totalCancelledTransactions)
       setOverAllSales(overAllSales);
       setTotalSalesToday(totalSalesToday);
       setTotalNumberOfAllTransactions(totalNumberOfAllTransactions);
@@ -120,8 +139,11 @@ function DashboardCharts({setOpenFeedbackModal}) {
       for (const transaction in totalTransactionsPerMonth) {
         monthlyTransactions[transaction] = totalTransactionsPerMonth[transaction];
       }
-
-      setSalesData(salesArr)
+      for (const transaction in totalCancelledTransactionsPerMonth) {
+        monthlyCancelledTransactions[transaction] = totalCancelledTransactionsPerMonth[transaction];
+      }
+      setCancelledTransactionsData(monthlyCancelledTransactions)
+      setSalesData(salesArr);
       setTransactionsData(monthlyTransactions);
     })()
   }, [])
@@ -138,12 +160,21 @@ function DashboardCharts({setOpenFeedbackModal}) {
       },
       {
         type: "bar",
-        label: "Monthly Transactions",
+        label: "Monthly Successful Transactions",
         backgroundColor: "#a6b7f1",
         data: transactionsData,
         borderColor: "white",
         borderWidth: 2,
-        borderRadius: 100
+        borderRadius: 100,
+      },
+      {
+        type: "bar",
+        label: "Monthly Cancelled Transactions",
+        backgroundColor: "rgb(229, 111, 139)",
+        data: cancelledTransactionsData,
+        borderColor: "white",
+        borderWidth: 2,
+        borderRadius: 100,
       },
     ],
   };
@@ -156,7 +187,8 @@ function DashboardCharts({setOpenFeedbackModal}) {
         <DataContainer>
           <DataInformation icon={'fa-solid fa-ranking-star'} data={totalSalesToday} title="Total sales today" />
           <DataInformation icon={'fa-solid fa-bag-shopping'} data={overAllSales} title={`Total sales for ${new Date().getFullYear()}`} />
-          <DataInformation icon={'fa-solid fa-cash-register'} data={totalNumberOfAllTransactions} title="Total number of all transactions" />
+          <DataInformation icon={'fa-solid fa-cash-register'} data={totalNumberOfAllTransactions} title="Total sucessful transactions" />
+          <DataInformation  icon={"fa-solid fa-cash-register"}data={totalNumberOfAllCancelledTransactions} title="Total cancelled transactions"/>
         </DataContainer>
 
         <MonthlySalesChartsContainer>

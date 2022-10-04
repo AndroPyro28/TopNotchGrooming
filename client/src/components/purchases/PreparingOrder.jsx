@@ -2,10 +2,17 @@ import React from "react";
 import { Order, Info, Row, CancelButton, ViewButton } from "./components";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 import {useNavigate} from "react-router-dom";
-
-function PreparingOrder({data}) {
+import CustomAxios from "../../customer hooks/CustomAxios"
+function PreparingOrder({data, setOrders}) {
   const navigate = useNavigate();
-
+  const cancelOrder = async () => {
+    try {
+      const res = await CustomAxios({METHOD:'PATCH', uri: `/api/customer/cancelOrder/${data.id}`});
+      setOrders(prev => prev.filter(order => order.id != data.id));
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
   return (
     <Order key={data.id}>
       <img src={data.products[0].imageUrl} />
@@ -33,7 +40,7 @@ function PreparingOrder({data}) {
         <ViewButton className="" onClick={() => navigate(`/customer/purchases/${data.reference}`)}>
             View Order
           </ViewButton>
-          <CancelButton className="" onClick={() => console.log("no")}>
+          <CancelButton className="" onClick={cancelOrder}>
             Cancel Order
           </CancelButton>
         </Row>

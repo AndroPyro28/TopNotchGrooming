@@ -97,9 +97,12 @@ ChartJS.register(
 function SalesData() {
   const [salesData, setSalesData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
+  const [cancelledTransactionsData, setCancelledTransactionsData] = useState([]);
   const [overAllSales, setOverAllSales] = useState(0);
   const [totalSalesToday, setTotalSalesToday] = useState(0);
   const [totalNumberOfAllTransactions, setTotalNumberOfAllTransactions] =
+    useState(0);
+    const [totalNumberOfAllCancelledTransactions, setTotalNumberOfAllCancelledTransactions] =
     useState(0);
 
   useEffect(() => {
@@ -110,6 +113,7 @@ function SalesData() {
       });
       const salesArr = new Array(12);
       const monthlyTransactions = new Array(12);
+      const monthlyCancelledTransactions = new Array(12);
       const { data, success, msg } = result;
       const {
         monthlySales,
@@ -117,11 +121,14 @@ function SalesData() {
         totalSalesToday,
         totalNumberOfAllTransactions,
         totalTransactionsPerMonth,
+        totalCancelledTransactionsPerMonth,
+        totalCancelledTransactions,
       } = data;
       if (!success && msg?.includes("session expired")) {
         return window.location.reload();
       }
 
+      setTotalNumberOfAllCancelledTransactions(totalCancelledTransactions)
       setOverAllSales(overAllSales);
       setTotalSalesToday(totalSalesToday);
       setTotalNumberOfAllTransactions(totalNumberOfAllTransactions);
@@ -130,13 +137,16 @@ function SalesData() {
         salesArr[sale] = monthlySales[sale];
       }
       for (const transaction in totalTransactionsPerMonth) {
-        monthlyTransactions[transaction] =
-          totalTransactionsPerMonth[transaction];
+        monthlyTransactions[transaction] = totalTransactionsPerMonth[transaction];
       }
-
+      for (const transaction in totalCancelledTransactionsPerMonth) {
+        monthlyCancelledTransactions[transaction] = totalCancelledTransactionsPerMonth[transaction];
+      }
+      setCancelledTransactionsData(monthlyCancelledTransactions)
       setSalesData(salesArr);
       setTransactionsData(monthlyTransactions);
     })();
+    
   }, []);
   const data = {
     labels,
@@ -150,9 +160,18 @@ function SalesData() {
       },
       {
         type: "bar",
-        label: "Monthly Transactions",
+        label: "Monthly Successful Transactions",
         backgroundColor: "#a6b7f1",
         data: transactionsData,
+        borderColor: "white",
+        borderWidth: 2,
+        borderRadius: 100,
+      },
+      {
+        type: "bar",
+        label: "Monthly Cancelled Transactions",
+        backgroundColor: "rgb(229, 111, 139)",
+        data: cancelledTransactionsData,
         borderColor: "white",
         borderWidth: 2,
         borderRadius: 100,
@@ -176,7 +195,12 @@ function SalesData() {
         <SaleInfo
           icon={"fa-solid fa-cash-register"}
           data={totalNumberOfAllTransactions}
-          title="Total number of all transactions"
+          title="Total successful transactions"
+        />
+        <SaleInfo
+          icon={"fa-solid fa-cash-register"}
+          data={totalNumberOfAllCancelledTransactions}
+          title="Total cancelled transactions"
         />
         {/* <SaleInfo /> */}
       </DataContainer1>

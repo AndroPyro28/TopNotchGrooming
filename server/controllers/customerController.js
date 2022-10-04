@@ -513,6 +513,21 @@ module.exports.submitFeedback = async (req, res) => {
   }
 }
 
+module.exports.cancelOrder = async (req, res) => {
+  try {
+   const {id} = req.params;
+
+   const OrderModel = new Order({});
+   const result = await OrderModel.cancelOrder(id);
+
+   if(!result) {
+    throw new Error('Order did not cancelled');
+   }
+   return res.status(200).json(result);
+  } catch (error) {
+    console.error(error)
+  }
+}
 module.exports.paymentsuccess = async (req, res) => {
   console.log(':::::GCASH API POST::::', req.body)
 }

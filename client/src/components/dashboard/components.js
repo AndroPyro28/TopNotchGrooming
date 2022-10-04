@@ -136,27 +136,27 @@ export const DataInformationContainer = styled.div`
     border-radius: 10px;
     margin: 10px 10px;
     height: fit-content;
+    max-height: 120px;
     /* flex: 1.3; */
     flex: 1;
     background: white;
     color: #a6b7f1;
     font-weight: 500;
-
     
     & > i {
         padding: 10px;
         background: #F1F5FB;
         border-radius: 5px;
         width: fit-content;
-        margin: 5px;
-        font-size: 1.5em;
+        margin: 2px;
+        font-size: 1em;
     }
 
     & > span {
         color: rgb(25,19,2);
-        margin: 5;
         text-transform: capitalize;
-        font-size: 1.5em;
+        font-size: 1em;
+        margin: 2px;
         @media (max-width:500px) {
             font-size: 1em;
         }
@@ -164,8 +164,8 @@ export const DataInformationContainer = styled.div`
 
     & > p {
         color: black;
-        margin: 5px;
-        font-size: 1em;
+        font-size: 0.9em;
+        margin: 2px;
         @media (max-width:500px) {
             font-size: 0.8em;
         }
