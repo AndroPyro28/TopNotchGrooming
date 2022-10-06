@@ -70,7 +70,9 @@ class Feedback {
       f.comments,
       f.id,
       f.pin,
-      c.profile_image_url
+      c.profile_image_url,
+      c.firstname,
+      c.lastname
       FROM feedback f
       INNER JOIN customer c
       ON c.id = f.customer_id

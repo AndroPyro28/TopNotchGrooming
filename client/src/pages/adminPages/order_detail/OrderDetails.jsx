@@ -51,7 +51,7 @@ function OrderDetails() {
       <OrderNumber>
         <h3> Order <span># {orderData.reference}</span> </h3>
         <small>Order Date: {new Date(orderData?.order_date).toLocaleDateString()}</small>
-        <i className="fa-solid fa-box-archive"></i>
+        {/* <i className="fa-solid fa-box-archive"></i> */}
       </OrderNumber>
 
       <OrderDetailsContainer>

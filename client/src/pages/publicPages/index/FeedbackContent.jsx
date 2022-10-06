@@ -12,7 +12,7 @@ function FeedbackContent({data}) {
     <FeedbackContentContainer>
       <User>
         <img src={data.profile_image_url} />
-        <span>Andro Eugenio</span>
+        <span>{data.firstname} {data.lastname} </span>
         {
           rate
         }

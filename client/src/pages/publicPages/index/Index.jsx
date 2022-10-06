@@ -13,6 +13,7 @@ import {
 import CustomAxios from "../../../customer hooks/CustomAxios";
 import { motion } from "framer-motion";
 import FeedbackContent from "./FeedbackContent";
+import Board from "../../../components/livestream_room/Board";
 
 function Index() {
   const [pageContent, setPageContent] = useState(0);
@@ -69,7 +70,6 @@ function Index() {
   <motion.h1 variants={childVariants} animate="animate" initial="initial">
     Our Feedbacks
   </motion.h1>
-
   <motion.div
     className="ServiceContentContainer"
     variants={cardVariants}

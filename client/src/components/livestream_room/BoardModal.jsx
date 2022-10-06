@@ -14,9 +14,9 @@ function BoardModal({displayBoard, setDisplayBoardModal, setComments, comments})
           <i class="fa-solid fa-comments"></i>
         </div>
 
-        <div className="observers" onClick={() => setDisplayInfo('observers')}>
+        {/* <div className="observers" onClick={() => setDisplayInfo('observers')}>
           <i class="fa-solid fa-user"></i> <sup>5</sup>{" "}
-        </div>
+        </div> */}
       </BoardHeaderModal>
 
       <Comments setComments={setComments} comments={comments} />
