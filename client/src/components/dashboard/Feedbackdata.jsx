@@ -9,9 +9,9 @@ function Feedbackdata({data}) {
     const rate = feedbackLength?.map(() => <i className="fa-solid fa-paw" style={{color:"rgb(248,173,62)"}}></i>)
     return (
         <FeedbackdataContainer>
-            <img src={data?.profile_image_url} alt="" />
+            <img src={data?.profile_image_url} alt="" /> 
             <div>
-                <span> {rate} </span> 
+                <span>{data?.firstname} {data?.lastname} {rate} </span> 
                 <p>{data?.comments}</p>
             </div>
 
