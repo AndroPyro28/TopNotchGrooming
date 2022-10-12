@@ -103,6 +103,10 @@ module.exports.updateInfo = async (req, res) => {
     }
 
     const customer = new Customer(req.body.values.user);
+    const isExists = await customer.checkIfExistByPhoneEmail2();
+    if (isExists) {
+        throw new Error("Phone number or email already exist");
+    }
 
     const updateResult = await customer.updateInfo();
     if (updateResult.affectedRows > 0) {

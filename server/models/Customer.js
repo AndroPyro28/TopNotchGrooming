@@ -50,13 +50,30 @@ class Customer {
   };
 
   checkIfExistByPhoneEmail = async () => {
-    const checkEmailPhone = `SELECT * FROM customer WHERE email = ? OR phoneNo = ?`;
-    const [customer, _] = await poolConnection.execute(checkEmailPhone, [
+    const checkEmailPhone = `SELECT * FROM customer WHERE email = ? OR phoneNo = ?;
+                             SELECT * FROM admin WHERE email = ?;`;
+    const [customerAndAdmin, _] = await poolConnection.query(checkEmailPhone, [
       this.#email,
       this.#phoneNo,
+      this.#email,
     ]);
 
-    return customer.length > 0;
+    return customerAndAdmin[0].length > 0 || customerAndAdmin[1].length > 0
+  };
+
+  checkIfExistByPhoneEmail2 = async () => {
+    const checkEmailPhone = `SELECT * FROM customer WHERE email = ? OR phoneNo = ?;
+                             SELECT * FROM admin WHERE email = ?;`;
+    const [customerAndAdmin, _] = await poolConnection.query(checkEmailPhone, [
+      this.#email,
+      this.#phoneNo,
+      this.#email,
+    ]);
+    console.log(customerAndAdmin, this.#id, customerAndAdmin[0][0]?.id)
+    if(customerAndAdmin[0][0]?.id == this.#id && customerAndAdmin[1].length == 0) {
+      return false
+    }
+    return customerAndAdmin[0].length > 0 || customerAndAdmin[1].length > 0
   };
 
   insertOne = async () => {

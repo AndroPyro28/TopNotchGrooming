@@ -225,38 +225,38 @@ function Index() {
         >
           <TeamContent>
             <img src="/images/defaultImage.png" />
-            <h1> Veterenary 1 </h1>
-            <label>Veterenary</label>
+            <h1> Staff 1 </h1>
+            <label>Staff</label>
           </TeamContent>
 
           <TeamContent>
           <img src="/images/defaultImage.png" />
-            <h1> Veterenary 2 </h1>
-            <label>Veterenary</label>
+            <h1> Staff 2 </h1>
+            <label>Staff</label>
           </TeamContent>
 
           <TeamContent>
           <img src="/images/defaultImage.png" />
-            <h1> Veterenary 3 </h1>
-            <label>Veterenary</label>
+            <h1> Staff 3 </h1>
+            <label>Staff</label>
           </TeamContent>
 
           <TeamContent>
           <img src="/images/defaultImage.png" />
-            <h1> Veterenary 4 </h1>
-            <label>Veterenary</label>
+            <h1> Staff 4 </h1>
+            <label>Staff</label>
           </TeamContent>
 
           <TeamContent>
           <img src="/images/defaultImage.png" />
-            <h1> Veterenary 5 </h1>
-            <label>Veterenary</label>
+            <h1> Staff 5 </h1>
+            <label>Staff</label>
           </TeamContent>
 
           <TeamContent>
           <img src="/images/defaultImage.png" />
-            <h1> Veterenary 6 </h1>
-            <label>Veterenary</label>
+            <h1> Staff 6 </h1>
+            <label>Staff</label>
           </TeamContent>
         </motion.div>
       </OurTeamSection>

@@ -103,6 +103,9 @@ module.exports.updateItem = async (req, res) => {
       req.body.values.item.product_image_url = cloudinary.url;
       req.body.values.item.product_image_id = cloudinary.public_id;
     }
+    if(Object.values(req.body.values.item).some(value => value == '')) {
+      throw new Error('All fields are required to update the product')
+    }
     const {
       id,
       product_name,
@@ -115,6 +118,9 @@ module.exports.updateItem = async (req, res) => {
       product_image_id,
       pet_type,
     } = req.body.values.item;
+    if(product_price <= 0 || product_stocks <= 0) {
+      throw new Error('Price or Stock Cannot be value of zero or negative')
+    }
     const product = new Product({
       id: id,
       productName: product_name,

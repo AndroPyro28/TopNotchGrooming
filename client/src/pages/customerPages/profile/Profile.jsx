@@ -32,16 +32,15 @@ function Profile() {
     };
   };
   const [allowChanges, setAllowChanges] = useState(false);
+
   const updateInfo = async () => {
     try {
-      
       const values = Object.values(user);
       const isFilled = values.every(value => value != "");
 
       if(!isFilled) {
         return toast('Fill up all the information to save the changes', { type: "warning" });
       }
-      setAllowChanges(false);
       setLoading(true);
       const response = await CustomAxios({
         METHOD: "POST",
@@ -49,17 +48,18 @@ function Profile() {
         values: { user, profileImg },
       });
 
-      const { success, msg, user: newUser } = response;
+      const { success, msg } = response;
 
       if (msg?.includes("session expired") && !success) {
         toast(msg, { type: "error" });
         return window.location.reload();
       }
 
+      if (!success) return toast(msg, { type: "error" });
+     const { user: newUser } = response;
       dispatch(authenticationSuccess({ currentUser: newUser, isAuth: true }));
       setProfileImg(null);
-      if (!success) return toast(msg, { type: "error" });
-
+      setAllowChanges(false);
       return toast(msg, { type: "success" });
     } catch (error) {
       console.log(error.message);
