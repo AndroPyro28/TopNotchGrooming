@@ -65,8 +65,7 @@ CREATE TABLE `appointments` (
   `admin_id` int(11) DEFAULT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
   `customer_id` int(11) DEFAULT NULL,
-  `live_stream_id` int(11) DEFAULT NULL,
-  'passwordResetToken' varchar(500) DEFAULT NULL
+  `live_stream_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -94,7 +93,8 @@ CREATE TABLE `customer` (
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `phoneNo` varchar(100) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL
+  `address` varchar(100) DEFAULT NULL,
+  'passwordResetToken' varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
