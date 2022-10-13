@@ -132,6 +132,18 @@ function App() {
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
   const excludeRoutes = ['room=', 'payment']
   console.log(!excludeRoutes?.includes(pathname))
+
+  const footerExcludeRoutes = [
+    '/admin/login', 
+    '/customer/login', 
+    '/public/liveStreamChannels', 
+    '/customer/liveStreamChannels', 
+    '/admin/liveStreamChannels',
+    '/customer/cart',
+    '/admin/inventory'
+  ]
+
+  
   return (
     <AppRoot>
 
@@ -291,7 +303,10 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 
-      {/* <Footer /> */}
+      {
+        !footerExcludeRoutes.includes(pathname) && !pathname.includes('/liveStreamChannels/room=') && <Footer />
+      }
+      
     </AppRoot>
   );
 }
