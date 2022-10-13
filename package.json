@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "update:dev-branch": "git add . && git commit -m 'updatingBranch' && git push origin dev",
-    "update:test-branch": "git add . && git commit -m 'updatingBranch' && git push origin test_production"
+    "update:test-branch": "git add . && git commit -m 'updatingBranch' && git push origin test_production2"
   },
   "repository": {
     "type": "git",

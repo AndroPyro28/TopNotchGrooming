@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { FooterContainer, Links, Socials } from "./components";
-import {useLocation} from "react-router-dom";
+import { FooterContainer, Links, Socials, Socials2 } from "./components";
+import {useLocation, Link} from "react-router-dom";
 function Footer() {
   const {pathname} = useLocation();
 
@@ -10,23 +10,20 @@ function Footer() {
     '/customer/profile',
     '/customer/store',
     '/admin/sales',
-    '/admin/orders'
+    '/admin/orders',
+    '/customer/purchases'
   ]
   return (
     <FooterContainer pathname={pathname} giveMarginTop={marginTopRoutes.includes(pathname)}>
-      <img src="/images/logo.png" />
+      {/* <img src="/images/logo.png" /> */}
 
       <Links pathname={pathname}>
-        <a href="#">About us</a>
-        <a href="#">Careers</a>
-        <a href="#">Locations</a>
-        <a href="#">FAQ</a>
-        <a href="#">Contact Us</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms and condition</a>
-      </Links>
+        <Link to={'/about'}>About us</Link>
+        <Link to="#">Terms and condition</Link>
+        <Link to="#">Privacy Policy</Link>
+        <Link to="/contact">Return and Exchange Policy</Link>
 
-      <Socials pathname={pathname}>
+        <Socials pathname={pathname}>
         <a href="https://www.facebook.com/TopNotchDogGrooming/">
           {/* <i className="fa-brands fa-facebook"></i> */}
           <i className="fa-brands fa-facebook-f"></i>
@@ -39,6 +36,13 @@ function Footer() {
           <i className="fa-regular fa-envelope"></i>
         </a>
       </Socials>
+      </Links>
+
+      <Socials2>
+        <span><i className="fa-regular fa-envelope"></i> &nbsp; Topnotchdoggrooming.tndg@gmail.com </span>
+        <span><i className="fa-solid fa-phone"></i> &nbsp; +639157358899 / (044) 305 2370 </span>
+        <span><i className="fa-solid fa-location-dot"></i> &nbsp; Macarthur Highway, San Pablo 3000 Malolos</span>
+      </Socials2>
     </FooterContainer>
   );
 }
