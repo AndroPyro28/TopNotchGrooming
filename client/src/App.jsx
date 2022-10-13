@@ -135,6 +135,7 @@ function App() {
   const footerExcludeRoutes = [
     '/admin/login', 
     '/customer/login', 
+    '/customer/signup', 
     '/public/liveStreamChannels', 
     '/customer/liveStreamChannels', 
     '/admin/liveStreamChannels',
