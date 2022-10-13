@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import {
   LoginSignupPageContainer,
   LoginSignupWrapper,
@@ -55,9 +55,13 @@ function Login() {
                       className="input__container"
                       />
 
-                    <NavLink to="/customer/signup">
+                  <Link to="/public/find-your-account">
+                     Forgot password? recover here
+                    </Link>
+
+                    <Link to="/customer/signup">
                       Don't have an account? Signup
-                    </NavLink>
+                    </Link>
 
                     <div className="input__container button__container">
                       <button className="loginBtn">Login</button>

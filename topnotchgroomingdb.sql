@@ -34,7 +34,8 @@ CREATE TABLE `admin` (
   `lastname` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `profile_image_url` varchar(500) NOT NULL DEFAULT 'https://res.cloudinary.com/iamprogrammer/image/upload/v1654850599/topnotch_profilepic/eadlgosq2pioplvi6lfs.png',
-  `password` varchar(500) DEFAULT NULL
+  `password` varchar(500) DEFAULT NULL,
+  'passwordResetToken' varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -64,7 +65,8 @@ CREATE TABLE `appointments` (
   `admin_id` int(11) DEFAULT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
   `customer_id` int(11) DEFAULT NULL,
-  `live_stream_id` int(11) DEFAULT NULL
+  `live_stream_id` int(11) DEFAULT NULL,
+  'passwordResetToken' varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

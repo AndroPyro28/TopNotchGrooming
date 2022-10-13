@@ -51,7 +51,9 @@ import CustomAxios from "./customer hooks/CustomAxios";
 import AdminNavbar from "./components/admin_navbar/AdminNavbar";
 import Sales from "./pages/adminPages/sales/Sales";
 import PageNotFound from "./pages/shared/page-not-found/PageNotFound";
-
+import FindYourAccount from "./pages/publicPages/password-reset/FindYourAccount";
+import UpdatePassword from "./pages/publicPages/password-reset/UpdatePassword";
+import ResetPasswordRoute from "./authentication/ResetPasswordRoute"
 function App() {
 
   const [loading, setLoading] = useState(false);
@@ -94,8 +96,6 @@ function App() {
 
           if (!success && msg?.includes("session expired")) {
                Cookies.remove("userToken");
-              //  dispatch(authenticationFailed({}));
-              //  return window.location.reload();
              }
 
              if (success) {
@@ -130,8 +130,7 @@ function App() {
   }, []);
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
-  const excludeRoutes = ['room=', 'payment']
-  console.log(!excludeRoutes?.includes(pathname))
+  const excludeRoutes = ['/public/find-your-account', '/public/update-password']
 
   const footerExcludeRoutes = [
     '/admin/login', 
@@ -140,14 +139,18 @@ function App() {
     '/customer/liveStreamChannels', 
     '/admin/liveStreamChannels',
     '/customer/cart',
-    '/admin/inventory'
+    '/admin/inventory',
+    '/public/find-your-account',
+    '/public/update-password'
   ]
-
   
   return (
     <AppRoot>
 
-      {navbarType === "public" && !pathname?.includes('room=') && <PublicNavbar />}
+      {navbarType === "public" && !pathname?.includes('room=') 
+      && !excludeRoutes.includes(pathname)  && <PublicNavbar />}
+      
+   
 
       {navbarType === "customer" && !pathname?.includes('liveStreamChannels/room') && !pathname?.includes('payment') && <CustomerNavbar />}
 
@@ -185,6 +188,15 @@ function App() {
         <Route
           path="/public/liveStreamChannels/room=:link"
           element={<PublicRoutes Component={<LiveStreamRoom />} />}
+        />
+
+        <Route
+          path="/public/find-your-account"
+          element={<PublicRoutes Component={<FindYourAccount />} />}
+        />
+        <Route
+          path="/public/update-password"
+          element={<ResetPasswordRoute Component={<UpdatePassword />} />}
         />
 
         {/* customer routes */}
@@ -304,7 +316,12 @@ function App() {
       </Routes>
 
       {
-        !footerExcludeRoutes.includes(pathname) && !pathname.includes('/liveStreamChannels/room=') && <Footer />
+        !footerExcludeRoutes.includes(pathname) 
+        && !pathname.includes('/liveStreamChannels/room=') 
+        && !pathname.includes('/admin/record/appointments/') 
+        && !pathname.includes('/customer/payment')  
+         && <Footer />
+        
       }
       
     </AppRoot>

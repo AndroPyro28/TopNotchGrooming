@@ -59,6 +59,49 @@ class MultipleTable {
             console.error(error.message)
         }
     }
+
+    findEmail = async (email) => {
+        try {
+            const selectQuery = `SELECT * FROM customer WHERE email = ?;
+            SELECT * FROM admin WHERE email = ?;`
+
+            const [result, _] = await poolConnection.query(selectQuery, [email, email])
+            return result
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    updateHashReset = async (token, id, table) => {
+        try {
+            const updateQuery = `UPDATE ${table} SET passwordresettoken = ? WHERE id = ?`;
+            const [result, _] = await poolConnection.query(updateQuery, [token, id])
+            return result;
+        } catch (error) {
+            console.error(erroor)            
+        }
+    }
+
+    removeHashReset = async (table, id) => {
+        try {
+            const updateQuery = `UPDATE ${table} SET passwordresettoken = NULL WHERE id = ?`;
+            const [result, _] = await poolConnection.query(updateQuery, [id])
+            return result
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+
+    updateUserPassword = async (id, table, password) => {
+        try {
+            const updateQuery = `UPDATE ${table} SET password = ? WHERE id = ?`;
+            const [result, _] = await poolConnection.query(updateQuery, [password, id])
+            return result
+        } catch (error) {
+            console.error(error)
+        }
+    }
 }
 
 module.exports = MultipleTable;

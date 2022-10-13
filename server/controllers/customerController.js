@@ -49,15 +49,14 @@ module.exports.login = async (req, res) => {
     const customer = new Customer({ email, password });
 
     const User = await customer.selectOneByEmail();
-
     if (!User) {
       return res.status(200).json({
         msg: "Invalid Credentials",
         success: false,
       });
     }
-    const isMatch = await bcrypt.compare(password, User.password);
 
+    const isMatch = await bcrypt.compare(password, User.password);
     if (!isMatch) {
       return res.status(200).json({
         msg: "Invalid Credentials",

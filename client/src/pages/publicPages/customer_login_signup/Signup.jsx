@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   LoginSignupPageContainer,
   LoginSignupWrapper,
@@ -170,10 +170,10 @@ function Signup() {
                         </>
                       )
                     }
-
-                    <NavLink to="/customer/login">
+                    
+                    <Link to="/customer/login">
                       Already have an account? Login
-                    </NavLink>
+                    </Link>
 
                     <div className="input__container button__container">
                       {inputPageNo > 0 && (
