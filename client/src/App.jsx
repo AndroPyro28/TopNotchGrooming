@@ -168,7 +168,7 @@ function App() {
         !pathname?.includes("liveStreamChannels/room") &&
         !pathname?.includes("payment") && <CustomerNavbar />}
 
-      {navbarType === "admin" && !pathname?.includes("room=") && (
+      {navbarType === "admin" && !pathname?.includes("room=") && !excludeRoutes.includes(pathname) && (
         <AdminNavbar />
       )}
 
