@@ -29,7 +29,7 @@ function CustomerRoutes({ Component }) {
       {Component}
       </CustomerRoute>
   ) : (
-    navigate('/admin/inventory', {replace: true})
+    navigate('/admin', {replace: true})
   );
 }
 

@@ -29,9 +29,7 @@ function useLogic({ toast }) {
 
       toast(msg, { type: "success" });
 
-      setTimeout((_) => window.location.assign("/customer/profile"), 2500);
-
-      
+      setTimeout((_) => window.location.assign("/customer"), 2500);
     } catch (error) {
       console.error(error.message);
     }

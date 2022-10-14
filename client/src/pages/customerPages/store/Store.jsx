@@ -40,7 +40,6 @@ function Store() {
   const [maxPage, setMaxPage] = useState();
   const [productCategories, setProductCategories] = useState([]);
   const [productAgeLimit, setProductAgeLimit] = useState([]);
-
   useEffect(() => {
     (async () => {
       try {

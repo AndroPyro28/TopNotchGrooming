@@ -14,7 +14,7 @@ import Loader from "../../loader/Loader";
 import GetDateToday from "../../../helpers/DateToday";
 import Logic from "./Logic";
 import { useNavigate } from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function LiveStreamModal({ setToggleModal }) {
@@ -25,12 +25,15 @@ function LiveStreamModal({ setToggleModal }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [maxPage, setMaxPage] = useState(0);
 
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     (async () => {
       try {
-        const response = await CustomAxios({METHOD:"GET", uri:`/api/admin/generateVerifiedLink`})
+        const response = await CustomAxios({
+          METHOD: "GET",
+          uri: `/api/admin/generateVerifiedLink`,
+        });
 
         const { msg, success, linkId } = response;
 
@@ -50,10 +53,12 @@ function LiveStreamModal({ setToggleModal }) {
       try {
         setScheduleList([]);
         const dateToday = GetDateToday();
-        const response = await CustomAxios({METHOD:"GET", uri:`/api/admin/getScheduleToday/${dateToday}`})
-        
+        const response = await CustomAxios({
+          METHOD: "GET",
+          uri: `/api/admin/getScheduleToday/${dateToday}`,
+        });
 
-        const { msg, success, result } = response
+        const { msg, success, result } = response;
 
         if ((!success, msg?.includes("session expired"))) {
           return window.location.reload();
@@ -69,16 +74,20 @@ function LiveStreamModal({ setToggleModal }) {
     })();
   }, []);
 
-  const { startStream } = Logic({linkId, scheduleInfo, toast});
+  const { startStream } = Logic({ linkId, scheduleInfo, toast });
 
   if (loading) return <Loader bg={`rgba(0, 0, 0, 0.548)`} />;
 
-  const fetchSchedule = scheduleList?.slice(4 * currentPage, 4 * currentPage + 4)?.map((schedule) => <Schedule
-    key={schedule.appointment.id}
-    data={schedule}
-    scheduleInfo={scheduleInfo}
-    setScheduleInfo={setScheduleInfo}
-  />)
+  const fetchSchedule = scheduleList
+    ?.slice(4 * currentPage, 4 * currentPage + 4)
+    ?.map((schedule) => (
+      <Schedule
+        key={schedule.appointment.id}
+        data={schedule}
+        scheduleInfo={scheduleInfo}
+        setScheduleInfo={setScheduleInfo}
+      />
+    ));
 
   return (
     <BackdropModal>
@@ -93,17 +102,26 @@ function LiveStreamModal({ setToggleModal }) {
         <ScheduleList>
           {scheduleList.length === 0 ? (
             <h2 style={{ color: "gray" }}>No Schedule today...</h2>
-          ) : fetchSchedule }
+          ) : (
+            fetchSchedule
+          )}
         </ScheduleList>
 
-        
-
-            {
-              maxPage > 0 && <PaginationContainer>
-              <i class="fa-solid fa-chevron-left left"></i> 1 / 2{" "}
-              <i class="fa-solid fa-chevron-right right"></i>
-            </PaginationContainer>
-            }
+        {maxPage > 0 && (
+          <PaginationContainer>
+            <i
+              class="fa-solid fa-chevron-left left"
+              onClick={() => setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev))}
+            ></i>{" "}
+            {currentPage + 1} / {maxPage}{" "}
+            <i
+              class="fa-solid fa-chevron-right right"
+              onClick={() =>
+                setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
+              }
+            ></i>
+          </PaginationContainer>
+        )}
         <ButtonContainer>
           <button className="cancelBtn" onClick={() => setToggleModal(false)}>
             Cancel

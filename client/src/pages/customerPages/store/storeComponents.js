@@ -227,6 +227,10 @@ export const ProductItem = styled.div`
       color: black;
     }
 
+    &.disable {
+      pointer-events: none;
+    }
+
     &:active {
       transition: all 0s ease-in-out;
       color: white;

@@ -7,9 +7,10 @@ import Logic from "./Logic";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import Peer from "simple-peer";
-import Loader from "../../components/loader/Loader";
+import Loader from "../loader/Loader";
 
 function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoardData }) {
+
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [stream, setStream] = useState();
   const videoRef = useRef();
@@ -21,7 +22,6 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
   const url = pathname.split("/room=")[0];
   const [disabledButton, setDisbaledButton] = useState(false);
   const [parts, setParts] = useState([]);
-  const [loading, setLoading] = useState(false);
   let mediaRecorder;
 
   useEffect(() => {
@@ -131,7 +131,6 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
     setDisplayBoard,
     currentRoom,
     isAdmin,
-    setLoading,
     setDisbaledButton,
     parts,
     mediaRecorder,
@@ -142,14 +141,12 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
 
   return (
     <VideoContainer isDisplayBoard={displayBoardData}>
-      
       {
-        loading &&<Loader bg={"rgba(0, 0, 0, 0.548);"} />
+        disabledButton && <Loader bg={"rgba(0, 0, 0, 0.548)"} />
       }
+      {isAdmin && <video playsInline muted ref={videoRef} autoPlay />}
 
-      {!loading && isAdmin && <video playsInline muted ref={videoRef} autoPlay />}
-
-      {!loading && !isAdmin && <video playsInline ref={videoRef} autoPlay />}
+      {!isAdmin && <video playsInline ref={videoRef} autoPlay />}
 
       <Options>
         {displayBoardData ? (
@@ -176,16 +173,9 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
           ></i>
         )}
 
-        {/* <i class="fa-solid fa-camera-rotate rotateCamera"></i> */}
-
         <i
           className="fa-solid fa-right-from-bracket leave"
-          onClick={() => {
-            if(isAdmin) {
-              setLoading(true)
-            }
-            leaveLiveStream();
-          }}
+          onClick={leaveLiveStream}
           disabled={disabledButton}
         ></i>
 

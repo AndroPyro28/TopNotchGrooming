@@ -7,12 +7,13 @@ import {
   ProductItemImg,
 } from "./storeComponents";
 import { toast } from "react-toastify";
+import { useState } from "react";
 function Product({ product, isOutOfStock }) {
-  const { addToCart } = productLogic({ toast });
+  const [disable, setDisable] = useState(false);
 
+  const { addToCart } = productLogic({ toast, setDisable });
   return (
     <ProductItem isOutOfStock={isOutOfStock}>
-      {/* <ToastContainer autoClose={1500} /> */}
       <ProductItemImg src={product?.product_image_url} />
       <ProductItemName>{product?.product_name}</ProductItemName>
       <small>
@@ -23,7 +24,7 @@ function Product({ product, isOutOfStock }) {
       </ProductItemDescription>
 
       <ProductItemPrice>₱ {product?.product_price}</ProductItemPrice>
-      <span className="add__to__cart" onClick={() => addToCart(product)}>
+      <span className={`add__to__cart ${disable ? `disable` : ``}`} onClick={() => addToCart(product)} >
         <i className="fa-solid fa-cart-plus"></i>{" "}
         <span>{isOutOfStock ? "Out Of Stock" : "Add To Cart"} </span>
       </span>

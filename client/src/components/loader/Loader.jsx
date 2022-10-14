@@ -2,7 +2,6 @@ import React from 'react'
 import {motion} from "framer-motion"
 import {ModalLoader} from "./loaderComponents"
 function Loader({bg}) {
-
     const loaderVariants = {
         animationOne: {
             x: [ -20, 20 ],

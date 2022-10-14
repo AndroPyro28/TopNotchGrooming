@@ -27,7 +27,7 @@ function AdminRoutes({ Component }) {
       {Component}
       </AdminRoute>
   ) : (
-    navigate('/customer/profile', {replace: true})
+    navigate('/customer', {replace: true})
   );
 }
 

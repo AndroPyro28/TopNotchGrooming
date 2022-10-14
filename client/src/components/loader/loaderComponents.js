@@ -7,7 +7,7 @@ export const ModalLoader = styled.div`
     left: 0;
     height: 100%;
     width: 100%;
-    z-index:10;
+    z-index: 100;
     & > .loader {
         width: 10px;
         height: 10px;
@@ -19,5 +19,6 @@ export const ModalLoader = styled.div`
         position: absolute;
         border-radius: 50%;
         background: #fff;
+        z-index: 100;
     }
 `
