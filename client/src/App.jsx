@@ -137,9 +137,9 @@ function App() {
   const excludeRoutes = [
     "/public/find-your-account",
     "/public/update-password",
-    '/terms-condition',
-    '/return-policy',
-    '/privacy-policy'
+    "/terms-condition",
+    "/return-policy",
+    "/privacy-policy",
   ];
 
   const footerExcludeRoutes = [
@@ -153,9 +153,9 @@ function App() {
     "/admin/inventory",
     "/public/find-your-account",
     "/public/update-password",
-    '/terms-condition',
-    '/return-policy',
-    '/privacy-policy'
+    "/terms-condition",
+    "/return-policy",
+    "/privacy-policy",
   ];
 
   return (
@@ -166,11 +166,12 @@ function App() {
 
       {navbarType === "customer" &&
         !pathname?.includes("liveStreamChannels/room") &&
-        !pathname?.includes("payment") && <CustomerNavbar />}
+        !pathname?.includes("payment") &&
+        !excludeRoutes.includes(pathname) && <CustomerNavbar />}
 
-      {navbarType === "admin" && !pathname?.includes("room=") && !excludeRoutes.includes(pathname) && (
-        <AdminNavbar />
-      )}
+      {navbarType === "admin" &&
+        !pathname?.includes("room=") &&
+        !excludeRoutes.includes(pathname) && <AdminNavbar />}
 
       <Routes>
         {/* public routes */}
@@ -180,22 +181,12 @@ function App() {
           path="/contact"
           element={<PublicRoutes Component={<Contact />} />}
         />
-        <Route path="/about" element={<PublicRoutes Component={<About />} />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/terms-condition" element={<TermsAndCondition />} />
 
-        <Route
-          path="/terms-condition"
-          element={<TermsAndCondition />}
-        />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
-        <Route
-          path="/privacy-policy"
-          element={<PrivacyPolicy />}
-        />
-
-        <Route
-          path="/return-policy"
-          element={<ReturnPolicy />}
-        />
+        <Route path="/return-policy" element={<ReturnPolicy />} />
         <Route
           path="/customer/signup"
           element={<PublicRoutes Component={<Signup />} />}
@@ -219,8 +210,6 @@ function App() {
           path="/public/liveStreamChannels/room=:link"
           element={<PublicRoutes Component={<LiveStreamRoom />} />}
         />
-
-        
 
         <Route
           path="/public/find-your-account"
