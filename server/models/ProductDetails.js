@@ -85,7 +85,8 @@ class ProductDetails {
           pc.category as product_category,
           p.product_image_url,
           p.product_image_id,
-          pd.quantity
+          pd.quantity,
+          p.product_stocks
         FROM product_details pd
         INNER JOIN products p
         ON p.id = pd.product_id

@@ -11,7 +11,7 @@ function Footer() {
     '/customer/store',
     '/admin/sales',
     '/admin/orders',
-    '/customer/purchases'
+    '/customer/purchases',
   ]
   return (
     <FooterContainer pathname={pathname} giveMarginTop={marginTopRoutes.includes(pathname)}>
@@ -19,10 +19,9 @@ function Footer() {
 
       <Links pathname={pathname}>
         <Link to={'/about'}>About us</Link>
-        <Link to="#">Terms and condition</Link>
-        <Link to="#">Privacy Policy</Link>
-        <Link to="/contact">Return and Exchange Policy</Link>
-
+        <Link to="/terms-condition">Terms and condition</Link>
+        <Link to="/privacy-policy">Privacy Policy</Link>
+        <Link to="/return-policy">Return and Exchange Policy</Link>
         <Socials pathname={pathname}>
         <a href="https://www.facebook.com/TopNotchDogGrooming/">
           {/* <i className="fa-brands fa-facebook"></i> */}

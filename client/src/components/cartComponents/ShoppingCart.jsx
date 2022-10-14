@@ -8,7 +8,6 @@ import Sign_Products from "../sign/Sign_Products";
 import ProductItem from "./ProductItem";
 
 function ShoppingCart({items, setItems}) {
-  
   return (
     <ShoppingCartContainer>
       <h2>

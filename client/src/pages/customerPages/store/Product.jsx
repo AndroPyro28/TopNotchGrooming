@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import productLogic from "./productLogic";
 import {
   ProductItemName,
@@ -8,24 +6,27 @@ import {
   ProductItem,
   ProductItemImg,
 } from "./storeComponents";
-function Product({ product }) {
-  const { addToCart } = productLogic();
-  
+import { toast } from "react-toastify";
+function Product({ product, isOutOfStock }) {
+  const { addToCart } = productLogic({ toast });
+
   return (
-    <ProductItem>
+    <ProductItem isOutOfStock={isOutOfStock}>
+      {/* <ToastContainer autoClose={1500} /> */}
       <ProductItemImg src={product?.product_image_url} />
       <ProductItemName>{product?.product_name}</ProductItemName>
       <small>
-      For {product?.pet_type}s {product.age_limit} old
+        For {product?.pet_type}s {product.age_limit} old
       </small>
       <ProductItemDescription>
-         {product?.product_description}
+        {product?.product_description}
       </ProductItemDescription>
-      
+
       <ProductItemPrice>₱ {product?.product_price}</ProductItemPrice>
-        <span className="add__to__cart" onClick={() => addToCart(product)}>
-          <i className="fa-solid fa-cart-plus"></i> <span>Add To Cart</span>
-        </span>
+      <span className="add__to__cart" onClick={() => addToCart(product)}>
+        <i className="fa-solid fa-cart-plus"></i>{" "}
+        <span>{isOutOfStock ? "Out Of Stock" : "Add To Cart"} </span>
+      </span>
     </ProductItem>
   );
 }

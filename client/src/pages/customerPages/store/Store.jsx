@@ -20,9 +20,6 @@ import {
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import axios from "axios";
-import Cookies from "js-cookie";
 import storeLogic from "./storeLogic";
 import CustomAxios from "../../../customer hooks/CustomAxios";
 
@@ -127,14 +124,11 @@ function Store() {
   ]);
   const fetchProducts = products
     ?.slice(8 * currentPage, 8 * currentPage + 8)
-    .map((product, index) => {
-      return <Product product={product} key={index} />;
-    });
-
+    .map(product => <Product product={product} key={product.product_id} isOutOfStock={product.product_stocks <= 0} />);;
   return (
     <StorePageContainer>
       <Banner>
-        <ToastContainer autoClose />
+        <ToastContainer autoClose={1500} />
         <Content>
           <h1>
             W e &nbsp; p r o v i d e &nbsp; w h a t &nbsp; y o u &nbsp; n e e d
@@ -144,7 +138,7 @@ function Store() {
       </Banner>
 
       <PetFilterWrapper>
-        <h1> W e &nbsp; D e a l &nbsp; I n</h1>
+        <h1> W e &nbsp; S p e c i a l i z e &nbsp; W i t h </h1>
         <PetFilterContainer>
           <PetContainer
             active={activeFilter.petCategory.toLowerCase() === "dog"}

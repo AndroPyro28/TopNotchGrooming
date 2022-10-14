@@ -1,6 +1,6 @@
 const Feedback = require("../models/Feedback");
 const MultipleTable = require("../models/MultipleTable");
-const gmailSender = require("../helpers/GmailSender");
+const {gmailSender} = require("../helpers/GmailSender");
 const bcrypt = require("bcryptjs");
 
 const {

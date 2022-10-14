@@ -90,6 +90,8 @@ module.exports.updateInfo = async (req, res) => {
         "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
       deleteOneUser(req.body.values.user.profile_image_id);
+    } else {
+      throw new Error('Invalid File Type')
     }
 
     if (
@@ -99,6 +101,8 @@ module.exports.updateInfo = async (req, res) => {
       const cloudinaryResponse = await uploadOneUser(req.body.values?.profileImg);
       req.body.values.user.profile_image_url = cloudinaryResponse.url;
       req.body.values.user.profile_image_id = cloudinaryResponse.public_id;
+    } else {
+      throw new Error('Invalid File Type')
     }
 
     const customer = new Customer(req.body.values.user);
@@ -339,8 +343,10 @@ module.exports.addAppointment = async (req, res) => {
       additional_details,
       image
     } = req.body.values;
-
-
+    console.log(req.body.values);
+    if(!image || image == {} || image.length <= 0 || !image?.includes('image')) {
+      throw new Error('Invalid File Type')
+    }
     const cloudinaryResponse = await uploadOnePetImage(image);
     image = cloudinaryResponse.url;
     const appointment = new Appointment({
@@ -364,6 +370,10 @@ module.exports.addAppointment = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    return res.status(201).json({
+      msg: error.message,
+      success: false,
+    });
   }
 };
 

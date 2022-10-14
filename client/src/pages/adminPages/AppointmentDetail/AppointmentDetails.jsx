@@ -13,6 +13,7 @@ function AppointmentDetails() {
   const {id} = useParams();
   const [details, setDetails] = useState({});
   const navigate = useNavigate()
+
   useEffect(() => {
     (async () => {
       try {
@@ -33,15 +34,12 @@ function AppointmentDetails() {
       }
     })()
   }, []);
-
  
   return (
     <Container>
       {
         loading && <Loader bg={"rgba(0, 0, 0, 0.548)"} />
       }
-      
-      
         <Details data={details}/>
         <AppointmentInfo data={details} setData={setDetails} setLoading={setLoading} />
     </Container>

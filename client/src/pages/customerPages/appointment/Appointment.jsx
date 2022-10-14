@@ -11,7 +11,6 @@ import { toast, ToastContainer } from "react-toastify";
 import FormikControl from "../../../formik/FormikControl";
 import Loader from "../../../components/loader/Loader"
 
-
 function Appointment() {
   const [image, setImage] = useState(null);
   const [imgError, setImgError] = useState("");
@@ -20,16 +19,15 @@ function Appointment() {
   useEffect(() => {
     try {
       setImgError("");
-
       if (image != null) {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(image);
-
         fileReader.onloadend = async () => {
-          if (fileReader?.result?.includes("image")) {
-            return setImage(fileReader.result);
+          if (!fileReader?.result?.includes("image")) {
+            setImage('');
+            setImgError("Please set an image type to this appointment");
           } else {
-            setImgError("Please set an image to this product");
+            setImage(fileReader.result);
           }
         };
       }

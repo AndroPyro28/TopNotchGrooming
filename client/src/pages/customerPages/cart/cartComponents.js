@@ -213,7 +213,11 @@ export const ProductItemContainer = styled.figure`
     }
 
     & > .incremeant {
-      color: rgb(92, 250, 113) !important;
+      color: rgb(92, 250, 113);
+
+      &:disabled {
+        color:gray;
+      }
     }
 
     & > label {

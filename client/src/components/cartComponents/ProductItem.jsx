@@ -11,6 +11,7 @@ function ProductItem({ product, setItems }) {
     product_price,
     quantity,
     purchase,
+    product_stocks
   } = product;
 
   const {
@@ -41,6 +42,7 @@ function ProductItem({ product, setItems }) {
         </button>
         <label>{quantity}</label>
         <button
+          disabled={product_stocks <= quantity}
           className="incremeant"
           onClick={() => incremeantDecreament(product, "incremeant")}
         >

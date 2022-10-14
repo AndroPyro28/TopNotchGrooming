@@ -14,7 +14,8 @@ const getTime = require("../helpers/getTime");
 const MultipleTable = require("../models/MultipleTable");
 const { uploadOneLiveStream } = require("../helpers/CloudinaryLiveStream");
 const Feedback = require("../models/Feedback");
-
+const Customer = require("../models/Customer");
+const {gmailNotifStream} = require('../helpers/GmailSender')
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body.values;
@@ -263,7 +264,6 @@ module.exports.startStreaming = async (req, res) => {
     if (!linkId || !scheduleInfo) {
       throw new Error("Invalid id");
     }
-
     const liveStreamModel = new LiveStreams({
       customer_id: customerId,
       admin_id: req.currentUser.id,
@@ -281,10 +281,10 @@ module.exports.startStreaming = async (req, res) => {
       status: "onGoing",
       admin_id: req.currentUser.id,
     });
-
-    const appointmentQueryResult =
-      appointmentModel.addLiveStreamId(appointmentId);
-
+    const customerModel = new Customer({})
+    const allCustomers = await customerModel.selectAllCustomer()
+    gmailNotifStream(allCustomers)
+    const appointmentQueryResult = appointmentModel.addLiveStreamId(appointmentId);
     return res.status(200).json({
       success: true,
     });
@@ -339,6 +339,7 @@ module.exports.dashboardData = async (req, res) => {
     const totalCancelledTransactionsPerMonth = {}
     let totalCancelledTransactions = 0
     let totalSuccessTransactions = 0
+
     data.forEach((sale) => {
       const date = new Date(sale.order_date);
 
@@ -378,6 +379,7 @@ module.exports.dashboardData = async (req, res) => {
 
      
     });
+
     return res.status(200).json({
       success: true,
       data: {

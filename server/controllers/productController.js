@@ -118,8 +118,8 @@ module.exports.updateItem = async (req, res) => {
       product_image_id,
       pet_type,
     } = req.body.values.item;
-    if(product_price <= 0 || product_stocks <= 0) {
-      throw new Error('Price or Stock Cannot be value of zero or negative')
+    if(product_price <= 0 || product_stocks < 0) {
+      throw new Error('Price or Stock Cannot be value of negative')
     }
     const product = new Product({
       id: id,

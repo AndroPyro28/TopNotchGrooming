@@ -8,10 +8,12 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
 
   const onSubmit = async (values) => {
     try {
-      values.image = image;
-      if(image == null || !image) {
-        return setImgError("Please set an image to this product");
+      console.log(image);
+      if(image == null || !image || image == {}) {
+        console.log('yes');
+        return setImgError("Please set an image to this pet");
       }
+      values.image = image;
       setLoading(true)
       const reponse = await CustomAxios({METHOD:"POST", uri:`/api/customer/appointment`, values})
       const {success, msg} = reponse;
@@ -21,6 +23,7 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
       }
 
       if(!success) {
+        setLoading(false)
         return toast(msg, {type: 'error'});
       }
       setLoading(false)

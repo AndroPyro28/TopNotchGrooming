@@ -78,7 +78,9 @@ function Profile() {
         reader.readAsDataURL(profileImg);
 
         reader.onloadend = async () => {
-          console.log(reader.result);
+          if(!reader.result.includes('image')) {
+            return toast('Invalid File Type', {type: 'warning'})
+          }
           setProfileImg(reader.result);
         };
       } catch (error) {

@@ -53,14 +53,16 @@ import Sales from "./pages/adminPages/sales/Sales";
 import PageNotFound from "./pages/shared/page-not-found/PageNotFound";
 import FindYourAccount from "./pages/publicPages/password-reset/FindYourAccount";
 import UpdatePassword from "./pages/publicPages/password-reset/UpdatePassword";
-import ResetPasswordRoute from "./authentication/ResetPasswordRoute"
+import ResetPasswordRoute from "./authentication/ResetPasswordRoute";
+import TermsAndCondition from "./pages/publicPages/terms-condition/TermsAndCondition";
+import ReturnPolicy from "./pages/publicPages/return-policy/ReturnPolicy";
+import PrivacyPolicy from "./pages/publicPages/privacy-policy/PrivacyPolicy";
 function App() {
-
   const [loading, setLoading] = useState(false);
   const [navbarType, setNavbarType] = useState(null);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     try {
       const userInfo = Cookies.get("userToken");
@@ -79,36 +81,38 @@ function App() {
   useEffect(() => {
     const auth = {
       userinfo: Cookies.get("userToken"),
-      isAuth: false
+      isAuth: false,
     };
 
-    dispatch(connection(io(process.env.REACT_APP_SERVER_URI_PROD, {auth})));
-  }, [])
+    dispatch(connection(io(process.env.REACT_APP_SERVER_URI_PROD, { auth })));
+  }, []);
 
   useEffect(() => {
     startTransition(() => {
       (async function () {
         try {
-          console.log("welcome to my app!")
+          console.log("welcome to my app!");
           setLoading(true);
-          const data = await CustomAxios({METHOD:"GET", uri:`/api/auth`});
+          const data = await CustomAxios({ METHOD: "GET", uri: `/api/auth` });
           const { success, msg } = data;
 
           if (!success && msg?.includes("session expired")) {
-               Cookies.remove("userToken");
-             }
+            Cookies.remove("userToken");
+          }
 
-             if (success) {
-                const { currentUser } = data;
-                dispatch(authenticationSuccess({ currentUser, isAuth: true }));
-    
-                const auth = {
-                  userinfo: Cookies.get("userToken"),
-                  isAuth: true
-                };
-    
-                dispatch(connection(io(process.env.REACT_APP_SERVER_URI_PROD, {auth})));
-              }
+          if (success) {
+            const { currentUser } = data;
+            dispatch(authenticationSuccess({ currentUser, isAuth: true }));
+
+            const auth = {
+              userinfo: Cookies.get("userToken"),
+              isAuth: true,
+            };
+
+            dispatch(
+              connection(io(process.env.REACT_APP_SERVER_URI_PROD, { auth }))
+            );
+          }
         } catch (error) {
           console.error(error);
         } finally {
@@ -122,40 +126,51 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      if(pathname?.includes('customer')) {
+      if (pathname?.includes("customer")) {
         const cart = await fetcher();
         dispatch(setToCartReducer(cart));
       }
     })();
-  }, []);
+  }, [pathname]);
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
-  const excludeRoutes = ['/public/find-your-account', '/public/update-password']
+  const excludeRoutes = [
+    "/public/find-your-account",
+    "/public/update-password",
+    '/terms-condition',
+    '/return-policy',
+    '/privacy-policy'
+  ];
 
   const footerExcludeRoutes = [
-    '/admin/login', 
-    '/customer/login', 
-    '/customer/signup', 
-    '/public/liveStreamChannels', 
-    '/customer/liveStreamChannels', 
-    '/admin/liveStreamChannels',
-    '/customer/cart',
-    '/admin/inventory',
-    '/public/find-your-account',
-    '/public/update-password'
-  ]
-  
+    "/admin/login",
+    "/customer/login",
+    "/customer/signup",
+    "/public/liveStreamChannels",
+    "/customer/liveStreamChannels",
+    "/admin/liveStreamChannels",
+    "/customer/cart",
+    "/admin/inventory",
+    "/public/find-your-account",
+    "/public/update-password",
+    '/terms-condition',
+    '/return-policy',
+    '/privacy-policy'
+  ];
+
   return (
     <AppRoot>
+      {navbarType === "public" &&
+        !pathname?.includes("room=") &&
+        !excludeRoutes.includes(pathname) && <PublicNavbar />}
 
-      {navbarType === "public" && !pathname?.includes('room=') 
-      && !excludeRoutes.includes(pathname)  && <PublicNavbar />}
-      
-   
+      {navbarType === "customer" &&
+        !pathname?.includes("liveStreamChannels/room") &&
+        !pathname?.includes("payment") && <CustomerNavbar />}
 
-      {navbarType === "customer" && !pathname?.includes('liveStreamChannels/room') && !pathname?.includes('payment') && <CustomerNavbar />}
-
-      {navbarType === "admin" && !pathname?.includes('room=') && <AdminNavbar />}
+      {navbarType === "admin" && !pathname?.includes("room=") && (
+        <AdminNavbar />
+      )}
 
       <Routes>
         {/* public routes */}
@@ -167,6 +182,20 @@ function App() {
         />
         <Route path="/about" element={<PublicRoutes Component={<About />} />} />
 
+        <Route
+          path="/terms-condition"
+          element={<TermsAndCondition />}
+        />
+
+        <Route
+          path="/privacy-policy"
+          element={<PrivacyPolicy />}
+        />
+
+        <Route
+          path="/return-policy"
+          element={<ReturnPolicy />}
+        />
         <Route
           path="/customer/signup"
           element={<PublicRoutes Component={<Signup />} />}
@@ -190,6 +219,8 @@ function App() {
           path="/public/liveStreamChannels/room=:link"
           element={<PublicRoutes Component={<LiveStreamRoom />} />}
         />
+
+        
 
         <Route
           path="/public/find-your-account"
@@ -234,7 +265,7 @@ function App() {
           path="/customer/payment"
           element={<CustomerRoutes Component={<PaymentInfo />} />}
         />
-       
+
         <Route
           path="/customer/appointment"
           element={<CustomerRoutes Component={<Appointment />} />}
@@ -316,15 +347,10 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 
-      {
-        !footerExcludeRoutes.includes(pathname) 
-        && !pathname.includes('/liveStreamChannels/room=') 
-        && !pathname.includes('/admin/record/appointments/') 
-        && !pathname.includes('/customer/payment')  
-         && <Footer />
-        
-      }
-      
+      {!footerExcludeRoutes.includes(pathname) &&
+        !pathname.includes("/liveStreamChannels/room=") &&
+        !pathname.includes("/admin/record/appointments/") &&
+        !pathname.includes("/customer/payment") && <Footer />}
     </AppRoot>
   );
 }

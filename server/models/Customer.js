@@ -138,6 +138,16 @@ class Customer {
       console.log(error.message);
     }
   };
+
+  selectAllCustomer = async () => {
+    try {
+      const selectQuery = `SELECT * FROM customer`;
+      const [result, _] = await poolConnection.execute(selectQuery);
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 module.exports = Customer;

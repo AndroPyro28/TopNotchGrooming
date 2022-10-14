@@ -211,7 +211,8 @@ export const ProductItem = styled.div`
   transition: all 0.3s ease-in-out;
   max-height: 400px;
   cursor: pointer;
-
+  opacity: ${({isOutOfStock}) => isOutOfStock ? '0.5' : '1'};
+  pointer-events: ${({isOutOfStock}) => isOutOfStock ? 'none' : 'all'};
   & > .add__to__cart {
     border-radius: 10px;
     border: solid 1px black;

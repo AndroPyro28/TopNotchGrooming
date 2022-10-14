@@ -14,8 +14,8 @@ import Logic from "./logic";
 import { ToastContainer, toast } from "react-toastify";
 
 function AppointmentInfo({ data, setData, setLoading }) {
-
   const { appointment, live_stream_data, customer } = data;
+
   const { id } = useParams();
 
   const { updateAppointment, completeSchedule, deleteAppointment } = Logic({ appointment, id, setData, toast, setLoading, customer, live_stream_data});
