@@ -113,8 +113,8 @@ function Index() {
                 Make Your Lovely <br></br>Pets Feel Loved
               </motion.h1>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                <br></br> Cumque, laborum.
+              Your pet deserves to be treated as if it were a member of your family. As a member of your family, we
+              make sure that your pet receives the respect and care they merit. 
               </p>
               {/* <button>See Here</button> */}
             </div>
@@ -134,8 +134,7 @@ function Index() {
                 The Dog Food That <br></br>loves The Planet
               </motion.h1>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                <br></br> Cumque, laborum.
+              Your bestfriend deserves the best meal! Make your friend happy
               </p>
               {/* <button>See Here</button> */}
             </div>
@@ -154,8 +153,8 @@ function Index() {
                 Know Your Pets <br></br>Needs
               </motion.h1>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                <br></br> Cumque, laborum.
+              We always work to give your pet the ideal groom and ensure that they are feeling their best during the
+              whole experience.
               </p>
               {/* <button>See Here</button> */}
             </div>

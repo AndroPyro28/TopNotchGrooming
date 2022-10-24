@@ -35,8 +35,7 @@ function Login() {
                   <div className="form__content">
                     <h1>login</h1>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Ipsam magni laboriosam sint odio vitae ipsum.
+                    Welcome to Top-Notch Dog Grooming Website, you can access our website by loggin.
                     </p>
 
                     <FormikControl

@@ -28,7 +28,7 @@ class Appointment {
     status = "",
     image = "",
     live_stream_id = "",
-    admin_id = "",
+    admin_id = null,
   }) {
     this.#pet_name = pet_name;
     this.#pet_type = pet_type;
@@ -78,9 +78,10 @@ class Appointment {
         gender,
         date_n_time, 
         customer_id, 
+        admin_id,
         pet_image)
         VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `;
       const [result, _] = await poolConnection.execute(insertQuery, [
         this.#pet_name,
@@ -92,6 +93,7 @@ class Appointment {
         this.#gender,
         this.#date_n_time,
         this.#customer_id,
+        this.#admin_id,
         this.#image,
       ]);
 

@@ -34,6 +34,7 @@ export const BannerContent = styled.div`
   & > h3 {
     font-size: 3em;
     font-family: "montserrat", "league spartan", sans-serif !important;
+    text-transform: capitalize;
   }
 
   & > p {

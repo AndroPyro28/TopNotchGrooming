@@ -27,6 +27,17 @@ class Admin {
             
         }
     }
+
+    getAllAdmin = async () => {
+        try {
+            const selectQuery = `SELECT id, firstname, lastname FROM admin`;
+            const [result, _] = await poolConnection.execute(selectQuery);
+
+            return result
+        } catch (error) {
+            console.error(error)
+        }
+    }
 }
 
 module.exports = Admin

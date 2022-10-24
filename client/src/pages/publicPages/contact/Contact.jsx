@@ -10,10 +10,9 @@ import {
   OurLocationContainer,
 } from "./contact";
 
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
-mapboxgl.accessToken =
-  process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 function Contact() {
   const mapContainer = useRef(null);
@@ -44,51 +43,55 @@ function Contact() {
 
   const childVariants = {
     initial: {
-      x:"-100vw"
+      x: "-100vw",
     },
     animate: {
-      x:0,
+      x: 0,
       transition: {
-        delay:0.2,
-        type:"tween",
-        duration:0.6
-      }
-    }
-  }
+        delay: 0.2,
+        type: "tween",
+        duration: 0.6,
+      },
+    },
+  };
 
   const dogVariants = {
     initial: {
-      opacity:0,
+      opacity: 0,
     },
     animate: {
       opacity: 1,
       transition: {
-        delay:1
-      }
-    }
-  }
+        delay: 1,
+      },
+    },
+  };
 
   return (
     <ContactPageContainer>
       <BannerContainer>
         <BannerContent>
           <motion.h1
-          variants={childVariants}
-          animate="animate"
-          initial="initial"
-          >C o n t a c t &nbsp; U s</motion.h1>
+            variants={childVariants}
+            animate="animate"
+            initial="initial"
+          >
+            C o n t a c t &nbsp; U s
+          </motion.h1>
           <motion.p
-          variants={childVariants}
-          animate="animate"
-          initial="initial">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo a quis
-            culpa doloremque quaerat. Optio?
+            variants={childVariants}
+            animate="animate"
+            initial="initial"
+          >
+            Top-Notch Dog Grooming Malolos is open and ready to meet the needs
+            of our pet clients; please contact us.
           </motion.p>
 
-          <motion.div class="address_and__phone"
-          variants={childVariants}
-          animate="animate"
-          initial="initial"
+          <motion.div
+            class="address_and__phone"
+            variants={childVariants}
+            animate="animate"
+            initial="initial"
           >
             <div class="address">
               <h3>Address</h3>
@@ -101,56 +104,51 @@ function Contact() {
             </div>
           </motion.div>
 
-          <motion.div class="email"
-          variants={childVariants}
-          animate="animate"
-          initial="initial"
+          <motion.div
+            class="email"
+            variants={childVariants}
+            animate="animate"
+            initial="initial"
           >
             <h3>Email</h3>
             <p>topnotchdoggrooming.tndg@gmail.com</p>
           </motion.div>
         </BannerContent>
-          <motion.img src="/images/dog6.png" 
-            variants={dogVariants}
-            animate="animate"
-            initial="initial"
-          />
+        <motion.img
+          src="/images/dog6.png"
+          variants={dogVariants}
+          animate="animate"
+          initial="initial"
+        />
       </BannerContainer>
 
       <GetInTouchContainer>
-        <motion.h1
-        variants={childVariants}
-        animate="animate"
-        initial="initial"
-        >G e t &nbsp; i n &nbsp; t o u c h</motion.h1>
+        <motion.h1 variants={childVariants} animate="animate" initial="initial">
+          G e t &nbsp; i n &nbsp; t o u c h
+        </motion.h1>
 
-        <motion.p
-        variants={dogVariants}
-        animate="animate"
-        initial="initial">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium,
-          obcaecati ex voluptas <br /> inventore alias aliquid reiciendis libero
-          amet. Magnam, harum.
+        <motion.p variants={dogVariants} animate="animate" initial="initial">
+          We are located at Mcarthur Highway, San Pablo 3000 Malolos,
+          Philippines. We are pleased to provide professional grooming services
+          for all dog and cat breeds, types, and sizes
         </motion.p>
 
         <motion.button
           variants={dogVariants}
           animate="animate"
           initial="initial"
-        >Get An Appointment</motion.button>
+        >
+          Get An Appointment
+        </motion.button>
       </GetInTouchContainer>
 
       <OurLocationContainer>
-        <motion.h1
-        variants={dogVariants}
-          animate="animate"
-          initial="initial"
-        >O u r &nbsp; L o c a t i o n</motion.h1>
-        <motion.h1
-        variants={dogVariants}
-          animate="animate"
-          initial="initial"
-        >___</motion.h1>
+        <motion.h1 variants={dogVariants} animate="animate" initial="initial">
+          O u r &nbsp; L o c a t i o n
+        </motion.h1>
+        <motion.h1 variants={dogVariants} animate="animate" initial="initial">
+          ___
+        </motion.h1>
 
         <MapContainer ref={mapContainer} />
       </OurLocationContainer>

@@ -14,13 +14,15 @@ function Home() {
       <HomeBannerContainer>
         <BannerContent>
           <h3>
-            Y o u r &nbsp;
-            <br /> f u r b a b y ' s &nbsp; <br /> n e e d.{" "}
+          W e l c o m e 
+          &nbsp;
+            <br />
+            t o  T h e
+            &nbsp;
+            <br />T o p N o t c h &nbsp; <br /> D o g &nbsp; <br /> G r o o m i n g &nbsp; <br /> M a l o l o s{" "}
           </h3>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing <br /> elit.
-            Odio, aspernatur! Necessitatibus fuga veniam, <br />
-            ipsum ipsam voluptate porro autem assumenda inventore.
+          Your furbaby’s need
           </p>
         </BannerContent>
       </HomeBannerContainer>
@@ -32,8 +34,7 @@ function Home() {
             <img src="/images/iconRecord.png" alt="" />
             <h3>Live Streaming</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Mollitia, aut.
+            WATCH Live Pet Grooming Here 
             </p>
           </Step>
 
@@ -41,8 +42,7 @@ function Home() {
             <img src="/images/bagIcon.png" alt="" />
             <h3>Pet Store</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Mollitia, aut.
+            Shop your favorite pet products and get delivered to your doorstep. 
             </p>
           </Step>
 
@@ -50,8 +50,7 @@ function Home() {
             <img src="/images/appointmentIcon.png" alt="" />
             <h3>Apointment</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Mollitia, aut.
+            Get an appointment now! 
             </p>
           </Step>
 
@@ -59,8 +58,11 @@ function Home() {
             <img src="/images/shippingIcon.png" alt="" />
             <h3>Shipping</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Mollitia, aut.
+            (1st shipping) Delivered with US
+            <br />
+            (2nd shipping) Delivered through LalaMove and J&T
+            <br />
+            (3rd shipping) Pay via Master Card, Gcash or Cash on Delivery 
             </p>
           </Step>
 

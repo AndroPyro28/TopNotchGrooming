@@ -31,7 +31,7 @@ function OrderList() {
           uri: `/api/admin/getToShipOrders`,
           values: { status, textSearch },
         });
-        console.log(response)
+        console.log(response);
         const { msg, success } = response;
         if (!success && msg?.includes("session expired")) {
           return window.location.reload();
@@ -52,13 +52,8 @@ function OrderList() {
       <h3>To Ship Orders</h3>
 
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-        neque, excepturi dolor possimus velit nemo voluptates cupiditate, harum,
-        praesentium voluptatum aliquid voluptas magni officiis perspiciatis
-        doloribus facere! Molestiae voluptates debitis doloremque enim ex
-        repellendus quidem excepturi, quibusdam, quasi perspiciatis ducimus
-        laborum asperiores. Placeat ullam atque a libero quaerat doloribus
-        perferendis.
+        Welcome, Admin! Tracking customer order allows you to manage, modified
+        and approve all the pending orders in the system.
       </p>
 
       <OrderDetailsList>

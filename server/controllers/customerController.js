@@ -11,7 +11,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Order = require("../models/Order");
 const { getDateToday } = require("../helpers/DateFormatter");
 const Feedback = require('../models/Feedback')
-const {v4: uudi} = require('uuid')
+const {v4: uudi} = require('uuid');
+const Admin = require("../models/Admin");
 module.exports.signup = async (req, res) => {
   try {
     const customer = new Customer(req.body.values);
@@ -90,9 +91,10 @@ module.exports.updateInfo = async (req, res) => {
         "topnotch_profilepic/eadlgosq2pioplvi6lfs"
     ) {
       deleteOneUser(req.body.values.user.profile_image_id);
-    } else {
-      throw new Error('Invalid File Type')
-    }
+    } 
+    // else {
+    //   throw new Error('Invalid File Type')
+    // }
 
     if (
       req.body.values?.profileImg?.length > 0 &&
@@ -341,9 +343,9 @@ module.exports.addAppointment = async (req, res) => {
       appointmentType,
       dateNtime,
       additional_details,
-      image
+      image,
+      admin_id
     } = req.body.values;
-    console.log(req.body.values);
     if(!image || image == {} || image.length <= 0 || !image?.includes('image')) {
       throw new Error('Invalid File Type')
     }
@@ -359,7 +361,8 @@ module.exports.addAppointment = async (req, res) => {
       date_n_time: dateNtime,
       additional_details: additional_details,
       customer_id: req.currentUser.id,
-      image
+      image,
+      admin_id: admin_id
     });
 
     const { result, success } = await appointment.addAppointment();
@@ -539,6 +542,28 @@ module.exports.cancelOrder = async (req, res) => {
    return res.status(200).json(result);
   } catch (error) {
     console.error(error)
+    return res.status(200).json({
+      msg: error.message,
+      success: false
+    });
+  }
+}
+
+module.exports.getAllAdmin = async (req, res) => {
+  try {
+    const adminModel = new Admin({});
+    const result = await adminModel.getAllAdmin({});
+    return res.status(200).json({
+      data: result,
+      success: true
+    });
+
+  } catch (error) {
+    console.error(error)
+    return res.status(200).json({
+      msg: error.message,
+      success: false
+    });
   }
 }
 module.exports.paymentsuccess = async (req, res) => {

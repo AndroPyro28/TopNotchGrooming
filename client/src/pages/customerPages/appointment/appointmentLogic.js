@@ -8,7 +8,6 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
 
   const onSubmit = async (values) => {
     try {
-      console.log(image);
       if(image == null || !image || image == {}) {
         console.log('yes');
         return setImgError("Please set an image to this pet");
@@ -43,6 +42,7 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
       birthdate: "",
       gender: "",
       breed: "",
+      admin_id: '',
       appointmentType: "",
       dateNtime: "",
       additional_details: "",
@@ -57,6 +57,7 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
     breed: yup.string().required("Breed is required"),
     appointmentType: yup.string().required("Appointment is required"),
     dateNtime: yup.date().required("Date and time is required"),
+    admin_id: yup.number(),
     additional_details: yup.string(),
   });
 
