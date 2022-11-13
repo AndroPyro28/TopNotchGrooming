@@ -129,6 +129,10 @@ class Appointment {
       ) as customer,
 
       JSON_OBJECT(
+        'id', admin.id, 'firstname', admin.firstname, 'lastname', admin.lastname
+      ) as admin,
+
+      JSON_OBJECT(
         'id', live_streams.id, 
         'video', live_streams.video_url,
          'date', live_streams.date,
@@ -139,6 +143,8 @@ class Appointment {
       FROM appointments 
       INNER JOIN customer
       ON customer.id = appointments.customer_id
+      LEFT JOIN admin
+      ON appointments.admin_id = admin.id
       LEFT JOIN live_streams
       ON appointments.id = live_streams.appointment_id
       WHERE appointments.id = ?`;

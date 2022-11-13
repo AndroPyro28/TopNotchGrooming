@@ -17,7 +17,7 @@ import BillingModal from "../../../components/modals/customer_modals/billingModa
 function Cart() {
   const [items, setItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [paymentType, setPaymentType] = useState("card");
+  const [paymentType, setPaymentType] = useState("gcash");
 
   const navigate = useNavigate();
   const [openBilling, setOpenBilling] = useState(false)

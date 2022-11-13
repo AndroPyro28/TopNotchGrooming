@@ -3,7 +3,7 @@ import { LinkInput, LinkGeneratorContainer, Notify} from "./components";
 function LinkGenerator({ linkId, setLinkId }) {
   
   const [isClicked, setIsClicked] = useState(false);
-  const streamUrl = `https://topnotchgrooming-malolos.firebaseapp.com/public/liveStreamChannels?redirect=${linkId}`;
+  const streamUrl = `https://topnotchgroomingmalolos.firebaseapp.com/public/liveStreamChannels?redirect=${linkId}`;
 
   const clickCopyClip = () => {
     setIsClicked(true);

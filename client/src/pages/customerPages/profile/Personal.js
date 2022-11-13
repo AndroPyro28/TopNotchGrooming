@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const UserInfo = styled.section`
-display: flex;
+    display: flex;
     flex-direction: column;
     width: 100vw;
     background: white;
@@ -10,6 +10,15 @@ display: flex;
 
     @media (max-width:430px) {
         padding: 10px 10px;
+    }
+    & > .button-icons {
+        width: fit-content;
+        align-self: flex-start;
+        & > i {
+            margin: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
     }
 
 `

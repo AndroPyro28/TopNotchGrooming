@@ -35,7 +35,7 @@ function Login() {
                   <div className="form__content">
                     <h1>login</h1>
                     <p>
-                    Welcome to Top-Notch Dog Grooming Website, you can access our website by loggin.
+                    Welcome! Please enter your email address and password to login to your account.
                     </p>
 
                     <FormikControl

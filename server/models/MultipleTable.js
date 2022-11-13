@@ -102,6 +102,24 @@ class MultipleTable {
             console.error(error)
         }
     }
+
+    getEmployeeOfTheMonth = async () => {
+        try {
+            const date = new Date();
+            const month = date.getMonth();
+            const year = date.getFullYear();
+            const selectQuery = `SELECT admin.firstname, admin.lastname, admin.profile_image_url, appointments.date_n_time, count(appointments.admin_id) as appointmentCounts
+            FROM appointments
+            INNER JOIN admin
+            ON admin.id = appointments.admin_id
+            GROUP BY appointments.admin_id
+            `;
+            const [result, _] = await poolConnection.query(selectQuery)
+            return result;
+        } catch (error) {
+            console.error(error)
+        }
+    }
 }
 
 module.exports = MultipleTable;

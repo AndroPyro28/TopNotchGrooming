@@ -345,7 +345,7 @@ module.exports.dashboardData = async (req, res) => {
 
       const totalAmount = sale.total_amount;
       const currentMonth = date.getMonth();
-
+      if(date.getFullYear() === new Date().getFullYear()) {
       if (sale.order_status !== "cancelled") {
         totalSuccessTransactions+=1;
         let salesOfTheMonth = dataObj[currentMonth];
@@ -355,8 +355,6 @@ module.exports.dashboardData = async (req, res) => {
         } else {
           totalTransactionsPerMonth[currentMonth] += 1;
         }
-        
-        
         if (salesOfTheMonth == null || salesOfTheMonth == undefined) {
           salesOfTheMonth = 0;
         }
@@ -376,8 +374,7 @@ module.exports.dashboardData = async (req, res) => {
         }
         totalCancelledTransactions += 1;
       }
-
-     
+    }
     });
 
     return res.status(200).json({

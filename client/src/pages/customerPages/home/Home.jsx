@@ -14,12 +14,9 @@ function Home() {
       <HomeBannerContainer>
         <BannerContent>
           <h3>
-          W e l c o m e 
-          &nbsp;
-            <br />
-            t o  T h e
+          W e l c o m e   &nbsp; t o   &nbsp; T h e &nbsp;  T o p N o t c h
             &nbsp;
-            <br />T o p N o t c h &nbsp; <br /> D o g &nbsp; <br /> G r o o m i n g &nbsp; <br /> M a l o l o s{" "}
+            <br /> D o g &nbsp; G r o o m i n g &nbsp; M a l o l o s{" "}
           </h3>
           <p>
           Your furbaby’s need
@@ -58,32 +55,10 @@ function Home() {
             <img src="/images/shippingIcon.png" alt="" />
             <h3>Shipping</h3>
             <p>
-            (1st shipping) Delivered with US
-            <br />
-            (2nd shipping) Delivered through LalaMove and J&T
-            <br />
-            (3rd shipping) Pay via Master Card, Gcash or Cash on Delivery 
+             Deliver with Us
             </p>
           </Step>
-
-          <Step>
-            <img src="/images/shippingIcon.png" alt="" />
-            <h3>Shipping</h3>
-
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Mollitia, aut.
-            </p>
-          </Step>
-
-          <Step>
-            <img src="/images/shippingIcon.png" alt="" />
-            <h3>Shipping</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Mollitia, aut.
-            </p>
-          </Step>
+          
         </StepsContainer>
       </StepsWrapper>
     </HomePageContainer>

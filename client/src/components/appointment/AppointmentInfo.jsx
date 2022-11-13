@@ -14,7 +14,7 @@ import Logic from "./logic";
 import { ToastContainer, toast } from "react-toastify";
 
 function AppointmentInfo({ data, setData, setLoading }) {
-  const { appointment, live_stream_data, customer } = data;
+  const { appointment, live_stream_data, customer, admin} = data;
 
   const { id } = useParams();
 
@@ -53,6 +53,8 @@ function AppointmentInfo({ data, setData, setLoading }) {
         </Info>
       </InfoRow>
 
+      
+
       <InfoRow>
         <Info>
           <h4>Date n Time </h4>
@@ -78,6 +80,13 @@ function AppointmentInfo({ data, setData, setLoading }) {
               {new Date(formattedDateNTime).toLocaleTimeString()} &nbsp;{" "}
             </span>
           )}
+        </Info>
+      </InfoRow>
+      
+      <InfoRow>
+        <Info>
+          <h4>Groomer</h4>
+          <span>{admin?.firstname || '--'} {admin?.lastname || '--'}</span>
         </Info>
       </InfoRow>
 

@@ -90,7 +90,8 @@ class Order {
            ? `od.order_status LIKE ? AND od.reference LIKE ? OR od.order_status LIKE ? AND od.reference LIKE ?`
            : `od.order_status LIKE ? AND od.reference LIKE ?`
        } 
-       GROUP BY od.id`;
+       GROUP BY od.id
+       ORDER BY od.order_date DESC`;
       const [result, _] = await poolConnection.execute(
         selectQuery,
 

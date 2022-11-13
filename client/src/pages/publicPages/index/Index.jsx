@@ -9,15 +9,16 @@ import {
   OurTeamSection,
   TeamContent,
   FeedbackSection,
+  Content
 } from "./indexComponents";
 import CustomAxios from "../../../customer hooks/CustomAxios";
 import { motion } from "framer-motion";
 import FeedbackContent from "./FeedbackContent";
-import Board from "../../../components/livestream_room/Board";
 
 function Index() {
   const [pageContent, setPageContent] = useState(0);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [employees, setEmployees] = useState([])
   useEffect(() => {
     (async () => {
       try {
@@ -32,6 +33,33 @@ function Index() {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await CustomAxios({
+          METHOD: "GET",
+          uri: "/api/public/getEmployeeOfTheMonth",
+        });
+        const todayMonth = new Date().getMonth();
+        const todayYear = new Date().getFullYear();
+        const employeeOfTheMonth = res?.data?.filter(data => {
+          const date = new Date(data.date_n_time);
+          if(todayMonth == date.getMonth() && todayYear == date.getFullYear()) {
+            return data;
+          }
+        })
+        if(employeeOfTheMonth.length > 0 ) {
+          employeeOfTheMonth.sort((a, b) => a.appointmentCounts-b.appointmentCounts);
+          employeeOfTheMonth.length = 3;
+          setEmployees(employeeOfTheMonth);
+        }
+        
+      } catch (error) {
+        console.error("error here", error.message);
+      }
+    })();
+  }, [])
   const slidePage = (direction) => {
     setPageContent((prev) => {
       if (direction === "left") {
@@ -211,9 +239,10 @@ function Index() {
         feedbacks?.length > 0 && fetchFeedbacks
       }
 
-      <OurTeamSection>
+      {
+        employees.length > 0 && <OurTeamSection>
         <motion.h1 variants={childVariants} animate="animate" initial="initial">
-          Meet Our Team
+          {/* Employee of the month */}
         </motion.h1>
 
         <motion.div
@@ -222,43 +251,24 @@ function Index() {
           animate="animate"
           initial="initial"
         >
-          <TeamContent>
-            <img src="/images/defaultImage.png" />
-            <h1> Staff 1 </h1>
-            <label>Staff</label>
-          </TeamContent>
-
-          <TeamContent>
-          <img src="/images/defaultImage.png" />
-            <h1> Staff 2 </h1>
-            <label>Staff</label>
-          </TeamContent>
-
-          <TeamContent>
-          <img src="/images/defaultImage.png" />
-            <h1> Staff 3 </h1>
-            <label>Staff</label>
-          </TeamContent>
-
-          <TeamContent>
-          <img src="/images/defaultImage.png" />
-            <h1> Staff 4 </h1>
-            <label>Staff</label>
-          </TeamContent>
-
-          <TeamContent>
-          <img src="/images/defaultImage.png" />
-            <h1> Staff 5 </h1>
-            <label>Staff</label>
-          </TeamContent>
-
-          <TeamContent>
-          <img src="/images/defaultImage.png" />
-            <h1> Staff 6 </h1>
-            <label>Staff</label>
-          </TeamContent>
+            <TeamContent>
+            {
+            employees?.map(employee => (
+              <div><img src={employee?.profile_image_url} />
+              <h1> {employee?.firstname} {employee?.lastname} </h1>
+              <label>Employee</label></div>
+            ))
+          }
+            </TeamContent>
+            <Content>
+              <h1>Employees of the month <i class="fa-solid fa-award"></i></h1>
+              <p>Top-Notch Dog Grooming Malolos honors him/her as the most excellent employee of the month for his/her outstanding work and customer service. We appreciate your dedication and consider it a privilege to have you on our team. Congratulations!</p>
+              {/* <label htmlFor="">Total Groom of this month {employee?.appointmentCounts}</label> */}
+            </Content>
         </motion.div>
       </OurTeamSection>
+      }
+      
     </IndexPageContainer>
   );
 }

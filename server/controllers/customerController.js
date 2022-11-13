@@ -103,9 +103,10 @@ module.exports.updateInfo = async (req, res) => {
       const cloudinaryResponse = await uploadOneUser(req.body.values?.profileImg);
       req.body.values.user.profile_image_url = cloudinaryResponse.url;
       req.body.values.user.profile_image_id = cloudinaryResponse.public_id;
-    } else {
-      throw new Error('Invalid File Type')
-    }
+    } 
+    // else {
+    //   throw new Error('Invalid File Type')
+    // }
 
     const customer = new Customer(req.body.values.user);
     const isExists = await customer.checkIfExistByPhoneEmail2();
@@ -249,7 +250,7 @@ module.exports.checkout = async (req, res) => {
         url: "https://g.payx.ph/payment_request",
         formData: {
           "x-public-key": process.env.GCASH_API_KEY,
-          amount: `1`,
+          amount: `${totalAmount}`,
           description: "Payment for services rendered",
           redirectsuccessurl: `${process.env.CLIENT_URL_PROD}/customer/payment`,
           redirectfailurl: `${process.env.CLIENT_URL_PROD}/customer/cart`,

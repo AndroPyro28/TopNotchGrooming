@@ -35,12 +35,13 @@ function CardDetails({ items, setItems, toast,totalAmount, setTotalAmount, payme
         <h4>Choose your prefered payment method</h4>
 
         <div className="card__type">
-          <div
+          
+          {/* <div
             className={paymentType === "card" ? `card activeCardPayment` : "card"}
             onClick={() => pickPaymentType("card")}
           >
             <img src="/images/imgbin_mastercard-png.png" />
-          </div>
+          </div> */}
 
           <div
             className={paymentType === "gcash" ? `card activeCardPayment` : "card"}

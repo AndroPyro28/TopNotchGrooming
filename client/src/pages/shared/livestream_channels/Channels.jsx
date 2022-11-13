@@ -16,7 +16,7 @@ function Channels() {
   if(roomLink) {
     window.localStorage.setItem('enter_stream', true)
     window.localStorage.setItem("render_once", true)
-    setTimeout(() => navigate(`/public/liveStreamChannels/${roomLink}`), 0);
+    setTimeout(() => navigate(`/public/liveStreamChannels/${roomLink}`), 500);
   }
 
   let userType = "";

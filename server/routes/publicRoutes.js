@@ -4,6 +4,7 @@ const publicController = require('../controllers/publicController');
 const { verifyUser } = require('../middlewares/verifyUser');
 
 router.get('/getFirstThreeFeedback', publicController.getFirstThreeFeedback)
+router.get('/getEmployeeOfTheMonth', publicController.getEmployeeOfTheMonth)
 router.post('/findAccountAndSendEmail', publicController.findAccountAndSendCode)
 router.post('/verifyCode', publicController.verifyCode)
 router.post('/updatePassword', verifyUser, publicController.updatePassword)

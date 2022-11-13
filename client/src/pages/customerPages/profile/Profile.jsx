@@ -5,22 +5,15 @@ import {
   ListNavigationButton,
 } from "./profileComponents";
 import { NavLink, Outlet } from "react-router-dom";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../components/loader/Loader";
-import { authenticationSuccess } from "../../../redux/userSlice";
-import CustomAxios from "../../../customer hooks/CustomAxios";
 
 function Profile() {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setUser(currentUser);
@@ -33,40 +26,40 @@ function Profile() {
   };
   const [allowChanges, setAllowChanges] = useState(false);
 
-  const updateInfo = async () => {
-    try {
-      const values = Object.values(user);
-      const isFilled = values.every(value => value != "");
+  // const updateInfo = async () => {
+  //   try {
+  //     const values = Object.values(user);
+  //     const isFilled = values.every(value => value != "");
 
-      if(!isFilled) {
-        return toast('Fill up all the information to save the changes', { type: "warning" });
-      }
-      setLoading(true);
-      const response = await CustomAxios({
-        METHOD: "POST",
-        uri: `/api/customer/updateInfo`,
-        values: { user, profileImg },
-      });
+  //     if(!isFilled) {
+  //       return toast('Fill up all the information to save the changes', { type: "warning" });
+  //     }
+  //     setLoading(true);
+  //     const response = await CustomAxios({
+  //       METHOD: "POST",
+  //       uri: `/api/customer/updateInfo`,
+  //       values: { user, profileImg },
+  //     });
 
-      const { success, msg } = response;
+  //     const { success, msg } = response;
 
-      if (msg?.includes("session expired") && !success) {
-        toast(msg, { type: "error" });
-        return window.location.reload();
-      }
+  //     if (msg?.includes("session expired") && !success) {
+  //       toast(msg, { type: "error" });
+  //       return window.location.reload();
+  //     }
 
-      if (!success) return toast(msg, { type: "error" });
-     const { user: newUser } = response;
-      dispatch(authenticationSuccess({ currentUser: newUser, isAuth: true }));
-      setProfileImg(null);
-      setAllowChanges(false);
-      return toast(msg, { type: "success" });
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (!success) return toast(msg, { type: "error" });
+  //    const { user: newUser } = response;
+  //     dispatch(authenticationSuccess({ currentUser: newUser, isAuth: true }));
+  //     setProfileImg(null);
+  //     setAllowChanges(false);
+  //     return toast(msg, { type: "success" });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const [profileImg, setProfileImg] = useState(null);
 
@@ -93,9 +86,9 @@ function Profile() {
       {loading && <Loader bg="rgba(0,0,0,0.5)" />}
 
       <ToastContainer autoClose={1500} />
-      {allowChanges && (
+      {/* {allowChanges && (
         <i className="fa-solid fa-floppy-disk" onClick={updateInfo}></i>
-      )}
+      )} */}
       {!allowChanges && (
         <i
           className="fa-solid fa-user-pen allowChangesBtn"
@@ -132,7 +125,7 @@ function Profile() {
         </NavLink>
       </ListNavigationButton>
 
-      <Outlet context={{ allowChanges, setUser, user }} />
+      <Outlet context={{ allowChanges, setUser, user, profileImg, setAllowChanges, setLoading, loading, toast, setProfileImg }} />
     </ProfilePageContainer>
   );
 }

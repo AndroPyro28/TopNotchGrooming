@@ -29,16 +29,17 @@ export const BannerContent = styled.div`
     bottom: 0px; */
   margin: 70px;
   margin-top: 150px;
-  width: 30%;
+  width: 40%;
   text-align: start;
   & > h3 {
-    font-size: 3em;
+    font-size: 1.5em;
     font-family: "montserrat", "league spartan", sans-serif !important;
     text-transform: capitalize;
   }
 
   & > p {
     transform: translateY(30px);
+    font-size: 1.5em;
     font-family: "mukta mahee", sans-serif;
   }
 
@@ -84,7 +85,7 @@ export const StepsWrapper = styled.div`
 `;
 export const StepsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   padding: 20px;
   grid-gap: 20px;
 

@@ -260,14 +260,12 @@ export const OurTeamSection = styled.div`
   }
 
   & > .TeamSectionContainer {
-    display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 400px;
-  grid-gap: 10px;
-  padding: 10px;
-
+  display: flex;
+  margin: 20px;
+  min-height: 550px;
   @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
+    flex-direction: column;
+
   }
 
   @media (max-width: 500px) {
@@ -280,24 +278,34 @@ export const TeamSectionContainer = styled.div`
 `;
 
 export const TeamContent = styled.div`
+  flex: 1;
+  padding: 20px;
   display: flex;
-  flex-direction: column;
-  border-bottom: solid 2px rgb(252, 185, 91);
+  /* flex-direction: column; */
+  /* border-bottom: solid 2px rgb(252, 185, 91); */
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
-  & > img {
+  gap: 20px;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+  & > div {
+  border: solid 2px rgb(252, 185, 91);
+  border-radius: 10px;
+  }
+  &  img {
     width: 100%;
-    height: 85%;
-    object-fit: cover;
+    height: 75%;
+    object-fit: contain;
   }
 
-  & > h1 {
+  &  h1 {
     font-size: 1.3em;
     color: rgb(128, 128, 128);
   }
 
-  & > label {
+  &  label {
     color: rgb(252, 187, 94);
   }
 
@@ -307,6 +315,32 @@ export const TeamContent = styled.div`
     -moz-box-shadow: -5px -2px 8px -1px rgba(135, 135, 135, 0.75);
   }
 `;
+
+export const Content = styled.div`
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+  gap: 50px;
+  & > h1 {
+    font-size: 2.5em;
+    color: rgb(252, 185, 91);
+  }
+
+  & > p {
+    font-size: 1.1em;
+    margin: 50px;
+    color: rgb(252, 185, 91);
+  }
+
+  & > label {
+    font-size: 3em;
+    margin: 50px;
+    color: rgb(252, 185, 91);
+
+  }
+`
 
 export const FeedbackSection = styled.div`
   display: flex;
