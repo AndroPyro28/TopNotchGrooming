@@ -1,5 +1,32 @@
 import styled from "styled-components";
 
+
+export const FeedbackWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+    &:hover {
+        box-shadow: 1px 3px 5px gray;
+    }
+`
+
+export const CommentContainer = styled.div`
+    display: flex;
+    align-items: center;
+    border: solid 1px gray;
+    & > input {
+        width: 95%;
+        padding: 5px 10px;
+        outline: none;
+        border: none;
+    }
+
+    & > i {
+        font-size: 1.5em;
+        color: rgb(248,173,62);
+        cursor: pointer;
+    }
+`
 export const FeedbackContainer = styled.div`
     position: absolute;
     background: white;
@@ -37,7 +64,7 @@ export const FeedbackListContainer = styled.div`
 `
 
 export const FeedbackDataContainer = styled.div`
-    width: 98%;
+    
     display: grid;
     grid-template-columns: 90% 10% ;
     max-height: ${({view}) => view ? '100%' : '150px'};// toggle this on
@@ -45,10 +72,8 @@ export const FeedbackDataContainer = styled.div`
     overflow: hidden;
     border-radius: 10px;
     transition: all .3s ease-in-out;
-    margin: 10px;
-    &:hover {
-        box-shadow: 1px 3px 5px gray;
-    }
+    /* margin: 10px; */
+    
 `
 
 export const ProfileUser = styled.div`

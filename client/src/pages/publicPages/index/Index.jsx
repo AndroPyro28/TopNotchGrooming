@@ -99,7 +99,7 @@ function Index() {
     Our Feedbacks
   </motion.h1>
   <motion.div
-    className="ServiceContentContainer"
+    className="ServiceContentContainer feedbackContentContainer"
     variants={cardVariants}
     animate="animate"
     initial="initial"

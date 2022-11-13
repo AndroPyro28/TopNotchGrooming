@@ -15,7 +15,8 @@ const MultipleTable = require("../models/MultipleTable");
 const { uploadOneLiveStream } = require("../helpers/CloudinaryLiveStream");
 const Feedback = require("../models/Feedback");
 const Customer = require("../models/Customer");
-const {gmailNotifStream} = require('../helpers/GmailSender')
+const Comments = require("../models/Comments");
+const {gmailNotifStream} = require('../helpers/GmailSender');
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body.values;
@@ -506,3 +507,21 @@ module.exports.deleteAppointment = async (req, res) => {
     });
   }
 };
+
+
+module.exports.comment = async (req, res) => {
+  try {
+    const {id} = req.currentUser;
+    const {feedback_id, comment} = req.body.values;
+    const commentModel = new Comments({
+      feedback_id,
+      comment,
+      admin_id: id
+    });
+    const result = await commentModel.sendComment();
+    console.log(result);
+    return res.status(200).json(result)
+  } catch (error) {
+    console.error(error)
+  }
+}

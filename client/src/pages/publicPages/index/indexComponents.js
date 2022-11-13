@@ -195,7 +195,7 @@ export const ServicesSection = styled.div`
 
   & > .ServiceContentContainer {
     display: flex;
-  justify-content: space-evenly;
+    justify-content: space-evenly;
 
   @media (max-width: 900px) {
     & {
@@ -281,8 +281,6 @@ export const TeamContent = styled.div`
   flex: 1;
   padding: 20px;
   display: flex;
-  /* flex-direction: column; */
-  /* border-bottom: solid 2px rgb(252, 185, 91); */
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
@@ -351,6 +349,10 @@ export const FeedbackSection = styled.div`
 
     display: flex;
   flex-direction: column;
+  & > .feedbackContentContainer {
+    flex-direction: column;
+    align-items: center;
+    }
 
   @media (max-width: 700px) {
     & {
@@ -362,6 +364,7 @@ export const FeedbackSection = styled.div`
   & > .ServiceContentContainer {
     display: flex;
   justify-content: space-evenly;
+  
   @media (max-width: 900px) {
     & {
       flex-direction: column;
@@ -375,12 +378,12 @@ export const FeedbackContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: gray;
-  max-width: 280px;
   padding: 20px;
+  width: 35%;
   background: rgb(255, 247, 236);
   border-radius: 20px;
   margin: 50px;
-  max-height: 350px;
+  /* max-height: 350px; */
   min-height: 350px;
   @media (max-width: 900px) {
     & {
@@ -435,4 +438,29 @@ export const Comments = styled.p`
   font-size: 0.6em;
   text-align: start;
   margin: 10px;
+  flex: 1;
+  &.user-comment {
+    min-height: 150px;
+
+  }
+`
+
+export const AdminCommentsContainer= styled.div`
+  display: flex;
+  flex-direction: column;
+  & > h6 {
+    text-align: start;
+    margin: 10px;
+    color: gray;
+    font-size: .6em;
+    font-style: italic;
+  }
+`
+
+export const AdminComment = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: solid 1px gray;
+  border-radius: 5px;
+  margin: 5px;
 `

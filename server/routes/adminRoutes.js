@@ -22,4 +22,6 @@ router.post('/saleReport', verifyUser, adminController.saleReport)
 router.patch('/togglePinFeedback/:id', verifyUser, adminController.pinFeedback)
 router.delete('/deleteFeedback/:id', verifyUser, adminController.deleteFeedback)
 router.delete('/deleteAppointment/:id', verifyUser, adminController.deleteAppointment)
+router.post('/comment', verifyUser, adminController.comment)
+
 module.exports = router;
