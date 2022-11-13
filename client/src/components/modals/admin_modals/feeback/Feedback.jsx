@@ -44,7 +44,7 @@ function Feedback({data, setFeedbacks}) {
       </Comments>
 
       <Actions isPinned={isPinned}>
-        <i className="fa-solid fa-thumbtack pin" onClick={pinFeedback}></i>
+        {/* <i className="fa-solid fa-thumbtack pin" onClick={pinFeedback}></i> */}
         <i className="fa-solid fa-eraser delete" onClick={deleteFeedback}></i>
       </Actions>
     </FeedbackDataContainer>
