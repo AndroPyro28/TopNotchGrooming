@@ -24,7 +24,6 @@ function Feedback() {
           {
             stars
           }
-          
         </RateContainer>
 
         <p class="suggestion">Do you have any thoughts you'd like to share?</p>

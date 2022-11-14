@@ -12,7 +12,6 @@ import {
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import CartPopup from "../cartComponents/CartPopup";
-import Feedback from "../feedback/Feedback";
 import Logic from "./logic";
 function CustomerNavbar() {
 
@@ -23,8 +22,6 @@ function CustomerNavbar() {
   const { pathname } = useLocation();
   const { currentUser } = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
-  const { feedback } = useSelector((state) => state);
-  const dispatch = useDispatch();
 
   const {navLinkStyles, InfoAndCartClick, handleLogout, openFeedback} 
   = Logic({setOpenCart});
@@ -43,9 +40,7 @@ function CustomerNavbar() {
 
   return (
     <CustomerNavbarContainer>
-      {
-        feedback && <Feedback />
-      }
+      
       
       <TopNavbar>
         <BrandLogoContainer>
@@ -116,7 +111,7 @@ function CustomerNavbar() {
         <i className="fa-solid fa-bag-shopping"></i> <span>My purchases</span>
         </NavLink>
       </BotNavbar>
-      <FeedBackButtton className="fa-solid fa-envelope-open-text feedbackBtn" onClick={openFeedback}></FeedBackButtton>
+      {/* <FeedBackButtton className="fa-solid fa-envelope-open-text feedbackBtn" onClick={openFeedback}></FeedBackButtton> */}
     </CustomerNavbarContainer>
   );
 }

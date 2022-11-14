@@ -32,6 +32,7 @@ function Logic({ setOpenCart, paws, setPaws, comments, toast }) {
     dispatch(open());
   };
   const closeFeedback = () => {
+    console.log('closed')
     dispatch(close());
   };
   

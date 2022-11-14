@@ -5,6 +5,11 @@ export const FeedbackBackdrop = styled.section`
   width: 100vw;
   position: fixed;
   background: rgba(10, 10, 10, 0.87);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   z-index: 100;
 `;
 

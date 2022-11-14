@@ -12,18 +12,23 @@ import {
   ProceedButton,
 } from "./components";
 import productPriceFormatter from "../../../helpers/ProductPriceFormatter";
-import GetDateToday from "../../../helpers/DateToday";
 import CustomAxios from "../../../customer hooks/CustomAxios";
 import Cookies from "js-cookie";
 import Loader from "../../../components/loader/Loader"
+import {useDispatch, useSelector} from 'react-redux';
+import { open } from "../../../redux/feedbackSlice";
+import Feedback from "../../../components/feedback/Feedback";
+
 function PaymentInfo() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
+  const { feedback } = useSelector((state) => state);
   useEffect(() => {
     (async () => {
       try {
+  dispatch(open());
+
         setLoading(true)
         if (
           localStorage.getItem("onCheckoutProducts") == undefined ||
@@ -88,6 +93,10 @@ function PaymentInfo() {
 
   return (
     <PaymentSuccessContainer>
+      {
+        feedback && <Feedback />
+      }
+
       <ToastContainer autoClose={1500} />
 
       <i className="fa-solid fa-circle-check"></i>

@@ -9,7 +9,8 @@ export const PaymentSuccessContainer = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 85vh;
+    height: 100vh;
+    margin-top: -130px;
     & > i {
         font-size: 5em;
         padding: 0.2em;
