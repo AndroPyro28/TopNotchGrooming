@@ -34,6 +34,9 @@ function Preparing() {
     })();
   }, []);
 
+  
+
+
   return (
     <OrderContainer>
       <GlobalStyles />

@@ -369,6 +369,14 @@ export const ShippingDetails = styled.div`
     text-align: center;
     margin: 20px;
   }
+  & > p {
+    text-align: center;
+    max-height: 150px;
+    overflow: auto;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 0.9em;
+  }
 
   & > i {
     font-size: 8em;

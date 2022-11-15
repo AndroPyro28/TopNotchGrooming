@@ -533,10 +533,9 @@ module.exports.submitFeedback = async (req, res) => {
 module.exports.cancelOrder = async (req, res) => {
   try {
    const {id} = req.params;
-
+    const {reason} = req.body.values;
    const OrderModel = new Order({});
-   const result = await OrderModel.cancelOrder(id);
-
+   const result = await OrderModel.cancelOrder(id, reason);
    if(!result) {
     throw new Error('Order did not cancelled');
    }

@@ -3,18 +3,21 @@ import { Order, Info, Row, CancelButton, ViewButton } from "./components";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 import {useNavigate} from "react-router-dom";
 import CustomAxios from "../../customer hooks/CustomAxios"
+import CancelOrder from "../modals/customer_modals/cancel-order/CancelOrder";
+import { useState } from "react";
 function PreparingOrder({data, setOrders}) {
   const navigate = useNavigate();
+  const [toggleCancel, setToggleCancel] = useState(false);
+
   const cancelOrder = async () => {
-    try {
-      const res = await CustomAxios({METHOD:'PATCH', uri: `/api/customer/cancelOrder/${data.id}`});
-      setOrders(prev => prev.filter(order => order.id != data.id));
-    } catch (error) {
-      console.error(error.message)
-    }
+      setToggleCancel(true)
   }
+  console.log(data);
   return (
-    <Order key={data.id}>
+    <Order key={data.id}> 
+    {
+      toggleCancel && <CancelOrder setToggleCancel={setToggleCancel} setOrders={setOrders} id={data.id} />
+    }
       <img src={data.products[0].imageUrl} />
       <Info>
         <Row>

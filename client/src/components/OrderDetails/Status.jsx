@@ -13,9 +13,11 @@ function Status({ data }) {
   const [statusSummaryPackaging, setStatusSummaryPackaging] = useState("");
   const [statusSummaryShipping, setStatusSummaryShipping] = useState("");
   const [statusSummaryDelivering, setStatusSummaryDelivering] = useState("");
-
-  const { statusSummary, orderNextStage } = statusLogic({ deliveryStatus, setDeliveryStatus, data });
-  
+  const { statusSummary, orderNextStage } = statusLogic({
+    deliveryStatus,
+    setDeliveryStatus,
+    data,
+  });
   useEffect(() => {
     setDeliveryStatus(data?.delivery_status);
   }, [data]);
@@ -25,7 +27,6 @@ function Status({ data }) {
     setStatusSummaryShipping(statusSummary(2));
     setStatusSummaryDelivering(statusSummary(3));
   }, [deliveryStatus]);
-  
 
   return (
     <OrderStatusContainer>
@@ -35,8 +36,8 @@ function Status({ data }) {
         <i class="fa-solid fa-boxes-stacked"></i>
         <OrderStatusInfo>
           <span>
-            Order Packed
-            {" "} <i class={`fa-solid fa-circle-check ${statusSummaryPackaging}`}></i>
+            Order Packed{" "}
+            <i class={`fa-solid fa-circle-check ${statusSummaryPackaging}`}></i>
           </span>
           <small>Order is being prepared</small>
         </OrderStatusInfo>
@@ -46,8 +47,7 @@ function Status({ data }) {
         <i class="fa-solid fa-truck-fast"></i>
         <OrderStatusInfo>
           <span>
-            Order Dispatched
-            {" "}
+            Order Dispatched{" "}
             <i class={`fa-solid fa-circle-check ${statusSummaryShipping}`}></i>
           </span>
           <small>Preparing to dispatch </small>
@@ -58,8 +58,7 @@ function Status({ data }) {
         <i class="fa-solid fa-truck-ramp-box "></i>
         <OrderStatusInfo>
           <span>
-            Order Delivered
-            {" "}
+            Order Delivered{" "}
             <i
               class={`fa-solid fa-circle-check ${statusSummaryDelivering}`}
             ></i>
@@ -68,11 +67,21 @@ function Status({ data }) {
         </OrderStatusInfo>
       </OrderStatus>
 
-      {
-        data?.id && <button onClick={orderNextStage} disabled={deliveryStatus >= 4}>
-        {deliveryStatus >= 4 ? 'Order completed' : 'Next Stage'}
-      </button>
-      }
+      {data?.id ? (
+        <>
+          {data.delivery_status !== "cancelled" && deliveryStatus !== -1 ? (
+            <button onClick={orderNextStage} disabled={deliveryStatus >= 4}>
+              {deliveryStatus >= 4 ? "Order completed" : "Next Stage"}
+            </button>
+          ) : (
+            <button disabled={deliveryStatus === -1}>
+              {"Order cancelled"}
+            </button>
+          )}
+        </>
+      ) : (
+        <> </>
+      )}
     </OrderStatusContainer>
   );
 }
