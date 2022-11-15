@@ -47,6 +47,9 @@ class SocketControllers {
   leaveRoom = ({currentUser: user, currentRoom: room}) => {
     this.#io.to(room).emit("someOneLeaved", { user });
   }
+  livestreamEnded = ({currentUser: user, currentRoom: room}) => {
+    this.#io.to(room).emit("livestreamFinallyEnded")
+  }
 
   returnAllRooms = async () => {
     try {

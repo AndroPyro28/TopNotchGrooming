@@ -4,10 +4,11 @@ import { useState, useRef } from "react";
 import { VideoContainer, Options } from "./components";
 import { useLocation } from "react-router-dom";
 import Logic from "./Logic";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import Peer from "simple-peer";
 import Loader from "../loader/Loader";
+import { open } from "../../redux/feedbackSlice";
 
 function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoardData }) {
 
@@ -23,7 +24,7 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
   const [disabledButton, setDisbaledButton] = useState(false);
   const [parts, setParts] = useState([]);
   let mediaRecorder;
-
+  const dispatch = useDispatch()
   useEffect(() => {
     (async () => {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -97,6 +98,15 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
             });
           }
         });
+
+        socket?.on('livestreamFinallyEnded', () => {
+          if(pathname.includes('/public/liveStreamChannels/room')) {
+            return window.location.assign('/public/liveStreamChannels')
+          } 
+          if(pathname.includes('/customer/liveStreamChannels/room')) {
+           return  dispatch(open())
+          }
+        })
   
         // for admin
         socket?.on("sendStreamToAdmin", ({ data, userId, room }) => {

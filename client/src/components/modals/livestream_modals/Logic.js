@@ -22,6 +22,7 @@ function Logic({ linkId, scheduleInfo, toast}) {
 
       window.localStorage.setItem("enter_stream", true);
       window.localStorage.setItem("render_once", true)
+      window.localStorage.setItem('isGroomer', true);
       navigate(`/admin/liveStreamChannels/room=${linkId}`);
 
     } catch (error) {

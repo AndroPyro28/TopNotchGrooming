@@ -29,6 +29,7 @@ const socketRoutes = (io) => {
     
     socket.on('sendMessage', controller.sendMessage)
     socket.on('leaveRoom', controller.leaveRoom)
+    socket.on('livestreamEnded', controller.livestreamEnded)
 
     socket.on("disconnect", controller.disconnect);
   });

@@ -31,7 +31,7 @@ function FeedbackList({setOpenFeedbackModal}) {
     })();
   }, []);
 
-  const fetchFeedbacks = feedbacks?.length > 0 ? feedbacks?.map((feedback) =>  <Feedback setFeedbacks={setFeedbacks} data={feedback} /> ) : <h1>No feedbacks found</h1>
+  const fetchFeedbacks = feedbacks?.length > 0 ? feedbacks?.slice(0)?.reverse()?.map((feedback) =>  <Feedback setFeedbacks={setFeedbacks} data={feedback} /> ) : <h1>No feedbacks found</h1>
   return (
     <ModalBackdrop>
       <FeedbackContainer>

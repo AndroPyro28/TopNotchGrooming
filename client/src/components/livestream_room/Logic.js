@@ -59,6 +59,10 @@ function Logic({
           if (!success && msg?.includes("session expired")) {
             return window.location.assign("/");
           }
+          const isGroomer = window.localStorage.getItem('isGroomer');
+          if(isGroomer) {
+            socket.emit("livestreamEnded", { currentUser, currentRoom });
+          }
           socket.emit("leaveRoom", { currentUser, currentRoom });
            setTimeout(() => window.location.assign("/admin") , 0)
         };

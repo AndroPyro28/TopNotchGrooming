@@ -12,7 +12,6 @@ function PreparingOrder({data, setOrders}) {
   const cancelOrder = async () => {
       setToggleCancel(true)
   }
-  console.log(data);
   return (
     <Order key={data.id}> 
     {

@@ -5,10 +5,11 @@ import deviceType from "../../helpers/DeviceType";
 import { useDispatch } from "react-redux";
 import { open, close } from "../../redux/feedbackSlice";
 import CustomAxios from "../../customer hooks/CustomAxios"
+import {useLocation} from 'react-router-dom'
 function Logic({ setOpenCart, paws, setPaws, comments, toast }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const {pathname} = useLocation()
   const navLinkStyles = ({ isActive }) => {
     return {
       borderBottom: isActive ? "solid 2px gray" : "",
@@ -30,10 +31,14 @@ function Logic({ setOpenCart, paws, setPaws, comments, toast }) {
   };
   const openFeedback = () => {
     dispatch(open());
+
+   
   };
   const closeFeedback = () => {
-    console.log('closed')
     dispatch(close());
+    if(pathname.includes('/customer/liveStreamChannels/room')) {
+      window.location.assign('/customer/liveStreamChannels')
+    }
   };
   
   const stars = [1, 2, 3, 4, 5].map((star) => (
@@ -53,7 +58,14 @@ function Logic({ setOpenCart, paws, setPaws, comments, toast }) {
 
         toast('Thank you for your feedback!', {type: 'success'})
 
-        setTimeout(() => dispatch(close()), 2500)
+        setTimeout(() => {
+          dispatch(close())
+          if(pathname.includes('/customer/liveStreamChannels/room')) {
+            window.location.assign('/customer/liveStreamChannels')
+          }
+        }, 2500)
+
+        
 
       } catch (error) {
         console.error(error.message);
