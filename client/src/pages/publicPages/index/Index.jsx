@@ -9,7 +9,7 @@ import {
   OurTeamSection,
   TeamContent,
   FeedbackSection,
-  Content
+  Content,
 } from "./indexComponents";
 import CustomAxios from "../../../customer hooks/CustomAxios";
 import { motion } from "framer-motion";
@@ -18,11 +18,11 @@ import FeedbackContent from "./FeedbackContent";
 function Index() {
   const [pageContent, setPageContent] = useState();
   const [feedbacks, setFeedbacks] = useState([]);
-  const [employees, setEmployees] = useState([])
+  const [employees, setEmployees] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const [maxPage, setMaxPage] = useState(0)
+  const [maxPage, setMaxPage] = useState(0);
   useEffect(() => {
     (async () => {
       try {
@@ -45,12 +45,12 @@ function Index() {
           METHOD: "GET",
           uri: "/api/public/getPinnedEmployee",
         });
-        setEmployees(res)
+        setEmployees(res);
       } catch (error) {
         console.error("error here", error.message);
       }
     })();
-  }, [])
+  }, []);
   const slidePage = (direction) => {
     setPageContent((prev) => {
       if (direction === "left") {
@@ -85,36 +85,57 @@ function Index() {
     },
   };
 
-  const fetchFeedbacks = <FeedbackSection>
-  <motion.h1 variants={childVariants} animate="animate" initial="initial">
-    Our Feedbacks
-  </motion.h1>
-  <motion.div
-    className="ServiceContentContainer feedbackContentContainer"
-    variants={cardVariants}
-    animate="animate"
-    initial="initial"
-  >
-    {
-      feedbacks?.slice(3 * currentPage, 3 * currentPage + 3).map((data) => <FeedbackContent data={data} />)
-    }
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-  </motion.div>
+  const fetchFeedbacks = (
+    <FeedbackSection>
+      <motion.h1 variants={childVariants} animate="animate" initial="initial">
+        Our Feedbacks
+      </motion.h1>
+      <motion.div
+        className="ServiceContentContainer feedbackContentContainer"
+        variants={cardVariants}
+        animate="animate"
+        initial="initial"
+      >
+        {feedbacks?.slice(3 * currentPage, 3 * currentPage + 3).map((data) => (
+          <FeedbackContent data={data} />
+        ))}
+      </motion.div>
 
-    {
-      maxPage > 0 && <div className="pagination">  <i class="fa-solid fa-chevron-left"
-      onClick={() =>
-        setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
-      }
-      ></i> {currentPage + 1} <i class="fa-solid fa-chevron-right"
-      onClick={() =>
-        setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
-      }
-      ></i> </div>
-    }
-   
- 
-</FeedbackSection>
+      {maxPage > 0 && (
+        <div className="pagination">
+          {" "}
+          <i
+            class="fa-solid fa-chevron-left"
+            onClick={() =>
+              setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
+            }
+          ></i>{" "}
+          {currentPage + 1}{" "}
+          <i
+            class="fa-solid fa-chevron-right"
+            onClick={() =>
+              setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
+            }
+          ></i>{" "}
+        </div>
+      )}
+    </FeedbackSection>
+  );
   return (
     <IndexPageContainer>
       <CarouselSlider>
@@ -146,8 +167,9 @@ function Index() {
                 Make Your Lovely <br></br>Pets Feel Loved
               </motion.h1>
               <p>
-              Your pet deserves to be treated as if it were a member of your family. As a member of your family, we
-              make sure that your pet receives the respect and care they merit. 
+                Your pet deserves to be treated as if it were a member of your
+                family. As a member of your family, we make sure that your pet
+                receives the respect and care they merit.
               </p>
               {/* <button>See Here</button> */}
             </div>
@@ -167,7 +189,7 @@ function Index() {
                 The Dog Food That <br></br>loves The Planet
               </motion.h1>
               <p>
-              Your bestfriend deserves the best meal! Make your friend happy
+                Your bestfriend deserves the best meal! Make your friend happy
               </p>
               {/* <button>See Here</button> */}
             </div>
@@ -186,8 +208,8 @@ function Index() {
                 Know Your Pets <br></br>Needs
               </motion.h1>
               <p>
-              We always work to give your pet the ideal groom and ensure that they are feeling their best during the
-              whole experience.
+                We always work to give your pet the ideal groom and ensure that
+                they are feeling their best during the whole experience.
               </p>
               {/* <button>See Here</button> */}
             </div>
@@ -195,7 +217,7 @@ function Index() {
           </CarouselContainer>
         </CarouselWrapper>
       </CarouselSlider>
-      
+
       <ServicesSection>
         <motion.h1 variants={childVariants} animate="animate" initial="initial">
           OUR SERVICES
@@ -240,42 +262,52 @@ function Index() {
         </motion.div>
       </ServicesSection>
 
-      {
-        employees.length > 0 && <OurTeamSection>
-        <motion.h1 variants={childVariants} animate="animate" initial="initial">
-          {/* Employee of the month */}
-        </motion.h1>
+      {employees.length > 0 && (
+        <OurTeamSection>
+          <motion.h1
+            variants={childVariants}
+            animate="animate"
+            initial="initial"
+          >
+            {/* Employee of the month */}
+          </motion.h1>
 
-        <motion.div
-          className="TeamSectionContainer"
-          variants={cardVariants}
-          animate="animate"
-          initial="initial"
-        >
+          <motion.div
+            className="TeamSectionContainer"
+            variants={cardVariants}
+            animate="animate"
+            initial="initial"
+          >
             <TeamContent>
-            {
-            employees?.map(employee => (
-              <div><img src={employee?.profile_image_url} />
-              <h1> {employee?.firstname} {employee?.lastname} </h1>
-              <label>Employee</label></div>
-            ))
-          }
+              {employees?.map((employee) => (
+                <div>
+                  <img src={employee?.profile_image_url} />
+                  <h1>
+                    {" "}
+                    {employee?.firstname} {employee?.lastname}{" "}
+                  </h1>
+                  <label>Employee</label>
+                </div>
+              ))}
             </TeamContent>
             <Content>
-              <h1>Employees of the month <i class="fa-solid fa-award"></i></h1>
-              <p>Top-Notch Dog Grooming Malolos honors him/her as the most excellent employee of the month for his/her outstanding work and customer service. We appreciate your dedication and consider it a privilege to have you on our team. Congratulations!</p>
+              <h1>
+                Employees of the month <i class="fa-solid fa-award"></i> ({labels[new Date().getMonth()]}{" "}
+                {new Date().getFullYear()}) 
+              </h1>
+              <p>
+                Top-Notch Dog Grooming Malolos honors him/her as the most
+                excellent employee of the month for his/her outstanding work and
+                customer service. We appreciate your dedication and consider it
+                a privilege to have you on our team. Congratulations!
+              </p>
               {/* <label htmlFor="">Total Groom of this month {employee?.appointmentCounts}</label> */}
             </Content>
-        </motion.div>
-      </OurTeamSection>
-      }
+          </motion.div>
+        </OurTeamSection>
+      )}
 
-      {
-        feedbacks?.length > 0 && fetchFeedbacks
-      }
-
-      
-      
+      {feedbacks?.length > 0 && fetchFeedbacks}
     </IndexPageContainer>
   );
 }
