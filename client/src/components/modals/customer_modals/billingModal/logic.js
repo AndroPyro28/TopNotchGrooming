@@ -2,29 +2,35 @@ import * as yup from "yup";
 import CustomAxios from "../../../../customer hooks/CustomAxios";
 
 function logic({ items, totalAmount, paymentType, toast, courierType }) {
-  
-  const initialValues = () => {
-    return {
-      billingAddress: "",
-      contactNo: "",
-      zipCode: "",
-    };
+  const initialValues = {
+    city: "malolos",
+    subdivision: "",
+    houseNo: "",
+    brgy: "",
+    contactNo: "",
   };
 
   const validationSchema = yup.object({
-    billingAddress: yup
-      .string()
-      .required("Billing Address is required")
-      .min(10, "Billing address must be 10 characters long"),
+    city: yup.string().required("city is required"),
+    subdivision: yup.string().required("street / subdivision is required"),
+    houseNo: yup.string().required("house number is required"),
+    brgy: yup.string().required("barangay is required"),
+    // billingAddress: yup
+    //   .string()
+    //   .required("Billing Address is required")
+    //   .min(10, "Billing address must be 10 characters long"),
     contactNo: yup.string().required("Contact number is required"),
-    zipCode: yup.string().required("Zip code is required"),
   });
 
-  const onSubmit = async (billingInfo) => {
-
+  const onSubmit = async (values) => {
+    const {brgy, city, contactNo, houseNo, subdivision} = values;
+    
     if (courierType == "lalamove" || courierType == "toktok") {
-
-      billingInfo.courierType = courierType;
+      const billingInfo = {
+        billingAddress: `${houseNo} ${subdivision} ${brgy} ${city}`,
+        courierType,
+        contactNo
+      }
       
       const checkoutProducts = items.filter((item) => item.purchase);
 
@@ -33,7 +39,7 @@ function logic({ items, totalAmount, paymentType, toast, courierType }) {
         values: { checkoutProducts, totalAmount: totalAmount + (totalAmount * 0.01), billingInfo },
         uri:`/api/customer/checkout/${paymentType}`
       });
-     
+
       const { success, msg, proceedPayment, method, checkoutUrl, orderId } = response;
 
       if (!success && msg?.includes("session expired")) {

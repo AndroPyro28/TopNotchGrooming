@@ -354,6 +354,17 @@ export const FeedbackSection = styled.div`
     align-items: center;
     }
 
+    & > .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+      & > i {
+        cursor: pointer;
+      }
+    }
+
   @media (max-width: 700px) {
     & {
       margin: 0px;
@@ -385,6 +396,25 @@ export const FeedbackContentContainer = styled.div`
   margin: 50px;
   /* max-height: 350px; */
   min-height: 350px;
+
+  & > .ratings {
+    display: flex;
+    justify-content: flex-start;
+    margin: -10px 20px 20px 50px;
+    align-items: center;
+    & > span {
+      font-size: 0.6em;
+      margin-top: -4px;
+      margin-left: 10px;
+    }
+    & > i {
+      font-size: 0.6em;
+      color: rgb(248,173,62);
+      align-self: flex-start;
+      margin-inline: 2px;
+    }
+   
+  }
   @media (max-width: 900px) {
     & {
       max-width: 50%;
@@ -439,6 +469,16 @@ export const Comments = styled.p`
   text-align: start;
   margin: 10px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  & > img {
+    width: 100%;
+    height: 200px;
+    margin: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
   &.user-comment {
     min-height: 150px;
 

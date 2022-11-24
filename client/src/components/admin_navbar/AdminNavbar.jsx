@@ -15,7 +15,7 @@ function AdminNavbar() {
       };
 
       const [openMenu, setOpenMenu] = useState(false)
-
+      console.log(currentUser);
       const navLinkStyles = ({ isActive }) => {
         return {
           textDecoration: isActive ? "none" : "",
@@ -55,6 +55,11 @@ function AdminNavbar() {
           name:"Inventory",
           icon:'fa-solid fa-cart-flatbed'
         },
+        Boolean(currentUser.super) ? {
+          url:`/admin/employees`,
+          name:"Employees",
+          icon:'fa-solid fa-users'
+        } : null
 
       ]
 
@@ -93,6 +98,11 @@ function AdminNavbar() {
         <NavLink to="/admin/inventory">
           <i className="fa-solid fa-cart-flatbed"></i> Inventory
         </NavLink>
+        {
+          Boolean(currentUser.super) && <NavLink to="/admin/employees">
+         <i className="fa-solid fa-users"></i> Employees
+        </NavLink>
+        }
     </NavPages>
     </LeftNav>
 

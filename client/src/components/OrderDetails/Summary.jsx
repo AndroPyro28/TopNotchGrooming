@@ -10,12 +10,12 @@ function Summary({data}) {
     <OrderSummary>
       <OrderCalculation>
         <div>Subtotal:</div>
-        <div>{productPriceFormatter(data?.total_amount - (data?.total_amount * 0.01))}</div>
+        <div>{productPriceFormatter(Math.round(data?.total_amount - (data?.total_amount * 0.01)))}</div>
       </OrderCalculation>
 
       <OrderCalculation>
         <div>Shipping:</div>
-        <div>{productPriceFormatter(data?.total_amount * 0.01)}</div>
+        <div>{productPriceFormatter(Math.ceil(data.total_amount * 0.01))}</div>
       </OrderCalculation>
 
       <OrderCalculation>

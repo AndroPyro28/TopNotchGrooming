@@ -54,7 +54,7 @@ export const SalesDataContainer = styled.div`
   width: 100%;
   align-items: center;
   grid-template-columns: 20% 80%;
-  margin: 20px 20px;
+  margin: 20px 20px 0px 20px;
   /* height: 550px; */
   position: relative;
   border-radius: 20px;

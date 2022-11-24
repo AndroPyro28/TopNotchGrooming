@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { open, close } from "../../redux/feedbackSlice";
 import CustomAxios from "../../customer hooks/CustomAxios"
 import {useLocation} from 'react-router-dom'
-function Logic({ setOpenCart, paws, setPaws, comments, toast }) {
+function Logic({ setOpenCart, paws, setPaws, comments, toast, image }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {pathname} = useLocation()
@@ -50,7 +50,7 @@ function Logic({ setOpenCart, paws, setPaws, comments, toast }) {
       if(paws == 0 || !comments) {
         return toast('fil up the ratings and suggestion to submit your feedback.', {type: 'warning'})
       } 
-        const result = await CustomAxios({METHOD:"POST", values: {paws, comments}, uri:'/api/customer/submitFeedback'})
+        const result = await CustomAxios({METHOD:"POST", values: {paws, comments, image}, uri:'/api/customer/submitFeedback'})
         const {msg, success} = result; 
         if(!success && msg?.includes('session expired')) {
           return window.location.reload();

@@ -76,7 +76,7 @@ export const ProfileAvatar = styled.div`
 `;
 
 export const ListNavigationButton = styled.div`
-  margin: 0px 20px -105px 150px;
+  margin: 0px 20px -55px 150px;
   text-align: start;
 
   @media (max-width: 430px) {

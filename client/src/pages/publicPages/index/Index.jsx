@@ -16,9 +16,13 @@ import { motion } from "framer-motion";
 import FeedbackContent from "./FeedbackContent";
 
 function Index() {
-  const [pageContent, setPageContent] = useState(0);
+  const [pageContent, setPageContent] = useState();
   const [feedbacks, setFeedbacks] = useState([]);
   const [employees, setEmployees] = useState([])
+
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const [maxPage, setMaxPage] = useState(0)
   useEffect(() => {
     (async () => {
       try {
@@ -26,8 +30,8 @@ function Index() {
           METHOD: "GET",
           uri: "/api/public/getFirstThreeFeedback",
         });
-        console.log(res);
         setFeedbacks(res);
+        setMaxPage(Math.ceil(res.length / 3));
       } catch (error) {
         console.error("error here", error.message);
       }
@@ -39,22 +43,9 @@ function Index() {
       try {
         const res = await CustomAxios({
           METHOD: "GET",
-          uri: "/api/public/getEmployeeOfTheMonth",
+          uri: "/api/public/getPinnedEmployee",
         });
-        const todayMonth = new Date().getMonth();
-        const todayYear = new Date().getFullYear();
-        const employeeOfTheMonth = res?.data?.filter(data => {
-          const date = new Date(data.date_n_time);
-          if(todayMonth == date.getMonth() && todayYear == date.getFullYear()) {
-            return data;
-          }
-        })
-        if(employeeOfTheMonth.length > 0 ) {
-          employeeOfTheMonth.sort((a, b) => a.appointmentCounts-b.appointmentCounts);
-          employeeOfTheMonth.length = 3;
-          setEmployees(employeeOfTheMonth);
-        }
-        
+        setEmployees(res)
       } catch (error) {
         console.error("error here", error.message);
       }
@@ -105,10 +96,24 @@ function Index() {
     initial="initial"
   >
     {
-      feedbacks.map((data) => <FeedbackContent data={data} />)
+      feedbacks?.slice(3 * currentPage, 3 * currentPage + 3).map((data) => <FeedbackContent data={data} />)
     }
 
   </motion.div>
+
+    {
+      maxPage > 0 && <div className="pagination">  <i class="fa-solid fa-chevron-left"
+      onClick={() =>
+        setCurrentPage((prev) => (prev !== 0 ? prev - 1 : prev))
+      }
+      ></i> {currentPage + 1} <i class="fa-solid fa-chevron-right"
+      onClick={() =>
+        setCurrentPage((prev) => (prev + 1 < maxPage ? prev + 1 : prev))
+      }
+      ></i> </div>
+    }
+   
+ 
 </FeedbackSection>
   return (
     <IndexPageContainer>
@@ -236,10 +241,6 @@ function Index() {
       </ServicesSection>
 
       {
-        feedbacks?.length > 0 && fetchFeedbacks
-      }
-
-      {
         employees.length > 0 && <OurTeamSection>
         <motion.h1 variants={childVariants} animate="animate" initial="initial">
           {/* Employee of the month */}
@@ -268,6 +269,12 @@ function Index() {
         </motion.div>
       </OurTeamSection>
       }
+
+      {
+        feedbacks?.length > 0 && fetchFeedbacks
+      }
+
+      
       
     </IndexPageContainer>
   );

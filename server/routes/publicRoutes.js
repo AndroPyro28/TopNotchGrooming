@@ -8,4 +8,5 @@ router.get('/getEmployeeOfTheMonth', publicController.getEmployeeOfTheMonth)
 router.post('/findAccountAndSendEmail', publicController.findAccountAndSendCode)
 router.post('/verifyCode', publicController.verifyCode)
 router.post('/updatePassword', verifyUser, publicController.updatePassword)
+router.get('/getPinnedEmployee', publicController.getPinnedEmployee)
 module.exports = router;

@@ -57,12 +57,16 @@ import ResetPasswordRoute from "./authentication/ResetPasswordRoute";
 import TermsAndCondition from "./pages/publicPages/terms-condition/TermsAndCondition";
 import ReturnPolicy from "./pages/publicPages/return-policy/ReturnPolicy";
 import PrivacyPolicy from "./pages/publicPages/privacy-policy/PrivacyPolicy";
+import Employees from "./pages/adminPages/employees/Employees";
+
 function App() {
   const [loading, setLoading] = useState(false);
   const [navbarType, setNavbarType] = useState(null);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const { cart: cartProduct } = useSelector((state) => state);
 
+  const [cartRefresher, setCartRefresh] = useState(false);
   useEffect(() => {
     try {
       const userInfo = Cookies.get("userToken");
@@ -125,13 +129,23 @@ function App() {
   const { fetcher } = shopingCartLogic();
 
   useEffect(() => {
+    const refresh = cartProduct.every(
+      (cart) =>
+        (cart?.product_stocks != null) | (cart.product_stocks != undefined)
+    );
+    
+    if(!refresh) setCartRefresh(prev => !prev);
+    
+  }, [cartProduct]);
+  useEffect(() => {
     (async () => {
       if (pathname?.includes("customer")) {
         const cart = await fetcher();
+        console.log(cart);
         dispatch(setToCartReducer(cart));
       }
     })();
-  }, [pathname]);
+  }, [pathname, cartRefresher]);
 
   if (loading) return <Loader bg="rgba(139, 133, 98, 0.526)" />;
   const excludeRoutes = [
@@ -333,6 +347,12 @@ function App() {
           path="/admin/liveStreamChannels/room=:link"
           element={<AdminRoutes Component={<LiveStreamRoom />} />}
         />
+
+        <Route
+          path="/admin/employees/"
+          element={<AdminRoutes Component={<Employees />} />}
+        />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 

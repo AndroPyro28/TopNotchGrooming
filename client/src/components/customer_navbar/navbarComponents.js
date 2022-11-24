@@ -185,11 +185,26 @@ export const BotNavbar = styled.section`
   display: flex;
   justify-content: center;
 
+  &.hamburger {
+    & > i {
+      align-self: center;
+      font-size: 1.5em;
+      color: black;
+      @media screen and (min-width:1020px) {
+      display: none;
+      cursor: pointer;
+    }
+    }
+  }
   & > a {
     padding: 10px 20px;
     margin: 5px;
     color: black !important;
-
+    border-bottom: solid 2px transparent;
+    font-size: 0.9em;
+    @media screen and (max-width:1020px) {
+      display: none;
+    }
     @media (max-width: 580px) {
       & {
         padding: 10px;
@@ -297,7 +312,7 @@ export const ProductListContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 0vh;
-  max-height: 50vh;
+  max-height: 45vh;
   overflow: auto;
   @media (max-width: 550px) {
     font-size: 1em;
@@ -313,6 +328,8 @@ export const ProductContainer = styled.div`
   @media (max-width: 550px) {
     font-size: 1em;
   }
+
+ 
   & > img {
     width: 100px;
     max-height: 80px;
@@ -362,6 +379,24 @@ export const ProductQuantity = styled.div`
   font-size: 0.9em;
   font-weight: 500;
   color: gray;
+  & > button {
+    margin: 5px;
+    border: none;
+    padding: 2px 4px;
+    border-radius: 10px;
+    color: gray;
+    cursor: pointer;
+    background: none;
+    font-size: 1.1em;
+    font-weight:1000;
+    &.incremeant {
+    color: lightgreen;
+      &:disabled {
+        color: gray;
+      }
+    }
+  }
+
   @media (max-width: 550px) {
     font-size: 0.7em;
   }
@@ -380,7 +415,6 @@ export const CartPopupBoxContainer = styled.div`
  position: relative;
    height: 100%;
    z-index: 10000;
-
    & > h1 {
      margin: 20px;
      text-align: start;

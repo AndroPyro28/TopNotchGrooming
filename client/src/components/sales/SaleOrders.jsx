@@ -2,6 +2,7 @@ import React from 'react'
 import Data from "./Data"
 import {SaleOrdersContainer, TableRow, Col, DataList} from "./components"
 function SaleOrders({orders}) {
+  
   const fetchOrders = orders?.length > 0 ? orders?.map((order, index) => {
     return <Data order={order} />
   }) : <h1>No transaction found!</h1>

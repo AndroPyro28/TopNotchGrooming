@@ -23,12 +23,10 @@ function PaymentInfo() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const { feedback } = useSelector((state) => state);
   useEffect(() => {
     (async () => {
       try {
-  dispatch(open());
-
+        dispatch(open());
         setLoading(true)
         if (
           localStorage.getItem("onCheckoutProducts") == undefined ||
@@ -93,10 +91,6 @@ function PaymentInfo() {
 
   return (
     <PaymentSuccessContainer>
-      {
-        feedback && <Feedback />
-      }
-
       <ToastContainer autoClose={1500} />
 
       <i className="fa-solid fa-circle-check"></i>

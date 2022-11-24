@@ -1,11 +1,45 @@
 import React from "react";
-import { Order, Info, Row, ViewButton } from "./components";
+import { Order, Info, Row, ViewButton, ReceivedButton } from "./components";
 import productPriceFormatter from "../../helpers/ProductPriceFormatter";
 import { useNavigate } from "react-router-dom";
+import CustomAxios from "../../customer hooks/CustomAxios";
+import {useDispatch, useSelector } from 'react-redux';
+import {open} from '../../redux/feedbackSlice'
+function ToReceiveOrder({ data, setOrders }) {
 
-function ToReceiveOrder({ data }) {
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
+  const {currentUser} = useSelector(state => state.user);
+
+  const orderCompleted = async () => {
+    try {
+
+      const customer = {
+        firstname: currentUser.firstname,
+        lastname: currentUser.lastname,
+        contact: currentUser.phoneNo
+      }
+      
+      data.customer = customer;
+
+      const response = await CustomAxios({
+        METHOD: "PATCH",
+        uri: `/api/admin/orderNextStage/${data.reference}`,
+        values: { deliveryStatus: 4, data },
+      });
+      
+      const { success, msg } = response;
+      if (!success && msg?.includes("session expired")) {
+        return window.location.reload();
+      }
+
+      setOrders(prev => prev.filter(order => order.reference != data.reference && order.id != data.id))
+      dispatch(open())
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <Order key={data.id}>
       <img src={data.products[0].imageUrl} />
@@ -17,7 +51,7 @@ function ToReceiveOrder({ data }) {
         </Row>
 
         <Row>
-        <h4>Total amount of {productPriceFormatter(data.total_amount)}</h4>
+          <h4>Total amount of {productPriceFormatter(data.total_amount)}</h4>
         </Row>
 
         <Row>
@@ -33,7 +67,8 @@ function ToReceiveOrder({ data }) {
               className="fa-solid fa-location-dot"
               style={{ color: "red" }}
             ></i>
-            &nbsp; {data.billing_address} {data.zip_code} ( North Luzon Philippines ){" "}
+            &nbsp; {data.billing_address} {data.zip_code} ( North Luzon
+            Philippines ){" "}
           </small>
         </Row>
         <Row>
@@ -44,15 +79,22 @@ function ToReceiveOrder({ data }) {
         </Row>
 
         <Row>
-          <small style={{textTransform:"capitalize"}}>
-          <i className="fa-solid fa-credit-card"></i> &nbsp; {data.payment_type} Payment
+          <small style={{ textTransform: "capitalize" }}>
+            <i className="fa-solid fa-credit-card"></i> &nbsp;{" "}
+            {data.payment_type} Payment
           </small>
         </Row>
 
         <Row>
-          <ViewButton className="" onClick={() => navigate(`/customer/purchases/${data.reference}`)}>
+          <ViewButton
+            className=""
+            onClick={() => navigate(`/customer/purchases/${data.reference}`)}
+          >
             View Order
           </ViewButton>
+          {data.delivery_status === 3 && (
+            <ReceivedButton onClick={orderCompleted}>Order Received</ReceivedButton>
+          )}
         </Row>
       </Info>
     </Order>

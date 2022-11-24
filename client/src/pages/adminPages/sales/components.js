@@ -11,6 +11,24 @@ export const SaleContainerPage = styled.div`
     flex-direction:column;
     align-items: center;
     height: 100%;
+    & > .exportButtons {
+        align-self: flex-end;
+
+        display: flex;
+        & > button {
+        background: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 0px 20px 20px 20px;
+        cursor: pointer;
+        border-radius: 10px;
+
+        &:hover {
+            box-shadow: 1px 3px 5px gray;
+        }
+    }
+    }
+    
 `
 
 export const Title = styled.h2`

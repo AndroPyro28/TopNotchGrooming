@@ -11,10 +11,27 @@ function FeedbackContent({ data }) {
   for (let i = 0; i < data.ratings; i++) {
     ratingsLength.push("");
   }
-
+  
   const rate = ratingsLength.map((rate, index) => (
     <i className="fa-solid fa-paw" key={index}></i>
   ));
+
+  let content;
+
+  if(rate.length === 1) {
+    content = <span>Very Dissatisfied</span>
+  } else if (rate.length === 2) {
+    content = <span>Dissatisfied</span>
+  } else if (rate.length === 3) {
+    content = <span>Neutral </span>
+  } else if (rate.length === 4) {
+    content = <span>Satisfied</span>
+  } else if (rate.length === 5) {
+    content = <span>Very Satisfied</span>
+  } else {
+    content = <></>
+  }
+
   return (
     <FeedbackContentContainer>
       <User>
@@ -22,9 +39,17 @@ function FeedbackContent({ data }) {
         <span>
           {data.firstname} {data.lastname}{" "}
         </span>
-        {rate}
+        <br />
       </User>
-      <Comments className="user-comment">{data.comments}</Comments>
+      <div className="ratings">{rate} {content} </div>
+      
+      <Comments className="user-comment">
+        {data.comments}
+        {
+            data.image_url && <img src={data.image_url} alt="" />
+        }
+        
+      </Comments>
       {
         data.admin_comments.length > 0 && <AdminCommentsContainer>
         <h6>*Replies from admin*</h6>

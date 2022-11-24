@@ -19,7 +19,13 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
   const [courierType, setCourierType] = useState("");
   const [loading, setLoading] = useState(true);
   const [agree, setAgree] = useState(false);
-  const { initialValues, validationSchema, onSubmit, validateContact, validateZipCode } = logic({
+  const {
+    initialValues,
+    validationSchema,
+    onSubmit,
+    validateContact,
+    validateZipCode,
+  } = logic({
     items,
     totalAmount,
     paymentType,
@@ -38,6 +44,59 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
     return <Loader bg="rgba(0,0,0,0.5)" />;
   }
 
+  const brgyValues = [
+    "Anilao",
+    "Atlag",
+    "Babatnin",
+    "Bagna",
+    "Bagong Bayan",
+    "Balayong",
+    "Balite",
+    "Bangkal",
+    "Barihan",
+    "Bulihan",
+    "Bungahan",
+    "Caingin",
+    "Calero",
+    "Caliligawan",
+    "Canalate",
+    "Caniogan",
+    "Catmon",
+    "Cofradia",
+    "Dakila",
+    "Guinhawa",
+    "Ligas",
+    "Liyang",
+    "Longos",
+    "Look 1st",
+    "Look 2nd",
+    "Lugam",
+    "Mabolo",
+    "Mambog",
+    "Masile",
+    "Matimbo",
+    "Mojon",
+    "Namayan",
+    "Niugan",
+    "Pamarawan",
+    "Panasahan",
+    "Pinagbakahan",
+    "San Agustin",
+    "San Gabriel",
+    "San Juan",
+    "San Pablo",
+    "San Vicente",
+    "Santiago",
+    "Santisima Trinidad",
+    "Santo Cristo",
+    "Santo Niño",
+    "Santo Rosario",
+    "Santol",
+    "Sumapang Bata",
+    "Sumapang Matanda",
+    "Taal",
+    "Tikay",
+  ];
   return (
     <ModalBackdrop>
       <Formik
@@ -46,7 +105,6 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
         onSubmit={onSubmit}
       >
         {(formik) => {
-
           const { contactNo } = formik.values;
 
           return (
@@ -57,25 +115,39 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
               <h4>
                 <i class="fa-solid fa-info"></i> Billing Information{" "}
               </h4>
-              <InputWrapper>
-                <label htmlFor="billingAddress">Billing Address</label>
+
+              <InputWrapper className="billing">
                 <InputContainer>
                   <Field
                     type="text"
-                    name="billingAddress"
-                    id={"billingAddress"}
-                    placeholder="Billing address Including Street"
+                    name="houseNo"
+                    id={"houseNo"}
+                    placeholder="House no."
                   />
-                  <i class="fa-solid fa-location-dot"></i>
+                  <ErrorMessage
+                    component={"div"}
+                    name={"houseNo"}
+                    className="error__message"
+                  />
                 </InputContainer>
-                <ErrorMessage
-                  component={"div"}
-                  name={"billingAddress"}
-                  className="error__message"
-                />
+
+                <InputContainer>
+                  <Field
+                    type="text"
+                    name="subdivision"
+                    id={"subdivision"}
+                    placeholder="subdivision no / street"
+                  />
+                  <ErrorMessage
+                    component={"div"}
+                    name={"subdivision"}
+                    className="error__message"
+                  />
+                </InputContainer>
               </InputWrapper>
 
-              <InputWrapper>
+
+              <InputWrapper className="billing">
                 <InputContainer>
                   <Field
                     type="text"
@@ -84,30 +156,54 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
                     placeholder="Contact number"
                     validate={validateContact}
                   />
-
-                  <Field
-                    type="text"
-                    name="zipCode"
-                    id={"zipCode"}
-                    placeholder="Zip Code"
-                    validate={validateZipCode}
-                  />
-                </InputContainer>
-                <div
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
                   <ErrorMessage
                     component={"div"}
                     name={"contactNo"}
                     className="error__message"
                   />
+                </InputContainer>
+              </InputWrapper>
 
+             
+              <InputWrapper className="billing">
+                <InputContainer>
+                  <Field
+                    type="text"
+                    name="brgy"
+                    id={"brgy"}
+                    placeholder="brgy"
+                    as="select"
+                  >
+                    <option value={''}>Select Brgy</option>
+                    {brgyValues.map((value) => (
+                      <option value={value}>{value}</option>
+                    ))}
+                  </Field>
                   <ErrorMessage
                     component={"div"}
-                    name={"zipCode"}
+                    name={"brgy"}
                     className="error__message"
                   />
-                </div>
+                </InputContainer>
+              </InputWrapper>
+
+              <InputWrapper className="billing">
+                <InputContainer>
+                  <Field
+                    type="text"
+                    name="city"
+                    id={"city"}
+                    placeholder="City"
+                    as="select"
+                  >
+                    <option value={"malolos"}>Malolos</option>
+                  </Field>
+                  <ErrorMessage
+                    component={"div"}
+                    name={"city"}
+                    className="error__message"
+                  />
+                </InputContainer>
               </InputWrapper>
 
               <Note>
@@ -117,8 +213,9 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
                   checked={agree === true}
                 />
                 &nbsp;
-                <small style={{color:"maroon"}}>
-                  Note:&nbsp; The Delivery of the product is only around malolos bulacan, Do you agree?
+                <small style={{ color: "maroon" }}>
+                  Note:&nbsp; The Delivery of the product is only around malolos
+                  bulacan, Do you agree?
                 </small>
               </Note>
 
@@ -128,7 +225,7 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
                   style={{
                     background:
                       courierType == "toktok" ? "#EAEAEA" : "transparent",
-                      borderColor:
+                    borderColor:
                       courierType == "toktok" ? "gray" : "transparent",
                   }}
                 >
@@ -139,7 +236,7 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
                   style={{
                     background:
                       courierType == "lalamove" ? "#EAEAEA" : "transparent",
-                      borderColor:
+                    borderColor:
                       courierType == "lalamove" ? "gray" : "transparent",
                   }}
                 >

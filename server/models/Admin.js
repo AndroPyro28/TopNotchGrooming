@@ -30,9 +30,19 @@ class Admin {
 
     getAllAdmin = async () => {
         try {
-            const selectQuery = `SELECT id, firstname, lastname FROM admin`;
-            const [result, _] = await poolConnection.execute(selectQuery);
+            const selectQuery = `SELECT id, firstname, lastname FROM admin Where super = ?`;
+            const [result, _] = await poolConnection.execute(selectQuery, [false]);
 
+            return result
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    pinEmployee = async (id, pin) => {
+        try {
+            const updateQuery = `UPDATE admin SET pin = ? WHERE id = ?`;
+            const [result, _] = await poolConnection.execute(updateQuery, [pin, id]);
             return result
         } catch (error) {
             console.error(error)

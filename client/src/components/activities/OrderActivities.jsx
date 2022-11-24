@@ -5,11 +5,15 @@ import CustomAxios from "../../customer hooks/CustomAxios";
 import DateFormmater from "../../helpers/DateFormatter";
 import { UserActivities, Activity, RowInfo, Pagination } from "./components";
 import ProductPriceFormmater from "../../helpers/ProductPriceFormatter";
+import { open } from "../../redux/feedbackSlice";
+import {useDispatch} from 'react-redux';
+
 function OrderActivities() {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
   const [maxPage, setMaxPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch()
   useEffect(() => {
     (async () => {
       try {
@@ -37,13 +41,16 @@ function OrderActivities() {
   // ?.slice(10 * currentPage, 10 * currentPage + 10)
   // ?.map((data) => <AppointmentData key={data.id} data={data} />);
 
-
+  const openFeedbackIfCompleted = (status) => {
+    if(status.toLowerCase() === 'completed')
+      dispatch(open())
+    }
   const fetchOrders = loading ? (
     <h4>Loading activities...</h4>
   ) : orders?.length > 0 ? (
     orders?.slice(6 * currentPage, 6 * currentPage + 6)?.map((order, index) => {
       return (
-        <RowInfo key={index}>
+        <RowInfo key={index} >
           <Activity status={order.order_status}>
             <span class="date">
               {DateFormmater(order.order_date)}

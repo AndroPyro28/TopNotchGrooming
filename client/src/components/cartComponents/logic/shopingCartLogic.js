@@ -1,11 +1,13 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeTocartReducer,
   updateToCartReducer,
 } from "../../../redux/cartSlice";
 import CustomAxios from "../../../customer hooks/CustomAxios";
+
 function ShopingCartLogic(props) {
   const dispatch = useDispatch();
+  const {cart} = useSelector(state => state);
 
   const fetcher = async () => {
     try {
@@ -40,7 +42,9 @@ function ShopingCartLogic(props) {
       : 0;
   };
 
-  
+  const decrement = (product) => {
+    const index = cart?.findIndex((c) => c.product_id == product.id)
+  }
 
   const handleItem = (item, setItems) => {
     setItems((cartItems) => {

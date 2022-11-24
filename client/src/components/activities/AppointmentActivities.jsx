@@ -3,12 +3,16 @@ import { UserActivities, RowInfo, Activity, Pagination } from "./components";
 import CustomAxios from "../../customer hooks/CustomAxios";
 import { useState } from "react";
 import Get_Date_N_Time from "../../helpers/Get_Date_N_Time";
+import {useDispatch} from 'react-redux';
+import { open } from "../../redux/feedbackSlice";
+
 function AppointmentActivities() {
 
   const [loading, setLoading] = useState(false)
   const [appointments, setAppointments] = useState([])
   const [maxPage, setMaxPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
@@ -32,8 +36,15 @@ function AppointmentActivities() {
 
   const fetchAppointments = loading ? <h4>Loading activities...</h4> 
   : appointments?.length > 0 ? appointments.slice(6 * currentPage, 6 * currentPage + 6).map((appointment, index) => {
+    console.log(appointment.date_n_time.substring(0,appointment.date_n_time.indexOf(".")));
     const {newDate, newTime} = Get_Date_N_Time(appointment.date_n_time);
-    return <RowInfo key={index}>
+    
+    const openFeedbackIfCompleted = (status) => {
+      if(status.toLowerCase() === 'completed')
+        dispatch(open())
+      }
+
+    return <RowInfo key={index} >
     <Activity status={appointment.status}>
           <span class="date"> {newDate} at {newTime} </span>
         </Activity>

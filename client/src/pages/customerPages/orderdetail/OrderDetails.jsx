@@ -20,7 +20,10 @@ function OrderDetails({data}) {
             <i class="fa-solid fa-basket-shopping"></i> {data.products?.length} item(s)
           </small>
           <small>
-          <i class="fa-solid fa-receipt"></i> {productPriceFormatter(data.total_amount)} pesos only
+          <i class="fa-solid fa-receipt"></i> total {productPriceFormatter(data.total_amount)} pesos only
+          </small>
+          <small>
+          <i class="fa-solid fa-receipt"></i> shipping: {productPriceFormatter(Math.ceil(data.total_amount * 0.01))} pesos only
           </small>
           <small>
           <i class="fa-solid fa-credit-card"></i> {data.payment_type} Payment
@@ -34,7 +37,7 @@ function OrderDetails({data}) {
             <i class="fa-solid fa-user"></i> {customer?.firstname} {customer?.lastname}
           </small>
           <small>
-            <i class="fa-solid fa-phone"></i> (+63) {data?.contact}
+            <i class="fa-solid fa-phone"></i>+{data?.contact}
           </small>
           <small>
             <i class="fa-solid fa-location-dot"></i> {data.billing_address}

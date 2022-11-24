@@ -20,7 +20,7 @@ export const FeedbackContainer = styled.div`
   left: 0;
   right: 0;
   height: fit-content;
-  bottom: 0;
+  bottom: 50px;
   margin: auto;
   background: white;
   border-radius: 15px;
@@ -29,6 +29,17 @@ export const FeedbackContainer = styled.div`
   flex-direction: column;
   padding-inline: 50px;
   padding-block: 20px;
+
+  & > .imageUploader {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    border: solid 1px gray;
+    & > input {
+      width: 100%;
+    }
+  }
 
   @media (max-width: 850px) {
     width: 40%;

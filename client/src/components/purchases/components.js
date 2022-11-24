@@ -107,3 +107,7 @@ export const CancelButton = styled.button`
 export const ViewButton = styled.button`
   background: green;
 `;
+
+export const ReceivedButton = styled.button`
+  background: rgb(107,153,255);
+`

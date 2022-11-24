@@ -7,9 +7,10 @@ import {
 function ProductLogic({toast, setDisable}) {
   const {cart} = useSelector(state => state)
   const dispatch = useDispatch();
+  
   const addToCart = async (product) => {
     try {
-    const index = cart?.findIndex((c) => c.product_id == product.id)
+      const index = cart?.findIndex((c) => c.product_id == product.id)
     
       if(cart[index]?.quantity + 1 <= product.product_stocks || index == -1) {
         setDisable(true)

@@ -56,7 +56,7 @@ function AppointmentLogic({toast, image, setImgError, setLoading}) {
     gender: yup.string().required("Gender is required"),
     breed: yup.string().required("Breed is required"),
     appointmentType: yup.string().required("Appointment is required"),
-    dateNtime: yup.date().required("Date and time is required"),
+    dateNtime: yup.date().required("Date-time is required (08:00 am - 07:00 pm)"),
     admin_id: yup.number(),
     additional_details: yup.string(),
   });

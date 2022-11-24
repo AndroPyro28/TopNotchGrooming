@@ -23,6 +23,7 @@ function OrderDetails() {
 
   const [loading, startTransition] = useTransition();
   const [orderData, setOrderData] = useState({})
+  
   useEffect(() => {
     try {
       startTransition(async () => {

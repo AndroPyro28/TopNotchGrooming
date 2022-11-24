@@ -4,11 +4,13 @@ class Feedback {
   #customer_id;
   #comments;
   #ratings;
+  #image_url;
 
-  constructor({ customer_id = null, comments = null, ratings = null }) {
+  constructor({ customer_id = null, comments = null, ratings = null, image="" }) {
     this.#comments = comments;
     this.#ratings = ratings;
     this.#customer_id = customer_id;
+    this.#image_url = image
   }
 
   getAllFeedback = async () => {
@@ -18,6 +20,7 @@ class Feedback {
       f.comments,
       f.id,
       f.pin,
+      f.image_url,
       c.profile_image_url,
       c.firstname,
       c.lastname
@@ -36,8 +39,8 @@ class Feedback {
 
   submitFeedback = async () => {
     try {
-      const insertQuery = `INSERT INTO feedback (ratings, comments, customer_id) VALUES (?, ?, ?);`
-      const [result, _ ] = poolConnection.execute(insertQuery, [this.#ratings, this.#comments, this.#customer_id]);
+      const insertQuery = `INSERT INTO feedback (ratings, comments, customer_id, image_url) VALUES (?, ?, ?, ?);`
+      const [result, _ ] = poolConnection.execute(insertQuery, [this.#ratings, this.#comments, this.#customer_id, this.#image_url]);
 
       return result;
     } catch (error) {
@@ -72,6 +75,7 @@ class Feedback {
       f.comments,
       f.id,
       f.pin,
+      f.image_url,
       c.profile_image_url,
       c.firstname,
       c.lastname,
@@ -86,7 +90,6 @@ class Feedback {
       ON a.id = co.admin_id
       GROUP BY f.id
       ORDER BY f.ratings DESC
-      LIMIT 3
       `;
       const [result, _] = await poolConnection.query(selectQuery, []);
       return result.map(feedback => {

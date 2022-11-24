@@ -18,7 +18,9 @@ export const ModalBackdrop = styled.div`
     top: 0;
     width: 50%;
     margin: auto;
-    height: fit-content;
+    height: 95vh;
+    overflow: auto;
+    overflow-x: hidden;
     border-radius: 10px;
     text-align: start;
     display: flex;
@@ -82,11 +84,15 @@ export const ModalBackdrop = styled.div`
 
 export const InputWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-self: center;
   width: 80%;
-  margin: 10px 50px;
+  margin: 0px 50px;
 
+  &.billing {
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 20px;
+  }
   & > label {
     margin-block: 5px;
   }
@@ -94,28 +100,43 @@ export const InputWrapper = styled.div`
   & > .error__message {
     text-align: center;
     font-size: 0.9em !important;
+    margin: 5px;
   }
 `;
 
 export const InputContainer = styled.div`
-  border-width: 2px;
-  border-color: #cccccc;
-  border-style: solid;
+  width: 100%;
+  
   display: flex;
-  border-radius: 8px;
-  box-shadow: 0px 0px 5px rgba(134, 173, 186, 0.75);
+  flex-direction: column;
   padding: 5px;
-  input {
-    width: 95%;
+  border: none;
+
+ & >  input, select {
+    width: 100%;
     padding: 0px 8px;
     font-size: 15px;
     background-color: #ffffff;
     border: none;
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: #cccccc;
+    border-style: solid;
     color: #2a2828;
+    box-shadow: 0px 0px 5px rgba(134, 173, 186, 0.75);
+    padding: 5px 10px;
     text-shadow: -50px 0px 0px rgba(255, 255, 255, 0.75);
     &:focus {
       outline: none;
     }
+  }
+
+  & > select {
+    width: 104%;
+  }
+
+  & > .error__message {
+    text-align: center;
   }
 
   & > i {

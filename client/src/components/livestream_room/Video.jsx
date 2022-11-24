@@ -25,6 +25,7 @@ function Video({ setDisplayBoard, setDisplayBoardModal, displayBoard: displayBoa
   const [parts, setParts] = useState([]);
   let mediaRecorder;
   const dispatch = useDispatch()
+  
   useEffect(() => {
     (async () => {
       const stream = await navigator.mediaDevices.getUserMedia({

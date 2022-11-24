@@ -94,7 +94,7 @@ ChartJS.register(
   BarController
 );
 
-function SalesData() {
+function SalesData({setMonthly}) {
   const [salesData, setSalesData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
   const [cancelledTransactionsData, setCancelledTransactionsData] = useState([]);
@@ -127,7 +127,16 @@ function SalesData() {
       if (!success && msg?.includes("session expired")) {
         return window.location.reload();
       }
-
+      
+      setMonthly({
+        monthlySales,
+        overAllSales,
+        totalSalesToday,
+        totalNumberOfAllTransactions,
+        totalTransactionsPerMonth,
+        totalCancelledTransactionsPerMonth,
+        totalCancelledTransactions,
+      })
       setTotalNumberOfAllCancelledTransactions(totalCancelledTransactions)
       setOverAllSales(overAllSales);
       setTotalSalesToday(totalSalesToday);

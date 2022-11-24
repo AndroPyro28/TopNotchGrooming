@@ -156,8 +156,19 @@ module.exports.getEmployeeOfTheMonth = async (req, res) => {
   try {
     const multipleQuery = new MultipleTable();
     const result = await multipleQuery.getEmployeeOfTheMonth()
+
+    const todayMonth = new Date().getMonth();
+    const todayYear = new Date().getFullYear();
+    const employees = result.map((employee) => {
+      employee.appointment_activities = employee.appointment_activities.filter(appointments => {
+        const date = new Date(appointments.date_n_time);
+          return todayMonth == date.getMonth() && todayYear == date.getFullYear()
+      })
+      return employee;
+    })
+    const sortedEmployees = employees.sort((a, b) => b.appointment_activities.length - a.appointment_activities.length)
     return res.status(200).json({
-      data:result,
+      data:sortedEmployees,
       success: true
     })
   } catch (error) {
@@ -165,5 +176,16 @@ module.exports.getEmployeeOfTheMonth = async (req, res) => {
     return res.status(200).json({
       success: false
     })
+  }
+}
+
+module.exports.getPinnedEmployee = async (req, res) => {
+  try {
+    const multipleQuery = new MultipleTable();
+    const result = await multipleQuery.getPinnedEmployees()
+    console.log(result)
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error)
   }
 }

@@ -161,6 +161,7 @@ module.exports.orderNextStage = async (req, res) => {
       msg: "Order proceeded to next stage",
       success: true,
     });
+    
   } catch (error) {
     return res.status(200).json({
       msg: error.message,
@@ -519,7 +520,18 @@ module.exports.comment = async (req, res) => {
       admin_id: id
     });
     const result = await commentModel.sendComment();
-    console.log(result);
+    return res.status(200).json(result)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+module.exports.pinEmployee = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const pin = req.body.values;
+    const adminModel = new Admin({})
+    const result = await adminModel.pinEmployee(id, pin);
     return res.status(200).json(result)
   } catch (error) {
     console.error(error)

@@ -34,7 +34,7 @@ export const RowInfo = styled.div`
   display: flex;
   width: 90%;
   margin: 15px 90px;
-
+  /* cursor: pointer; */
   @media (max-width:700px) {
     width: 100%;
     margin: 15px 0px;

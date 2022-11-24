@@ -7,12 +7,15 @@ import {
   InfoAndCart,
   BotNavbar,
   DropDown,
-  FeedBackButtton
+  FeedBackButtton,
+
 } from "./navbarComponents";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import CartPopup from "../cartComponents/CartPopup";
 import Logic from "./logic";
+import HamburgerNavBar from "../shared/HamburgerNavBar";
+
 function CustomerNavbar() {
 
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -38,6 +41,32 @@ function CustomerNavbar() {
     })();
   }, [pathname]);
 
+  const [openMenu, setOpenMenu] = useState(true)
+
+  const routesArr = [
+    {
+      url:'/customer',
+      name:'Home'
+    },
+    {
+      url:'/customer/store',
+      name:'Store'
+    },
+    {
+      url:'/customer/liveStreamChannels',
+      name:'Live Streams'
+    },
+    {
+      url:'/customer/appointment',
+      name:'Appointments'
+    },
+    {
+      url:'/customer/purchases',
+      name:'My purchases'
+    },
+    ]
+
+
   return (
     <CustomerNavbarContainer>
       
@@ -55,6 +84,31 @@ function CustomerNavbar() {
             <i className="fa-solid fa-magnifying-glass"></i> &nbsp; Search
           </button>
         </SearchBarContainer> */}
+  
+        {
+          openMenu && <HamburgerNavBar routes={routesArr} setOpenMenu={setOpenMenu} navLinkStyles={navLinkStyles} />
+        }
+
+      {/* <HamburgerMenu className="fa-solid fa-bars" onClick={() => setOpenMenu(true)} /> */}
+
+      <BotNavbar>
+        <NavLink style={navLinkStyles} to="/customer/">
+          <i className="fa-solid fa-house"></i> <span>Home</span>
+        </NavLink>
+        <NavLink style={navLinkStyles} to="/customer/store">
+          <i className="fa-solid fa-store"></i> <span>Store</span>
+        </NavLink>
+        <NavLink style={navLinkStyles} to="/customer/liveStreamChannels">
+          <i class="fa-solid fa-tower-broadcast"></i> <span>Live Streams</span>{" "}
+        </NavLink>
+        <NavLink style={navLinkStyles} to="/customer/appointment">
+          <i className="fa-solid fa-calendar-days"></i> <span>Appointment</span>
+        </NavLink>
+        <NavLink style={navLinkStyles} to="/customer/purchases">
+        <i className="fa-solid fa-bag-shopping"></i> <span>My purchases</span>
+        </NavLink>
+      </BotNavbar>
+
 
         <InfoAndCart>
           <a>
@@ -94,23 +148,10 @@ function CustomerNavbar() {
         </InfoAndCart>
       </TopNavbar>
 
-      <BotNavbar>
-        <NavLink style={navLinkStyles} to="/customer/">
-          <i className="fa-solid fa-house"></i> <span>Home</span>
-        </NavLink>
-        <NavLink style={navLinkStyles} to="/customer/store">
-          <i className="fa-solid fa-store"></i> <span>Store</span>
-        </NavLink>
-        <NavLink style={navLinkStyles} to="/customer/liveStreamChannels">
-          <i class="fa-solid fa-tower-broadcast"></i> <span>Live Streams</span>{" "}
-        </NavLink>
-        <NavLink style={navLinkStyles} to="/customer/appointment">
-          <i className="fa-solid fa-calendar-days"></i> <span>Appointment</span>
-        </NavLink>
-        <NavLink style={navLinkStyles} to="/customer/purchases">
-        <i className="fa-solid fa-bag-shopping"></i> <span>My purchases</span>
-        </NavLink>
+      <BotNavbar className="hamburger">
+              <i className="fa-solid fa-bars" onClick={() => setOpenMenu(true)}></i>
       </BotNavbar>
+
       {/* <FeedBackButtton className="fa-solid fa-envelope-open-text feedbackBtn" onClick={openFeedback}></FeedBackButtton> */}
     </CustomerNavbarContainer>
   );

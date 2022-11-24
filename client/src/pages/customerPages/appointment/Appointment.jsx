@@ -17,6 +17,7 @@ function Appointment() {
   const [imgError, setImgError] = useState("");
   const [loading, setLoading] = useState(false);
   const [admins, setAdmins] = useState([]);
+
   useEffect(() => {
     (async () => {
       try {
@@ -86,7 +87,7 @@ function Appointment() {
     const birthdate = document.querySelector("#birthdate");
     const scheduledDate = document.querySelector("#scheduledDate");
     birthdate.max = dateTodayFormatter({ year: 1, month: 4 });
-    scheduledDate.min = `${dateTodayFormatter({ date: 1 })}T00:00:00`;
+    scheduledDate.min = `${dateTodayFormatter({ date: 1 })}T07:00:00`;
   }, []);
 
   return (
@@ -96,6 +97,17 @@ function Appointment() {
       onSubmit={onSubmit}
     >
       {(formik) => {
+       
+        const time = formik.values?.dateNtime?.split('T')[1];
+        if(time < '08:00' || time > '19:00') {
+        //   formik.setTouched({
+        //     ...formik.touched,
+        //     dateNtime: true,
+        // });
+        
+        // formik.setFieldError('dateNtime', 'invalid time')
+        formik.setFieldValue('dateNtime', '')
+        }
         return (
           <Form class="appointment__form__container" autoComplete="off">
             <AppointmentFormPhoto></AppointmentFormPhoto>

@@ -5,6 +5,7 @@ const ProductDetails = require("../models/ProductDetails");
 const Product = require("../models/product");
 const { assignToken } = require("../helpers/AuthTokenHandler");
 const { deleteOneUser, uploadOneUser } = require("../helpers/CloudinaryUser");
+const { deleteOneFeedback, uploadOneFeedback } = require("../helpers/CloudinaryFeedbacks");
 const { uploadOnePetImage } = require("../helpers/CloudinaryPetImages");
 const Appointment = require("../models/Appointment");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -509,11 +510,19 @@ module.exports.getAllOrderActivities = async (req, res) => {
 module.exports.submitFeedback = async (req, res) => {
   try {
     const {id} = req.currentUser;
-    const {paws, comments} = req.body.values;
+    let {paws, comments, image} = req.body.values;
+
+    if(image.startsWith('data:image/')) {
+      const result = await uploadOneFeedback(image)
+      console.log(result)
+      image = result.url
+    }
+
     const feedbackModel = new Feedback({
       customer_id: id,
       ratings: paws,
-      comments
+      comments,
+      image
     })
     const result = await feedbackModel.submitFeedback();
 

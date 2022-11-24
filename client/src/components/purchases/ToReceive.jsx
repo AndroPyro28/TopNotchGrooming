@@ -39,7 +39,7 @@ function ToReceive() {
           .slice(0)
           .reverse()
           .map((order) => {
-            return <ToReceiveOrder key={order.id} data={order} />;
+            return <ToReceiveOrder key={order.id} data={order} setOrders={setOrders} />;
           })
       )}
     </OrderContainer>
