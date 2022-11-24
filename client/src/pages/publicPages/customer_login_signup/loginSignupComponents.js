@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 
 export const LoginSignupPageContainer = styled.section`
-
     background: url('/images/login&signupBody.png');
     background-size: cover;
-    height: 100vh;
-    width: 100vw;
+    /* height: 100vh; */
+    /* width: 100vw; */
     text-align: start;
     overflow-x:hidden;
 `
@@ -24,12 +23,14 @@ export const LoginSignupWrapper = styled.div`
 export const LoginSignupContainer = styled.div`
     display: flex;
     justify-content: center;
-    background: white;
+    /* background: white; */
     margin-top: 90px;
-    height: 80%;
+    /* height: 80%; */
     width: 70%;
+    /* overflow: auto; */
+    /* flex-direction: column; */
     /* background: black; */
-    border: solid 1px rgb(122, 122, 57);
+    /* border: solid 1px rgb(122, 122, 57); */
     padding: 0px 35px;
     border-radius: 20px;
     @media(max-width:800px) {
@@ -42,7 +43,7 @@ export const LoginSignupContainer = styled.div`
 
     & > .form__inputs {
         display: flex;
-        overflow: hidden;
+        /* overflow: hidden; */
         width: 30vw;
         margin: 10px;
 
@@ -68,7 +69,7 @@ export const LoginSignupContainer = styled.div`
             display: flex;
             flex-direction: column;
             width:100%;
-            overflow: hidden;
+            /* overflow: hidden; */
             align-self: center;
             & > h1 {
                 margin-top: 5px;

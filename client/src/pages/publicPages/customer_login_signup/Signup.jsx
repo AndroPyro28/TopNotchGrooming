@@ -69,11 +69,6 @@ function Signup() {
                     Welcome to Top-Notch Dog Grooming Website, you can access our website by creating an
                     account and filling up the required fields.
                     </p>
-
-                    {
-                      //first input content
-                      inputPageNo === 0 && (
-                        <>
                           <FormikControl
                             name="firstname"
                             label="Firstname"
@@ -81,7 +76,6 @@ function Signup() {
                             control="input"
                             className="input__container"
                           />
-
                           <FormikControl
                             name="lastname"
                             label="Lastname"
@@ -89,14 +83,7 @@ function Signup() {
                             control="input"
                             className="input__container"
                           />
-                        </>
-                      )
-                    }
-
-                    {
-                      //first input content
-                      inputPageNo === 1 && (
-                        <>
+                   
                           <FormikControl
                             name="birthdate"
                             label="Birthdate"
@@ -106,23 +93,56 @@ function Signup() {
                             className="input__container"
                           />
 
-                          <FormikControl
+                          {/* <FormikControl
                             name="address"
                             label="Address"
                             type="text"
                             control="input"
                             className="input__container"
+                          /> */}
+                          
+                          <FormikControl
+                            name="houseNo"
+                            label="House no."
+                            type="text"
+                            control="input"
+                            className="input__container"
                           />
-                        </>
-                      )
-                    }
 
-                    
+                          <FormikControl
+                            name="subdivision"
+                            label="Street/Subdivision"
+                            type="text"
+                            control="input"
+                            className="input__container"
+                          />
 
-                    {
-                      //second input content
-                      inputPageNo === 2 && (
-                        <>
+                          <FormikControl
+                            name="barangay"
+                            label="Barangay"
+                            type="text"
+                            control="input"
+                            className="input__container"
+                          />
+
+                          <FormikControl
+                            name="city"
+                            label="city"
+                            type="text"
+                            control="input"
+                            className="input__container"
+                            disabled={true}
+                          />
+
+                          <FormikControl
+                            name="province"
+                            label="province"
+                            type="text"
+                            control="input"
+                            className="input__container"
+                            disabled={true}
+                          />  
+                  
                           <FormikControl
                             name="email"
                             label="Email"
@@ -141,14 +161,8 @@ function Signup() {
                               validatePhone(phoneNo)
                             }
                           />
-                        </>
-                      )
-                    }
 
-                    {
-                      //third input content
-                      inputPageNo === 3 && (
-                        <>
+                    
                           <FormikControl
                             name="password"
                             label="Password"
@@ -167,43 +181,19 @@ function Signup() {
                               validatePassword(password, confirmPassword)
                             }
                           />
-                        </>
-                      )
-                    }
+                       
                     
                     <Link to="/customer/login">
                       Already have an account? Login
                     </Link>
 
                     <div className="input__container button__container">
-                      {inputPageNo > 0 && (
-                        <button
-                          type="button"
-                          className="prevBtn"
-                          onClick={() => prevNextBtn("prev")}
-                        >
-                          Prev
-                        </button>
-                      )}
-                      <span>{inputPageNo + 1} / 4</span>
-                      {inputPageNo < 3 && ( // 2 is the number of content inputs
-                        <button
-                          type="button"
-                          className="nextBtn"
-                          onClick={() => prevNextBtn("next")}
-                        >
-                          Next
-                        </button>
-                      )}
-
-                      {inputPageNo === 3 && ( // 2 is the number of content inputs
                         <button
                           type="submit"
                           className="loginBtn"
                         >
                           Signup
                         </button>
-                      )}
                     </div>
                   </div>
                 </Form>

@@ -10,7 +10,11 @@ function useLogic({ toast }) {
 
   const onSubmitLogin = async (values) => {
     try {
-      const response = await CustomAxios({METHOD:"POST", uri:`/api/customer/login`, values})
+      const response = await CustomAxios({
+        METHOD: "POST",
+        uri: `/api/customer/login`,
+        values,
+      });
       const { success, msg } = response;
 
       if (!success) return toast(msg, { type: "error" });
@@ -54,7 +58,36 @@ function useLogic({ toast }) {
 
   const onSubmitSignup = async (values) => {
     try {
-      const response = await CustomAxios({METHOD:'POST', uri:'/api/customer/signup', values})
+      const {
+        firstname,
+        lastname,
+        barangay,
+        birthdate,
+        city,
+        province,
+        password,
+        confirmPassword,
+        email,
+        houseNo,
+        phoneNo,
+        subdivision,
+      } = values;
+
+      const newValues = {
+        firstname,
+        lastname,
+        birthdate,
+        email,
+        phoneNo,
+        password,
+        address: `${houseNo} ${subdivision} ${barangay} ${city} ${province}`,
+        confirmPassword,
+      };
+      const response = await CustomAxios({
+        METHOD: "POST",
+        uri: "/api/customer/signup",
+        values: newValues,
+      });
 
       const { msg, success } = response;
 
@@ -68,20 +101,22 @@ function useLogic({ toast }) {
         return navigate("/customer/login", { replace: true });
       }, 2500);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
   };
 
-  const initialValuesSignup = () => {
-    return {
-      firstname: "",
-      lastname: "",
-      email: "",
-      phoneNo: "",
-      address: "",
-      password: "",
-      confirmPassword: "",
-    };
+  const initialValuesSignup = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    phoneNo: "",
+    houseNo: "",
+    subdivision: "",
+    barangay: "",
+    city: "Malolos",
+    province: "Bulacan",
+    password: "",
+    confirmPassword: "",
   };
 
   const validationSchemaSignup = yup.object({
@@ -92,9 +127,15 @@ function useLogic({ toast }) {
       .email("This is invalid email")
       .required("This field is required"),
     phoneNo: yup.string().required(),
-    address: yup
-      .string()
-      .required("This field is required"),
+    phoneNo: yup.string().required("This field is required"),
+    houseNo: yup.string().required("This field is required"),
+    subdivision: yup.string().required("This field is required"),
+    barangay: yup.string().required("This field is required"),
+    city: yup.string().required("This field is required"),
+    province: yup.string().required("This field is required"),
+    // address: yup
+    //   .string()
+    //   .required("This field is required"),
     birthdate: yup.string().required("This field is required"),
     password: yup.string().required("This field is required").min(6),
     confirmPassword: yup.string().required("This field is required"),

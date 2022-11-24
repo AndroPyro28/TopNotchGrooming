@@ -1,6 +1,5 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/publicPages/index/Index";
