@@ -316,13 +316,13 @@ export const TeamContent = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  /* justify-content: center; */
+  /* justify-content: cent  er; */
   flex-direction: column;
   flex: 1;
   padding: 20px;
   gap: 50px;
   & > h1 {
-    font-size: 2.5em;
+    font-size: 1.6em;
     color: rgb(252, 185, 91);
   }
 
