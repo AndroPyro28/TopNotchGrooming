@@ -155,6 +155,7 @@ function AppointmentInfo({ data, setData, setLoading }) {
         appointment?.status !== "pending" &&
         appointment?.status !== "rejected" &&
         appointment?.status !== "completed" &&
+        appointment?.status !== "cancelled" &&
         (
           <InfoRow style={{ justifyContent: "center" }}>
             <button className="complete" onClick={completeSchedule}>
