@@ -13,7 +13,7 @@ function AppointmentDetails() {
   const { id } = useParams();
   const [details, setDetails] = useState({});
   const navigate = useNavigate()
-
+  
   useEffect(() => {
     (async () => {
       try {

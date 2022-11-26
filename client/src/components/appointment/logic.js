@@ -89,6 +89,7 @@ function Logic({ appointment, setData, toast, setAppointments, setLoading, custo
   const deleteAppointment = async () => {
     try {
       const result = await CustomAxios({METHOD: "DELETE", uri:`/api/admin/deleteAppointment/${id}=${live_stream_data.id}`,});
+      navigate(-1)
     } catch (error) {
       console.error(error.message)
     }
@@ -97,6 +98,7 @@ function Logic({ appointment, setData, toast, setAppointments, setLoading, custo
   const updateScheduleByCustomer = async () => {
     try {
       const result = await CustomAxios({METHOD: "PATCH", uri:`/api/customer/updateSchedule/${id}`, values:{appointment}});
+      toast(`Schedule updated!`, { type: "info" });
     } catch (error) {
       console.error(error)
     }

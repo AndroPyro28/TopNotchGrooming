@@ -66,13 +66,22 @@ function AppointmentInfo({ data, setData, setLoading }) {
               value={formattedDateNTime}
               min={`${FormateDateLocal(new Date().toISOString())}`}
               onChange={(e) =>
-                setData((prev) => ({
-                  ...prev,
+                setData((prev) => {
+                  const time = e.target.value.split('T')[1];
+
+                  if(time < '08:00' || time > '19:00') {
+                    toast('invalid time, we operate only starting 08:00 am until 07:00 pm', {type:"info"})
+                    return prev;
+                  }
+
+                  return {...prev,
                   appointment: {
                     ...prev.appointment,
                     date_n_time: e.target.value,
                   },
-                }))
+                }
+                }
+                )
               }
             />
           ) : (
