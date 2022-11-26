@@ -9,12 +9,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../components/loader/Loader";
+import CustomAxios from "../../../customer hooks/CustomAxios";
+import { authenticationSuccess } from "../../../redux/userSlice";
 
 function Profile() {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setUser(currentUser);
   }, [currentUser]);
@@ -71,8 +73,8 @@ function Profile() {
         reader.readAsDataURL(profileImg);
 
         reader.onloadend = async () => {
-          if(!reader.result.includes('image')) {
-            return toast('Invalid File Type', {type: 'warning'})
+          if (!reader.result.includes("image")) {
+            return toast("Invalid File Type", { type: "warning" });
           }
           setProfileImg(reader.result);
         };
@@ -81,20 +83,49 @@ function Profile() {
       }
     }
   }, [profileImg]);
+  const updateInfo = async () => {
+    try {
+      const values = Object.values(user);
+      const isFilled = values.every((value) => value != "");
+
+      if (!isFilled) {
+        return toast("Fill up all the information to save the changes", {
+          type: "warning",
+        });
+      }
+      setLoading(true);
+      const response = await CustomAxios({
+        METHOD: "POST",
+        uri: `/api/customer/updateInfo`,
+        values: { user, profileImg },
+      });
+
+      const { success, msg } = response;
+
+      if (msg?.includes("session expired") && !success) {
+        toast(msg, { type: "error" });
+        return window.location.reload();
+      }
+
+      if (!success) return toast(msg, { type: "error" });
+      const { user: newUser } = response;
+      dispatch(authenticationSuccess({ currentUser: newUser, isAuth: true }));
+      setProfileImg(null);
+      setAllowChanges(false);
+      return toast(msg, { type: "success" });
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ProfilePageContainer>
       {loading && <Loader bg="rgba(0,0,0,0.5)" />}
 
       <ToastContainer autoClose={1500} />
-      {/* {allowChanges && (
-        <i className="fa-solid fa-floppy-disk" onClick={updateInfo}></i>
-      )} */}
-      {!allowChanges && (
-        <i
-          className="fa-solid fa-user-pen allowChangesBtn"
-          onClick={() => setAllowChanges(true)}
-        ></i>
-      )}
+
       <ProfileAvatar>
         <div>
           {profileImg ? (
@@ -111,8 +142,22 @@ function Profile() {
             />
           )}
         </div>
-        <span>
-          {user?.firstname} {user?.lastname}
+        <span className="full-name">
+          <span>
+            {user?.firstname} {user?.lastname}
+          </span>
+          <span className="icons">
+          {!allowChanges && (
+              <div className="button-icons"> <button onClick={() => setAllowChanges(true)} className="edit" style={{background: 'rgb(249,166,2)'}} >Edit</button></div>
+            )}
+            {allowChanges && (
+              <div className="button-icons">
+                <button onClick={updateInfo} classNames="save" style={{background: 'green'}}>Save</button>
+                <button onClick={() => setAllowChanges(false)} className="cancel" style={{background: 'maroon'}} >Cancel</button>
+              </div>
+            )}
+           
+          </span>
         </span>
       </ProfileAvatar>
 
@@ -125,7 +170,19 @@ function Profile() {
         </NavLink>
       </ListNavigationButton>
 
-      <Outlet context={{ allowChanges, setUser, user, profileImg, setAllowChanges, setLoading, loading, toast, setProfileImg }} />
+      <Outlet
+        context={{
+          allowChanges,
+          setUser,
+          user,
+          profileImg,
+          setAllowChanges,
+          setLoading,
+          loading,
+          toast,
+          setProfileImg,
+        }}
+      />
     </ProfilePageContainer>
   );
 }

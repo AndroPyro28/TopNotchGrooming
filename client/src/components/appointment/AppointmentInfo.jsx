@@ -12,13 +12,14 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Logic from "./logic";
 import { ToastContainer, toast } from "react-toastify";
+import {useLocation} from 'react-router-dom';
 
 function AppointmentInfo({ data, setData, setLoading }) {
   const { appointment, live_stream_data, customer, admin} = data;
 
   const { id } = useParams();
-
-  const { updateAppointment, completeSchedule, deleteAppointment } = Logic({ appointment, id, setData, toast, setLoading, customer, live_stream_data});
+  const {pathname} = useLocation()
+  const { updateAppointment, completeSchedule, deleteAppointment, updateScheduleByCustomer } = Logic({ appointment, id, setData, toast, setLoading, customer, live_stream_data});
 
   let [formattedDateNTime, setFormattedDateNTime] = useState(null);
 
@@ -131,7 +132,7 @@ function AppointmentInfo({ data, setData, setLoading }) {
         </>
       }
 
-      {appointment?.status === "pending" && (
+      { !pathname?.includes("/customer/schedules/") && appointment?.status === "pending" && (
         <InfoRow style={{ justifyContent: "center" }}>
           <button className="reject" onClick={() => updateAppointment('rejected')}>Reject</button>
           <button className="approve" onClick={() => updateAppointment('approved')}>
@@ -141,7 +142,7 @@ function AppointmentInfo({ data, setData, setLoading }) {
       )}
 
       {
-        appointment?.status &&
+        !pathname?.includes("/customer/schedules/") && appointment?.status &&
         appointment?.status !== "pending" &&
         appointment?.status !== "rejected" &&
         appointment?.status !== "completed" &&
@@ -154,18 +155,35 @@ function AppointmentInfo({ data, setData, setLoading }) {
         )}
 
         {
-            appointment?.status === 'completed' &&
+            !pathname?.includes("/customer/schedules/") && appointment?.status === 'completed' &&
             (<InfoRow style={{ justifyContent: "center" }}>
             <button className="reject" onClick={deleteAppointment}>delete</button>
           </InfoRow>)
         }
 
-{
+        {
             appointment?.status === 'rejected' &&
             (<InfoRow style={{ justifyContent: "center" }}>
             <button className="reject" onClick={deleteAppointment}>delete</button>
           </InfoRow>)
         }
+
+        {
+            !pathname?.includes("/customer/schedules/") && appointment?.status === 'cancelled' &&
+            (<InfoRow style={{ justifyContent: "center" }}>
+            <button className="reject" onClick={deleteAppointment}>delete</button>
+          </InfoRow>)
+        }
+
+        
+        { pathname?.includes("/customer/schedules/") && appointment?.status === "pending" && (
+        <InfoRow style={{ justifyContent: "center" }}>
+          <button className="reject" onClick={() => updateAppointment('cancelled')}>Cancel</button>
+          <button className="approve" onClick={updateScheduleByCustomer} >
+            Update
+          </button>
+        </InfoRow>
+      )}
 
     </AppointmentInfoContainer>
   );

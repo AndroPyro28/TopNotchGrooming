@@ -265,7 +265,6 @@ export const OurTeamSection = styled.div`
   min-height: 550px;
   @media (max-width: 800px) {
     flex-direction: column;
-
   }
 
   @media (max-width: 500px) {

@@ -5,8 +5,6 @@ const customerController = require('../controllers/customerController');
 const { validateProducts } = require('../middlewares/checkout');
 const {verifyUser} = require('../middlewares/verifyUser')
 
-
-
 router.post('/signup', customerController.signup)
 router.post('/login', customerController.login)
 router.post('/updateInfo', verifyUser, customerController.updateInfo)
@@ -25,4 +23,7 @@ router.get('/getAllOrderActivities', verifyUser, customerController.getAllOrderA
 router.post('/submitFeedback', verifyUser, customerController.submitFeedback)
 router.patch('/cancelOrder/:id', verifyUser, customerController.cancelOrder);
 router.get('/getAllAdmin', verifyUser, customerController.getAllAdmin);
+router.patch('/updateSchedule/:id', verifyUser, customerController.updateSchedule)
+router.get('/getAppointments', verifyUser, customerController.getAppointments);
+
 module.exports = router;

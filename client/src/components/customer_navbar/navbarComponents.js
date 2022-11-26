@@ -244,7 +244,7 @@ export const DropDown = styled.div`
     display: flex;
     flex-direction: column;
     background: #eaeaea;
-    margin-left: -50px;
+    margin-left: -70px;
     margin-top: -5px;
     border-radius: 10px;
     overflow: hidden;

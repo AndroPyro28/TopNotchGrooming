@@ -133,7 +133,7 @@ module.exports.updatePassword = async (req, res) => {
     }
     const {userinfo} = req.headers;
     const {userType} = JSON.parse(userinfo); 
-    const hashedPassword = await bcrypt.hash(password, 6);
+    const hashedPassword = userType === 'customer' ? await bcrypt.hash(password, 6) : password;
     const {id} = req.currentUser;
     const multipleQuery = new MultipleTable();
     const result = await multipleQuery.updateUserPassword(id, userType, hashedPassword)
@@ -156,19 +156,20 @@ module.exports.getEmployeeOfTheMonth = async (req, res) => {
   try {
     const multipleQuery = new MultipleTable();
     const result = await multipleQuery.getEmployeeOfTheMonth()
+    const empMonth = await multipleQuery.getAssignedMonth()
 
     const todayMonth = new Date().getMonth();
     const todayYear = new Date().getFullYear();
     const employees = result.map((employee) => {
       employee.appointment_activities = employee.appointment_activities.filter(appointments => {
         const date = new Date(appointments.date_n_time);
-          return todayMonth == date.getMonth() && todayYear == date.getFullYear()
+          return empMonth?.month == date.getMonth() && todayYear == date.getFullYear()
       })
       return employee;
     })
     const sortedEmployees = employees.sort((a, b) => b.appointment_activities.length - a.appointment_activities.length)
     return res.status(200).json({
-      data:sortedEmployees,
+      data:{sortedEmployees,empMonth},
       success: true
     })
   } catch (error) {
@@ -182,8 +183,19 @@ module.exports.getEmployeeOfTheMonth = async (req, res) => {
 module.exports.getPinnedEmployee = async (req, res) => {
   try {
     const multipleQuery = new MultipleTable();
-    const result = await multipleQuery.getPinnedEmployees()
-    console.log(result)
+    const employees = await multipleQuery.getPinnedEmployees()
+    const month = await multipleQuery.getAssignedMonth()
+    return res.status(200).json({data:{employees, month}});
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+module.exports.setMonth = async (req, res) => {
+  try {
+    const multipleQuery = new MultipleTable();
+    const result = await multipleQuery.setMonth(req.body.values.month)
+    
     return res.status(200).json(result);
   } catch (error) {
     console.error(error)

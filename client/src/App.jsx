@@ -57,6 +57,9 @@ import TermsAndCondition from "./pages/publicPages/terms-condition/TermsAndCondi
 import ReturnPolicy from "./pages/publicPages/return-policy/ReturnPolicy";
 import PrivacyPolicy from "./pages/publicPages/privacy-policy/PrivacyPolicy";
 import Employees from "./pages/adminPages/employees/Employees";
+import Schedule from "./components/modals/livestream_modals/Schedule";
+import Schedules from "./pages/customerPages/schedules/Schedules";
+import ScheduleCustomer from "./pages/customerPages/schedule/Schedule";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -274,6 +277,16 @@ function App() {
         />
 
         <Route
+          path="/customer/schedules"
+          element={<CustomerRoutes Component={<Schedules />} />}
+        />
+
+        <Route
+          path="/customer/schedules/:id"
+          element={<CustomerRoutes Component={<ScheduleCustomer />} />}
+        />
+
+        <Route
           path="/customer/purchases"
           element={<CustomerRoutes Component={<Purchases />} />}
         >
@@ -358,7 +371,9 @@ function App() {
       {!footerExcludeRoutes.includes(pathname) &&
         !pathname.includes("/liveStreamChannels/room=") &&
         !pathname.includes("/admin/record/appointments/") &&
-        !pathname.includes("/customer/payment") && <Footer />}
+        !pathname.includes("/customer/payment") &&
+        !pathname.includes('/customer/schedule')
+        && <Footer />}
     </AppRoot>
   );
 }

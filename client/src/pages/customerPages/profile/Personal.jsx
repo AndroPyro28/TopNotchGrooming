@@ -17,8 +17,6 @@ function Personal() {
 const {dateTodayFormatter} = AppointmentLogic({})
   useEffect(() => {
     setUser(currentUser);
-
-    
   }, [currentUser]);
 
   useEffect(() => {
@@ -33,49 +31,8 @@ const {dateTodayFormatter} = AppointmentLogic({})
     setUser(prev => ({...prev, [e.target.name] : e.target.value}))
   }
 
-  const updateInfo = async () => {
-    try {
-      const values = Object.values(user);
-      const isFilled = values.every(value => value != "");
-
-      if(!isFilled) {
-        return toast('Fill up all the information to save the changes', { type: "warning" });
-      }
-      setLoading(true);
-      const response = await CustomAxios({
-        METHOD: "POST",
-        uri: `/api/customer/updateInfo`,
-        values: { user, profileImg },
-      });
-
-      const { success, msg } = response;
-
-      if (msg?.includes("session expired") && !success) {
-        toast(msg, { type: "error" });
-        return window.location.reload();
-      }
-
-      if (!success) return toast(msg, { type: "error" });
-     const { user: newUser } = response;
-      dispatch(authenticationSuccess({ currentUser: newUser, isAuth: true }));
-      setProfileImg(null);
-      setAllowChanges(false);
-      return toast(msg, { type: "success" });
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <UserInfo>
-      {allowChanges && (
-        <div className="button-icons">
-          <i class="fa-solid fa-xmark" onClick={() => setAllowChanges(false)}></i>
-          <i className="fa-solid fa-floppy-disk" onClick={updateInfo}></i>
-        </div>
-      )}
       <RowInfo>
         <div class="info">
           <h3>FIRST NAME</h3>
@@ -111,18 +68,6 @@ const {dateTodayFormatter} = AppointmentLogic({})
           {allowChanges ? <input value={user?.email} name="email" onChange={setProps} /> : <span>{`${user?.email}`}</span>}
         </div>
       </RowInfo>
-
-      {/* <RowInfo>
-        <div class="info">
-          <h3>SEX</h3>
-          <span>---</span>
-        </div>
-
-        <div class="info">
-          <h3>Verified</h3>
-          <span>---</span>
-        </div>
-      </RowInfo> */}
     </UserInfo>
   );
 }

@@ -263,6 +263,31 @@ class Appointment {
       
     }
   }
+
+  getAppointmentsByCustomerId = async () => {
+    try {
+      const selectQuery = `
+      SELECT * FROM appointments WHERE customer_id = ?;
+      `
+      const [result, _] = await poolConnection.query(selectQuery, [this.#customer_id]);
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  updateScheduleByCustomer = async (id) => {
+    try {
+      const updateQuery = `UPDATE appointments SET date_n_time = ? WHERE id = ?;`;
+      const [result, _] = await poolConnection.execute(updateQuery, [
+        this.#date_n_time,
+        id,
+      ]);
+      return result;
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 module.exports = Appointment;

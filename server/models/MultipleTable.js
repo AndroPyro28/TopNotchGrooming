@@ -114,6 +114,16 @@ class MultipleTable {
       console.error(error);
     }
   };
+  getAssignedMonth = async () => {
+    try {
+      const selectQuery = `SELECT * FROM emp_month`;
+
+      const [result, _] = await poolConnection.execute(selectQuery);
+      return result[0]
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   getEmployeeOfTheMonth = async () => {
     try {
@@ -146,6 +156,19 @@ class MultipleTable {
       console.error(first);
     }
   };
+
+  setMonth = async (month) => {
+    try {
+      const UPDATE = `
+      UPDATE emp_month SET month = ?;
+      UPDATE admin SET pin = ?;
+      `;
+      const [result, _] = await poolConnection.query(UPDATE, [month, false]);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 module.exports = MultipleTable;

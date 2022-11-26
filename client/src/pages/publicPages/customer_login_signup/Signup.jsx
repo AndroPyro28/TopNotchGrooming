@@ -23,10 +23,12 @@ function Signup() {
       ? "Password & confirm password do not match!"
       : null;
 
-      const validatePhone = (phone) => {
-        const phoneNo = phone.toString()
-        return !phoneNo.startsWith('639') ? "Phone number must start with (63) (e.g 639*********)" : null
-      }
+  const validatePhone = (phone) => {
+    const phoneNo = phone.toString();
+    return !phoneNo.startsWith("639")
+      ? "Phone number must start with (63) (e.g 639*********)"
+      : null;
+  };
 
   const [inputPageNo, setInputPageNo] = useState(0);
 
@@ -38,16 +40,15 @@ function Signup() {
     });
   };
 
-  const {dateTodayFormatter} = AppointmentLogic({})
+  const { dateTodayFormatter } = AppointmentLogic({});
   useEffect(() => {
-    const birthdate = document.querySelector('#birthdate');
-    
-    if(birthdate) {
-      const today = dateTodayFormatter({year:18})
-      birthdate.max = today
+    const birthdate = document.querySelector("#birthdate");
+
+    if (birthdate) {
+      const today = dateTodayFormatter({ year: 18 });
+      birthdate.max = today;
     }
-    
-  }, [inputPageNo])
+  }, [inputPageNo]);
 
   return (
     <LoginSignupPageContainer>
@@ -66,134 +67,123 @@ function Signup() {
                   <div className="form__content">
                     <h1>Signup</h1>
                     <p>
-                    Welcome to Top-Notch Dog Grooming Website, you can access our website by creating an
-                    account and filling up the required fields.
+                      Welcome to Top-Notch Dog Grooming Website, you can access
+                      our website by creating an account and filling up the
+                      required fields.
                     </p>
-                          <FormikControl
-                            name="firstname"
-                            label="Firstname"
-                            type="text"
-                            control="input"
-                            className="input__container"
-                          />
-                          <FormikControl
-                            name="lastname"
-                            label="Lastname"
-                            type="text"
-                            control="input"
-                            className="input__container"
-                          />
-                   
-                          <FormikControl
-                            name="birthdate"
-                            label="Birthdate"
-                            id="birthdate"
-                            type="date"
-                            control="input"
-                            className="input__container"
-                          />
 
-                          {/* <FormikControl
-                            name="address"
-                            label="Address"
-                            type="text"
-                            control="input"
-                            className="input__container"
-                          /> */}
-                          
-                          <FormikControl
-                            name="houseNo"
-                            label="House no."
-                            type="text"
-                            control="input"
-                            className="input__container"
-                          />
+                    <h3>Personal Information</h3>
 
-                          <FormikControl
-                            name="subdivision"
-                            label="Street/Subdivision"
-                            type="text"
-                            control="input"
-                            className="input__container"
-                          />
+                    <FormikControl
+                      name="firstname"
+                      label="Firstname"
+                      type="text"
+                      control="input"
+                      className="input__container"
+                    />
+                    <FormikControl
+                      name="lastname"
+                      label="Lastname"
+                      type="text"
+                      control="input"
+                      className="input__container"
+                    />
 
-                          <FormikControl
-                            name="barangay"
-                            label="Barangay"
-                            type="text"
-                            control="input"
-                            className="input__container"
-                          />
+                    <FormikControl
+                      name="birthdate"
+                      label="Birthdate"
+                      id="birthdate"
+                      type="date"
+                      control="input"
+                      className="input__container"
+                    />
 
-                          <FormikControl
-                            name="city"
-                            label="city"
-                            type="text"
-                            control="input"
-                            className="input__container"
-                            disabled={true}
-                          />
+                    <FormikControl
+                      name="email"
+                      label="Email"
+                      type="Email"
+                      control="input"
+                      className="input__container"
+                    />
 
-                          <FormikControl
-                            name="province"
-                            label="province"
-                            type="text"
-                            control="input"
-                            className="input__container"
-                            disabled={true}
-                          />  
-                  
-                          <FormikControl
-                            name="email"
-                            label="Email"
-                            type="Email"
-                            control="input"
-                            className="input__container"
-                          />
-                          
-                          <FormikControl
-                            name="phoneNo"
-                            label="Phone Number"
-                            type="number"
-                            control="input"
-                            className="input__container"
-                            validate={(e) =>
-                              validatePhone(phoneNo)
-                            }
-                          />
+                    <FormikControl
+                      name="phoneNo"
+                      label="Phone Number"
+                      type="number"
+                      control="input"
+                      className="input__container"
+                      validate={(e) => validatePhone(phoneNo)}
+                    />
+                  <h3>Address</h3>
+                    <FormikControl
+                      name="houseNo"
+                      label="House no."
+                      type="text"
+                      control="input"
+                      className="input__container"
+                    />
 
-                    
-                          <FormikControl
-                            name="password"
-                            label="Password"
-                            type="password"
-                            control="input"
-                            className="input__container"
-                          />
+                    <FormikControl
+                      name="subdivision"
+                      label="Street/Subdivision"
+                      type="text"
+                      control="input"
+                      className="input__container"
+                    />
 
-                          <FormikControl
-                            name="confirmPassword"
-                            label="Comfirm Password"
-                            type="password"
-                            control="input"
-                            className="input__container"
-                            validate={(e) =>
-                              validatePassword(password, confirmPassword)
-                            }
-                          />
-                       
-                    
+                    <FormikControl
+                      name="barangay"
+                      label="Barangay"
+                      type="text"
+                      control="input"
+                      className="input__container"
+                    />
+
+                    <FormikControl
+                      name="city"
+                      label="city"
+                      type="text"
+                      control="input"
+                      className="input__container"
+                      disabled={true}
+                    />
+
+                    <FormikControl
+                      name="province"
+                      label="province"
+                      type="text"
+                      control="input"
+                      className="input__container"
+                      disabled={true}
+                    />
+                  <h3>Password</h3>
+                    <FormikControl
+                      name="password"
+                      label="Password"
+                      type="password"
+                      control="input"
+                      className="input__container"
+                    />
+
+                    <FormikControl
+                      name="confirmPassword"
+                      label="Comfirm Password"
+                      type="password"
+                      control="input"
+                      className="input__container"
+                      validate={(e) =>
+                        validatePassword(password, confirmPassword)
+                      }
+                    />
+
                     <Link to="/customer/login">
                       Already have an account? Login
                     </Link>
 
                     <div className="input__container button__container">
-                        <button
-                          type="submit"
-                          className="loginBtn"
-                        >
-                          Signup
-                        </button>
+                      <button type="submit" className="loginBtn">
+                        Signup
+                      </button>
                     </div>
                   </div>
                 </Form>

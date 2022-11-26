@@ -93,7 +93,7 @@ export const Info = styled.div`
   & > p {
     font-weight: bold;
     color: ${({ status }) =>
-      status == "rejected"
+      status == "rejected" || status == "cancelled" 
         ? "red"
         : status == "pending"
         ? "gray"

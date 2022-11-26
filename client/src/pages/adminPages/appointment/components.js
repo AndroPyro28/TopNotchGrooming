@@ -250,6 +250,9 @@ text-transform: capitalize;
     &.rejected {
       background: maroon;
     }
+    &.cancelled {
+      background: maroon;
+    }
     &.interrupted {
       background: black;
     }

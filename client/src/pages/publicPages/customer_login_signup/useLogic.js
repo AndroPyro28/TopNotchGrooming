@@ -30,9 +30,7 @@ function useLogic({ toast }) {
           secure: true,
         }
       );
-
       toast(msg, { type: "success" });
-
       setTimeout((_) => window.location.assign("/customer"), 2500);
     } catch (error) {
       console.error(error.message);

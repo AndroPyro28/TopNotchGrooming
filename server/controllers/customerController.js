@@ -14,6 +14,7 @@ const { getDateToday } = require("../helpers/DateFormatter");
 const Feedback = require('../models/Feedback')
 const {v4: uudi} = require('uuid');
 const Admin = require("../models/Admin");
+
 module.exports.signup = async (req, res) => {
   try {
     const customer = new Customer(req.body.values);
@@ -575,6 +576,37 @@ module.exports.getAllAdmin = async (req, res) => {
     });
   }
 }
+
+module.exports.getAppointments = async (req, res) => {
+  try {
+    const {id} = req.currentUser;
+    const appointmentModel = new Appointment({
+      customer_id: id
+    });
+
+    const results = await appointmentModel.getAppointmentsByCustomerId();
+
+    return res.status(200).json({
+      results
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+module.exports.updateSchedule = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {id: customerId} = req?.currentUser;
+    const {appointment} = req.body.values;
+    const appointmentModel = new Appointment(appointment);
+    const result = await appointmentModel.updateScheduleByCustomer(id);
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports.paymentsuccess = async (req, res) => {
   console.log(':::::GCASH API POST::::', req.body)
 }

@@ -10,7 +10,7 @@ import Loader from "../../../components/loader/Loader";
 function AppointmentDetails() {
 
   const [loading, setLoading] = useState(false);
-  const {id} = useParams();
+  const { id } = useParams();
   const [details, setDetails] = useState({});
   const navigate = useNavigate()
 

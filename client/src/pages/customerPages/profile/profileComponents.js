@@ -48,7 +48,6 @@ export const ProfileAvatar = styled.div`
       display: flex;
       flex-direction: column-reverse;
 
-
       @media (max-width: 430px) {
         width: 70px;
         height: 70px;
@@ -59,18 +58,35 @@ export const ProfileAvatar = styled.div`
       cursor: pointer;
       width: fit-content;
       padding: 5px;
+      margin-top: 10px;
       background: rgb(192, 192, 192);
       border-radius: 10px;
     }
   }
 
-  & > span {
+  & > .full-name {
     font-size: 1.5em;
     margin: 10px;
     font-family: "Open Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
     @media (max-width: 430px) {
     font-size: 1.3em;
+      }
 
+      & > .icons {
+        display: flex;
+        justify-content: space-between;
+        & > .button-icons {
+          & > button {
+            margin: 5px;
+            padding: 3px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            border: none;
+          }
+        }
       }
   }
 `;

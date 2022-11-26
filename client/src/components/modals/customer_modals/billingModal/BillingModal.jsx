@@ -221,23 +221,23 @@ function BillingModal({ items, totalAmount, paymentType, setOpenBilling }) {
 
               <CourierTypeContainer>
                 <CourierType
-                  onClick={() => setCourierType("toktok")}
-                  style={{
-                    background:
-                      courierType == "toktok" ? "#EAEAEA" : "transparent",
-                    borderColor:
-                      courierType == "toktok" ? "gray" : "transparent",
-                  }}
-                >
-                  <img src="/images/lalamove.png" />
-                </CourierType>
-                <CourierType
                   onClick={() => setCourierType("lalamove")}
                   style={{
                     background:
                       courierType == "lalamove" ? "#EAEAEA" : "transparent",
                     borderColor:
                       courierType == "lalamove" ? "gray" : "transparent",
+                  }}
+                >
+                  <img src="/images/lalamove.png" />
+                </CourierType>
+                <CourierType
+                  onClick={() => setCourierType("jnt")}
+                  style={{
+                    background:
+                      courierType == "jnt" ? "#EAEAEA" : "transparent",
+                    borderColor:
+                      courierType == "jnt" ? "gray" : "transparent",
                   }}
                 >
                   <img src="/images/jnt.png" />

@@ -135,6 +135,7 @@ function CustomerNavbar() {
             {openDropdown && (
               <div className="dropdown__content">
                 <Link to={"/customer/profile"}>Profile</Link>
+                <Link to={"/customer/schedules"}>Schedules</Link>
                 <a onClick={handleLogout}>Logout</a>
               </div>
             )}

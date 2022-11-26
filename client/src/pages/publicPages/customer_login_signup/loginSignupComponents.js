@@ -87,6 +87,12 @@ export const LoginSignupContainer = styled.div`
                 }
             }
 
+            & > h3 {
+                margin: 10px 0px;
+                color: rgb(122, 122, 57);
+                font-size: 18px;
+            }
+
             & > p {
                 font-size: 13px;
                 margin-bottom: 25px;

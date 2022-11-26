@@ -25,7 +25,7 @@ function logic({ items, totalAmount, paymentType, toast, courierType }) {
   const onSubmit = async (values) => {
     const {brgy, city, contactNo, houseNo, subdivision} = values;
     
-    if (courierType == "lalamove" || courierType == "toktok") {
+    if (courierType == "lalamove" || courierType == "jnt") {
       const billingInfo = {
         billingAddress: `${houseNo} ${subdivision} ${brgy} ${city}`,
         courierType,

@@ -19,7 +19,7 @@ function Index() {
   const [pageContent, setPageContent] = useState();
   const [feedbacks, setFeedbacks] = useState([]);
   const [employees, setEmployees] = useState([]);
-
+  const [month, setMonth] = useState()
   const [currentPage, setCurrentPage] = useState(0);
 
   const [maxPage, setMaxPage] = useState(0);
@@ -45,7 +45,9 @@ function Index() {
           METHOD: "GET",
           uri: "/api/public/getPinnedEmployee",
         });
-        setEmployees(res);
+        const {employees, month} = res.data;
+        setEmployees(employees);
+        setMonth(month.month)
       } catch (error) {
         console.error("error here", error.message);
       }
@@ -292,7 +294,7 @@ function Index() {
             </TeamContent>
             <Content>
               <h1>
-                Employees of the month <i class="fa-solid fa-award"></i> ({labels[new Date().getMonth()]}{" "}
+                Employees of the month <i class="fa-solid fa-award"></i> ({labels[month]}{" "}
                 {new Date().getFullYear()}) 
               </h1>
               <p>

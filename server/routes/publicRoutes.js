@@ -9,4 +9,5 @@ router.post('/findAccountAndSendEmail', publicController.findAccountAndSendCode)
 router.post('/verifyCode', publicController.verifyCode)
 router.post('/updatePassword', verifyUser, publicController.updatePassword)
 router.get('/getPinnedEmployee', publicController.getPinnedEmployee)
+router.patch('/setMonth', publicController.setMonth)
 module.exports = router;

@@ -16,7 +16,8 @@ const { uploadOneLiveStream } = require("../helpers/CloudinaryLiveStream");
 const Feedback = require("../models/Feedback");
 const Customer = require("../models/Customer");
 const Comments = require("../models/Comments");
-const {gmailNotifStream} = require('../helpers/GmailSender');
+const { gmailNotifStream, sendEmailByStatus, sendEmailByAppointment } = require('../helpers/GmailSender');
+
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body.values;
@@ -148,8 +149,8 @@ module.exports.orderNextStage = async (req, res) => {
     if (deliveryStatus == 5) {
       throw new Error("someting went wrong");
     }
-    sendTextMessageByStatus(deliveryStatus, data, reference);
-
+    
+    sendEmailByStatus(deliveryStatus, data, reference);
     const orderModel = new Order({
       reference,
       order_status: orderStatus,
@@ -199,7 +200,7 @@ module.exports.updateAppointment = async (req, res) => {
     const { appointment, customer, status } = req.body.values;
     const appointmentModel = new Appointment(appointment);
     const result = await appointmentModel.updateAppointment(id, status);
-    sendTextMessageByAppointment(appointment, customer, status);
+    sendEmailByAppointment(appointment, customer, status);
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({

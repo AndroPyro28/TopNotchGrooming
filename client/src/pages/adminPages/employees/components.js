@@ -8,6 +8,25 @@ export const EmployeesContainer = styled.div`
     & > h1 {
         margin: 50px;
     }
+
+    & > .month {
+        gap:10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & > select {
+            padding: 5px 8px;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        & > button {
+            padding: 5px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    }
 `
 
 export const EmployeeList = styled.div`

@@ -34,6 +34,7 @@
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.4.1",
     "styled-components": "^5.3.5",
+    "timeago.js": "^4.0.2",
     "tsparticles": "^2.1.4",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4",

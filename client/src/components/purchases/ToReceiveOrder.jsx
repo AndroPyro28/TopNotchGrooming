@@ -17,7 +17,8 @@ function ToReceiveOrder({ data, setOrders }) {
       const customer = {
         firstname: currentUser.firstname,
         lastname: currentUser.lastname,
-        contact: currentUser.phoneNo
+        contact: currentUser.phoneNo,
+        email: currentUser.email
       }
       
       data.customer = customer;
